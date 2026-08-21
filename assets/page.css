@@ -1,0 +1,25 @@
+/* Waypoints — optional shared bit for individual pages.
+   Purely optional: remove the <link> to this file in any page for a
+   fully independent look. This just gives a consistent "back to index"
+   bar and a couple of tokens, nothing else is imposed on your page. */
+
+:root {
+  --ink: #1f2b24;
+  --card: #f6f1e4;
+  --stamp: #b33a3a;
+  --trail: #d9a441;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.kb-topbar {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--trail);
+  padding: 0.4rem 0.9rem;
+  border-radius: 0 0 4px 0;
+}
+
+.kb-topbar:hover { opacity: 0.85; }

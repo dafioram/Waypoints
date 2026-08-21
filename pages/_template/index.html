@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Page Title — Waypoints</title>
+
+<!-- Optional: consistent "back to index" bar + shared tokens. Delete this
+     line if you want this page to look completely independent. -->
+<link rel="stylesheet" href="../../assets/page.css" />
+
+<!--
+  REQUIRED: this is the only thing that connects this page to the home page.
+  scripts/build-manifest.mjs reads this block from every pages/*/index.html
+  and turns it into manifest.json, which the home page renders as a card.
+
+  title       - shown as the card heading
+  description - one or two sentences, shown on the card
+  tags        - lowercase, used for the filter chips and search
+  date        - "last updated" date, ISO format (YYYY-MM-DD). Also used
+                to sort entries newest-first.
+-->
+<script type="application/json" id="page-meta">
+{
+  "title": "Page Title",
+  "description": "One or two sentences describing what this page is and why it exists.",
+  "tags": ["tag-one", "tag-two"],
+  "date": "2026-08-20"
+}
+</script>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<main style="max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem; font-family: sans-serif;">
+  <h1>Page Title</h1>
+  <p>
+    Start writing here. This page is entirely yours — any HTML, CSS or JS,
+    any layout, any libraries loaded from a CDN. Nothing outside this file
+    needs to change for it to show up on the home page, as long as the
+    <code>page-meta</code> block above is filled in and this file lives at
+    <code>pages/&lt;your-folder-name&gt;/index.html</code>.
+  </p>
+</main>
+</body>
+</html>

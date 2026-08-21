@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Waypoints</title>
+<meta name="description" content="A personal collection of standalone notes, tools, and maps." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+<header class="hero">
+  <p class="eyebrow">personal knowledge base</p>
+  <h1>Waypoints</h1>
+  <p class="lede">A loose collection of things worth keeping — trip notes, small tools, maps. Each one is its own page; new ones show up here on their own.</p>
+  <p class="count" id="count">loading…</p>
+</header>
+
+<section class="controls">
+  <div class="search-row">
+    <input id="search" type="text" placeholder="search the archive…" />
+  </div>
+  <div class="tags" id="tags"></div>
+</section>
+
+<main class="catalog">
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  Add a new page by copying <code>pages/_template/</code> — see README.md for details.
+</footer>
+
+<script src="./assets/site.js"></script>
+</body>
+</html>
