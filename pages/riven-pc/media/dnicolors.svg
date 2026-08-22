@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Basic//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd">
+<svg viewBox="0 0 172 168" version="1.1" baseProfile="basic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>Dʼni color symbols from the game Riven.</desc>
+	<!--by Robin Lionheart. http://creativecommons.org/licenses/by-sa/2.0/-->
+	<defs>
+		<style type="text/css">
+			#colorbase { fill: none; }
+			.iris path { fill: none; stroke-miterlimit: 1; }
+			.red { stroke: #cc0000; fill: #cc0000; }
+			.ro1 { stroke: #cc1100; fill: #cc1100; }
+			.ro2 { stroke: #cc2200; fill: #cc2200; }
+			.ro3 { stroke: #cc3300; fill: #cc3300; }
+			.ro4 { stroke: #cc4400; fill: #cc4400; }
+			.ro5 { stroke: #cc5500; fill: #cc5500; }
+			.orange { stroke: #cc6600; fill: #cc6600; }
+			.oy1 { stroke: #cc7700; fill: #cc7700; }
+			.oy2 { stroke: #cc8800; fill: #cc8800; }
+			.oy3 { stroke: #cc9900; fill: #cc9900; }
+			.oy4 { stroke: #ccaa00; fill: #ccaa00; }
+			.oy5 { stroke: #ccbb00; fill: #ccbb00; }
+			.yellow { stroke: #cccc00; fill: #cccc00; }
+			.yg1 { stroke: #aacc00; fill: #aacc00; }
+			.yg2 { stroke: #88cc00; fill: #88cc00; }
+			.yg3 { stroke: #66cc00; fill: #66cc00; }
+			.yg4 { stroke: #44cc00; fill: #44cc00; }
+			.yg5 { stroke: #22cc00; fill: #22cc00; }
+			.green { stroke: #00cc00; fill: #00cc00; }
+			.gb1 { stroke: #00aa22; fill: #00aa22; }
+			.gb2 { stroke: #008844; fill: #008844; }
+			.gb3 { stroke: #006666; fill: #006666; }
+			.gb4 { stroke: #004488; fill: #004488; }
+			.gb5 { stroke: #0022aa; fill: #0022aa; }
+			.blue { stroke: #0000cc; fill: #0000cc; }
+			.bv1 { stroke: #1100cc; fill: #1100cc; }
+			.bv2 { stroke: #2200cc; fill: #2200cc; }
+			.bv3 { stroke: #3300cc; fill: #3300cc; }
+			.bv4 { stroke: #4400cc; fill: #4400cc; }
+			.bv5 { stroke: #5500cc; fill: #5500cc; }
+			.violet { stroke: #6600cc; fill: #6600cc; }
+			.vr1 { stroke: #7700aa; fill: #7700aa; }
+			.vr2 { stroke: #880088; fill: #880088; }
+			.vr3 { stroke: #990066; fill: #990066; }
+			.vr4 { stroke: #aa0044; fill: #aa0044; }
+			.vr5 { stroke: #bb0022; fill: #bb0022; }
+		</style>
+
+	 	<circle id="colorbase" cx="0" cy="0" r="12"/>
+	 	<circle id="colordot" cx="0" cy="0" r="0.75"/>
+		<g id="noiris" class="iris">
+			<use xlink:href="#colorbase"/>
+		</g>
+		<g id="iris1of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-2 12,0 Q 0,2 -12,0 Z"/>
+		</g>
+		<g id="iris2of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-4 12,0 Q 0,4 -12,0 Z"/>
+		</g>
+		<g id="iris3of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-6 12,0 Q 0,6 -12,0 Z"/>
+		</g>
+		<g id="iris4of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-8 12,0 Q 0,8 -12,0 Z"/>
+		</g>
+		<g id="iris5of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-10 12,0 Q 0,10 -12,0 Z"/>
+		</g>
+		<g id="iris6of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-12 12,0 Q 0,12 -12,0 Z"/>
+		</g>
+		<g id="iris7of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-14 12,0 Q 0,14 -12,0 Z"/>
+		</g>
+		<g id="iris8of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-16 12,0 Q 0,16 -12,0 Z"/>
+		</g>
+		<g id="iris9of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-18 12,0 Q 0,18 -12,0 Z"/>
+		</g>
+		<g id="iris10of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-20 12,0 Q 0,20 -12,0 Z"/>
+		</g>
+		<g id="iris11of12" class="iris">
+			<use xlink:href="#colorbase"/>
+			<path d="M -12,0 Q 0,-22 12,0 Q 0,22 -12,0 Z"/>
+		</g>
+
+		<g id="hline" class="orange">
+			<title>CIRCLED HORIZONTAL LINE</title>
+			<use xlink:href="#noiris"/>
+			<line x1="-12" y1="0" x2="12" y2="0" class="colorline"/>
+		</g>
+		<g id="hiris1" class="oy1">
+			<title>DOT IN ONE TWELFTH WIDTH IRIS</title>
+			<use xlink:href="#iris1of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris2" class="oy2">
+			<title>DOT IN TWO TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris2of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris3" class="oy3">
+			<title>DOT IN ONE QUARTER WIDTH IRIS</title>
+			<use xlink:href="#iris3of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris4" class="oy4">
+			<title>DOT IN FOUR TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris4of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris5" class="oy5">
+			<title>DOT IN FIVE TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris5of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris6" class="yellow">
+			<title>DOT IN HALF WIDTH IRIS</title>
+			<use xlink:href="#iris6of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris7" class="yg1">
+			<title>DOT IN SEVEN TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris7of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris8" class="yg2">
+			<title>DOT IN EIGHT TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris8of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris9" class="yg3">
+			<title>DOT IN THREE QUARTERS WIDTH IRIS</title>
+			<use xlink:href="#iris9of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris10" class="yg4">
+			<title>DOT IN TEN TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris10of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="hiris11" class="yg5">
+			<title>DOT IN ELEVEN TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris11of12"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="cdot" class="green">
+			<title>CIRCLED DOT</title>
+			<use xlink:href="#noiris"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris1" class="bv5">
+			<title>DOT IN ONE TWELFTH WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris1of12" transform="rotate(90)"/>
+			<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris2" class="bv4">
+			<title>DOT IN TWO TWELFTHS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris2of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris3" class="bv3">
+			<title>DOT IN ONE QUARTER WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris3of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris4" class="bv2">
+			<title>DOT IN FOUR TWELFTHS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris4of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris5" class="bv1">
+			<title>DOT IN FIVE TWELFTHS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris5of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris6" class="blue">
+			<title>DOT IN HALF WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris6of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris7" class="gb5">
+			<title>DOT IN SEVEN TWELFTHS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris7of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris8" class="gb4">
+			<title>DOT IN EIGHT TWELFTHS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris8of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris9" class="gb3">
+			<title>DOT IN THREE QUARTERS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris9of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris10" class="gb2">
+			<title>DOT IN TEN TWELFTHS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris10of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="viris11" class="gb1">
+			<title>DOT IN ELEVEN TWELFTHS WIDTH VERTICAL IRIS</title>
+			<use xlink:href="#iris11of12" transform="rotate(90)"/>
+		 	<use xlink:href="#colordot"/>
+		</g>
+		<g id="vline" class="violet">
+			<title>CIRCLED VERTICAL LINE</title>
+			<use xlink:href="#noiris" class="violet"/>
+			<line x1="0" y1="-12" x2="0" y2="12" class="colorline"/>
+		</g>
+		<g id="vline1" class="ro5">
+			<title>VERTICAL LINE IN ONE TWELFTH WIDTH IRIS</title>
+			<use xlink:href="#iris1of12"/>
+			<line x1="0" y1="-1" x2="0" y2="1" class="colorline"/>
+		</g>
+		<g id="vline2" class="ro4">
+			<title>VERTICAL LINE IN TWO TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris2of12"/>
+			<line x1="0" y1="-2" x2="0" y2="2" class="colorline"/>
+		</g>
+		<g id="vline3" class="ro3">
+			<title>VERTICAL LINE IN ONE QUARTER WIDTH IRIS</title>
+			<use xlink:href="#iris3of12"/>
+			<line x1="0" y1="-3" x2="0" y2="3" class="colorline"/>
+		</g>
+		<g id="vline4" class="ro2">
+			<title>VERTICAL LINE IN FOUR TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris4of12"/>
+			<line x1="0" y1="-4" x2="0" y2="4" class="colorline"/>
+		</g>
+		<g id="vline5" class="ro1">
+			<title>VERTICAL LINE IN FIVE TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris5of12"/>
+			<line x1="0" y1="-5" x2="0" y2="5" class="colorline"/>
+		</g>
+		<g id="vline6" class="red">
+			<title>VERTICAL LINE IN HALF WIDTH IRIS</title>
+			<use xlink:href="#iris6of12"/>
+			<line x1="0" y1="-6" x2="0" y2="6" class="colorline"/>
+		</g>
+		<g id="vline7" class="vr5">
+			<title>VERTICAL LINE IN SEVEN TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris7of12"/>
+			<line x1="0" y1="-7" x2="0" y2="7" class="colorline"/>
+		</g>
+		<g id="vline8" class="vr4">
+			<title>VERTICAL LINE IN EIGHT TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris8of12"/>
+			<line x1="0" y1="-8" x2="0" y2="8" class="colorline"/>
+		</g>
+		<g id="vline9" class="vr3">
+			<title>VERTICAL LINE IN THREE QUARTERS WIDTH IRIS</title>
+			<use xlink:href="#iris9of12"/>
+			<line x1="0" y1="-9" x2="0" y2="9" class="colorline"/>
+		</g>
+		<g id="vline10" class="vr2">
+			<title>VERTICAL LINE IN TEN TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris10of12"/>
+			<line x1="0" y1="-10" x2="0" y2="10" class="colorline"/>
+		</g>
+		<g id="vline11" class="vr1">
+			<title>VERTICAL LINE IN ELEVEN TWELFTHS WIDTH IRIS</title>
+			<use xlink:href="#iris11of12"/>
+			<line x1="0" y1="-11" x2="0" y2="11" class="colorline"/>
+		</g>
+	</defs>
+	
+	<g>
+		<g transform="translate(14,14)">
+			<use transform="translate(  0)" xlink:href="#vline6"/>
+			<use transform="translate( 32)" xlink:href="#vline5"/>
+			<use transform="translate( 60)" xlink:href="#vline4"/>
+			<use transform="translate( 88)" xlink:href="#vline3"/>
+			<use transform="translate(116)" xlink:href="#vline2"/>
+			<use transform="translate(144)" xlink:href="#vline1"/>
+		</g>
+		<g transform="translate(14,42)">
+			<use transform="translate(  0)" xlink:href="#hline"/>
+			<use transform="translate( 32)" xlink:href="#hiris1"/>
+			<use transform="translate( 60)" xlink:href="#hiris2"/>
+			<use transform="translate( 88)" xlink:href="#hiris3"/>
+			<use transform="translate(116)" xlink:href="#hiris4"/>
+			<use transform="translate(144)" xlink:href="#hiris5"/>
+		</g>
+		<g transform="translate(14,70)">
+			<use transform="translate(  0)" xlink:href="#hiris6"/>
+			<use transform="translate( 32)" xlink:href="#hiris7"/>
+			<use transform="translate( 60)" xlink:href="#hiris8"/>
+			<use transform="translate( 88)" xlink:href="#hiris9"/>
+			<use transform="translate(116)" xlink:href="#hiris10"/>
+			<use transform="translate(144)" xlink:href="#hiris11"/>
+		</g>
+		<g transform="translate(14,98)">
+			<use transform="translate(  0)" xlink:href="#cdot"/>
+			<use transform="translate( 32)" xlink:href="#viris11"/>
+			<use transform="translate( 60)" xlink:href="#viris10"/>
+			<use transform="translate( 88)" xlink:href="#viris9"/>
+			<use transform="translate(116)" xlink:href="#viris8"/>
+			<use transform="translate(144)" xlink:href="#viris7"/>
+		</g>
+		<g transform="translate(14,126)">
+			<use transform="translate(  0)" xlink:href="#viris6"/>
+			<use transform="translate( 32)" xlink:href="#viris5"/>
+			<use transform="translate( 60)" xlink:href="#viris4"/>
+			<use transform="translate( 88)" xlink:href="#viris3"/>
+			<use transform="translate(116)" xlink:href="#viris2"/>
+			<use transform="translate(144)" xlink:href="#viris1"/>
+		</g>
+		<g transform="translate(14,154)">
+			<use transform="translate(  0)" xlink:href="#vline"/>
+			<use transform="translate( 32)" xlink:href="#vline11"/>
+			<use transform="translate( 60)" xlink:href="#vline10"/>
+			<use transform="translate( 88)" xlink:href="#vline9"/>
+			<use transform="translate(116)" xlink:href="#vline8"/>
+			<use transform="translate(144)" xlink:href="#vline7"/>
+		</g>
+	</g>
+</svg>

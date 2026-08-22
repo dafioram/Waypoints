@@ -1,0 +1,71 @@
+digraph ItemDependecies {
+//node [shape=box];  gy2; yr2; rg2; gy1; yr1; rg1;
+//node [shape=circle];  
+//node [shape=point]; g;  
+
+//2nd->1st
+//"2nd Class";"Settings\n Room";"Deskbot\n Settings\n High";
+
+"Open\nFissure"->"Ending 1\n(way 1)";
+"Open\nFissure"->"Ending 1\n(way 2)";
+"Visit Ghen\n(before trap)"->"Ending 1\n(way 2)";
+"Ending 1\n(way 1)"->"Ending 1";
+"Ending 1\n(way 2)"->"Ending 1";
+
+"Trap\nGhen"->"Ending 2";
+"Open\nFissure"->"Ending 2";
+
+"Visit Ghen\n(before trap)"->"Ending 3";
+"Get\nTrap\nBook"->"Ending 3";
+"Open\nFissure"->"Ending 3";
+
+"Get\nTrap\nBook"->"Ending 4\n(way 1)";
+"Keep\nReturning\nto Ghen"->"Ending 4\n(way 1)";
+"Ending 4\n(way 1)"->"Ending 4";
+
+
+"Visit Ghen\n(before trap)"->"Ending 4\n(way 2)";
+"Get\nTrap\nBook"->"Ending 4\n(way 2)";
+"Keep\nReturning\nto Ghen"->"Ending 4\n(way 2)";
+"Ending 4\n(way 2)"->"Ending 4";
+
+"Get\nTrap\nBook"->"Trap\nGhen";
+
+"Trap\nGhen"->"Ending 5";
+"Trap\nSelf\n(Riven)"->"Ending 5";
+
+"Trap\nGhen"->"Ending 6";
+"Trap\nSelf\n(Moiety)"->"Ending 6";
+
+"Visit Ghen\n(before trap)"->"Ending 7\n(way 1)";
+"Get\nTrap\nBook"->"Trap\nSelf\n(Moiety)";
+"Trap\nSelf\n(Moiety)"->"Ending 7\n(way 1)";
+"Ending 7\n(way 1)"->"Ending 7";
+
+"Trap\nSelf\n(Moiety)"->"Ending 7\n(way 2)";
+"Ending 7\n(way 2)"->"Ending 7";
+
+"Trap\nSelf\n(Riven)"->"Ending 8";
+
+"Visit Ghen\n(before trap)"->"Ending 9";
+"Get\nTrap\nBook"->"Trap\nSelf\n(Riven)";
+"Trap\nSelf\n(Riven)"->"Ending 9";
+
+
+"Trap\nGhen"->"Save\nCatherine";
+"Open\nFissure"->"Ending 10";
+"Save\nCatherine"->"Ending 10";
+
+
+
+overlap=true
+//overlap = compress;
+label="Riven Ending Requirements\n(Marble Puzzle Solved)\nDavid Fioramonti (dafioram)"
+fontsize=12;
+graph[rankdir=LR]
+//overlap=prism; 
+//overlap_scaling=0.01;
+//ratio=compress;
+//size="14"
+//Taspect=1;
+}
