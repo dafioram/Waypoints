@@ -1,0 +1,121 @@
+digraph ItemDependecies {
+//node [shape=box];  gy2; yr2; rg2; gy1; yr1; rg1;
+//node [shape=circle];  
+
+//2nd->1st
+//"2nd Class";"Settings\n Room";"Deskbot\n Settings\n High";
+
+"2nd Class"->"Settings\n Room";
+"Settings\n Room" ->"Deskbot\n Settings\n High"
+"Deskbot\n Settings\n High"->"1st Class"
+//2nd class def
+"SGT Room\n Complete"->"Magazine"->"2nd Class";
+"Channel 3"->"Magazine";
+
+//Eye #1
+"Liftbot Head\n(Bottom of Well)"->"Eye #1\n(Broken Elevator)";
+"Channel 5\n(floor level)"->"Eye #1\n(Broken Elevator)" [style=dashed];
+"2nd Class"->"Eye #1\n(Broken Elevator)"[style=dashed];
+
+//Eye #2
+"Channel 4\n(room)"->"Eye #2\n(Broken Light)" [style=dashed];
+"1st Class"->"Eye #2\n(Broken Light)";
+
+//Olfactory
+"Parrot"->"Parrot\nFeather";
+"Parrot\nFeather"->"Olfactory";
+"Parrot\nFeather"->"Blue Fuse\n(fan)";
+
+//Hammer/Stick
+"Perch"->"Hammer";
+"2nd Class"->"Hammer";
+"Hammer"->"Stick";
+
+//Lemon
+"1st Class"->"Lemon";
+"Stick"->"Lemon";
+
+//Pureed
+"Blue Fuse\n(fan)"->"Pureed";
+"2nd Class"->"Glass Cup"->"Pureed";
+
+//Vision
+"Lemon"->"Vision\nCenter";
+"Crushed TV"->"Vision\nCenter";
+"Pureed"->"Vision\nCenter";
+
+//Nose
+"1st Class"->"Nose\n(Parrot Room)";
+
+//Ear #1
+"Parrot"->"Ear #1\n(Pistachio)";
+"2nd Class"->"Ear #1\n(Pistachio)";
+
+//Ear #2
+"2nd Class"->"Ear #2\n(Phono)";
+"2nd Class"->"Music\nRecording";
+
+//MaitreD
+"1st Class"->"Prod MaitreD";
+"Prod MaitreD"->"Green Fuse";
+//"1st Class"->"Napkin";
+"Prod MaitreD"->"Napkin";
+//"1st Class"->"2 Arms";
+"Prod MaitreD"->"2 Free Arms";
+//"1st Class"->"Key";
+"Prod MaitreD"->"Arm /w Key";
+
+//"1st Class"->"Auditory";
+"Music\nRecording"->"Auditory";
+"Music\nRecording"->"2 Free Arms"
+"Arm /w Key"->"Auditory";
+
+"1st Class"->"Speech\n(Arboretum)";
+"Stick"->"Speech\n(Arboretum)";
+"Green Fuse"->"Speech\n(Arboretum)";
+
+"2 Free Arms"->"Mouth\n(Arboretum)";
+"1st Class"->"Mouth\n(Arboretum)";
+"Green Fuse"->"Mouth\n(Arboretum)";
+
+//"Napkin"->"AI Core";
+"Beat Parrot"->"AI Core";
+"Hot Plain\nChicken"->"Beat Parrot";
+"Hot Greasy\nChicken"->"Prepared\nHot Plain\nChicken";
+"Napkin"->"Prepared\nHot Plain\nChicken";
+"Prepared\nHot Plain\nChicken"->"Hot Muck\nChicken";
+"Muck"->"Hot Muck\nChicken";
+"Hot Muck\nChicken"->"Hot Plain\nChicken";
+"Napkin"->"Hot Plain\nChicken";
+
+//titania
+"Eye #1\n(Broken Elevator)"->"Titania\nComplete";
+"Eye #2\n(Broken Light)"->"Titania\nComplete";
+"Ear #1\n(Pistachio)"->"Titania\nComplete";
+"Ear #2\n(Phono)"->"Titania\nComplete";
+"Olfactory"->"Titania\nComplete";
+"Vision\nCenter"->"Titania\nComplete";
+"Nose\n(Parrot Room)"->"Titania\nComplete";
+"Auditory"->"Titania\nComplete";
+"Mouth\n(Arboretum)"->"Titania\nComplete";
+"Speech\n(Arboretum)"->"Titania\nComplete";
+"AI Core"->"Titania\nComplete";
+
+"Titania\nComplete"->"Star Puzzle";
+
+"Star Puzzle"->"Regular Ending";
+
+"Star Puzzle"->"Bomb Ending";
+"Bomb Not\nDisarmed"->"Bomb Ending";
+
+//overlap=true
+//overlap = compress;
+label="Starship Titanic Item Dependencies\nDavid Fioramonti (dafioram)"
+fontsize=12;
+//graph[rankdir=TB]
+//overlap=prism; 
+//overlap_scaling=0.01;
+//ratio=compress;
+size="15"
+//Taspect=1;
+}

@@ -1,0 +1,31 @@
+digraph ItemDependecies {
+//node [shape=box];  gy2; yr2; rg2; gy1; yr1; rg1;
+//node [shape=circle];  
+
+"Parrot Room\nperch\nchevron\nfeather\nthrow tv"->"Mother\nblue fuse\nolfactory";
+"Mother\nblue fuse\nolfactory"->"Bottom of Well\nLifthead\nCollect TV";
+"Bottom of Well\nLifthead\nCollect TV"->"SGT Room\nMagazine";
+"SGT Room\nMagazine"->"Top of Well\nLift4 Eye1\n(lift2 trick)\nSet fuses";
+"Top of Well\nLift4 Eye1\n(lift2 trick)\nSet fuses"->"2nd Class\nSend Parrot\n1st Class\nUpgrade";
+"2nd Class\nSend Parrot\n1st Class\nUpgrade"->"Promenade\nhammer\npureed";
+"Promenade\nhammer\npureed"->"Music\nEar2";
+"Music\nEar2"->"Bar Glass";
+"Bar Glass"->"Restaurant\nNapkin\nGreen fuse\nArms\nAuditory";
+"Restaurant\nNapkin\nGreen fuse\nArms\nAuditory"->"Set green fuse\n";
+"Set green fuse\n"->"2nd Class (Ear1)\n1st Class (2/7/3)\nEye2 \nGet eye";
+"2nd Class (Ear1)\n1st Class (2/7/3)\nEye2 \nGet eye"->"SGT\nStick\nPureed drink\nChicken";
+"SGT\nStick\nPureed drink\nChicken"->"Arborteum (boat)\nLemon\nSpeech\nMouth\nHose";
+"Arborteum (boat)\nLemon\nSpeech\nMouth\nHose"->"Bar\nStarling Pureed\nGet vodka\nGet vision\n";
+"Bar\nStarling Pureed\nGet vodka\nGet vision\n"->"Parrot\nAI\nNose"
+
+//overlap=true
+//overlap = compress;
+label="Starship Titanic Speed Path\nDavid Fioramonti (dafioram)"
+fontsize=12;
+//graph[rankdir=TB]
+//overlap=prism; 
+//overlap_scaling=0.01;
+//ratio=compress;
+size="17"
+//Taspect=1;
+}
