@@ -32,6 +32,50 @@
   figcaption { font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: #6b6252; margin-top: 0.3rem; }
   audio { display: block; margin: 0.4rem 0 1rem; }
   ul { padding-left: 1.3rem; }
+  
+  body {
+    background: #f4f1ea;
+    font-family: Georgia, serif;
+    padding: 20px;
+  }
+  .map-wrap {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  h1 {
+    font-size: 20px;
+    margin-top: 0;
+  }
+  pre.map {
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.15;
+    white-space: pre;
+    overflow-x: auto;
+    background: #ffffff;
+    margin: 0;
+  }
+  .legend {
+    margin-top: 18px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: #222;
+  }
+  .legend span.swatch {
+    display: inline-block;
+    width: 14px;
+    font-weight: bold;
+  }
+  .k { color: #1a1a1a; }
+  .r { color: #e21a1a; }
+  .m { color: #8b1414; }
+  .y { color: #b8860b; }
+  
 </style>
 <script type="application/json" id="page-meta">
 {
@@ -291,11 +335,78 @@
   <h4>Water vehicle maze</h4>
   <p>Solution: <span class="code">N, W, N, E, E, S, S, W, SW, W, NW, NE, N, SE</span></p>
   <p>Sounds — South: "bing", West: "prgree", North: nail sound, East: "wosh". Takes about 6 minutes to complete.</p>
-  <figure>
-    <img src="media/MystSeleniticPuzzle.jpg" alt="Selenitic Age maze puzzle" />
-  </figure>
 
-  <p>The Star is a crashed vehicle only available in the realMyst version.</p>
+<div class="map-wrap">
+  <h1>Selenitic Puzzle Map</h1>
+  <pre class="map">
+                                                                                                    
+                                                                                                    
+                                                                                 <span style="color:#1a1a1a">*</span>                  
+        <span style="color:#b8860b">N</span>                                                                        <span style="color:#1a1a1a">|</span>                  
+        <span style="color:#b8860b">|</span>                                                                        <span style="color:#1a1a1a">|</span>                  
+        <span style="color:#b8860b">|</span>                                                                        <span style="color:#1a1a1a">|</span>                  
+                                                                                 <span style="color:#1a1a1a">|</span>                  
+                                                                                 <span style="color:#1a1a1a">|</span>                  
+                                                                                 <span style="color:#1a1a1a">*</span>                  
+                                                         <span style="color:#1a1a1a">*</span>          <span style="color:#1a1a1a">*</span>            <span style="color:#1a1a1a">|</span>                  
+                                                         <span style="color:#1a1a1a">|</span>          <span style="color:#1a1a1a">|</span>            <span style="color:#1a1a1a">|</span>                  
+                                                         <span style="color:#1a1a1a">|</span>          <span style="color:#1a1a1a">|</span>            <span style="color:#1a1a1a">|</span>                  
+                                                         <span style="color:#1a1a1a">|</span>          <span style="color:#1a1a1a">|</span>            <span style="color:#1a1a1a">|</span>                  
+                                                         <span style="color:#e21a1a">*----------*------------*</span>                  
+                                                         <span style="color:#e21a1a">|</span>                       <span style="color:#e21a1a">|</span>                  
+                                                         <span style="color:#e21a1a">|</span>                       <span style="color:#e21a1a">|</span>                  
+                                                         <span style="color:#e21a1a">|</span>                       <span style="color:#e21a1a">|</span>                  
+                                 <span style="color:#1a1a1a">*</span>                       <span style="color:#e21a1a">|</span>                       <span style="color:#e21a1a">|</span>                  
+                                 <span style="color:#1a1a1a">|</span>                       <span style="color:#e21a1a">|</span>                       <span style="color:#e21a1a">|</span>                  
+                                 <span style="color:#1a1a1a">|</span>                       <span style="color:#e21a1a">*----------*</span>            <span style="color:#e21a1a">*</span><span style="color:#1a1a1a">-----------*</span>      
+                                 <span style="color:#1a1a1a">|</span>                                  <span style="color:#e21a1a">|</span>            <span style="color:#e21a1a">|</span>         <span style="color:#1a1a1a">//</span>       
+                                 <span style="color:#1a1a1a">|</span>                                  <span style="color:#e21a1a">|</span>            <span style="color:#e21a1a">|</span>       <span style="color:#1a1a1a">//</span>         
+                                 <span style="color:#1a1a1a">|</span>                                  <span style="color:#e21a1a">|</span>            <span style="color:#e21a1a">|</span>      <span style="color:#1a1a1a">*</span>           
+                                 <span style="color:#1a1a1a">|</span>                                  <span style="color:#e21a1a">|</span>            <span style="color:#e21a1a">|</span>                  
+                                 <span style="color:#1a1a1a">|</span>                                  <span style="color:#e21a1a">|</span>            <span style="color:#e21a1a">|</span>                  
+                       <span style="color:#1a1a1a">*---------*</span>                                  <span style="color:#e21a1a">|</span>            <span style="color:#e21a1a">|</span>                  
+            <span style="color:#b8860b">S</span>                     <span style="color:#1a1a1a">\</span>                              <span style="color:#e21a1a">(START)</span>         <span style="color:#e21a1a">|</span>                  
+             <span style="color:#8b1414">\</span>                     <span style="color:#1a1a1a">\\</span>                                            <span style="color:#e21a1a">*</span>                  
+              <span style="color:#8b1414">\\</span>                     <span style="color:#1a1a1a">\</span>           <span style="color:#1a1a1a">/</span><span style="color:#e21a1a">*</span>                            <span style="color:#e21a1a">//</span> <span style="color:#1a1a1a">\\</span>       <span style="color:#1a1a1a">*</span>        
+                <span style="color:#1a1a1a">*</span>                     <span style="color:#1a1a1a">\</span>         <span style="color:#1a1a1a">/</span>  <span style="color:#1a1a1a">\\</span>                        <span style="color:#e21a1a">//</span>     <span style="color:#1a1a1a">\\</span>     <span style="color:#1a1a1a">|</span>        
+                <span style="color:#8b1414">\</span>                      <span style="color:#1a1a1a">\\</span>    <span style="color:#1a1a1a">///</span>     <span style="color:#1a1a1a">\</span>                     <span style="color:#e21a1a">//</span>         <span style="color:#1a1a1a">\</span>    <span style="color:#1a1a1a">|</span>        
+                <span style="color:#8b1414">\</span>                        <span style="color:#1a1a1a">\</span>  <span style="color:#1a1a1a">/</span>         <span style="color:#1a1a1a">\\</span>                  <span style="color:#e21a1a">/</span>            <span style="color:#1a1a1a">\\</span>  <span style="color:#1a1a1a">|</span>        
+                <span style="color:#8b1414">\</span>                        <span style="color:#1a1a1a">/</span><span style="color:#e21a1a">*</span><span style="color:#1a1a1a">/</span>         <span style="color:#e21a1a">(EXIT)</span>             <span style="color:#e21a1a">//</span>               <span style="color:#1a1a1a">\\|</span>        
+                 <span style="color:#8b1414">\</span>                     <span style="color:#1a1a1a">//</span>                             <span style="color:#e21a1a">//</span>                  <span style="color:#1a1a1a">/*</span>        
+                 <span style="color:#8b1414">\</span>                  <span style="color:#1a1a1a">///</span>                             <span style="color:#e21a1a">//</span>                  <span style="color:#1a1a1a">//</span>          
+                 <span style="color:#8b1414">\</span>                <span style="color:#1a1a1a">//</span>                               <span style="color:#e21a1a">*</span>                  <span style="color:#1a1a1a">//</span>            
+                 <span style="color:#1a1a1a">*</span><span style="color:#8b1414">--------------</span><span style="color:#e21a1a">*</span><span style="color:#1a1a1a">/</span>                              <span style="color:#e21a1a">///</span>                 <span style="color:#1a1a1a">*/</span>              
+               <span style="color:#1a1a1a">//</span>                <span style="color:#e21a1a">\\</span>                            <span style="color:#e21a1a">/</span>                                    
+             <span style="color:#1a1a1a">//</span>                    <span style="color:#e21a1a">\\</span>                       <span style="color:#e21a1a">///</span>                                     
+            <span style="color:#1a1a1a">/</span>                        <span style="color:#e21a1a">\</span>                     <span style="color:#e21a1a">/</span>                                        
+          <span style="color:#1a1a1a">//</span>                          <span style="color:#e21a1a">\\</span>                <span style="color:#e21a1a">///</span>                                         
+        <span style="color:#1a1a1a">//</span>                              <span style="color:#e21a1a">\\</span>             <span style="color:#e21a1a">/</span>                                            
+       <span style="color:#1a1a1a">*</span>                                 <span style="color:#1a1a1a">/</span><span style="color:#e21a1a">*----------*/</span><span style="color:#1a1a1a">---------*</span>                                   
+                                      <span style="color:#1a1a1a">///</span> <span style="color:#1a1a1a">|</span>          <span style="color:#1a1a1a">\</span>                                              
+                                   <span style="color:#1a1a1a">///</span>    <span style="color:#1a1a1a">|</span>          <span style="color:#1a1a1a">\</span>                                              
+                                 <span style="color:#1a1a1a">//</span>       <span style="color:#1a1a1a">|</span>           <span style="color:#1a1a1a">\</span>                                             
+                              <span style="color:#1a1a1a">///</span>         <span style="color:#1a1a1a">|</span>           <span style="color:#1a1a1a">\</span>                                             
+                   <span style="color:#1a1a1a">*--------*/</span>            <span style="color:#1a1a1a">|</span>           <span style="color:#1a1a1a">*</span>                                             
+                            <span style="color:#1a1a1a">|</span>             <span style="color:#1a1a1a">*\</span>                                                        
+                            <span style="color:#1a1a1a">|</span>               <span style="color:#1a1a1a">\\\</span>                                                     
+                            <span style="color:#1a1a1a">|</span>                  <span style="color:#1a1a1a">\\\</span>                                                  
+                            <span style="color:#1a1a1a">|</span>                     <span style="color:#1a1a1a">\\\</span>                                               
+                            <span style="color:#1a1a1a">*</span>                        <span style="color:#1a1a1a">\*</span>                                             
+                                                                                                    
+                                                                                                    
+                                                                                                    
+  </pre>
+  <div class="legend">
+    <p><strong>Legend</strong></p>
+    <p><span class="swatch y">S</span> = The Star is a crashed vehicle only available in the realMyst version. &nbsp;&nbsp; 
+	<p><span class="swatch">N ^</span> = North</p>
+    <p><span class="swatch k">*</span> = junction (black) &nbsp;&nbsp; <span class="swatch r">*</span> = junction (marked/red)</p>
+    <p><span class="k">&mdash; | / \</span> black corridor &nbsp;&nbsp; <span class="r">&mdash; | / \</span> marked red path &nbsp;&nbsp; <span class="m">&mdash; | / \</span> dark-red entrance path</p>
+    <p><span class="r">(START)</span> and <span class="r">(EXIT)</span> mark the labeled rooms.</p>
+  </div>
+</div>
+
+  <p></p>
 </main>
 </body>
 </html>
