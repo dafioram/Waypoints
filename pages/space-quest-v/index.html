@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Space Quest V — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<style>
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    font-family: sans-serif;
+    line-height: 1.55;
+  }
+
+  .points {
+    color: #555;
+    font-size: 0.9em;
+    white-space: nowrap;
+  }
+
+  .controls {
+    border-collapse: collapse;
+    margin: 1rem 0 2rem;
+  }
+
+  .controls th,
+  .controls td {
+    padding: 0.35rem 0.75rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  .walkthrough li {
+    margin: 0.5rem 0;
+  }
+
+  .map {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .coordinates {
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  .coordinates th,
+  .coordinates td {
+    padding: 0.35rem 0.75rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  code {
+    overflow-wrap: anywhere;
+  }
+</style>
+<script type="application/json" id="page-meta">
+{
+  "title": "Space Quest V",
+  "description": "A concise walkthrough and point guide for Space Quest V, covering the StarCon Academy, SCS Eureka, planets, Spacebar, Genetix Research Station, and Goliath.",
+  "tags": ["space-quest", "adventure-games", "walkthrough"],
+  "date": "2026-08-23"
+}
+</script>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<main>
+  <h1>Space Quest V</h1>
+
+  <p>
+    A walkthrough for <em>Space Quest V</em>, the 1993 Sierra adventure game.
+    Point values are shown with the running total where provided by the guide.
+  </p>
+
+  <h2>Overview &amp; Controls</h2>
+
+  <table class="controls">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Function</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>F2</td><td>Sound on/off</td></tr>
+      <tr><td>F5</td><td>Save</td></tr>
+      <tr><td>F7</td><td>Load</td></tr>
+      <tr><td>Ctrl+Q</td><td>Quit</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Point totals in parentheses show the points earned and the expected running
+    total. The original guide warns of timing problems on modern PCs and
+    recommends DOSBox, older hardware, or unofficial SCI fixes, particularly
+    for the Cliffy rescue sequence.
+  </p>
+
+  <h2>Walkthrough</h2>
+
+  <section class="walkthrough">
+    <h3>Academy</h3>
+    <ol>
+      <li>Watch or skip the introduction. At StarCon Academy, go south three times and enter the classroom on the right. <span class="points">(5, 5)</span></li>
+      <li>During the SAT, look at the left alien's test when the anti-cheat android is looking away. Answers: <strong>1-D, 2-E, 3-E, 4-C, 5-E, 6-C, 7-E, 8-D, 9-A, 10-A</strong>. <span class="points">(5, 10)</span></li>
+      <li>After the test, go south and enter the door right of the blob. Take the Scrub-O-Matic and cones. <span class="points">(10, 20)</span> <span class="points">(10, 30)</span></li>
+      <li>Go south, enter the right-hand corridor, and use the elevator. Put the cones and Scrub-O-Matic on the crest and clean it completely. <span class="points">(50, 80)</span></li>
+      <li>After the scene, return to the corridor and go west and south. Check the panel near the cadets to receive captain's training after a perfect SAT. <span class="points">(100, 180)</span></li>
+    </ol>
+
+    <h3>SCS Eureka</h3>
+    <ol>
+      <li>Sit in the captain's chair. Hail StarCon, then Lay In A Course to <code>71552</code> (Gangularis).</li>
+      <li>Fly at Lite Speed, switch to Regular Speed near the planet, then Activate RSS. <span class="points">(100, 280)</span></li>
+      <li>Leave the bridge and open the toolbox. Take the laser cutting torch, spare fuse, hole puncher, and anti-acid tablets. <span class="points">(5, 285)</span> <span class="points">(5, 290)</span> <span class="points">(5, 295)</span> <span class="points">(15, 310)</span></li>
+      <li>Press the blue button and watch the scene. <span class="points">(20, 330)</span></li>
+      <li>Go to the science lab, find Spike, and place him in the specimen container. Add the anti-acid tablets. <span class="points">(20, 350)</span> <span class="points">(20, 370)</span></li>
+      <li>Return to the bridge. Lay In A Course to <code>92767</code>, use Lite Speed, then Regular Speed and Activate RSS. <span class="points">(100, 470)</span></li>
+      <li>Lay In A Course to <code>20011</code>, use Lite Speed, and arrive at Kiz Urazgubi. In the lab, use the transporter to beam down. <span class="points">(10, 480)</span></li>
+    </ol>
+
+    <h3>Kiz Urazgubi</h3>
+    <ol>
+      <li>Go west around the lake and enter the cave. Avoid the WD40. Go left, walk into the tree, and take the branch after falling into the lake. <span class="points">(10, 490)</span></li>
+      <li>Return through the cave. At the tree, enter the log and crawl through it. Hit the bananas with the branch, then grab one. <span class="points">(25, 515)</span></li>
+      <li>Return through the log and go west. Enter the small cave on the left, then the left cave at the large view. Follow the route to the top exit.</li>
+      <li>Quickly jump right and walk up to the boulder. Use the branch on it to knock WD40 down. <span class="points">(100, 615)</span></li>
+      <li>Go down, jump the chasm, enter the right-hand cave, and return toward the starting area.</li>
+      <li>Return to the log and wait for WD40 to stand over you. Poke her with the banana. <span class="points">(200, 815)</span></li>
+      <li>Take WD40's head. <span class="points">(25, 840)</span></li>
+      <li>Return to the Eureka, leave the room, come back, stand on the transporter, and energize. <span class="points">(175, 1015)</span></li>
+      <li>Use the new device on yourself to de-cloak the ship. <span class="points">(100, 1115)</span></li>
+      <li>Enter the ship and open the control panel above the steps. Quickly perform: top latch; bottom latch; all four handles; top-left latch; bottom-right latch; both handles; top-right latch; bottom-right latch.</li>
+      <li>Take the cloaking device and return to the elevator. <span class="points">(200, 1315)</span></li>
+    </ol>
+
+    <h3>SCS Eureka</h3>
+    <ol>
+      <li>At the bridge, Lay In A Course to <code>69869</code>. Fly at Lite Speed, then Regular Speed, then Standard Orbit.</li>
+      <li>Leave the bridge and use the transporter in the lab to beam to the Spacebar. <span class="points">(10, 1325)</span></li>
+    </ol>
+
+    <h3>Spacebar</h3>
+    <ol>
+      <li>Sit with the crew on the left and watch the scenes.</li>
+      <li>Play Battle Cruiser. Save before launching probes, record Quirk's four ship locations, restore as necessary, then win with all four units intact. <span class="points">(100, 1425)</span></li>
+      <li>Mix the space monkeys with the red drink. <span class="points">(50, 1475)</span></li>
+      <li>Exit one screen right. After the guards leave, use their control panel and inspect the second prison cell on the left. <span class="points">(25, 1500)</span></li>
+      <li>Return to the ship, get the creature from the tube, and use Spike to burn through the prison bars. <span class="points">(50, 1550)</span></li>
+      <li>Teleport out. <span class="points">(200, 1750)</span></li>
+    </ol>
+
+    <h3>SCS Eureka</h3>
+    <ol>
+      <li>Lay In A Course to Clorox II, <code>90210</code>. Fly at Lite Speed, then Regular Speed and Standard Orbit. <span class="points">(10, 1760)</span></li>
+      <li>Hail Ship. <span class="points">(10, 1770)</span></li>
+      <li>Use the lab transporter to beam down. <span class="points">(5, 1775)</span></li>
+    </ol>
+
+    <h3>Clorox II</h3>
+    <ol>
+      <li>Enter the building and use the central table control panel. Dodge the mutant's spit left and right; survive five spits. <span class="points">(50, 1825)</span></li>
+      <li>Pick up the dropped paper. <span class="points">(5, 1830)</span></li>
+      <li>Use the control panel and read the information on <code>80869</code>. <span class="points">(20, 1850)</span></li>
+      <li>Leave, go left near the bottom of the screen, and look at the can. <span class="points">(50, 1900)</span></li>
+      <li>Return and use the communications device to beam back to the ship.</li>
+    </ol>
+
+    <h3>SCS Eureka</h3>
+    <ol>
+      <li>Lay In A Course to <code>53284</code>. Fly at Lite Speed, then Regular Speed and remain in Standard Orbit. <span class="points">(20, 1920)</span></li>
+      <li>Leave the bridge, press the red corridor button, and ride the lift down.</li>
+      <li>Take the mask and oxygen tank beside the suits. <span class="points">(5, 1925)</span> <span class="points">(25, 1950)</span></li>
+      <li>Use the console by the lift and select Elevator Door. Take it back up, enter the lab, and use the transporter.</li>
+      <li>Wear the mask to beam down. <span class="points">(20, 1970)</span></li>
+    </ol>
+
+    <h3>Thrakus</h3>
+    <ol>
+      <li>Follow the path left and enter between the trees.</li>
+      <li>Inspect the escape pod, take the coat, and press the red button. <span class="points">(10, 1980)</span> <span class="points">(35, 2015)</span></li>
+      <li>Return to the previous screen and walk to the left edge. After the fight, use the coat on Beatrice to pull her up. <span class="points">(35, 2050)</span></li>
+      <li>Use the communicator to contact Cliffy. <span class="points">(25, 2075)</span></li>
+      <li>Wait a few seconds, then grab the vine. <span class="points">(5, 2080)</span></li>
+    </ol>
+
+    <h3>SCS Eureka</h3>
+    <ol>
+      <li>Push the red button near the tank and open the cryo chamber. <span class="points">(20, 2100)</span></li>
+      <li>Put Beatrice in the chamber. Select <code>10</code>, then Start, to freeze her. <span class="points">(20, 2120)</span> <span class="points">(75, 2195)</span></li>
+      <li>Return to the bridge and wait for the Goliath to fire. Choose Evasive Action → Asteroid Field. <span class="points">(35, 2230)</span></li>
+      <li>Go to the pod controls and select Pod Rotation.</li>
+      <li>Use the left stick to locate Cliffy, the red radar dot. Get close enough for Target In Range, then use the CLAW control to grab him. <span class="points">(100, 2330)</span></li>
+      <li>Return to the Eureka before oxygen and fuel run out. <span class="points">(50, 2380)</span></li>
+      <li>Return to the bridge. Lay In A Course to <code>41666</code>, fly at Light Speed, then Regular Speed and Standard Orbit. <span class="points">(10, 2390)</span></li>
+      <li>Use the lab transporter to beam to Genetix Research Station.</li>
+    </ol>
+
+    <h3>Genetix Research Station</h3>
+    <ol>
+      <li>Fly around the lake so the frog jumps out.</li>
+      <li>Fly onto the communicator and talk to Flo. <span class="points">(100, 2490)</span> <span class="points">(40, 2530)</span></li>
+      <li>Fly west into the keycard slot and pass the laser beams. <span class="points">(20, 2550)</span></li>
+      <li>Fly onto the computer terminal at bottom right. Select Restart → Projects → Next until Project X. Then Main Menu → Accounts. <span class="points">(10, 2560)</span> <span class="points">(20, 2580)</span> <span class="points">(15, 2595)</span></li>
+      <li>Return through the keycard slot. Land on Cliffy. <span class="points">(5, 2600)</span></li>
+      <li>Fly just east of Cliffy to the dumpster and enter your body to regain control. <span class="points">(10, 2610)</span> <span class="points">(50, 2660)</span></li>
+      <li>Walk east, cross the bridge, and have Cliffy beam you to the ship. Select the bottom option.</li>
+      <li>At the cryo chamber, enter <code>10</code>, select Defrost and Start, then remove Beatrice. <span class="points">(50, 2710)</span></li>
+      <li>Place Beatrice on the transporter and beam down yourself. <span class="points">(50, 2760)</span></li>
+      <li>Use the hole puncher to make an X in the card. <span class="points">(5, 2765)</span></li>
+      <li>Insert the card into the slot. Do this correctly or the puzzle resets and costs points. <span class="points">(500, 3265)</span></li>
+      <li>Inside the lab, go down the stairs and press the black button to access liquid nitrogen. <span class="points">(50, 3315)</span></li>
+      <li>Return upstairs, leave the lab, and have Cliffy beam you back to the Eureka.</li>
+    </ol>
+
+    <h3>SCS Eureka</h3>
+    <ol>
+      <li>Lay In A Course to <code>81100</code>. Fly at Lite Speed, then Regular Speed.</li>
+      <li>After WD40's message, press the green button and tell Cliffy to Cloak Ship. <span class="points">(50, 3365)</span></li>
+      <li>In the lab, inspect the Goliath schematics and note the correct docking area.</li>
+      <li>Return to the lab entrance, press the red button, ride the elevator, and enter the pod. <span class="points">(300, 3665)</span></li>
+    </ol>
+
+    <h3>Goliath</h3>
+    <ol>
+      <li>Select the docking area without pukoids, based on the lab schematic.</li>
+      <li>Open the door and use the laser cutter to make a hole. <span class="points">(100, 3765)</span></li>
+      <li>Enter the Goliath if you chose the correct spot. <span class="points">(70, 3835)</span></li>
+      <li>Wait for a guard, leave, then use the control panel while he is gone. Insert the warp distributor cap on top of the large engine. <span class="points">(100, 3935)</span></li>
+      <li>Wait for the guard again. When he leaves, follow him through the door and open the grate into the ventilation shafts. <span class="points">(100, 4035)</span></li>
+    </ol>
+
+    <p><strong>Ventilation route:</strong></p>
+
+    <ol>
+      <li><strong>Level 8:</strong> Crawl north, east, north, north. Climb the ladder to Level 7.</li>
+      <li><strong>Level 7:</strong> Wait for the elevator to pass, then crawl north and climb to Level 6.</li>
+      <li><strong>Level 6:</strong> Crawl south, west, north, north, east, north. Climb to Level 5.</li>
+      <li><strong>Level 5:</strong> Wait for the elevator to pass, then go north and quickly climb to Level 4.</li>
+      <li><strong>Level 4:</strong> Crawl south, west, north, north, west, west, north. Climb to Level 2.</li>
+      <li><strong>Level 2:</strong> Crawl south, south, west, south, east, south. <span class="points">(350, 4385)</span></li>
+    </ol>
+
+    <p>
+      <strong>Needs media:</strong> the original guide referenced a Goliath
+      ventilation map here. The image file was not supplied, so the reference
+      is preserved below.
+    </p>
+
+    <img class="map" src="media/SQ5GoliathMap.gif" alt="Goliath ventilation shaft map" />
+
+    <ol start="7">
+      <li>Flip the shield switch. You will be found. <span class="points">(20, 4405)</span></li>
+      <li>After the scene, wait until the pukoids are all in the middle and the doors close. Tell Cliffy to transform them back to normal. <span class="points">(20, 4425)</span></li>
+      <li>When Flo asks what action to take, select Beam Me Over. <span class="points">(20, 4445)</span></li>
+    </ol>
+
+    <h3>SCS Eureka — Final Sequence</h3>
+    <ol>
+      <li>Leave the lab and enter the bridge. Order Droole to Fire at the blob near the Goliath. <span class="points">(50, 4495)</span></li>
+      <li>Quickly Activate RSS to suck up the blob. <span class="points">(200, 4695)</span></li>
+      <li>Order Flo to Abandon Ship. <span class="points">(10, 4705)</span></li>
+      <li>Press the red button and activate the egg timer with the left button that looks like a nuke. <span class="points">(100, 4805)</span></li>
+      <li>Leave the bridge, open the Cryo Chamber, and stand on the transporter. <span class="points">(10, 4815)</span></li>
+      <li>When the transporter fails, use the service tunnel left of the red button. Remove the broken fuse and replace it with the new fuse. <span class="points">(175, 4990)</span></li>
+      <li>Press Exit, return to the lab while avoiding the blob, and remove Spike from his container. <span class="points">(10, 5000)</span></li>
+      <li>Stand on the transporter and beam out.</li>
+    </ol>
+
+    <p><strong>Enjoy the short ending!</strong></p>
+  </section>
+
+  <h2>Point List</h2>
+
+  <p>
+    The following is the guide's point list, normalized into a compact
+    action-by-action format.
+  </p>
+
+  <h3>Academy</h3>
+  <ul>
+    <li>Enter the classroom — <span class="points">+5 / 5</span></li>
+    <li>Look at the alien's SAT sheet — <span class="points">+5 / 10</span></li>
+    <li>Take the Scrub-O-Matic — <span class="points">+10 / 20</span></li>
+    <li>Take the safety cones — <span class="points">+10 / 30</span></li>
+    <li>Clean the crest — <span class="points">+50 / 80</span></li>
+    <li>Get a perfect SAT result — <span class="points">+100 / 180</span></li>
+  </ul>
+
+  <h3>SCS Eureka</h3>
+  <ul>
+    <li>Collect garbage at Gangularis — <span class="points">+100 / 280</span></li>
+    <li>Take the hole puncher — <span class="points">+5 / 285</span></li>
+    <li>Take the fuse — <span class="points">+5 / 290</span></li>
+    <li>Take the laser torch — <span class="points">+5 / 295</span></li>
+    <li>Take the anti-acid tablets — <span class="points">+15 / 310</span></li>
+    <li>Release Spike — <span class="points">+20 / 330</span></li>
+    <li>Place Spike in the tank — <span class="points">+20 / 350</span></li>
+    <li>Put anti-acid tablets in the tank — <span class="points">+20 / 370</span></li>
+    <li>Collect garbage at Peeyu — <span class="points">+100 / 470</span></li>
+    <li>Beam down to Kiz Urazgubi — <span class="points">+10 / 480</span></li>
+  </ul>
+
+  <h3>Kiz Urazgubi</h3>
+  <ul>
+    <li>Take the branch — <span class="points">+10 / 490</span></li>
+    <li>Take a banana — <span class="points">+25 / 515</span></li>
+    <li>Use the branch on the boulder — <span class="points">+100 / 615</span></li>
+    <li>Poke WD40 with the banana — <span class="points">+200 / 815</span></li>
+    <li>Take WD40's head — <span class="points">+25 / 840</span></li>
+    <li>Beam down to Kiz Urazgubi — <span class="points">+175 / 1015</span></li>
+    <li>De-cloak the ship — <span class="points">+100 / 1115</span></li>
+    <li>Take the cloaking device — <span class="points">+200 / 1315</span></li>
+  </ul>
+
+  <h3>Spacebar</h3>
+  <ul>
+    <li>Arrive at the Spacebar — <span class="points">+10 / 1325</span></li>
+    <li>Beat Quirk with four units left — <span class="points">+100 / 1425</span></li>
+    <li>Mix the space monkeys and drink — <span class="points">+50 / 1475</span></li>
+    <li>Lower the prison force fields — <span class="points">+25 / 1500</span></li>
+    <li>Use Spike on the prison bars — <span class="points">+50 / 1550</span></li>
+    <li>Teleport out — <span class="points">+200 / 1750</span></li>
+  </ul>
+
+  <h3>Clorox II</h3>
+  <ul>
+    <li>Standard Orbit at Clorox II — <span class="points">+10 / 1760</span></li>
+    <li>Contact the Goliath — <span class="points">+10 / 1770</span></li>
+    <li>Beam down to Clorox II — <span class="points">+5 / 1775</span></li>
+    <li>Avoid the spit — <span class="points">+50 / 1825</span></li>
+    <li>Take the paper — <span class="points">+5 / 1830</span></li>
+    <li>Use the computer — <span class="points">+20 / 1850</span></li>
+    <li>Look at the soup can — <span class="points">+50 / 1900</span></li>
+  </ul>
+
+  <h3>SCS Eureka / Thrakus</h3>
+  <ul>
+    <li>Standard Orbit at Thrakus — <span class="points">+20 / 1920</span></li>
+    <li>Take the mask — <span class="points">+5 / 1925</span></li>
+    <li>Take the oxygen tank — <span class="points">+25 / 1950</span></li>
+    <li>Wear the mask — <span class="points">+20 / 1970</span></li>
+    <li>Take the coat — <span class="points">+10 / 1980</span></li>
+    <li>Press the red button — <span class="points">+35 / 2015</span></li>
+    <li>Use the coat on Beatrice — <span class="points">+35 / 2050</span></li>
+    <li>Contact the Eureka — <span class="points">+25 / 2075</span></li>
+    <li>Climb the vine — <span class="points">+5 / 2080</span></li>
+    <li>Open the cryo chamber — <span class="points">+20 / 2100</span></li>
+    <li>Place Beatrice in the cryo chamber — <span class="points">+20 / 2120</span></li>
+    <li>Freeze Beatrice — <span class="points">+75 / 2195</span></li>
+    <li>Hide in the asteroid field — <span class="points">+35 / 2230</span></li>
+    <li>Rescue Cliffy — <span class="points">+100 / 2330</span></li>
+    <li>Return Cliffy to the Eureka — <span class="points">+50 / 2380</span></li>
+    <li>Standard Orbit at Genetix — <span class="points">+10 / 2390</span></li>
+  </ul>
+
+  <h3>Genetix</h3>
+  <ul>
+    <li>Open the communicator — <span class="points">+100 / 2490</span></li>
+    <li>Talk to Flo on the communicator — <span class="points">+40 / 2530</span></li>
+    <li>Fly through the card slot — <span class="points">+20 / 2550</span></li>
+    <li>Fly onto the computer panel — <span class="points">+10 / 2560</span></li>
+    <li>Read the Project X notes — <span class="points">+20 / 2580</span></li>
+    <li>Read the accounts — <span class="points">+15</span> <em>(original list records a total of 2695, which appears inconsistent with the preceding total)</em></li>
+    <li>Land on Cliffy — <span class="points">+5 / 2600</span></li>
+    <li>Land on Roger's body — <span class="points">+10 / 2610</span></li>
+    <li>Revert to normal — <span class="points">+50 / 2660</span></li>
+    <li>Defrost Beatrice — <span class="points">+50 / 2710</span></li>
+    <li>Place Beatrice on the transporter — <span class="points">+50 / 2760</span></li>
+    <li>Hole punch an X into the card — <span class="points">+5 / 2765</span></li>
+    <li>Insert the business card in the slot — <span class="points">+500 / 3265</span></li>
+    <li>Take the liquid nitrogen — <span class="points">+50 / 3315</span></li>
+  </ul>
+
+  <h3>SCS Eureka / Goliath</h3>
+  <ul>
+    <li>Cloak the ship — <span class="points">+50 / 3365</span></li>
+    <li>Enter the pod — <span class="points">+300 / 3665</span></li>
+    <li>Use the laser cutter on the Goliath — <span class="points">+100 / 3765</span></li>
+    <li>Enter the Goliath — <span class="points">+70 / 3835</span></li>
+    <li>Use the distributor cap on the engine — <span class="points">+130 / 3965</span></li>
+    <li>Open the grating — <span class="points">+70 / 4035</span></li>
+    <li>Find the shield switch — <span class="points">+350 / 4385</span></li>
+    <li>Flip the shield switch — <span class="points">+20 / 4405</span></li>
+    <li>Transform the crew — <span class="points">+20 / 4425</span></li>
+    <li>Beam back to the Eureka — <span class="points">+50 / 4445</span></li>
+  </ul>
+
+  <h3>Final SCS Eureka Sequence</h3>
+  <ul>
+    <li>Fire at the blob — <span class="points">+50 / 4495</span></li>
+    <li>Activate RSS — <span class="points">+200 / 4695</span></li>
+    <li>Order the crew to abandon ship — <span class="points">+10 / 4705</span></li>
+    <li>Initiate the self-destruct sequence — <span class="points">+100 / 4805</span></li>
+    <li>Free Beatrice from the cryo chamber — <span class="points">+10 / 4815</span></li>
+    <li>Replace the fuse — <span class="points">+175 / 4990</span></li>
+    <li>Release Spike — <span class="points">+10 / 5000</span></li>
+  </ul>
+
+  <h2>Coordinates</h2>
+
+  <table class="coordinates">
+    <thead>
+      <tr>
+        <th>Coordinates</th>
+        <th>Destination</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>20011</code></td><td>Kiz Urazgubi</td></tr>
+      <tr><td><code>41666</code></td><td>Genetix Dome</td></tr>
+      <tr><td><code>53284</code></td><td>Thrakus</td></tr>
+      <tr><td><code>69869</code></td><td>Spacebar</td></tr>
+      <tr><td><code>71552</code></td><td>Gangularis</td></tr>
+      <tr><td><code>81100</code></td><td>Commodore LXIV</td></tr>
+      <tr><td><code>90210</code></td><td>Clorox II</td></tr>
+      <tr><td><code>92767</code></td><td>Peeyu</td></tr>
+    </tbody>
+  </table>
+</main>
+</body>
+</html>
