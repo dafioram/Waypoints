@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Linear Algebra — Eigenanalysis — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+
+<style>
+  body { font-family: Georgia, "Source Serif 4", serif; margin: 0; background: #f6f1e4; color: #1f2b24; }
+  main { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  h1 { font-size: 2rem; margin-bottom: 0.15rem; }
+  p.lede { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: #6b6252; margin-top: 0; }
+  nav.toc { margin: 1.75rem 0 2.5rem; font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; }
+  nav.toc ul { padding-left: 1.1rem; }
+  nav.toc a { color: #1f2b24; }
+  h2 { font-size: 1.5rem; margin-top: 3rem; border-bottom: 2px solid #1f2b24; padding-bottom: 0.3rem; }
+  h3 { font-size: 1.1rem; margin-top: 2rem; font-family: "IBM Plex Sans", sans-serif; }
+  .cite { color: #6b6252; font-size: 0.9em; }
+  ol ol { list-style-type: lower-alpha; }
+  a { color: #1f2b24; }
+</style>
+
+<script type="application/json" id="page-meta">
+{
+  "title": "Linear Algebra — Eigenanalysis",
+  "description": "Eigenvalues and eigenvectors: definitions, key identities, multiplicity, and finding (generalized) eigenvectors.",
+  "tags": ["math", "linear-algebra", "reference"],
+  "date": "2026-08-22"
+}
+</script>
+
+<!--
+  MathJax config, translated from a MathJax v2 setup (MathJax.Hub.Config with
+  tex2jax / TeX.equationNumbers) to the v4 config object shape. The two
+  features carried over:
+    - inlineMath: adds $...$ as an inline delimiter (v4 already recognizes
+      \(...\) and \[...\] by default, but not bare $ signs, since $ shows up
+      constantly in ordinary prose).
+    - tags: 'ams' mirrors the old autoNumber: "AMS" setting. Note: none of
+      the display equations on this page are in a numbered AMS environment
+      (they're all bare \[ \] displaymath, same as the original), so this
+      doesn't visibly number anything here either — kept for parity with
+      the original config in case a later page's equations rely on it.
+-->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: { '[+]': [['$', '$']] },
+      tags: 'ams'
+    }
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<main>
+  <h1>Linear Algebra — Eigenanalysis</h1>
+  <p class="lede">Reference notes on eigenvalues and eigenvectors.</p>
+
+  <nav class="toc">
+    <ul>
+      <li><a href="#eigenvalues">Eigenvalues</a></li>
+      <li><a href="#eigenvectors">Eigenvectors</a></li>
+      <li><a href="#references">References</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="eigenvalues">Eigenvalues</h2>
+
+  <p>
+    Eigenanalysis is only possible for square matrices.
+    Singular value decompositions (<a href="../math-linear-algebra-definitions/#svd">SVD</a>) are a more general factorization.
+  </p>
+
+  <p>
+    $\lambda_i$ is an eigenvalue and $x_i$ is the corresponding eigenvector for a matrix $A$ if
+  </p>
+  \[
+    (\lambda_i I-A)x_i=0
+  \]
+  <p>the eigenvalues are found by solving the characteristic equation of $A$.</p>
+  \[
+    \chi_A(\lambda) = det(\lambda I-A) = 0
+  \]
+  <p>Or</p>
+  \[
+    det(A - \lambda I) = 0
+  \]
+  <p>
+    Both lead to the same characteristic polynomial with the same roots.
+    However, the first form is preferred since it leads to a polynomial with a 1 as the leading coefficient
+    (called a monic polynomial).
+  </p>
+
+  <p>
+    Eigenvectors are non-zero even for eigenvalues with value 0 <span class="cite">(Hill, 1996, p. 335)</span>.
+    The magnitude of the largest eigenvalue is upper bounded by the row magnitude row sum for the row with
+    largest sum of the magnitude of the elements, namely <span class="cite">(Hayes, 1996, p. 48)</span>
+  </p>
+  \[
+    \large |\lambda_{max}| \leq \max_i \left( \sum_j |a_{ij}| \right)
+  \]
+
+  <h3>Identities <span class="cite">(Noble, 1998, p. 292)</span></h3>
+  <ul>
+    <li>$eigval(A) = eigval(A^T)$</li>
+    <li>$eigval(A) = eigval(S^{-1}AS)$</li>
+    <li>$eigval(kA) = k \cdot eigval(A)$</li>
+    <li>For $A=B_1 B_2 \cdots B_n$ then $eigval(A) = \prod_i (eigval(B_i))$</li>
+    <li>$eigval(A^n) = (eigval(A))^n$</li>
+    <li>$eigval(A^{-1}) = 1/eigval(A)$</li>
+    <li>For $A=B_1 + B_2 + \cdots + B_n$ then $eigval(A) = \sum_i eigval(B_i)$</li>
+    <li>$eigval(A+kI) = eigval(A)+k$</li>
+  </ul>
+
+  <h3>Facts</h3>
+  <ul>
+    <li>If $\lambda = 0, \forall \lambda \in \operatorname{spec}(A)$, then $A$ is nilpotent.</li>
+    <li>If $|\lambda| < 1, \forall \lambda \in \operatorname{spec}(A)$, then $At$ is (exponentially) stable.</li>
+    <li>If $|\lambda| < 1, \forall \lambda \in \operatorname{spec}(A)$, then $\lim_{k \to \infty} A^k=0$ (stable in the discrete sense).</li>
+  </ul>
+
+  <h3>Multiplicity</h3>
+  <p>
+    The <em>algebraic multiplicity</em> of an eigenvalue is how many times it is a root of the characteristic
+    equation above. For a given eigenvalue there are as many eigenvectors as its algebraic multiplicity. Of
+    those eigenvectors the number of linearly independent eigenvectors is its <em>geometric multiplicity</em>.
+    Therefore, the geometric multiplicity is always less than or equal to the algebraic multiplicity for an
+    eigenvalue. When the multiplicities are equal all of the eigenvectors are linearly independent. Having
+    linearly independent eigenvectors is a necessary and sufficient condition for the matrix to be
+    <a href="../math-linear-algebra-matrix-types/#diagonalizable"><em>diagonalizable</em></a>
+    <span class="cite">(Hill, 1996, p. 344)</span> (this allows the matrix of eigenvectors to be invertible in
+    the similarity transform). The matrix having linearly independent eigenvectors is equivalent to it being
+    diagonalizable. The number of Jordan blocks for a given eigenvalue is its geometric multiplicity.
+  </p>
+
+  <p>
+    If the eigenvalues are distinct (algebraic multiplicity is one for all eigenvalues) then the eigenvectors
+    are independent [<a href="../math-linear-algebra-proofs/#distinct_eigenvalues_independent_eigenvectors">proof</a>]
+    <span class="cite">(Hill, 1996, p. 346)</span>.
+  </p>
+
+  <p>
+    <a href="../math-linear-algebra-matrix-types/#symmetric">Symmetric matrices</a> and
+    <a href="../math-linear-algebra-matrix-types/#hermitian">Hermitian matrices</a> are an example of a matrix
+    that is diagonalizable even in cases that its eigenvalues are not distinct. An example of finding the
+    eigenvalues and vectors of a 2×2 Hermitian matrix is given
+    <a href="../math-linear-algebra-example-lattice-diagonalize/">here</a>.
+  </p>
+
+  <p>
+    <strong>Note</strong>: the eigenvectors being linearly independent does not imply that the columns or rows
+    are independent. This is because the additional linearly independent eigenvectors are paired with
+    eigenvalues that are zero, so that those eigenvectors actually span the null space. However the number of
+    independent eigenvectors is always greater than or equal to the number of independent columns, so that
+    independence of columns implies independence of eigenvectors (not verified).
+  </p>
+
+  <h2 id="eigenvectors">Eigenvectors</h2>
+
+  <p>
+    While the eigenvectors that correspond to non-zero eigenvalues do span the same space as the range of $A$
+    they are <strong>not</strong> the same basis. The eigenvectors represent directions in which the matrix
+    scales by a particular amount (eigenvalue). There is a vector space for each eigenvalue — if it contains
+    more than one independent eigenvector then the basis for that space is not unique (every linear combination
+    of them is an eigenvector). See the SVD for details.
+  </p>
+  <p>In general the SVD cannot be used to give the eigenvectors of $A$.</p>
+
+  <h3>Finding eigenvectors</h3>
+  <p>The eigenvectors of $A$ with eigenvalue $\lambda_i$ are the vectors in the null space of $(\lambda_i I - A)$.</p>
+  <ol>
+    <li>Form $(\lambda_i I - A)$</li>
+    <li>
+      <ol>
+        <li>Inspection, or</li>
+        <li>Perform row reduction on $(\lambda_i I - A)$, then do back substitution.</li>
+        <li><a href="../math-linear-algebra-null-space-basis/">Nullspace procedure</a>.</li>
+      </ol>
+    </li>
+  </ol>
+
+  <h3>Finding generalized eigenvectors <span class="cite">(Boyce, 2009, p. 426)</span></h3>
+  <ol>
+    <li>Find all independent eigenvectors. Let $m$ be the largest integer number of eigenvectors that are independent (the geometric multiplicity).</li>
+    <li>
+      Find the generalized eigenvectors by solving:
+      \[
+        (A-\lambda I)x_{i+1}=x_{i}
+      \]
+      where $i > m$. It will be found that $x_{i+1}$ contains a multiple of $x_i$, i.e.,
+      \[
+        x_{i+1} = \left[ \begin{array}{c} a_1 \\ \vdots \\ a_n \end{array} \right] + c_i x_i
+      \]
+      the $x_i$ contribution can be dropped since it will reappear again when the diagonalization is performed.
+      \[
+        x_{i+1} = \left[ \begin{array}{c} a_1 \\ \vdots \\ a_n \end{array} \right]
+      \]
+    </li>
+    <li>
+      If diagonalizing, the P matrix will have the eigenvectors and generalized eigenvectors found in the
+      previous two steps as its columns. Diagonalizing in this way will lead to an eigenvalue matrix that also
+      has ones above some of the main diagonal elements
+      (<a href="../math-linear-algebra-matrix-types/#jordan_form">Jordan form</a>). The generalized eigenvectors
+      are independent of the other eigenvectors so the matrix is invertible.
+    </li>
+  </ol>
+
+  <h3>Identities</h3>
+  <ul>
+    <li>$eigvect(kA) = k \cdot eigvect(A)$</li>
+    <li>For $A=B_1 B_2 \cdots B_n$ then $eigvect(A) = eigvect(B_i)$</li>
+    <li>For $A=B_1 + B_2 + \cdots + B_n$ then $eigvect(A) = eigvect(B_i)$</li>
+  </ul>
+
+  <h3>Left eigenvectors</h3>
+  <p>Left eigenvectors are vectors, $x_i$, such that</p>
+  \[
+    x_i(\lambda_i I-A)=0
+  \]
+  <p>which is the transposed system of the right eigenvectors,</p>
+  \[
+    x_i(\lambda_i I-A) = (\lambda_i I-A^T) x_i^T
+  \]
+  <p>
+    The eigenvalues and characteristic equation for the transposed system are the same. All the results are the
+    same as the previous section except eigenvectors are being found of $A^T$ instead of $A$.
+  </p>
+
+  <h2 id="references">References</h2>
+  <p>
+    Inline citations above are page references only — Hill (1996), Hayes (1996), Noble (1998), and Boyce
+    (2009) — the full bibliography entries weren't part of the original draft.
+  </p>
+</main>
+</body>
+</html>
