@@ -81,6 +81,118 @@ gitignored) or any other page.
    style to match — otherwise the page can look however it wants.
 7. Run the self-check below before you say you're finished.
 
+## Math pages (LaTeX / MathJax)
+
+If the draft is LaTeX, or HTML with embedded LaTeX math, it renders via
+MathJax loaded from a CDN — same pattern as any other library, but a few
+things are specific to math and easy to get subtly wrong:
+
+- **CDN and component**: use jsDelivr (the CDN MathJax's own docs
+  recommend) with the `tex-mml-chtml` component —
+  `https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js`, loaded with
+  `defer`. The `@4` (major-version-only) tag keeps serving the latest 4.x
+  release automatically — don't pin an exact patch version unless the
+  page needs to render identically forever.
+- **Enable dollar-sign delimiters explicitly.** MathJax only recognizes
+  `\(...\)` and `\[...\]` by default, not `$...$` — bare dollar signs show
+  up too often in ordinary prose to be a safe default. If the draft uses
+  single- or double-dollar math (most LaTeX does), add an inline config
+  script *before* the MathJax script tag:
+  ```html
+  <script>
+    window.MathJax = { tex: { inlineMath: { '[+]': [['$', '$']] } } };
+  </script>
+  ```
+  Skipping this doesn't error — the math just sits there as unrendered
+  plain text, easy to miss on a quick look.
+- **If the draft has an existing MathJax config — often MathJax v2's
+  `MathJax.Hub.Config({...})` — translate it feature-by-feature into the
+  v4 config object. Don't reuse it verbatim.** The v2 API doesn't exist in
+  v3/v4; a leftover `Hub.Config` block loaded alongside a v4 script is
+  silently ignored, not an error. Common translations:
+  - `tex2jax: { inlineMath: [...] }` → `tex: { inlineMath: {...} }` (see
+    above)
+  - `TeX: { equationNumbers: { autoNumber: "AMS" } }` → `tex: { tags:
+    'ams' }` — but this only numbers equations inside `equation`/`align`
+    environments, not bare `\[ \]` displaymath. If the draft only uses
+    `\[ \]` (common in older personal notes), this setting won't visibly
+    do anything either before or after conversion — that's expected, not
+    a bug worth chasing.
+  - A `src="file://..."` or other local/absolute path to an old MathJax
+    install is dead on arrival — always replace with the CDN link above.
+- **LaTeX commands used outside math delimiters are not processed by
+  MathJax at all** — they're just literal text sitting in the HTML.
+  `\cite{...}`, `\label{...}`, `\ref{...}`, `\section{...}`, `\emph{...}`,
+  etc., in plain prose (not inside `$...$` or `\[...\]`) render as inert
+  backslash-and-braces text — not an error, not a citation, just visible
+  leftover syntax. Convert these by hand:
+  - `\cite[p. N]{key}` → a plain parenthetical like `(Author, Year, p.
+    N)`, inferring author/year from the citation key if it follows the
+    common `lastnameYY` convention (e.g. `hill96` → Hill, 1996). Don't
+    invent a full bibliography entry (title, publisher) that isn't in the
+    draft — note missing full citations the same way you'd note missing
+    media, at the end of your response.
+  - `\emph{...}` / `\textbf{...}` in prose → `<em>` / `<strong>`.
+- **Escape a bare `<` inside math text** if it's immediately followed by a
+  letter — the browser's HTML parser can misread it as the start of a
+  tag. `<` followed by whitespace or a digit (`x < 1`) is safe as-is. `>`
+  and `&` are lower-risk, but escape them too (`&gt;`, `&amp;`) if unsure.
+- **Custom macros don't carry over automatically.** If the draft's LaTeX
+  preamble defines shorthand commands, redeclare them in the MathJax
+  config (`tex: { macros: {...} }`) or every use renders as a visible
+  error token — not ideal, but at least easy to spot and fix, unlike the
+  silent failures above.
+
+## Links to pages that haven't been migrated yet
+
+Drafts pulled from an existing personal wiki or note collection often
+link to sibling pages (other `.php`/`.html` files, or wiki-style
+cross-references) that haven't been converted into this project yet.
+Don't drop these links, and don't leave the original file extension or
+absolute path — guess the future slug using this project's own slug rule
+(strip the extension, convert CamelCase or spaces to kebab-case) and link
+to it as a relative sibling path, preserving any anchor fragment:
+
+`MathLinearAlgebraMatrixTypes.php#diagonalizable` →
+`../math-linear-algebra-matrix-types/#diagonalizable`
+
+List every such link in your output alongside "needs media," so the
+person has a running list of which pages to migrate next before those
+links resolve to something real.
+
+## Persisting state in the browser (localStorage)
+
+Only reach for `localStorage` when a page has state genuinely worth
+remembering between visits — a checklist, a tracker, a saved setting. A
+calculator or a map that starts fresh each time has nothing worth
+persisting; don't add storage just because it's available. This is a
+judgment call per page, not a default.
+
+When it does apply:
+
+- **Namespace every key with the page's own slug** (`waypoints:<slug>`,
+  or `waypoints:<slug>:<thing>` for more than one). `localStorage` is
+  shared per-*origin*, not per-page — an unprefixed key like `"items"`
+  can silently collide with the same key on a different page on this
+  same site.
+- **Store one JSON blob per page**, not several scattered top-level keys
+  — simpler to reset, simpler to reason about.
+- **Wrap every read and write in try/catch and degrade quietly.**
+  `localStorage` can throw (private browsing, quota, storage disabled).
+  Fall back to an empty/default state rather than letting the page
+  error — persistence is a nice-to-have, not something the page should
+  depend on to function.
+- **Always ship a visible reset/clear action.** State that's invisible
+  and un-resettable is a trap — a checklist that silently remembers old
+  checks with no way to start over is worse than one with no memory at
+  all.
+- **Claude.ai's own artifact preview sandbox blocks `localStorage`.** If
+  this page is previewed directly in a chat before being pushed
+  anywhere, persistence may look broken there even though it works once
+  the file is actually part of the deployed site. Don't "fix" this by
+  removing storage — say to test after deploying (or via a local
+  server), not from an in-chat preview.
+
 ## Self-check (all must be true)
 
 - [ ] File is at `pages/<slug>/index.html`, slug is lowercase-hyphenated
@@ -92,6 +204,17 @@ gitignored) or any other page.
 - [ ] `<meta name="viewport" ...>` is present
 - [ ] Every media reference points at `media/<filename>` relative to this
       page's own folder
+- [ ] If this page renders math: dollar-sign delimiters are configured
+      (unless the draft only used `\(` `\)` / `\[ \]`), and any old v2-style
+      MathJax config has been translated, not copy-pasted
+- [ ] No LaTeX commands (`\cite`, `\label`, `\ref`, etc.) survive outside
+      math delimiters as literal backslash text
+- [ ] Any link to another page in this project — existing or not yet
+      migrated — uses the slug convention, and not-yet-migrated targets
+      are listed in your output
+- [ ] If this page uses `localStorage`: the key is namespaced with the
+      page's slug, reads/writes are wrapped in try/catch, and there's a
+      visible reset/clear action
 - [ ] You have NOT modified `manifest.json`, `index.html` at the repo
       root, or any file under another page's folder
 
@@ -101,6 +224,8 @@ When done, give back:
 1. The full contents of `pages/<slug>/index.html`.
 2. A "needs media" list of any files the page expects but you weren't
    given the bytes for (empty if none).
+3. A "pending pages" list of any links to sibling pages that don't exist
+   in this project yet (empty if none).
 
 Nothing else needs to change — the home page picks the new page up
 automatically on the next push.
