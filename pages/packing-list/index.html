@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Packing List — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<style>
+  body { font-family: "IBM Plex Sans", -apple-system, sans-serif; margin: 0; background: #f6f1e4; color: #1f2b24; }
+  main { max-width: 480px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+  h1 { font-family: "Source Serif 4", Georgia, serif; font-size: 1.8rem; margin-bottom: 0.15rem; }
+  p.lede { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: #6b6252; margin-top: 0; }
+  .progress { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: #6b6252; margin: 1.25rem 0 0.5rem; }
+  ul.checklist { list-style: none; padding: 0; margin: 0; border-top: 1px dashed #c9c2a9; }
+  ul.checklist li { border-bottom: 1px dashed #c9c2a9; }
+  ul.checklist label { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.15rem; cursor: pointer; font-size: 1rem; }
+  ul.checklist input[type="checkbox"] { width: 1.15rem; height: 1.15rem; accent-color: #b33a3a; flex-shrink: 0; }
+  ul.checklist li.checked label { color: #948d78; text-decoration: line-through; }
+  button#reset {
+    margin-top: 1.5rem; font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.05em; background: transparent; border: 1px solid #b33a3a; color: #b33a3a;
+    padding: 0.55rem 1rem; border-radius: 4px; cursor: pointer;
+  }
+  button#reset:hover { background: rgba(179, 58, 58, 0.08); }
+</style>
+<script type="application/json" id="page-meta">
+{
+  "title": "Packing List",
+  "description": "A travel packing checklist — check items off as you pack, saved in your browser so it remembers between visits.",
+  "tags": ["travel", "packing", "checklist"],
+  "date": "2026-08-22"
+}
+</script>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<main>
+  <h1>Packing List</h1>
+  <p class="lede">Tap an item as you pack it — saved in this browser, so it's still checked next time you open this page.</p>
+  <p class="progress" id="progress"></p>
+  <ul class="checklist" id="checklist"></ul>
+  <button id="reset" type="button">Reset all</button>
+</main>
+
+<script>
+  // Namespaced so it can't collide with localStorage keys used by any other
+  // page on this same site (localStorage is shared per-origin, not per-page).
+  const STORAGE_KEY = 'waypoints:packing-list';
+
+  const items = [
+    "Phone Charger", "Swim Trunks", "Towel", "Running Clothes", "Coffee", "Coffee Mug",
+    "Sandals", "Hat", "Nice clothes", "Toiletries", "Trash Bag", "CamelBak", "Flashlight",
+    "Wipes", "Cooler", "Ziplock bags", "Suntan lotion", "Bug spray", "Drone", "Snacks",
+    "Books", "Shades", "Download movies", "Download books", "3DS", "Jackbox laptop",
+    "Headphones", "Jacket", "Water Shoes", "Sleep shades", "Passport", "Wallet & Keys",
+    "Neck Pillow"
+  ];
+
+  const listEl = document.getElementById('checklist');
+  const progressEl = document.getElementById('progress');
+
+  function loadChecked() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveChecked(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {
+      // localStorage unavailable (private browsing, storage full, etc.) —
+      // checkboxes still work for this session, they just won't persist.
+    }
+  }
+
+  let checked = loadChecked();
+
+  function updateProgress() {
+    const done = items.filter((item) => checked[item]).length;
+    progressEl.textContent = `${done} / ${items.length} packed`;
+  }
+
+  function render() {
+    listEl.innerHTML = '';
+    items.forEach((item) => {
+      const isChecked = !!checked[item];
+
+      const li = document.createElement('li');
+      li.className = isChecked ? 'checked' : '';
+
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.checked = isChecked;
+      input.addEventListener('change', () => {
+        checked[item] = input.checked;
+        saveChecked(checked);
+        li.className = input.checked ? 'checked' : '';
+        updateProgress();
+      });
+
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(item));
+      li.appendChild(label);
+      listEl.appendChild(li);
+    });
+    updateProgress();
+  }
+
+  document.getElementById('reset').addEventListener('click', () => {
+    checked = {};
+    saveChecked(checked);
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>
