@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LLA and ECEF Coordinates &mdash; Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<script type="application/json" id="page-meta">
+{
+  "title": "LLA and ECEF Coordinates",
+  "description": "How latitude, longitude and altitude (LLA) relate to Earth-centred Cartesian coordinates (ECEF) on WGS84: definitions, GPS conventions, worked conversions in both directions, and a full breakdown of the different kinds of altitude (HAE, geoid, mean sea level, AGL, barometric).",
+  "tags": ["math", "geodesy", "gps", "reference"],
+  "date": "2026-10-12"
+}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css" />
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #fbfbfd; --lla-card: #ffffff; --lla-ink: #1b1d24; --muted: #5b6070; --line: #d7d9e2;
+  --accent: #2f4bb8; --accent-soft: #eef1fc; --accent-line: #b9c3ee;
+  --warn-bg: #fff6dd; --warn-line: #e6c869; --warn-ink: #5e4300;
+  --ok-bg: #eaf6ee; --ok-line: #9dd1ac; --ok-ink: #17492a;
+  --code-bg: #f3f4f8; --red: #c0392b;
+  --geoid: #1f6fd1; --ellipsoid: #2b2f3a; --terrain: #7a5c2e; --terrain-fill: #eadfc6; --sea-fill: #d4e6fb;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161c; --lla-card: #1c1f27; --lla-ink: #e8eaf0; --muted: #a2a8b8; --line: #343846;
+    --accent: #8fa4ff; --accent-soft: #232842; --accent-line: #3c4678;
+    --warn-bg: #3a3118; --warn-line: #7a6624; --warn-ink: #f1dca0;
+    --ok-bg: #17301f; --ok-line: #2f6b44; --ok-ink: #bfe6cb;
+    --code-bg: #23262f; --red: #ff7b6b;
+    --geoid: #6aa8ff; --ellipsoid: #d6d9e3; --terrain: #c9a766; --terrain-fill: #3a3326; --sea-fill: #1d3350;
+  }
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--lla-ink); margin: 0; }
+.lla {
+  max-width: 900px; margin: 0 auto; padding: 2rem 16px 5rem;
+  font: 16px/1.62 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.lla h1 { font-size: 2.1rem; line-height: 1.2; margin: 0.2rem 0 0.4rem; }
+.lla h2 { font-size: 1.5rem; line-height: 1.25; margin: 3.2rem 0 0.8rem; padding-bottom: 0.45rem; border-bottom: 2px solid var(--line); scroll-margin-top: 1rem; }
+.lla h3 { font-size: 1.1rem; margin: 1.8rem 0 0.5rem; scroll-margin-top: 1rem; }
+.lla p { margin: 0.7rem 0; }
+.lla a { color: var(--accent); }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; color: var(--muted); margin: 0; }
+.lede { font-size: 1.12rem; color: var(--lla-ink); }
+.meta { color: var(--muted); font-size: 0.9rem; }
+code, kbd, samp { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
+:not(pre) > code { background: var(--code-bg); padding: 0.08em 0.35em; border-radius: 4px; overflow-wrap: anywhere; }
+pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; overflow-x: auto; line-height: 1.45; font-size: 0.86rem; }
+pre code { font-size: inherit; background: none; padding: 0; }
+.num { font-variant-numeric: tabular-nums; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.93em; white-space: nowrap; }
+
+nav.toc { background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: 10px; padding: 0.9rem 1.2rem 1rem; margin: 1.4rem 0 1rem; }
+nav.toc h2 { font-size: 1rem; border: none; margin: 0 0 0.3rem; padding: 0; }
+nav.toc ol { margin: 0.2rem 0; padding-left: 1.3rem; }
+nav.toc li { margin: 0.12rem 0; }
+nav.toc a { text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+
+.callout { border: 1px solid var(--accent-line); background: var(--accent-soft); border-radius: 8px; padding: 0.7rem 1rem; margin: 1.2rem 0; }
+.callout > :first-child { margin-top: 0; } .callout > :last-child { margin-bottom: 0; }
+.callout.warn { background: var(--warn-bg); border-color: var(--warn-line); color: var(--warn-ink); }
+.callout.ok { background: var(--ok-bg); border-color: var(--ok-line); color: var(--ok-ink); }
+.callout .label { font-weight: 700; }
+
+.eq { border-left: 4px solid var(--accent); background: var(--lla-card); border-radius: 0 8px 8px 0; padding: 0.35rem 1rem; margin: 1rem 0; overflow-x: auto; border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.eq .eq-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0.3rem 0 0; }
+.katex { position: relative; }
+.table-wrap, .eq, details { position: relative; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.2rem 0; margin: 0.6em 0; }
+
+.table-wrap { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.94rem; }
+th, td { border: 1px solid var(--line); padding: 0.4rem 0.65rem; text-align: left; vertical-align: top; }
+th { background: var(--accent-soft); }
+td.r, th.r { text-align: right; }
+table.compact td, table.compact th { padding: 0.28rem 0.55rem; }
+caption { text-align: left; color: var(--muted); font-size: 0.88rem; padding-bottom: 0.35rem; caption-side: top; }
+
+details { border: 1px solid var(--line); border-radius: 8px; background: var(--lla-card); margin: 1rem 0; }
+details > summary { cursor: pointer; padding: 0.6rem 0.9rem 0.6rem 2rem; font-weight: 600; position: relative; list-style: none; color: var(--accent); }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: ""; position: absolute; left: 0.85rem; top: 1.02rem; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; transition: transform 0.15s; }
+details[open] > summary::before { transform: rotate(90deg); }
+details[open] > summary { border-bottom: 1px solid var(--line); }
+details > summary:hover { background: var(--accent-soft); border-radius: 8px; }
+details > .more { padding: 0.2rem 1rem 0.9rem; }
+details > .more > :first-child { margin-top: 0.7rem; }
+details details { background: var(--bg); }
+details.example, details.examples { border-color: var(--accent-line); }
+details.example > summary, details.examples > summary { font-size: 1.04rem; color: var(--lla-ink); }
+details.example > summary::before, details.examples > summary::before { color: var(--accent); }
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1rem; margin: 1rem 0; }
+.card-grid > *, .two > *, .figs > .fig-box { min-width: 0; }
+.card { border: 1px solid var(--line); background: var(--lla-card); border-radius: 10px; padding: 0.2rem 1rem 0.9rem; }
+.card h3 { margin-top: 0.8rem; font-size: 1.05rem; }
+.card h3 .tag { font-size: 0.7rem; font-weight: 600; background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-line); border-radius: 999px; padding: 0.05rem 0.5rem; margin-left: 0.4rem; vertical-align: middle; }
+.card.wide { grid-column: 1 / -1; }
+
+.figs { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin: 1.2rem 0 0.4rem; }
+.figs > .fig-box { flex: 1 1 360px; max-width: 460px; }
+figure { margin: 1.2rem 0; }
+figure.wide { margin: 1.4rem 0; }
+figcaption { font-size: 0.88rem; color: var(--muted); margin-top: 0.4rem; }
+svg.fig { width: 100%; height: auto; display: block; background: var(--lla-card); border: 1px solid var(--line); border-radius: 10px; }
+.fig-t, .fig-sym, .fig-lbl { paint-order: stroke; stroke: var(--lla-card); stroke-width: 3.5px; stroke-linejoin: round; }
+.fig-legend { fill: var(--lla-card); stroke: var(--line); stroke-width: 1; opacity: 0.94; }
+.fig-t { fill: var(--lla-ink); font: 13px system-ui, -apple-system, "Segoe UI", sans-serif; }
+.fig-sym { fill: var(--lla-ink); font: italic 17px "Times New Roman", Georgia, serif; }
+.fig-sub { font-size: 12px; font-style: normal; }
+.fig-lbl { font: 600 13px system-ui, sans-serif; }
+.fig-lbl-ell { fill: var(--ellipsoid); } .fig-lbl-geoid { fill: var(--geoid); } .fig-lbl-terr { fill: var(--terrain); }
+.fig-note { fill: var(--muted); font: 11.5px system-ui, sans-serif; }
+.fig-muted { fill: var(--muted); } .fig-strong { font-weight: 700; } .fig-acc { fill: var(--accent); } .fig-red { fill: var(--red); }
+.fig-axis { stroke: var(--lla-ink); stroke-width: 1.6; fill: none; }
+.fig-ellipse { fill: var(--accent-soft); stroke: var(--ellipsoid); stroke-width: 2; }
+.fig-dash { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 5 4; fill: none; }
+.fig-normal { stroke: var(--accent); stroke-width: 1.8; fill: none; }
+.fig-h { stroke: var(--accent); stroke-width: 5; stroke-linecap: round; }
+.fig-arc { stroke: var(--lla-ink); stroke-width: 1.5; fill: none; } .fig-arc-muted { stroke: var(--muted); }
+.fig-ring { stroke: var(--lla-ink); stroke-width: 1.5; fill: none; }
+.fig-fill-ink { fill: var(--lla-ink); } .fig-fill-acc { fill: var(--accent); } .fig-fill-red { fill: var(--red); }
+.fig-sea { fill: var(--sea-fill); } .fig-land { fill: var(--terrain-fill); }
+.fig-terrain { stroke: var(--terrain); stroke-width: 2.4; fill: none; stroke-linejoin: round; }
+.fig-geoid { stroke: var(--geoid); stroke-width: 2.6; fill: none; }
+.fig-ell { stroke: var(--ellipsoid); stroke-width: 2.4; fill: none; stroke-dasharray: 9 5; }
+.fig-ext { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 4; }
+.fig-dim { stroke: var(--lla-ink); stroke-width: 1.6; } .fig-dim-red { stroke: var(--red); stroke-width: 2.2; }
+.fig-ship { fill: var(--lla-ink); }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1rem; }
+ul.tight, ol.tight { margin: 0.4rem 0; padding-left: 1.3rem; } ul.tight li, ol.tight li { margin: 0.25rem 0; }
+.pill { display: inline-block; font-size: 0.78rem; border: 1px solid var(--line); border-radius: 999px; padding: 0 0.5rem; color: var(--muted); }
+.sources li { margin: 0.35rem 0; }
+@media (max-width: 520px) { .lla h1 { font-size: 1.7rem; } .lla h2 { font-size: 1.3rem; } .card-grid, .two { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+<main class="lla">
+
+<header>
+<p class="eyebrow">Math · Geodesy · GPS</p>
+<h1>LLA and ECEF Coordinates</h1>
+<p class="lede">A GPS receiver works in Earth-centred Cartesian coordinates (<strong>ECEF</strong>), but people read <strong>latitude, longitude and altitude</strong> (<strong>LLA</strong>). This page defines both, shows the math for converting each way with worked examples, explains the vocabulary (ellipsoid, WGS84, geoid), lists the GPS conventions that cause bugs, and untangles the several different things called &ldquo;altitude&rdquo;.</p>
+<p class="meta">Reference datum: WGS84 &middot; Page date: 2026-10-12 &middot; Every number in the worked examples was computed by a script, not by hand.</p>
+</header>
+
+<noscript><div class="callout warn"><p>The equations on this page are typeset with KaTeX, which needs JavaScript and an internet connection. Without them you will see the raw TeX source instead.</p></div></noscript>
+
+<nav class="toc" aria-label="Contents">
+<h2>Contents</h2>
+<ol>
+  <li><a href="#overview">Overview: two ways to name a point</a></li>
+  <li><a href="#definitions">Definitions</a></li>
+  <li><a href="#conventions">GPS conventions in brief</a></li>
+  <li><a href="#lla-to-ecef">LLA &rarr; ECEF</a></li>
+  <li><a href="#ecef-to-lla">ECEF &rarr; LLA</a></li>
+  <li><a href="#altitude">Altitude: HAE, geoid, mean sea level and friends</a></li>
+  <li><a href="#cheatsheet">Cheat sheet</a></li>
+  <li><a href="#sources">Sources and how the numbers were made</a></li>
+</ol>
+</nav>
+
+<div class="callout">
+<p><span class="label">How to read this page.</span> Core ideas, equations and worked examples are always visible. Anything behind a <strong>▸ click-to-expand</strong> box (derivations, edge cases, extra background) is optional.</p>
+</div>
+
+<!-- =============================== 1. OVERVIEW =============================== -->
+<section id="overview">
+<h2>1. Overview: two ways to name a point</h2>
+
+<p><strong>LLA</strong> locates a point relative to a smooth reference surface (an <em>ellipsoid</em>): geodetic latitude \(\varphi\), longitude \(\lambda\), and a height \(h\) above that surface. <strong>ECEF</strong> (Earth-Centred, Earth-Fixed) locates the same point with three Cartesian numbers \((X, Y, Z)\) in metres, measured from the Earth&rsquo;s centre of mass along axes that rotate with the planet.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>LLA (geodetic)</th><th>ECEF (geocentric Cartesian)</th></tr></thead>
+<tbody>
+<tr><th scope="row">Numbers</th><td>\(\varphi\) latitude (°), \(\lambda\) longitude (°), \(h\) height (m)</td><td>\(X, Y, Z\) (m)</td></tr>
+<tr><th scope="row">Measured from</th><td>The WGS84 ellipsoid surface</td><td>The Earth&rsquo;s centre of mass; axes fixed to the rotating Earth</td></tr>
+<tr><th scope="row">Good for</th><td>People, maps, labels, databases of places</td><td>Distances, vectors, rotations, satellite math; no special cases at the poles or the &plusmn;180° line</td></tr>
+<tr><th scope="row">Easy to get wrong</th><td>Degrees vs radians, lat/lon order, which &ldquo;height&rdquo;, wrap-around</td><td>Large values (~6.4&times;10<sup>6</sup> m) need double precision; both ends must use the same datum</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The straight-line (chord) distance between two ECEF points is simply \(\sqrt{\Delta X^2+\Delta Y^2+\Delta Z^2}\), which is why navigation software does its real work in ECEF and only converts to LLA for display.</p>
+
+<div class="figs">
+<div class="fig-box"><svg class="fig" viewBox="0 0 460 410" role="img" aria-labelledby="fig1a-t fig1a-d" xmlns="http://www.w3.org/2000/svg">
+<title id="fig1a-t">Meridian-plane cross-section showing latitude, height and the prime vertical radius</title>
+<desc id="fig1a-d">An ellipse representing the Earth cut through a meridian. A point P sits above the surface point S. The surface normal through S crosses the Z axis below the equator at point Q. The angle between that normal and the equatorial plane is the geodetic latitude phi. The distance from Q to S is N of phi. The distance from S to P is the ellipsoidal height h. The angle at the centre to S is the smaller geocentric latitude psi.</desc>
+<defs>
+<marker id="m-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-ink"/></marker>
+<marker id="m-ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-red"/></marker>
+<marker id="m-ah-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-acc"/></marker>
+</defs>
+<ellipse cx="175.0" cy="215.0" rx="135.0" ry="115.0" class="fig-ellipse"/>
+<line x1="10.0" y1="215.0" x2="425.0" y2="215.0" class="fig-axis" marker-end="url(#m-ah)"/>
+<line x1="175.0" y1="365.0" x2="175.0" y2="30.0" class="fig-axis" marker-end="url(#m-ah)"/>
+<text x="421.0" y="234.0" class="fig-t" text-anchor="end">p = √(X²+Y²)</text>
+<text x="421.0" y="206.0" class="fig-t fig-muted" text-anchor="end">equatorial plane</text>
+<text x="184.0" y="39.0" class="fig-t">Z (north)</text>
+<line x1="175.0" y1="215.0" x2="284.8" y2="148.1" class="fig-dash"/>
+<line x1="175.0" y1="240.3" x2="345.0" y2="240.3" class="fig-dash"/>
+<line x1="175.0" y1="240.3" x2="361.4" y2="83.8" class="fig-normal"/>
+<line x1="284.8" y1="148.1" x2="332.3" y2="108.3" class="fig-h"/>
+<path d="M237.0,240.3 A62,62 0 0 0 222.5,200.4" class="fig-arc"/>
+<path d="M253.0,215.0 A78,78 0 0 0 241.6,174.4" class="fig-arc fig-arc-muted"/>
+<circle cx="175.0" cy="215.0" r="3.5" class="fig-fill-ink"/>
+<circle cx="175.0" cy="240.3" r="3.5" class="fig-fill-ink"/>
+<circle cx="284.8" cy="148.1" r="3.5" class="fig-fill-ink"/>
+<circle cx="332.3" cy="108.3" r="5.5" class="fig-fill-acc"/>
+<text x="166.0" y="207.0" class="fig-t" text-anchor="end">O</text>
+<text x="166.0" y="256.3" class="fig-t" text-anchor="end">Q</text>
+<text x="296.8" y="164.1" class="fig-t">S (on the ellipsoid)</text>
+<text x="342.3" y="102.3" class="fig-t fig-strong">P (the point)</text>
+<text x="241.3" y="223.1" class="fig-sym">φ</text>
+<text x="258.1" y="195.9" class="fig-sym fig-muted">ψ</text>
+<text x="215.9" y="182.2" class="fig-sym fig-acc" text-anchor="end">N(φ)</text>
+<text x="318.6" y="144.2" class="fig-sym fig-strong">h</text>
+<text x="183.0" y="274.3" class="fig-t fig-muted">normal meets Z axis at Q, below O</text>
+<text x="452" y="402" class="fig-note" text-anchor="end">Flattening exaggerated about 44×</text>
+</svg></div>
+<div class="fig-box"><svg class="fig" viewBox="0 0 380 410" role="img" aria-labelledby="fig1b-t fig1b-d" xmlns="http://www.w3.org/2000/svg">
+<title id="fig1b-t">View from above the north pole showing longitude and the X and Y axes</title>
+<desc id="fig1b-d">A circle for the equator seen from above the north pole. The X axis points to the right through the prime meridian and the Y axis points up through 90 degrees east. A point P projects to a distance p from the centre. Longitude lambda is the angle measured counter-clockwise from the X axis to the line from the centre to the projection of P.</desc>
+<defs>
+<marker id="t-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-ink"/></marker>
+<marker id="t-ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-red"/></marker>
+<marker id="t-ah-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-acc"/></marker>
+</defs>
+<circle cx="190.0" cy="205.0" r="140.0" class="fig-ellipse"/>
+<line x1="32.0" y1="205.0" x2="360.0" y2="205.0" class="fig-axis" marker-end="url(#t-ah)"/>
+<line x1="190.0" y1="363.0" x2="190.0" y2="35.0" class="fig-axis" marker-end="url(#t-ah)"/>
+<text x="356.0" y="196.0" class="fig-t fig-strong" text-anchor="middle">X</text>
+<text x="200.0" y="43.0" class="fig-t fig-strong">Y</text>
+<line x1="260.2" y1="121.3" x2="260.2" y2="205.0" class="fig-dash"/>
+<line x1="260.2" y1="121.3" x2="190.0" y2="121.3" class="fig-dash"/>
+<line x1="190.0" y1="205.0" x2="260.2" y2="121.3" class="fig-normal"/>
+<path d="M236.0,205.0 A46,46 0 0 0 219.6,169.8" class="fig-arc"/>
+<text x="240.7" y="189.6" class="fig-sym">λ</text>
+<circle cx="260.2" cy="121.3" r="5.5" class="fig-fill-acc"/>
+<text x="270.2" y="115.3" class="fig-t fig-strong">P′</text>
+<text x="213.1" y="157.2" class="fig-sym fig-acc" text-anchor="end">p</text>
+<text x="260.2" y="223.0" class="fig-t fig-muted" text-anchor="middle">X = p cos λ</text>
+<text x="182.0" y="125.3" class="fig-t fig-muted" text-anchor="end">Y = p sin λ</text>
+<circle cx="190.0" cy="205.0" r="7" class="fig-ring"/><circle cx="190.0" cy="205.0" r="2.2" class="fig-fill-ink"/>
+<text x="178.0" y="227.0" class="fig-t" text-anchor="end">O, Z toward you</text>
+<text x="14" y="370" class="fig-note">X points to the 0° meridian, Y to 90° E.</text>
+<text x="14" y="386" class="fig-note">P′ is P seen from above the north pole.</text>
+<text x="14" y="402" class="fig-note">East is counter-clockwise from this view.</text>
+</svg></div>
+</div>
+<p style="text-align:center"><em>Figure 1.</em> <span class="meta">Left: a cut through the meridian plane containing point P. The surface normal through S crosses the Z axis at Q, <em>not</em> at the centre O. Right: the same point seen from above the north pole.</span></p>
+
+<div class="callout">
+<p><span class="label">The key idea.</span> The Earth is flattened, not a sphere. Its equatorial radius is 6,378,137 m but its polar radius is 6,356,752.314 m, so the poles sit 21,384.686 m (about 21&nbsp;km) closer to the centre. Latitude on a map is the angle of the local <em>vertical</em> (the surface normal) above the equatorial plane, not the angle seen from the centre. That is why the formulas below contain \(e^2\) and the radius \(N(\varphi)\) instead of plain trigonometry.</p>
+</div>
+
+<details>
+<summary>Why not just treat the Earth as a sphere?</summary>
+<div class="more">
+<p>You can, if 20&nbsp;km errors are acceptable. Using a sphere means treating geodetic latitude \(\varphi\) as if it were the angle \(\psi\) seen from the centre. Over the whole globe the two differ by up to <span class="num">0.1924°</span> (at about 45.1° latitude), which is roughly 21&nbsp;km of north&ndash;south position error. Section 4 shows the spherical special case ( \(e = 0\) ) and Section 2 tabulates \(\varphi\) against \(\psi\).</p>
+</div>
+</details>
+</section>
+
+<!-- =============================== 2. DEFINITIONS =============================== -->
+<section id="definitions">
+<h2>2. Definitions</h2>
+<p>These terms recur everywhere in GPS and mapping documentation. The &ldquo;geoid&rdquo; cards are the foundation for the altitude section later.</p>
+
+<div class="card-grid">
+
+<article class="card" id="def-ellipsoid">
+<h3>Reference ellipsoid</h3>
+<p>A smooth, mathematically defined surface made by spinning an ellipse about its short axis (an <em>oblate spheroid</em>). It is a geometric model of the Earth&rsquo;s overall shape, fixed by two numbers: the semi-major (equatorial) axis \(a\) and the flattening \(f\), where \(f = (a-b)/a\) and \(b\) is the semi-minor (polar) axis.</p>
+</article>
+
+<article class="card" id="def-datum">
+<h3>Datum</h3>
+<p>An ellipsoid <em>plus</em> a precise statement of where it sits and how it is oriented relative to the real Earth. Latitude and longitude are meaningless without one: the same numbers in two different datums can point to places tens of metres apart (between the old NAD27 and NAD83 datums, about 10 to 100&nbsp;m across the contiguous United States). A datum is what turns a surface into a coordinate system.</p>
+</article>
+
+<article class="card wide" id="def-wgs84">
+<h3>WGS84 <span class="tag">the GPS datum</span></h3>
+<p>The World Geodetic System 1984, maintained by the US National Geospatial-Intelligence Agency, is the datum GPS broadcasts and the one you should assume for any bare &ldquo;lat/lon&rdquo; from a phone or receiver. Two constants <em>define</em> its ellipsoid; everything else is derived.</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Quantity</th><th>Symbol</th><th class="r">Value</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Semi-major axis</td><td>\(a\)</td><td class="r num">6,378,137.0 m</td><td>defined (exact)</td></tr>
+<tr><td>Inverse flattening</td><td>\(1/f\)</td><td class="r num">298.257223563</td><td>defined (exact)</td></tr>
+<tr><td>Flattening</td><td>\(f\)</td><td class="r num">0.0033528106647</td><td>derived</td></tr>
+<tr><td>Semi-minor axis</td><td>\(b = a(1-f)\)</td><td class="r num">6,356,752.3142 m</td><td>derived</td></tr>
+<tr><td>First eccentricity squared</td><td>\(e^2 = f(2-f)\)</td><td class="r num">0.0066943799901</td><td>derived</td></tr>
+<tr><td>Second eccentricity squared</td><td>\(e'^2 = e^2/(1-e^2)\)</td><td class="r num">0.0067394967423</td><td>derived</td></tr>
+<tr><td>First eccentricity</td><td>\(e\)</td><td class="r num">0.081819190843</td><td>derived</td></tr>
+</tbody>
+</table>
+</div>
+<p>In the EPSG registry (the standard catalogue of coordinate systems) WGS84 appears as three related systems: <code>EPSG:4326</code> (latitude, longitude), <code>EPSG:4979</code> (latitude, longitude, ellipsoidal height) and <code>EPSG:4978</code> (ECEF X, Y, Z). Those last two are exactly the LLA and ECEF forms this page converts between.</p>
+</article>
+
+<article class="card wide" id="def-realizations">
+<h3>Realizations: WGS84 vs ITRF</h3>
+<p>A datum is an idea; a <em>realization</em> is the actual set of station coordinates that makes it usable. WGS84 has been re-realized several times, each named for the GPS week of the adjustment (G730, G873, G1150, G1674, G1762, G2139, G2296). They are tied to the International Terrestrial Reference Frame (ITRF), the scientific standard. For example, WGS84 (G1674) was aligned to ITRF2008 at epoch 2005.0 with the transformation set to zero.</p>
+<p>The EPSG registry therefore treats plain &ldquo;WGS 84&rdquo; as a <em>datum ensemble</em> with a stated accuracy of 2&nbsp;m: if you only say &ldquo;WGS84&rdquo; you cannot promise agreement better than that between realizations. For navigation and mapping at metre level this is irrelevant. For centimetre-level work, tectonic plates drift by centimetres per year, so you must name the realization and the epoch (or use ITRF directly).</p>
+</article>
+
+<article class="card" id="def-geoid">
+<h3>Geoid</h3>
+<p>The surface of constant gravitational potential that best matches global mean sea level, extended in imagination under the continents. Gravity is perpendicular to it everywhere, which is what a plumb line or a levelled instrument measures. It is <em>physical</em> (set by mass distribution), so it is lumpy: relative to the WGS84 ellipsoid it ranges from about −107.0 m to +85.4 m in the EGM96 model. An ellipsoid is geometry; the geoid is physics.</p>
+</article>
+
+<article class="card" id="def-undulation">
+<h3>Geoid undulation <span class="tag">\(N_g\)</span></h3>
+<p>The height of the geoid above the ellipsoid at a given latitude and longitude, also called geoid height or geoid separation. It is positive where the geoid lies <em>above</em> the ellipsoid and negative where it lies below. It is not looked up by formula: it comes from a gravity model such as <strong>EGM96</strong> or <strong>EGM2008</strong>, distributed as a grid of values.</p>
+<p class="meta">Notation warning: many texts write <em>N</em> for both this and the prime-vertical radius \(N(\varphi)\). Here the radius is \(N(\varphi)\) and the undulation is always \(N_g\).</p>
+</article>
+
+<article class="card" id="def-msl">
+<h3>Mean sea level (MSL)</h3>
+<p>The average height of the sea surface over a long period (tides, waves and weather averaged out), measured by tide gauges. &ldquo;Height above MSL&rdquo; on land really means height above a <em>vertical datum</em> that is realized by levelling from tide gauges and is close to the geoid. Section 6 untangles the differences.</p>
+</article>
+
+<article class="card wide" id="def-latitudes">
+<h3>Geodetic vs geocentric latitude</h3>
+<p><strong>Geodetic latitude</strong> \(\varphi\) is the angle between the equatorial plane and the ellipsoid <em>normal</em>. It is the latitude on maps and in GPS. <strong>Geocentric latitude</strong> \(\psi\) is the angle between the equatorial plane and the line from the Earth&rsquo;s centre. They agree at the equator and the poles and differ in between:</p>
+<div class="eq">
+\[ \tan\psi = (1-e^{2})\tan\varphi \]
+</div>
+<div class="table-wrap"><table class="compact"><caption>Geodetic latitude φ against geocentric latitude ψ on the WGS84 ellipsoid</caption><thead><tr><th class="r">Geodetic φ</th><th class="r">Geocentric ψ</th><th class="r">φ − ψ</th></tr></thead><tbody><tr><td class="r num">0°</td><td class="r num">0.0000°</td><td class="r num">0.0000°</td></tr><tr><td class="r num">15°</td><td class="r num">14.9041°</td><td class="r num">0.0959°</td></tr><tr><td class="r num">30°</td><td class="r num">29.8336°</td><td class="r num">0.1664°</td></tr><tr><td class="r num">45°</td><td class="r num">44.8076°</td><td class="r num">0.1924°</td></tr><tr><td class="r num">60°</td><td class="r num">59.8331°</td><td class="r num">0.1669°</td></tr><tr><td class="r num">75°</td><td class="r num">74.9035°</td><td class="r num">0.0965°</td></tr><tr><td class="r num">90°</td><td class="r num">90.0000°</td><td class="r num">0.0000°</td></tr></tbody></table></div>
+<p>The maximum difference is 0.1924° near 45.1° latitude. Both angles are drawn in Figure 1 (\(\varphi\) at Q, \(\psi\) at O) with the flattening exaggerated roughly 44 times so the gap is visible.</p>
+</article>
+
+<article class="card wide" id="def-ecef">
+<h3>ECEF axes</h3>
+<p>Origin: the Earth&rsquo;s centre of mass. <strong>Z</strong>: along the IERS Reference Pole, effectively the direction of the north pole. <strong>X</strong>: from the centre through the point where the IERS Reference Meridian (essentially the Greenwich meridian, 0° longitude) crosses the equator. <strong>Y</strong>: completes a right-handed system, so it points to 90° east on the equator. The frame is bolted to the Earth, so a point fixed to the ground has constant ECEF coordinates (apart from slow tectonic drift).</p>
+</article>
+
+</div>
+
+<details>
+<summary>Symbols used on this page</summary>
+<div class="more">
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Symbol</th><th>Meaning</th><th>Unit</th></tr></thead>
+<tbody>
+<tr><td>\(\varphi\)</td><td>geodetic latitude (north positive)</td><td>° or rad</td></tr>
+<tr><td>\(\lambda\)</td><td>longitude (east positive)</td><td>° or rad</td></tr>
+<tr><td>\(h\)</td><td>ellipsoidal height, a.k.a. height above ellipsoid (HAE)</td><td>m</td></tr>
+<tr><td>\(H\)</td><td>orthometric (&ldquo;mean sea level&rdquo;) height</td><td>m</td></tr>
+<tr><td>\(N_g\)</td><td>geoid undulation: geoid height above the ellipsoid</td><td>m</td></tr>
+<tr><td>\(N(\varphi)\)</td><td>prime-vertical radius of curvature</td><td>m</td></tr>
+<tr><td>\(X, Y, Z\)</td><td>ECEF coordinates</td><td>m</td></tr>
+<tr><td>\(p\)</td><td>distance from the Z axis, \(\sqrt{X^2+Y^2}\)</td><td>m</td></tr>
+<tr><td>\(a, b, f\)</td><td>semi-major axis, semi-minor axis, flattening</td><td>m, m, &ndash;</td></tr>
+<tr><td>\(e^2, e'^2\)</td><td>first and second eccentricity squared</td><td>&ndash;</td></tr>
+<tr><td>\(\psi\)</td><td>geocentric latitude</td><td>° or rad</td></tr>
+<tr><td>\(\beta\)</td><td>reduced (parametric) latitude, used in Bowring&rsquo;s method</td><td>rad</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</details>
+</section>
+
+<!-- =============================== 3. CONVENTIONS =============================== -->
+<section id="conventions">
+<h2>3. GPS conventions in brief</h2>
+
+<ul class="tight">
+<li><strong>Signs.</strong> Latitude is positive north, negative south, range \([-90^\circ , +90^\circ ]\). Longitude is positive east, negative west, usually \([-180^\circ , +180^\circ ]\) (some systems use \([0^\circ , 360^\circ )\)). The meridians +180° and &minus;180° are the same line.</li>
+<li><strong>Datum.</strong> GPS positions are WGS84. A coordinate pair without a datum label is assumed to be WGS84, and for phone and receiver data that is almost always right.</li>
+<li><strong>Units.</strong> Degrees for display and storage, metres for heights and ECEF, but trig functions in nearly every language want <em>radians</em>. Convert once, at the boundary.</li>
+<li><strong>Order.</strong> People say &ldquo;lat, lon&rdquo;. The EPSG definition of <code>EPSG:4326</code> is also latitude first, then longitude. But GeoJSON and KML store <strong>longitude first</strong>, and many libraries treat a point as <code>(x, y) = (lon, lat)</code>. Mixing these up puts a point in the wrong place, often in the wrong hemisphere, with no error message.</li>
+<li><strong>Axes.</strong> ECEF follows the definition in Section 2: Z north, X through 0°&thinsp;N&thinsp;0°&thinsp;E, Y through 0°&thinsp;N&thinsp;90°&thinsp;E.</li>
+<li><strong>Heights.</strong> A receiver solves for position in ECEF, so its native height is the <em>ellipsoidal</em> height \(h\). Many outputs (NMEA, many apps) then report an <em>MSL</em> altitude instead. Always check which one you have. Section 6 is entirely about this.</li>
+</ul>
+
+<h3>The same place in five formats</h3>
+<p>Denver, Colorado, to four decimal places:</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Format</th><th>Latitude</th><th>Longitude</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Decimal degrees (DD)</td><td class="num">39.7392</td><td class="num">−104.9903</td><td>Signed; what software usually stores</td></tr>
+<tr><td>DD with hemisphere</td><td class="num">39.7392° N</td><td class="num">104.9903° W</td><td>Sign moves into the letter</td></tr>
+<tr><td>Degrees, minutes, seconds</td><td class="num">39° 44′ 21.12″ N</td><td class="num">104° 59′ 25.08″ W</td><td>60 minutes per degree, 60 seconds per minute</td></tr>
+<tr><td>Degrees, decimal minutes</td><td class="num">39° 44.3520′ N</td><td class="num">104° 59.4180′ W</td><td>Common on handheld GPS units</td></tr>
+<tr><td>NMEA 0183 sentence field</td><td class="num">3944.3520,N</td><td class="num">10459.4180,W</td><td><code>ddmm.mmmm</code> / <code>dddmm.mmmm</code>, hemisphere in the next field</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+<p><span class="label">NMEA trap.</span> <code>3944.3520</code> is not 3944.352 degrees. It is <code>39</code> degrees and <code>44.3520</code> minutes. Split off the last two digits before the decimal point and everything to their right as minutes: \(\text{DD} = \lfloor v/100 \rfloor + (v - 100\lfloor v/100\rfloor)/60 = 39 + 44.3520/60 = 39.7392\). Then apply the sign from the N/S or E/W field.</p>
+</div>
+
+<h3>What receivers and files actually report</h3>
+<p>The NMEA 0183 <code>GGA</code> sentence is the most common fix message. Receiver documentation (for example NovAtel&rsquo;s) defines its <em>altitude</em> field as the antenna altitude above or below mean sea level, and gives a separate <em>undulation</em> field described as the relationship between the geoid and the WGS84 ellipsoid. Both are in metres. A made-up but self-consistent sentence for the Denver point, with the checksum computed by XOR:</p>
+<pre><code>$GPGGA,123519,3944.3520,N,10459.4180,W,1,08,0.9,1609.3,M,-17.0,M,,*40</code></pre>
+<p>The altitude field is <code>1609.3</code> (above MSL) and the separation field is <code>−17.0</code> (geoid is 17.0&nbsp;m <em>below</em> the ellipsoid). Section 6 uses exactly these two numbers.</p>
+
+<div class="callout warn">
+<p><span class="label">Heads-up for GPX files.</span> The GPX 1.0 manual defines <code>&lt;ele&gt;</code> only as &ldquo;Elevation in meters of the point&rdquo; and does not say whether that is relative to mean sea level or the ellipsoid. It does define a separate <code>&lt;geoidheight&gt;</code> as the height of the geoid (mean sea level) above the WGS-84 ellipsoid. Because the vertical reference of <code>&lt;ele&gt;</code> is not stated, treat it as ambiguous unless whatever produced the file documents it.</p>
+</div>
+</section>
+
+<!-- =============================== 4. LLA -> ECEF =============================== -->
+<section id="lla-to-ecef">
+<h2>4. LLA &rarr; ECEF</h2>
+<p>This direction is a closed-form calculation: plug in and evaluate. First compute \(N(\varphi)\), the distance along the surface normal from the ellipsoid to the Z axis (the segment Q&ndash;S in Figure 1):</p>
+
+<div class="eq">
+<p class="eq-title">Step 1: prime-vertical radius of curvature</p>
+\[ N(\varphi) = \frac{a}{\sqrt{1 - e^{2}\sin^{2}\varphi}} \]
+<p class="eq-title">Step 2: ECEF coordinates (\(h\) is height above the ellipsoid)</p>
+\[
+\begin{aligned}
+X &= \bigl(N(\varphi) + h\bigr)\cos\varphi\,\cos\lambda \\
+Y &= \bigl(N(\varphi) + h\bigr)\cos\varphi\,\sin\lambda \\
+Z &= \bigl(N(\varphi)\,(1 - e^{2}) + h\bigr)\sin\varphi
+\end{aligned}
+\]
+</div>
+
+<p>Read it as: \((N+h)\cos\varphi\) is the distance \(p\) from the Z axis, which \(\lambda\) then splits into \(X\) and \(Y\). The \(Z\) equation has \((1-e^2)\) because the normal crosses the Z axis not at the centre but at \(-e^{2}N\sin\varphi\) below it (point Q in Figure 1). On a sphere \(e = 0\), the factor vanishes and you recover ordinary spherical coordinates.</p>
+
+<div class="callout ok">
+<p><span class="label">Use ellipsoidal height.</span> The \(h\) in these equations must be height above the <em>ellipsoid</em> (HAE). Putting a mean-sea-level altitude here shifts the point along the vertical by the geoid undulation, tens of metres in many places. See Section 6.</p>
+</div>
+
+<details class="examples">
+<summary>Worked examples (3): equator, North Pole, New York City</summary>
+<div class="more">
+
+<p><strong>Example A: the equator at the prime meridian, \(h = 0\).</strong> With \(\varphi = 0\), \(\sin\varphi = 0\) so \(N = a\). Then \(X = a\cdot 1\cdot 1\), \(Y = a\cdot 1\cdot 0\), \(Z = 0\):</p>
+<div class="eq">
+\[ (X, Y, Z) = (\,6{,}378{,}137.000,\ 0.000,\ 0.000\,)\ \text{m} \]
+</div>
+
+<p><strong>Example B: the North Pole, \(h = 0\).</strong> Here \(\sin\varphi = 1\) and \(\cos\varphi = 0\), so \(N = a/\sqrt{1-e^2} = 6{,}399{,}593.6258\) m, which is <em>larger</em> than \(a\). The \(X\) and \(Y\) terms vanish and \(Z = N(1-e^2) = a\sqrt{1-e^2} = b\):</p>
+<div class="eq">
+\[ (X, Y, Z) = (\,0,\ 0,\ 6{,}356{,}752.3142\,)\ \text{m}, \qquad \text{longitude is irrelevant at the pole} \]
+</div>
+<p class="meta">In floating point, \(\cos 90^\circ \) is about 6&times;10<sup>&minus;17</sup>, not zero, so a program prints \(X \approx\) 3.9&times;10<sup>−10</sup> m instead of exactly 0. That is rounding noise, not an error.</p>
+
+<p><strong>Example C: New York City, 40.7128° N, 74.0060° W, \(h = 10\) m (ellipsoidal).</strong> Work through it step by step:</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Step</th><th>Expression</th><th class="r">Value</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>\(\varphi\) and \(\lambda\) in radians</td><td class="r num">0.7105724077 and −1.2916483662</td></tr>
+<tr><td>2</td><td>\(\sin\varphi,\ \cos\varphi\)</td><td class="r num">0.6522677564,&ensp;0.7579886371</td></tr>
+<tr><td>3</td><td>\(\sin\lambda,\ \cos\lambda\)</td><td class="r num">−0.9612905553,&ensp;0.2755366912</td></tr>
+<tr><td>4</td><td>\(\sqrt{1 - e^{2}\sin^{2}\varphi}\)</td><td class="r num">0.9985749118</td></tr>
+<tr><td>5</td><td>\(N = a / (\text{step 4})\)</td><td class="r num">6,387,239.3796 m</td></tr>
+<tr><td>6</td><td>\(N + h\)</td><td class="r num">6,387,249.3796 m</td></tr>
+<tr><td>7</td><td>\(N(1-e^2) + h\)</td><td class="r num">6,344,490.7721 m</td></tr>
+<tr><td>8</td><td>\(X = (N+h)\cos\varphi\cos\lambda\)</td><td class="r num">1,334,000.5447 m</td></tr>
+<tr><td>9</td><td>\(Y = (N+h)\cos\varphi\sin\lambda\)</td><td class="r num">−4,654,052.1292 m</td></tr>
+<tr><td>10</td><td>\(Z = (N(1-e^2)+h)\sin\varphi\)</td><td class="r num">4,138,306.7614 m</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Sanity check.</strong> The distance from the centre is \(\sqrt{X^2+Y^2+Z^2} = 6{,}369{,}092.677\) m. That must lie between the polar radius 6,356,752 m and the equatorial radius 6,378,137 m, plus the height; it does (12,340 m above the polar value). A quick range check like this catches most sign and unit mistakes.</p>
+</div>
+</details>
+
+<details>
+<summary>Derivation: where \(N(\varphi)\) and the \(Z\) equation come from</summary>
+<div class="more">
+<p>Work in the meridian plane (Figure 1, left), using \(x\) for the distance from the Z axis and \(z\) for height above the equatorial plane. The ellipsoid cross-section is</p>
+\[ \frac{x^{2}}{a^{2}} + \frac{z^{2}}{b^{2}} = 1, \qquad b^{2} = a^{2}(1-e^{2}). \]
+<p>The slope of the tangent is \(dz/dx = -\dfrac{b^2}{a^2}\dfrac{x}{z}\), so the <em>normal</em> has slope \(\dfrac{a^2}{b^2}\dfrac{z}{x}\). The geodetic latitude \(\varphi\) is the angle of the normal above the horizontal, hence</p>
+\[ \tan\varphi = \frac{a^{2}}{b^{2}}\frac{z}{x} \quad\Longrightarrow\quad z = (1-e^{2})\,x\tan\varphi. \]
+<p>Substitute into the ellipse equation and use \(b^2 = a^2(1-e^2)\):</p>
+\[ \frac{x^{2}}{a^{2}}\Bigl[1 + (1-e^{2})\tan^{2}\varphi\Bigr] = 1
+\ \Longrightarrow\
+x = \frac{a\cos\varphi}{\sqrt{1 - e^{2}\sin^{2}\varphi}} = N\cos\varphi,
+\qquad
+z = N(1-e^{2})\sin\varphi. \]
+<p>The normal makes angle \(\varphi\) with the horizontal, so the length of the normal from S to the Z axis is \(x/\cos\varphi = N\). That is the definition of \(N(\varphi)\) as the distance S&ndash;Q. Going a height \(h\) <em>along the normal</em> adds \(h\cos\varphi\) to \(x\) and \(h\sin\varphi\) to \(z\):</p>
+\[ x_P = (N+h)\cos\varphi,\qquad z_P = \bigl(N(1-e^{2})+h\bigr)\sin\varphi. \]
+<p>Finally, rotate about the Z axis by longitude \(\lambda\): \(X = x_P\cos\lambda\), \(Y = x_P\sin\lambda\), \(Z = z_P\). Where the normal meets the Z axis (point Q) is at \(z = z_S - N\sin\varphi = -e^{2}N\sin\varphi\), which explains the statement under the equations.</p>
+</div>
+</details>
+
+<details>
+<summary>Why \(Z\) uses \(N(1-e^2)\) and not \(N\)</summary>
+<div class="more">
+<p>\(X\) and \(Y\) both come from the horizontal distance \(p = (N+h)\cos\varphi\), which is a clean multiple of \(N\). For \(Z\), the ellipse is squashed vertically by the factor \(b/a = \sqrt{1-e^2}\), and the normal-based radius \(N\) is longer than the geocentric radius. Working it through (see the derivation above) the surface point has \(z = N(1-e^2)\sin\varphi\), while the extra height \(h\) is added unscaled along the normal, giving \(N(1-e^2)+h\). A useful check: at the pole \(N(1-e^2)\) equals \(b\) exactly, because \(a\sqrt{1-e^2} = b\).</p>
+</div>
+</details>
+
+<details>
+<summary>Special case: a spherical Earth</summary>
+<div class="more">
+<p>Set \(e = 0\). Then \(N = R\) for every latitude and the equations collapse to the textbook spherical-to-Cartesian form with radius \(r = R + h\):</p>
+\[ X = r\cos\varphi\cos\lambda,\qquad Y = r\cos\varphi\sin\lambda,\qquad Z = r\sin\varphi. \]
+<p>The inverse is \(r = \sqrt{X^2+Y^2+Z^2}\), \(\varphi = \arcsin(Z/r)\), \(\lambda = \operatorname{atan2}(Y,X)\), with no iteration. The price is accuracy: feeding geodetic latitudes into a sphere moves points by up to about 21&nbsp;km, because the sphere&rsquo;s latitude is really \(\psi\) (Section 2). Spheres are fine for rough distances, never for GPS.</p>
+</div>
+</details>
+</section>
+
+<!-- =============================== 5. ECEF -> LLA =============================== -->
+<section id="ecef-to-lla">
+<h2>5. ECEF &rarr; LLA</h2>
+
+<p>Longitude is easy, and the distance from the Z axis is easy:</p>
+<div class="eq">
+\[ \lambda = \operatorname{atan2}(Y, X), \qquad p = \sqrt{X^{2}+Y^{2}} \]
+</div>
+<p>Use <code>atan2</code>, never <code>atan(Y/X)</code>, so every quadrant comes out right and \(X = 0\) does not divide by zero. The result is in \((-180^\circ , +180^\circ ]\).</p>
+
+<p>Latitude and height are the hard part, because they are <strong>coupled</strong>. Rearranging the forward equations,</p>
+<div class="eq">
+\[ p = (N + h)\cos\varphi, \qquad Z = \bigl(N(1-e^2) + h\bigr)\sin\varphi, \qquad N = N(\varphi). \]
+</div>
+<p>To find \(h\) you need \(N\), which needs \(\varphi\); to find \(\varphi\) you need \(h\). The classic fix is to guess, then refine until the answer stops changing. It converges very quickly because \(e^2\) is tiny.</p>
+
+<div class="eq">
+<p class="eq-title">Fixed-point iteration</p>
+\[ \varphi_{0} = \operatorname{atan2}\!\bigl(Z,\ p\,(1-e^{2})\bigr) \quad\text{(the answer if } h = 0\text{)} \]
+\[
+N_k = N(\varphi_k),\qquad
+h_k = \frac{p}{\cos\varphi_k} - N_k,\qquad
+\varphi_{k+1} = \operatorname{atan2}\!\Bigl(Z,\ p\Bigl(1 - \frac{e^{2}N_k}{N_k + h_k}\Bigr)\Bigr)
+\]
+<p class="eq-title">Repeat until \(|\varphi_{k+1}-\varphi_k|\,(N_k+h_k)\) is below your tolerance in metres.</p>
+</div>
+
+<details class="examples">
+<summary>Worked example and round-trip check: inverting the New York point</summary>
+<div class="more">
+<p><strong>Worked example: invert Example C.</strong> Starting from the ECEF position computed in Example C of Section 4 (open &ldquo;Worked examples&rdquo; there) (full-precision values; \(X = 1{,}334{,}000.5447\), \(Y = -4{,}654{,}052.1292\), \(Z = 4{,}138{,}306.7614\) m):</p>
+<ul class="tight">
+<li>\(p = 4{,}841{,}462.4520\) m</li>
+<li>\(\lambda = \operatorname{atan2}(Y, X) = -74.006000^\circ \), recovering the original longitude</li>
+<li>\(\varphi_0 = 40.712800298899^\circ \) (the &ldquo;surface&rdquo; guess; already within 3&times;10<sup>&minus;7</sup> degrees)</li>
+</ul>
+<div class="table-wrap"><table class="compact"><caption>Fixed-point iteration for the New York point. Each pass uses the latitude from the previous pass.</caption><thead><tr><th>Pass k</th><th class="r">φ<sub>k−1</sub> used (°)</th><th class="r">h from that φ (m)</th><th class="r">φ<sub>k</sub> (°)</th><th class="r">error of h (m)</th></tr></thead><tbody><tr><td>1</td><td class="r num">40.712800298899</td><td class="r num">10.028562807</td><td class="r num">40.712799999146</td><td class="r num">+2.9&times;10<sup>−2</sup></td></tr><tr><td>2</td><td class="r num">40.712799999146</td><td class="r num">9.999918417</td><td class="r num">40.712800000002</td><td class="r num">−8.2&times;10<sup>−5</sup></td></tr><tr><td>3</td><td class="r num">40.712800000002</td><td class="r num">10.000000234</td><td class="r num">40.712800000000</td><td class="r num">+2.3&times;10<sup>−7</sup></td></tr><tr><td>4</td><td class="r num">40.712800000000</td><td class="r num">9.999999999</td><td class="r num">40.712800000000</td><td class="r num">−9.3&times;10<sup>−10</sup></td></tr></tbody></table></div>
+<p>After one pass the height is already within 3&nbsp;cm; after four, the error is below a nanometre (floating-point noise). Each pass gains roughly two to three decimal digits. A fifth pass changes nothing at this precision. <strong>Result:</strong> \(\varphi = 40.712800^\circ \), \(\lambda = -74.006000^\circ \), \(h = 10.0000\) m, matching the input.</p>
+
+<p><strong>Round-trip check.</strong></p>
+<p>The best test of a pair of conversion functions is to go LLA &rarr; ECEF &rarr; LLA &rarr; ECEF and measure how far the final position is from the first, in metres. Results for the iteration above and for Bowring&rsquo;s method (expandable below):</p>
+<div class="table-wrap"><table class="compact"><caption>Round-trip position error in metres (LLA → ECEF → LLA → ECEF), compared with the original ECEF point</caption><thead><tr><th>Test point</th><th class="r">Iteration (Section 5)</th><th class="r">Bowring, one pass</th></tr></thead><tbody><tr><td>New York City, h = 10 m</td><td class="r num">9.6&times;10<sup>−10</sup></td><td class="r num">1.3&times;10<sup>−9</sup></td></tr><tr><td>Sydney, h = 58 m</td><td class="r num">0</td><td class="r num">1.1&times;10<sup>−9</sup></td></tr><tr><td>Everest coordinates, h = 8,848 m</td><td class="r num">4.7&times;10<sup>−10</sup></td><td class="r num">4.0&times;10<sup>−7</sup></td></tr><tr><td>Equator and prime meridian, h = 0</td><td class="r num">0</td><td class="r num">0</td></tr><tr><td>89.999° N, h = 100 m (almost at the pole)</td><td class="r num">0</td><td class="r num">0</td></tr><tr><td>45° N, 45° E, h = 20,200 km (GPS orbit)</td><td class="r num">0</td><td class="r num">2.1&times;10<sup>−1</sup></td></tr><tr><td>45° S, 120° E, h = −400 m (deep mine)</td><td class="r num">0</td><td class="r num">2.1&times;10<sup>−9</sup></td></tr></tbody></table></div>
+<p>Entries below about 10<sup>&minus;8</sup> m are double-precision rounding noise on numbers of size 10<sup>7</sup>. The one visible difference is the last-but-one row: at GPS-orbit altitude Bowring&rsquo;s single pass is off by 0.21 m, while the iteration stays exact.</p>
+</div>
+</details>
+
+<details>
+<summary>Bowring&rsquo;s method (one pass, no loop)</summary>
+<div class="more">
+<p>Bowring (1976) replaces the loop with a clever first estimate through the <em>reduced latitude</em> \(\beta\) (the latitude on the circle that circumscribes the meridian ellipse):</p>
+\[ \beta = \operatorname{atan2}(Z\,a,\ p\,b),\qquad
+\varphi = \operatorname{atan2}\!\bigl(Z + e'^{2}\,b\,\sin^{3}\beta,\ \ p - e^{2}\,a\,\cos^{3}\beta\bigr) \]
+\[ h = p\cos\varphi + Z\sin\varphi - a\sqrt{1 - e^{2}\sin^{2}\varphi} \]
+<p>For New York it returns 40.7128000000°, −74.006000°, 10.000000 m directly. Its accuracy depends on altitude. The worst round-trip position error found over a grid of latitudes (every 5° from pole to pole, three longitudes) was:</p>
+<div class="table-wrap"><table class="compact"><caption>Bowring single-pass method: worst-case position error by altitude</caption><thead><tr><th>Altitude above the ellipsoid</th><th class="r">Worst round-trip error</th></tr></thead><tbody><tr><td>0 (on the ellipsoid)</td><td class="r num">below 1 micrometre</td></tr><tr><td>10 km (airliner)</td><td class="r num">below 1 micrometre</td></tr><tr><td>100 km</td><td class="r num">86 micrometres</td></tr><tr><td>400 km (low Earth orbit)</td><td class="r num">1.3 mm</td></tr><tr><td>1,000 km</td><td class="r num">6.7 mm</td></tr><tr><td>20,200 km (GPS orbit)</td><td class="r num">21 cm</td></tr><tr><td>36,000 km (geostationary)</td><td class="r num">26 cm</td></tr></tbody></table></div>
+<p>So it is accurate to a few millimetres or better through low-Earth-orbit altitudes, which covers everything from deep mines to aircraft and most satellites. At GPS orbit height it is off by 0.21 m, so use the loop there, or run one more correction pass. In my own check, PROJ 9.8.1 (via pyproj 3.8.0) showed the same roughly 0.2&nbsp;m deviation from the iterative answer at that altitude, so a library&rsquo;s inverse may share this property.</p>
+<p>The height formula above is a rearrangement worth knowing: since \(p\cos\varphi + Z\sin\varphi = N(1-e^2\sin^2\varphi) + h\) and \(N(1-e^2\sin^2\varphi) = a\sqrt{1-e^2\sin^2\varphi}\), it gives \(h\) without dividing by \(\cos\varphi\), which is why it survives at the poles.</p>
+</div>
+</details>
+
+<details>
+<summary>Closed-form and other published solutions</summary>
+<div class="more">
+<p>Because the coupling reduces to a quartic equation in the latitude, exact non-iterative solutions exist. Vermeille (2002) solved the quartic with Ferrari&rsquo;s method. Heikkinen (1982) gave closed formulas that Zhu (1994), in a comparison of conversion methods, calls the most accurate. On the iterative side, Sudano (1997) and Fukushima (1999) use Newton&ndash;Raphson-style iteration, and Bowring (1976) showed that a single iteration of his formulation is accurate enough near the surface (previous box). For almost every application, the loop above or Bowring&rsquo;s method is easier to write, read and test, and fast enough: a handful of trig calls per point.</p>
+<p class="meta">Attributions and years follow the Wikipedia article &ldquo;Geographic coordinate conversion&rdquo;; read the original papers before relying on details.</p>
+</div>
+</details>
+
+<details>
+<summary>Edge cases: poles, the centre, the date line, negative heights</summary>
+<div class="more">
+<ul class="tight">
+<li><strong>Poles.</strong> When \(p = 0\), longitude is undefined. <code>atan2(0, 0)</code> returns 0 in most languages; that is a convention, not a fact. The formula \(h = p/\cos\varphi - N\) divides by \(\cos 90^\circ  = 0\) there and loses precision as \(\varphi \to 90^\circ \). Use the pole-safe form \(h = p\cos\varphi + Z\sin\varphi - a\sqrt{1-e^2\sin^2\varphi}\); the reference code in the cheat sheet does, and returns \(\varphi = 90^\circ \), \(h = Z - b\) for \((0, 0, Z)\).</li>
+<li><strong>Near the Earth&rsquo;s centre.</strong> Inside a region of a few tens of kilometres around the centre, a point has more than one &ldquo;closest&rdquo; surface point and latitude is not unique. No GPS user is there; do not spend time handling it.</li>
+<li><strong>The date line.</strong> <code>atan2</code> returns values in \((-180^\circ ,180^\circ ]\). A point at exactly 180° may come back as +180° or &minus;180°; both mean the same meridian. Normalize explicitly if you compare longitudes or build bounding boxes.</li>
+<li><strong>Negative heights.</strong> Perfectly valid. Mines, the Dead Sea shore and large parts of the ocean have negative <em>orthometric</em> height, and in many places even sea level has a negative <em>ellipsoidal</em> height (Section 6).</li>
+<li><strong>Precision.</strong> One degree of latitude is about 111&nbsp;km, so seven decimal places of a degree (10<sup>&minus;7</sup>°) is about 1&nbsp;cm. Store coordinates as 64-bit floats; 32-bit floats resolve only about half a metre in ECEF at Earth radius.</li>
+</ul>
+</div>
+</details>
+</section>
+
+<!-- =============================== 6. ALTITUDE =============================== -->
+<section id="altitude">
+<h2>6. Altitude: HAE, geoid, mean sea level and friends</h2>
+
+<p>&ldquo;How high is it?&rdquo; has at least five different correct answers, depending on what you measure <em>from</em>. A GPS receiver natively knows only one of them. Using the wrong one is among the most common bugs in mapping, aviation and drone software, and the errors are not small: from a few metres to over a hundred.</p>
+
+<h3>The heights, side by side</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Name</th><th>Symbol</th><th>Measured from</th><th>Direction</th><th>Typically used for</th></tr></thead>
+<tbody>
+<tr><td><strong>Ellipsoidal height</strong> (HAE, &ldquo;GPS height&rdquo;)</td><td>\(h\)</td><td>WGS84 ellipsoid</td><td>Along the ellipsoid normal</td><td>GNSS output, ECEF&harr;LLA conversion, 3D geometry</td></tr>
+<tr><td><strong>Geoid undulation</strong></td><td>\(N_g\)</td><td>(an offset between two surfaces, not a height of a point)</td><td>Ellipsoid &rarr; geoid</td><td>Converting between \(h\) and \(H\)</td></tr>
+<tr><td><strong>Orthometric height</strong> (&ldquo;MSL height&rdquo;, &ldquo;elevation&rdquo;)</td><td>\(H\)</td><td>Geoid (approximating mean sea level)</td><td>Along the plumb line</td><td>Maps, spot heights, DEMs, benchmarks, &ldquo;how tall is the mountain&rdquo;</td></tr>
+<tr><td><strong>Height above ground</strong> (AGL)</td><td>&ndash;</td><td>The terrain directly below</td><td>Vertical</td><td>Drones, radar altimeters, obstacle clearance</td></tr>
+<tr><td><strong>Barometric / pressure altitude</strong></td><td>\(H_p\)</td><td>The 1013.25&nbsp;hPa pressure surface, via a standard atmosphere</td><td>Pressure-derived</td><td>Aircraft flight levels, phones with barometers</td></tr>
+</tbody>
+</table>
+</div>
+
+<figure class="wide">
+<svg class="fig fig-wide" viewBox="0 0 920 470" role="img" aria-labelledby="fig2-t fig2-d" xmlns="http://www.w3.org/2000/svg">
+<title id="fig2-t">Terrain, geoid and ellipsoid: how ellipsoidal height, geoid undulation, MSL height and height above ground relate</title>
+<desc id="fig2-d">Three surfaces in a schematic vertical cut. A smooth arched line is the WGS84 ellipsoid. A wavy line is the geoid, which approximates mean sea level. On the left the geoid dips below the ellipsoid, so the undulation is negative; a mountain top there has an ellipsoidal height h that is smaller than its height H above the geoid. On the right the geoid rises above the ellipsoid, so a ship floating at sea level has a positive ellipsoidal height equal to the undulation. An aircraft above a hill shows height above ground level.</desc>
+<defs>
+<marker id="s-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-ink"/></marker>
+<marker id="s-ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-red"/></marker>
+<marker id="s-ah-acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fig-fill-acc"/></marker>
+</defs>
+<polygon points="30,290.7 34,290.0 38,289.4 42,288.8 46,288.3 50,287.7 54,287.3 58,286.8 62,286.4 66,286.1 70,285.7 74,285.5 78,285.2 82,285.0 86,284.8 90,284.6 94,284.5 98,284.3 102,284.2 106,284.0 110,283.9 114,283.6 118,283.4 122,283.0 126,282.5 130,281.9 134,281.2 138,280.2 142,279.1 146,277.7 150,276.1 154,274.2 158,272.0 162,269.5 166,266.6 170,263.4 174,259.9 178,256.1 182,251.9 186,247.5 190,242.8 194,237.9 198,232.8 202,227.7 206,222.6 210,217.5 214,212.5 218,207.7 222,203.3 226,199.2 230,195.6 234,192.5 238,189.9 242,188.0 246,186.7 250,186.1 254,186.1 258,186.9 262,188.2 266,190.2 270,192.8 274,195.9 278,199.3 282,203.2 286,207.3 290,211.7 294,216.1 298,220.5 302,224.9 306,229.1 310,233.1 314,236.9 318,240.3 322,243.3 326,245.8 330,248.0 334,249.6 338,250.8 342,251.4 346,251.6 350,251.3 354,250.6 358,249.4 362,248.0 366,246.2 370,244.2 374,242.0 378,239.7 382,237.4 386,235.1 390,233.0 394,231.1 398,229.4 402,227.9 406,226.9 410,226.1 414,225.8 418,225.8 422,226.2 426,227.0 430,228.0 434,229.3 438,230.8 442,232.6 446,234.4 450,236.3 454,238.2 458,240.1 462,242.0 466,243.8 470,245.5 474,247.1 478,248.7 482,250.3 486,251.9 490,253.3 494,254.6 498,255.8 502,256.9 506,258.0 510,259.0 514,259.9 518,260.7 522,261.5 526,262.2 530,262.9 534,263.5 538,264.1 542,264.6 546,265.0 550,265.3 554,265.6 558,265.7 562,265.8 566,265.7 570,265.5 574,265.4 578,265.9 582,266.7 586,267.9 590,269.5 594,271.3 598,273.4 602,275.7 606,278.2 610,280.8 614,283.5 618,286.3 622,289.1 626,291.9 630,294.6 634,297.2 638,299.7 642,302.1 646,304.3 650,306.3 654,308.0 658,309.4 662,310.5 666,311.3 670,311.7 674,311.7 678,311.3 682,310.5 686,309.7 690,308.9 694,308.3 698,307.8 702,307.3 706,307.0 710,306.8 714,306.8 718,306.8 722,307.0 726,307.4 730,307.8 734,308.4 738,309.1 742,309.9 746,310.9 750,312.0 754,313.1 758,314.4 762,315.8 766,317.3 770,318.8 774,320.4 778,322.1 782,323.9 786,325.6 790,327.5 794,329.3 798,331.2 802,333.1 806,335.0 810,336.8 814,338.7 818,340.6 822,342.5 826,344.3 830,346.1 834,347.9 838,349.6 842,351.3 846,353.0 850,354.6 854,356.2 858,357.7 862,359.2 866,360.6 870,362.0 874,363.4 878,364.7 882,366.0 886,367.3 890,368.5 890,440.0 30,440.0" class="fig-land"/>
+<polygon points="570,265.5 574,265.2 578,264.8 582,264.4 586,263.9 590,263.4 594,262.8 598,262.1 602,261.4 606,260.6 610,259.8 614,258.9 618,257.9 622,256.9 626,255.9 630,254.8 634,253.7 638,252.6 642,251.4 646,250.2 650,249.0 654,247.9 658,246.7 662,245.5 666,244.4 670,243.4 674,242.3 678,241.4 682,240.5 686,239.7 690,238.9 694,238.3 698,237.8 702,237.3 706,237.0 710,236.8 714,236.8 718,236.8 722,237.0 726,237.4 730,237.8 734,238.4 738,239.1 742,239.9 746,240.9 750,242.0 754,243.1 758,244.4 762,245.8 766,247.3 770,248.8 774,250.4 778,252.1 782,253.9 786,255.6 790,257.5 794,259.3 798,261.2 802,263.1 806,265.0 810,266.8 814,268.7 818,270.6 822,272.5 826,274.3 830,276.1 834,277.9 838,279.6 842,281.3 846,283.0 850,284.6 854,286.2 858,287.7 862,289.2 866,290.6 870,292.0 874,293.4 878,294.7 882,296.0 886,297.3 890,298.5 890,368.5 886,367.3 882,366.0 878,364.7 874,363.4 870,362.0 866,360.6 862,359.2 858,357.7 854,356.2 850,354.6 846,353.0 842,351.3 838,349.6 834,347.9 830,346.1 826,344.3 822,342.5 818,340.6 814,338.7 810,336.8 806,335.0 802,333.1 798,331.2 794,329.3 790,327.5 786,325.6 782,323.9 778,322.1 774,320.4 770,318.8 766,317.3 762,315.8 758,314.4 754,313.1 750,312.0 746,310.9 742,309.9 738,309.1 734,308.4 730,307.8 726,307.4 722,307.0 718,306.8 714,306.8 710,306.8 706,307.0 702,307.3 698,307.8 694,308.3 690,308.9 686,309.7 682,310.5 678,311.3 674,311.7 670,311.7 666,311.3 662,310.5 658,309.4 654,308.0 650,306.3 646,304.3 642,302.1 638,299.7 634,297.2 630,294.6 626,291.9 622,289.1 618,286.3 614,283.5 610,280.8 606,278.2 602,275.7 598,273.4 594,271.3 590,269.5 586,267.9 582,266.7 578,265.9 574,265.4 570,265.5" class="fig-sea"/>
+<polyline points="30,290.7 34,290.0 38,289.4 42,288.8 46,288.3 50,287.7 54,287.3 58,286.8 62,286.4 66,286.1 70,285.7 74,285.5 78,285.2 82,285.0 86,284.8 90,284.6 94,284.5 98,284.3 102,284.2 106,284.0 110,283.9 114,283.6 118,283.4 122,283.0 126,282.5 130,281.9 134,281.2 138,280.2 142,279.1 146,277.7 150,276.1 154,274.2 158,272.0 162,269.5 166,266.6 170,263.4 174,259.9 178,256.1 182,251.9 186,247.5 190,242.8 194,237.9 198,232.8 202,227.7 206,222.6 210,217.5 214,212.5 218,207.7 222,203.3 226,199.2 230,195.6 234,192.5 238,189.9 242,188.0 246,186.7 250,186.1 254,186.1 258,186.9 262,188.2 266,190.2 270,192.8 274,195.9 278,199.3 282,203.2 286,207.3 290,211.7 294,216.1 298,220.5 302,224.9 306,229.1 310,233.1 314,236.9 318,240.3 322,243.3 326,245.8 330,248.0 334,249.6 338,250.8 342,251.4 346,251.6 350,251.3 354,250.6 358,249.4 362,248.0 366,246.2 370,244.2 374,242.0 378,239.7 382,237.4 386,235.1 390,233.0 394,231.1 398,229.4 402,227.9 406,226.9 410,226.1 414,225.8 418,225.8 422,226.2 426,227.0 430,228.0 434,229.3 438,230.8 442,232.6 446,234.4 450,236.3 454,238.2 458,240.1 462,242.0 466,243.8 470,245.5 474,247.1 478,248.7 482,250.3 486,251.9 490,253.3 494,254.6 498,255.8 502,256.9 506,258.0 510,259.0 514,259.9 518,260.7 522,261.5 526,262.2 530,262.9 534,263.5 538,264.1 542,264.6 546,265.0 550,265.3 554,265.6 558,265.7 562,265.8 566,265.7 570,265.5 574,265.4 578,265.9 582,266.7 586,267.9 590,269.5 594,271.3 598,273.4 602,275.7 606,278.2 610,280.8 614,283.5 618,286.3 622,289.1 626,291.9 630,294.6 634,297.2 638,299.7 642,302.1 646,304.3 650,306.3 654,308.0 658,309.4 662,310.5 666,311.3 670,311.7 674,311.7 678,311.3 682,310.5 686,309.7 690,308.9 694,308.3 698,307.8 702,307.3 706,307.0 710,306.8 714,306.8 718,306.8 722,307.0 726,307.4 730,307.8 734,308.4 738,309.1 742,309.9 746,310.9 750,312.0 754,313.1 758,314.4 762,315.8 766,317.3 770,318.8 774,320.4 778,322.1 782,323.9 786,325.6 790,327.5 794,329.3 798,331.2 802,333.1 806,335.0 810,336.8 814,338.7 818,340.6 822,342.5 826,344.3 830,346.1 834,347.9 838,349.6 842,351.3 846,353.0 850,354.6 854,356.2 858,357.7 862,359.2 866,360.6 870,362.0 874,363.4 878,364.7 882,366.0 886,367.3 890,368.5" class="fig-terrain"/>
+<polyline points="30,299.7 34,299.0 38,298.4 42,297.8 46,297.3 50,296.8 54,296.3 58,295.9 62,295.5 66,295.2 70,294.9 74,294.7 78,294.5 82,294.4 86,294.3 90,294.3 94,294.3 98,294.4 102,294.6 106,294.8 110,295.0 114,295.3 118,295.7 122,296.2 126,296.6 130,297.2 134,297.7 138,298.4 142,299.0 146,299.7 150,300.4 154,301.2 158,302.0 162,302.8 166,303.6 170,304.4 174,305.2 178,306.0 182,306.8 186,307.6 190,308.4 194,309.1 198,309.8 202,310.4 206,311.0 210,311.6 214,312.1 218,312.5 222,312.8 226,313.1 230,313.3 234,313.4 238,313.5 242,313.4 246,313.3 250,313.1 254,312.7 258,312.3 262,311.8 266,311.3 270,310.6 274,309.8 278,309.0 282,308.1 286,307.1 290,306.1 294,305.0 298,303.8 302,302.6 306,301.3 310,300.0 314,298.6 318,297.3 322,295.9 326,294.5 330,293.0 334,291.6 338,290.2 342,288.8 346,287.3 350,286.0 354,284.6 358,283.3 362,281.9 366,280.7 370,279.4 374,278.3 378,277.1 382,276.0 386,275.0 390,274.0 394,273.0 398,272.1 402,271.3 406,270.5 410,269.8 414,269.1 418,268.5 422,267.9 426,267.4 430,266.9 434,266.5 438,266.2 442,265.9 446,265.6 450,265.4 454,265.2 458,265.0 462,264.9 466,264.9 470,264.8 474,264.8 478,264.8 482,264.9 486,264.9 490,265.0 494,265.1 498,265.2 502,265.3 506,265.5 510,265.6 514,265.7 518,265.9 522,266.0 526,266.1 530,266.2 534,266.2 538,266.3 542,266.3 546,266.3 550,266.3 554,266.2 558,266.1 562,265.9 566,265.7 570,265.5 574,265.2 578,264.8 582,264.4 586,263.9 590,263.4 594,262.8 598,262.1 602,261.4 606,260.6 610,259.8 614,258.9 618,257.9 622,256.9 626,255.9 630,254.8 634,253.7 638,252.6 642,251.4 646,250.2 650,249.0 654,247.9 658,246.7 662,245.5 666,244.4 670,243.4 674,242.3 678,241.4 682,240.5 686,239.7 690,238.9 694,238.3 698,237.8 702,237.3 706,237.0 710,236.8 714,236.8 718,236.8 722,237.0 726,237.4 730,237.8 734,238.4 738,239.1 742,239.9 746,240.9 750,242.0 754,243.1 758,244.4 762,245.8 766,247.3 770,248.8 774,250.4 778,252.1 782,253.9 786,255.6 790,257.5 794,259.3 798,261.2 802,263.1 806,265.0 810,266.8 814,268.7 818,270.6 822,272.5 826,274.3 830,276.1 834,277.9 838,279.6 842,281.3 846,283.0 850,284.6 854,286.2 858,287.7 862,289.2 866,290.6 870,292.0 874,293.4 878,294.7 882,296.0 886,297.3 890,298.5" class="fig-geoid"/>
+<polyline points="30,300.0 34,299.4 38,298.7 42,298.1 46,297.5 50,296.9 54,296.3 58,295.7 62,295.1 66,294.5 70,294.0 74,293.4 78,292.8 82,292.3 86,291.7 90,291.2 94,290.6 98,290.1 102,289.6 106,289.0 110,288.5 114,288.0 118,287.5 122,287.0 126,286.5 130,286.0 134,285.5 138,285.1 142,284.6 146,284.1 150,283.7 154,283.2 158,282.8 162,282.3 166,281.9 170,281.5 174,281.0 178,280.6 182,280.2 186,279.8 190,279.4 194,279.0 198,278.6 202,278.2 206,277.9 210,277.5 214,277.1 218,276.8 222,276.4 226,276.1 230,275.7 234,275.4 238,275.1 242,274.7 246,274.4 250,274.1 254,273.8 258,273.5 262,273.2 266,272.9 270,272.6 274,272.4 278,272.1 282,271.8 286,271.6 290,271.3 294,271.1 298,270.8 302,270.6 306,270.4 310,270.1 314,269.9 318,269.7 322,269.5 326,269.3 330,269.1 334,268.9 338,268.7 342,268.6 346,268.4 350,268.2 354,268.1 358,267.9 362,267.8 366,267.6 370,267.5 374,267.4 378,267.2 382,267.1 386,267.0 390,266.9 394,266.8 398,266.7 402,266.6 406,266.5 410,266.5 414,266.4 418,266.3 422,266.3 426,266.2 430,266.2 434,266.1 438,266.1 442,266.1 446,266.0 450,266.0 454,266.0 458,266.0 462,266.0 466,266.0 470,266.0 474,266.0 478,266.1 482,266.1 486,266.1 490,266.2 494,266.2 498,266.3 502,266.3 506,266.4 510,266.5 514,266.5 518,266.6 522,266.7 526,266.8 530,266.9 534,267.0 538,267.1 542,267.2 546,267.4 550,267.5 554,267.6 558,267.8 562,267.9 566,268.1 570,268.2 574,268.4 578,268.6 582,268.7 586,268.9 590,269.1 594,269.3 598,269.5 602,269.7 606,269.9 610,270.1 614,270.4 618,270.6 622,270.8 626,271.1 630,271.3 634,271.6 638,271.8 642,272.1 646,272.4 650,272.6 654,272.9 658,273.2 662,273.5 666,273.8 670,274.1 674,274.4 678,274.7 682,275.1 686,275.4 690,275.7 694,276.1 698,276.4 702,276.8 706,277.1 710,277.5 714,277.9 718,278.2 722,278.6 726,279.0 730,279.4 734,279.8 738,280.2 742,280.6 746,281.0 750,281.5 754,281.9 758,282.3 762,282.8 766,283.2 770,283.7 774,284.1 778,284.6 782,285.1 786,285.5 790,286.0 794,286.5 798,287.0 802,287.5 806,288.0 810,288.5 814,289.0 818,289.6 822,290.1 826,290.6 830,291.2 834,291.7 838,292.3 842,292.8 846,293.4 850,294.0 854,294.5 858,295.1 862,295.7 866,296.3 870,296.9 874,297.5 878,298.1 882,298.7 886,299.4 890,300.0" class="fig-ell"/>
+<line x1="150" y1="186.1" x2="345" y2="186.1" class="fig-ext"/>
+<line x1="150" y1="313.1" x2="345" y2="313.1" class="fig-ext"/>
+<line x1="150" y1="274.1" x2="345" y2="274.1" class="fig-ext"/>
+<circle cx="250" cy="186.1" r="5.5" class="fig-fill-acc"/>
+<text x="250" y="174.1" class="fig-t fig-strong" text-anchor="middle">P (summit)</text>
+<line x1="178" y1="274.1" x2="178" y2="186.1" class="fig-dim" marker-start="url(#s-ah)" marker-end="url(#s-ah)"/>
+<text x="170" y="235.1" class="fig-sym fig-strong" text-anchor="end">h</text>
+<line x1="250" y1="275.1" x2="250" y2="312.1" class="fig-dim fig-dim-red" marker-start="url(#s-ah-red)" marker-end="url(#s-ah-red)"/>
+<text x="260" y="298.6" class="fig-sym fig-red">N<tspan class="fig-sub" dy="4">g</tspan><tspan dy="-4"> &lt; 0</tspan></text>
+<line x1="322" y1="313.1" x2="322" y2="186.1" class="fig-dim" marker-start="url(#s-ah)" marker-end="url(#s-ah)"/>
+<text x="314" y="254.6" class="fig-sym fig-strong" text-anchor="end">H</text>
+<path d="M709,229.6 L761,229.6 L752,241.6 L718,241.6 Z" class="fig-ship"/><rect x="727" y="218.6" width="16" height="11" class="fig-ship"/><rect x="732" y="210.6" width="6" height="8" class="fig-ship"/>
+<line x1="771" y1="238.6" x2="855" y2="238.6" class="fig-ext"/>
+<line x1="771" y1="279.9" x2="855" y2="279.9" class="fig-ext"/>
+<line x1="831" y1="279.9" x2="831" y2="238.6" class="fig-dim fig-dim-red" marker-start="url(#s-ah-red)" marker-end="url(#s-ah-red)"/>
+<text x="839" y="264.2" class="fig-sym fig-red">N<tspan class="fig-sub" dy="4">g</tspan><tspan dy="-4"> &gt; 0</tspan></text>
+<text x="683" y="200.6" class="fig-t fig-strong">ship at sea level </text>
+<text x="683" y="184.6" class="fig-t fig-muted">H = 0, so h = N<tspan class="fig-sub" dy="3">g </tspan></text>
+<path d="M394,144.1 L424,144.1 L430,141.1 L424,138.1 L406,138.1 L398,128.1 L393,128.1 L398,138.1 L394,138.1 Z" class="fig-ship"/><path d="M407,144.1 L413,144.1 L406,155.1 L401,155.1 Z" class="fig-ship"/>
+<line x1="410" y1="157.1" x2="410" y2="225.1" class="fig-dim" marker-start="url(#s-ah)" marker-end="url(#s-ah)"/>
+<text x="418" y="193.1" class="fig-sym fig-strong">AGL</text>
+<rect x="40" y="352" width="370" height="82" rx="8" class="fig-legend"/>
+<line x1="52" y1="372" x2="86" y2="372" class="fig-ell"/><text x="96" y="376" class="fig-lbl fig-lbl-ell">reference ellipsoid (WGS84): h = 0</text>
+<line x1="52" y1="394" x2="86" y2="394" class="fig-geoid"/><text x="96" y="398" class="fig-lbl fig-lbl-geoid">geoid ≈ mean sea level: H = 0</text>
+<line x1="52" y1="416" x2="86" y2="416" class="fig-terrain"/><text x="96" y="420" class="fig-lbl fig-lbl-terr">ground surface (land and sea floor)</text>
+<text x="912" y="462" class="fig-note" text-anchor="end">Schematic, not to scale: undulation and heights are exaggerated differently from reality</text>
+</svg>
+<figcaption><em>Figure 2.</em> The three surfaces. Left: the geoid is <em>below</em> the ellipsoid, so \(N_g &lt; 0\) and the summit&rsquo;s ellipsoidal height \(h\) is smaller than its MSL height \(H\). Right: the geoid is <em>above</em> the ellipsoid, so a ship at sea level has a positive \(h\). Height above ground (AGL) is independent of both. The relationship is \(h = H + N_g\).</figcaption>
+</figure>
+
+<div class="eq">
+<p class="eq-title">The key relationship</p>
+\[ h = H + N_g \qquad\Longleftrightarrow\qquad H = h - N_g \]
+</div>
+<p>Sanity-check the signs with Figure 2: where the geoid is above the ellipsoid (\(N_g > 0\)), a point sitting at sea level (\(H = 0\)) has \(h = N_g > 0\). This is exact for practical purposes. The ellipsoid normal and the true plumb line differ by a few arc-seconds, which changes the result by far less than a millimetre.</p>
+
+<h3>Which height do I need?</h3>
+<ul class="tight">
+<li>Converting to or from ECEF, 3D geometry, satellite math: <strong>\(h\), ellipsoidal height</strong>.</li>
+<li>Telling a person how high a place is, comparing with map elevations or DEMs: <strong>\(H\), orthometric (MSL) height</strong>.</li>
+<li>How far a vehicle is above whatever is beneath it: <strong>AGL</strong>, computed with \(H\) for both vehicle and terrain, or \(h\) for both.</li>
+<li>Separation between aircraft or smooth short-term altitude change: <strong>pressure altitude</strong> (with a shared reference setting).</li>
+</ul>
+
+<h3>Worked examples</h3>
+<p>Five worked examples follow. Each is collapsed; click a title to open it.</p>
+
+<details class="example">
+<summary>Example 1: &ldquo;sea level&rdquo; has a different GPS height everywhere</summary>
+<div class="more">
+<p>If you float on the sea surface, your orthometric height is \(H = 0\) by definition. Your GPS ellipsoidal height is whatever the geoid undulation is at that spot (EGM96 values, computed from the 5&prime; grid):</p>
+<div class="table-wrap"><table class="compact"><caption>What a receiver reports as height while floating exactly at mean sea level (H = 0), using h = H + N<sub>g</sub></caption><thead><tr><th>Where</th><th>Position</th><th class="r">N<sub>g</sub> (m)</th><th class="r">MSL height H (m)</th><th class="r">GPS ellipsoidal h (m)</th></tr></thead><tbody><tr><td>Solomon Sea, east of New Guinea</td><td>7.50° S, 150.50° E</td><td class="r num">+68.2</td><td class="r num">0.0</td><td class="r num">+68.2</td></tr><tr><td>Sydney Harbour area</td><td>33.87° S, 151.21° E</td><td class="r num">+22.5</td><td class="r num">0.0</td><td class="r num">+22.5</td></tr><tr><td>New York Harbor area</td><td>40.71° N, 74.01° W</td><td class="r num">−32.8</td><td class="r num">0.0</td><td class="r num">−32.8</td></tr><tr><td>Indian Ocean low (EGM96 minimum)</td><td>4.58° N, 78.83° E</td><td class="r num">−107.0</td><td class="r num">0.0</td><td class="r num">−107.0</td></tr></tbody></table></div>
+<p>So a ship in the Indian Ocean low reads a GPS height of about <strong>−107 m</strong> while sitting right on the water, and a vessel in the Solomon Sea reads about <strong>+68 m</strong>. The geoid spans roughly −107 m to +85 m about the ellipsoid, a range of about 192 m. That is small beside the ellipsoid&rsquo;s own 21&nbsp;km flattening, which is why an ellipsoid is a good model, but large beside typical GPS precision.</p>
+</div>
+</details>
+
+<details class="example">
+<summary>Example 2: undulation at some familiar places</summary>
+<div class="more">
+<div class="table-wrap"><table class="compact"><caption>EGM96 geoid undulation N<sub>g</sub> (metres) at selected places. Sorted from highest to lowest.</caption><thead><tr><th>Place</th><th>Latitude</th><th>Longitude</th><th class="r">N<sub>g</sub> (m)</th><th>Meaning</th></tr></thead><tbody><tr><td>New Guinea region (EGM96 maximum)</td><td>8.17° S</td><td>147.25° E</td><td class="r num">+85.4</td><td>geoid above ellipsoid</td></tr><tr><td>Solomon Sea, east of New Guinea</td><td>7.50° S</td><td>150.50° E</td><td class="r num">+68.2</td><td>geoid above ellipsoid</td></tr><tr><td>Reykjavik, Iceland</td><td>64.15° N</td><td>21.94° W</td><td class="r num">+66.4</td><td>geoid above ellipsoid</td></tr><tr><td>Sydney, Australia</td><td>33.87° S</td><td>151.21° E</td><td class="r num">+22.5</td><td>geoid above ellipsoid</td></tr><tr><td>Gulf of Guinea (0°, 0°)</td><td>0.00° N</td><td>0.00° E</td><td class="r num">+17.2</td><td>geoid above ellipsoid</td></tr><tr><td>Honolulu, Hawaii</td><td>21.31° N</td><td>157.86° W</td><td class="r num">+15.3</td><td>geoid above ellipsoid</td></tr><tr><td>North Pole</td><td>90.00° N</td><td>0.00° E</td><td class="r num">+13.6</td><td>geoid above ellipsoid</td></tr><tr><td>Denver, Colorado</td><td>39.74° N</td><td>104.99° W</td><td class="r num">−17.0</td><td>geoid below ellipsoid</td></tr><tr><td>Mount Everest (summit coordinates)</td><td>27.99° N</td><td>86.92° E</td><td class="r num">−28.8</td><td>geoid below ellipsoid</td></tr><tr><td>New York City</td><td>40.71° N</td><td>74.01° W</td><td class="r num">−32.8</td><td>geoid below ellipsoid</td></tr><tr><td>Indian Ocean, south-west of Sri Lanka (EGM96 minimum)</td><td>4.58° N</td><td>78.83° E</td><td class="r num">−107.0</td><td>geoid below ellipsoid</td></tr></tbody></table></div>
+</div>
+</details>
+
+<details class="example">
+<summary>Example 3: from a GPS fix to a mountain-style elevation</summary>
+<div class="more">
+<p>Using the Denver fix from Section 3 (<code>$GPGGA,123519,3944.3520,N,10459.4180,W,1,08,0.9,1609.3,M,-17.0,M,,*40</code>). Take a point 5,280&nbsp;ft (1609.344 m) above mean sea level. EGM96 gives \(N_g = -16.990\) m at 39.7392° N, 104.9903° W, so</p>
+<div class="eq">
+\[ h = H + N_g = 1609.344 + (-16.990) = 1592.354\ \text{m} \]
+</div>
+<p>That is what a receiver working natively in WGS84 would solve for. When it prints an NMEA sentence it reports the MSL altitude (1609.3) <em>and</em> the separation (−17.0), so you can recover \(h\): \(h = 1609.3 + (-17.0) = 1592.3\) m. Going the other way, a bare ellipsoidal height needs a geoid lookup first: \(H = h - N_g\).</p>
+<p class="meta">The sentence is illustrative, not recorded from a device. A real receiver uses its own built-in geoid model, which may differ from EGM96 by a fraction of a metre or more.</p>
+</div>
+</details>
+
+<details class="example">
+<summary>Example 4: height above ground, and a classic bug</summary>
+<div class="more">
+<p>A drone hovers 120 m above the ground at the Denver point. The terrain model (a DEM) stores elevations in <em>MSL</em>: the ground is 1609.344 m. The drone&rsquo;s GPS reports <em>ellipsoidal</em> height. The correct bookkeeping:</p>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Quantity</th><th class="r">Value</th></tr></thead>
+<tbody>
+<tr><td>Ground, MSL (from DEM)</td><td class="r num">1,609.344 m</td></tr>
+<tr><td>Drone, MSL = ground + AGL</td><td class="r num">1,729.344 m</td></tr>
+<tr><td>Drone, GPS ellipsoidal height \(h = H + N_g\)</td><td class="r num">1,712.354 m</td></tr>
+<tr><td><strong>Wrong:</strong> GPS height &minus; DEM elevation (mixes HAE and MSL)</td><td class="r num">103.01 m</td></tr>
+<tr><td>Error</td><td class="r num">−16.99 m (equals \(N_g\))</td></tr>
+</tbody>
+</table>
+</div>
+<p>Here the naive subtraction reads <strong>17 m too low</strong>. In Sydney, where \(N_g = +22.5\) m, the same mistake reads <strong>22.5 m too high</strong> (a drone truly 120 m up, over ground at 58 m MSL, would show 142.5 m). The error is exactly the local undulation, and its sign flips with the geoid. That can mean a collision warning that never fires, or a false one.</p>
+</div>
+</details>
+
+<details class="example">
+<summary>Example 5: barometric altitude is something else again</summary>
+<div class="more">
+<p>A barometer measures air pressure, and converts it to height with a fixed model of the atmosphere (the International Standard Atmosphere). With the standard sea-level pressure \(p_0 = 1013.25\) hPa, temperature \(T_0 = 288.15\) K and lapse rate \(L = 0.0065\) K/m, the pressure altitude in the lower atmosphere is</p>
+<div class="eq">
+\[ H_p = \frac{T_0}{L}\left[1 - \left(\frac{p}{p_0}\right)^{0.190263}\right]
+\qquad\bigl(T_0/L = 44{,}330.77\ \text{m}\bigr) \]
+</div>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>Station pressure</th><th class="r">Pressure altitude</th><th>Comment</th></tr></thead>
+<tbody>
+<tr><td class="num">1030 hPa</td><td class="r num">−138.5 m</td><td>A high-pressure day at sea level: an altimeter set to 1013.25 reads below zero (−454 ft)</td></tr>
+<tr><td class="num">1013.25 hPa</td><td class="r num">0.0 m</td><td>Standard sea level, by definition</td></tr>
+<tr><td class="num">1000 hPa</td><td class="r num">+110.9 m</td><td></td></tr>
+<tr><td class="num">850 hPa</td><td class="r num">+1457.3 m</td><td>A familiar weather-map level</td></tr>
+<tr><td class="num">835 hPa</td><td class="r num">+1602.3 m</td><td>About what the standard atmosphere predicts at Denver&rsquo;s elevation; actual pressure there varies with the weather</td></tr>
+</tbody>
+</table>
+</div>
+<p>At the same physical place, pressure altitude changes by tens of metres from day to day as the weather changes, with no movement at all. Aircraft handle this by setting a local reference pressure (&ldquo;QNH&rdquo;) so the altimeter reads elevation above mean sea level near the airfield, and by flying &ldquo;flight levels&rdquo; on the standard setting above a transition altitude so everyone shares one scale. Barometric altitude is useful for <em>change</em> in height over minutes; it is not a geometric height, and it is not \(H\).</p>
+</div>
+</details>
+
+<h3>Common mistakes</h3>
+<ol class="tight">
+<li><strong>Feeding MSL height into the ECEF formula.</strong> If you pass \(H\) where the equations expect \(h\), the point moves along the vertical by \(|N_g|\). At the Denver point that is 17.0 m, in New York 32.8 m, and for a ship at the Indian Ocean low 107 m. Typical sources of MSL values: the NMEA altitude field, DEM tiles, map spot heights, a phone &ldquo;elevation&rdquo; display.</li>
+<li><strong>Getting the sign of \(N_g\) backwards.</strong> \(H = h - N_g\). Adding instead of subtracting doubles the error: 34 m at Denver.</li>
+<li><strong>Mixing HAE and MSL in a clearance or AGL calculation</strong> (Example 4).</li>
+<li><strong>Thinking a negative ellipsoidal height is a bug.</strong> It is normal in much of the world: at the New York point, sea level itself is at \(h = -32.8\) m.</li>
+<li><strong>Mixing geoid models or vertical datums.</strong> EGM96, EGM2008 and national models (for example the US GEOID models for NAVD88) do not give identical numbers. Convert with the model your data source used.</li>
+<li><strong>Treating barometric altitude as MSL.</strong> It is only equal on a day when the real atmosphere matches the standard one.</li>
+</ol>
+
+<details>
+<summary>EGM96 vs EGM2008, and how receivers get \(N_g\)</summary>
+<div class="more">
+<p>A geoid model is a set of spherical-harmonic coefficients of Earth&rsquo;s gravity field, usually distributed as a grid of undulations. <strong>EGM96</strong> (NIMA, NASA Goddard Space Flight Center and Ohio State University, 1996) is complete to degree and order 360 and was published on a 15&prime; grid. <strong>EGM2008</strong> (NGA, 2008) is complete to degree and order 2159 (with extra coefficients to 2190) and was published on 2.5&prime; and 1&prime; grids, so it resolves features of roughly 10&nbsp;km where EGM96 resolves tens of kilometres. The two models can therefore give different undulations at the same point; which one your device or data source used matters if you care about sub-metre agreement.</p>
+<p>A receiver has no table lookup service; it stores a coarse grid in memory and interpolates. The numbers on this page come from a 5&prime; EGM96 grid with bilinear interpolation, which in the package I used is within 0.06 m of the cubic evaluation of the same model. Treat decimetres in the tables above as precision of the arithmetic, not guaranteed accuracy against the true geoid.</p>
+</div>
+</details>
+
+<details>
+<summary>Vertical datums: what &ldquo;MSL&rdquo; really means on land (NAVD88 and friends)</summary>
+<div class="more">
+<p>You cannot measure mean sea level at a mountain, so orthometric heights on land are propagated inland from tide gauges by <em>levelling</em> (surveying height differences step by step) and corrected with gravity data. The resulting network is a <strong>vertical datum</strong>. Three examples:</p>
+<ul class="tight">
+<li><strong>NAVD88</strong> (US, with Canada and Mexico; <code>EPSG:5703</code> in the registry) came from a 1991 minimum-constraint adjustment of the Canadian&ndash;Mexican&ndash;US levelling, holding fixed the height of one primary tidal benchmark at Father Point/Rimouski, Quebec. NGS notes that mean sea level &ldquo;is not the same equipotential surface at all tidal bench marks&rdquo;, which is why only that one benchmark was held.</li>
+<li><strong>Ordnance Datum Newlyn</strong> (Great Britain) is based on about six years of mean sea level recorded at Newlyn, Cornwall, around 1915 to 1921.</li>
+<li><strong>Australian Height Datum</strong> (AHD71) follows approximate mean sea level at 30 tide gauges for 1966 to 1968, spread across the continent by levelling.</li>
+</ul>
+<p>Such a datum is a <em>realization</em> of &ldquo;sea level&rdquo; fixed by particular benchmarks and tide gauges, so it will not coincide exactly with a global geoid model; expect a local offset and tilt whose size depends on the region and the model. In the US, NGS publishes GEOID models that convert ellipsoidal heights to NAVD88. For survey work, use the model the datum&rsquo;s owner recommends rather than EGM96 or EGM2008. The EPSG registry also catalogues EGM96 and EGM2008 themselves as vertical systems (<code>EPSG:5773</code> and <code>EPSG:3855</code>).</p>
+</div>
+</details>
+
+<details>
+<summary>Sea-surface topography: why the sea is not exactly the geoid</summary>
+<div class="more">
+<p>The geoid is the level surface the ocean would have at rest. The real sea surface departs from it because of ocean currents, atmospheric pressure and similar processes. This <em>dynamic topography</em> is typically about &plusmn;1&nbsp;m, roughly one-hundredth of the geoid undulations themselves. On top of that come tides, storm surge and a slow long-term rise in sea level. So &ldquo;sea level = geoid&rdquo; is a good working definition, accurate to about a metre locally, not an exact physical statement. That is one reason a floating ship&rsquo;s GPS height will never match \(N_g\) to the centimetre.</p>
+</div>
+</details>
+</section>
+
+<!-- =============================== 7. CHEAT SHEET =============================== -->
+<section id="cheatsheet">
+<h2>7. Cheat sheet</h2>
+
+<div class="two">
+<div class="card">
+<h3>WGS84 constants</h3>
+<p class="num">a = 6,378,137.0 m<br />1/f = 298.257223563<br />b = 6,356,752.3142 m<br />e² = 0.0066943799901<br />e′² = 0.0067394967423</p>
+</div>
+<div class="card">
+<h3>Test vectors (h in metres, ellipsoidal)</h3>
+<p class="num">(0°, 0°, 0) &rarr; (6,378,137.000, 0, 0)<br />(90°, any, 0) &rarr; (0, 0, 6,356,752.314)<br />(40.7128°, &minus;74.0060°, 10) &rarr;<br />&emsp;(1,334,000.545,<br />&emsp;−4,654,052.129,<br />&emsp;4,138,306.761)</p>
+</div>
+</div>
+
+<div class="eq">
+<p class="eq-title">LLA &rarr; ECEF</p>
+\[ N=\frac{a}{\sqrt{1-e^{2}\sin^{2}\varphi}},\quad
+X=(N+h)\cos\varphi\cos\lambda,\quad
+Y=(N+h)\cos\varphi\sin\lambda,\quad
+Z=\bigl(N(1-e^{2})+h\bigr)\sin\varphi \]
+<p class="eq-title">ECEF &rarr; LLA</p>
+\[ \lambda=\operatorname{atan2}(Y,X),\quad p=\sqrt{X^2+Y^2},\quad \varphi_0=\operatorname{atan2}\bigl(Z,\,p(1-e^2)\bigr) \]
+\[ \text{repeat: } N=N(\varphi),\ \ h=p\cos\varphi+Z\sin\varphi-a\sqrt{1-e^{2}\sin^{2}\varphi},\ \ \varphi=\operatorname{atan2}\!\Bigl(Z,\ p\Bigl(1-\tfrac{e^{2}N}{N+h}\Bigr)\Bigr) \]
+<p class="eq-title">Heights</p>
+\[ h = H + N_g,\qquad H = h - N_g,\qquad h = h_{\text{NMEA alt}} + h_{\text{NMEA separation}} \]
+</div>
+
+<h3>Quick conversions</h3>
+<div class="table-wrap">
+<table class="compact">
+<thead><tr><th>I have</th><th>I want</th><th>Do this</th></tr></thead>
+<tbody>
+<tr><td>LLA with ellipsoidal \(h\)</td><td>ECEF</td><td>Section 4 equations</td></tr>
+<tr><td>LLA with MSL \(H\)</td><td>ECEF</td><td>First \(h = H + N_g(\varphi,\lambda)\) from a geoid model, then Section 4</td></tr>
+<tr><td>ECEF</td><td>LLA with \(h\)</td><td>Section 5 iteration</td></tr>
+<tr><td>ECEF</td><td>LLA with \(H\)</td><td>Section 5, then \(H = h - N_g\)</td></tr>
+<tr><td>NMEA <code>ddmm.mmmm</code></td><td>decimal degrees</td><td>\(\lfloor v/100\rfloor + (v \bmod 100)/60\), negate for S or W</td></tr>
+<tr><td>NMEA altitude + separation</td><td>ellipsoidal \(h\)</td><td>\(h = \text{alt} + \text{separation}\)</td></tr>
+<tr><td>Two ECEF points</td><td>straight-line distance</td><td>\(\sqrt{\Delta X^2+\Delta Y^2+\Delta Z^2}\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Pre-flight checklist</h3>
+<ul class="tight">
+<li>Is the datum WGS84 (or whatever both ends agree on)?</li>
+<li>Degrees converted to radians exactly once?</li>
+<li>Latitude first or longitude first in this API?</li>
+<li>Is each height ellipsoidal (\(h\)), MSL (\(H\)) or AGL? Is the source documented?</li>
+<li>Does the ECEF radius fall between about 6,356,752&nbsp;m and 6,378,137&nbsp;m plus your height?</li>
+<li>Does a round trip reproduce the input to the nanometre scale?</li>
+</ul>
+
+<details>
+<summary>Reference code: JavaScript and Python (tested)</summary>
+<div class="more">
+<p>Both versions use the iteration from Section 5 with the pole-safe height formula. They were run against the same test points (equator, both poles, New York, Sydney, Everest&rsquo;s coordinates, GPS-orbit altitude, a deep mine, a point beside the date line). The JavaScript and Python results agree to better than 10<sup>&minus;8</sup> m and round-trip to about 3&times;10<sup>&minus;9</sup> m or better.</p>
+<h3>JavaScript</h3>
+<pre><code>// WGS84 geodetic &lt;-&gt; ECEF.  Degrees and metres.  Run with: node ref_lla.js
+const A = 6378137.0;                 // semi-major axis (m)
+const INV_F = 298.257223563;         // inverse flattening
+const F = 1 / INV_F;
+const E2 = F * (2 - F);              // first eccentricity squared
+const rad = d =&gt; d * Math.PI / 180;
+const deg = r =&gt; r * 180 / Math.PI;
+const primeVertical = phi =&gt; A / Math.sqrt(1 - E2 * Math.sin(phi) ** 2);   // N(phi)
+
+function llaToEcef(latDeg, lonDeg, h) {
+  const phi = rad(latDeg), lam = rad(lonDeg), N = primeVertical(phi);
+  return [
+    (N + h) * Math.cos(phi) * Math.cos(lam),
+    (N + h) * Math.cos(phi) * Math.sin(lam),
+    (N * (1 - E2) + h) * Math.sin(phi),
+  ];
+}
+
+function ecefToLla(x, y, z, tolMetres = 1e-9) {
+  const p = Math.hypot(x, y);
+  const lon = Math.atan2(y, x);
+  let phi = Math.atan2(z, p * (1 - E2));          // first guess: assume h = 0
+  let h = 0;
+  for (let i = 0; i &lt; 20; i++) {
+    const N = primeVertical(phi);
+    // pole-safe form of h = p / cos(phi) - N
+    h = p * Math.cos(phi) + z * Math.sin(phi) - A * Math.sqrt(1 - E2 * Math.sin(phi) ** 2);
+    const next = Math.atan2(z, p * (1 - E2 * N / (N + h)));
+    const moved = Math.abs(next - phi) * (N + h);   // metres
+    phi = next;
+    if (moved &lt; tolMetres) break;
+  }
+  return [deg(phi), deg(lon), h];
+}
+
+if (typeof module !== &quot;undefined&quot;) module.exports = { llaToEcef, ecefToLla };
+if (typeof require !== &quot;undefined&quot; &amp;&amp; require.main === module) {
+  console.log(llaToEcef(40.7128, -74.0060, 10));        // [1334000.5447, -4654052.1292, 4138306.7614]
+  console.log(ecefToLla(1334000.5446860685, -4654052.129206824, 4138306.7613728405));
+}</code></pre>
+<h3>Python</h3>
+<pre><code>&quot;&quot;&quot;WGS84 geodetic &lt;-&gt; ECEF.  Degrees and metres.&quot;&quot;&quot;
+from math import radians, degrees, sin, cos, sqrt, atan2, hypot
+
+A = 6378137.0                 # semi-major axis (m)
+INV_F = 298.257223563         # inverse flattening
+F = 1.0 / INV_F
+E2 = F * (2.0 - F)            # first eccentricity squared
+
+
+def prime_vertical(phi):
+    return A / sqrt(1.0 - E2 * sin(phi) ** 2)          # N(phi)
+
+
+def lla_to_ecef(lat_deg, lon_deg, h):
+    phi, lam = radians(lat_deg), radians(lon_deg)
+    n = prime_vertical(phi)
+    return ((n + h) * cos(phi) * cos(lam),
+            (n + h) * cos(phi) * sin(lam),
+            (n * (1.0 - E2) + h) * sin(phi))
+
+
+def ecef_to_lla(x, y, z, tol_m=1e-9):
+    p = hypot(x, y)
+    lon = atan2(y, x)
+    phi = atan2(z, p * (1.0 - E2))                      # first guess: assume h = 0
+    h = 0.0
+    for _ in range(20):
+        n = prime_vertical(phi)
+        # pole-safe form of h = p / cos(phi) - N
+        h = p * cos(phi) + z * sin(phi) - A * sqrt(1.0 - E2 * sin(phi) ** 2)
+        nxt = atan2(z, p * (1.0 - E2 * n / (n + h)))
+        moved = abs(nxt - phi) * (n + h)                # metres
+        phi = nxt
+        if moved &lt; tol_m:
+            break
+    return degrees(phi), degrees(lon), h</code></pre>
+</div>
+</details>
+
+<details>
+<summary>Local frames: ENU and NED (brief)</summary>
+<div class="more">
+<p>To describe where something is <em>relative to</em> a reference point (an antenna, a drone home point), rotate the ECEF difference into a local East&ndash;North&ndash;Up (ENU) frame. With \(\varphi, \lambda\) the geodetic latitude and longitude of the reference point and \((X_0, Y_0, Z_0)\) its ECEF position:</p>
+\[
+\begin{bmatrix} e \\ n \\ u \end{bmatrix} =
+\begin{bmatrix}
+-\sin\lambda & \cos\lambda & 0 \\
+-\sin\varphi\cos\lambda & -\sin\varphi\sin\lambda & \cos\varphi \\
+\cos\varphi\cos\lambda & \cos\varphi\sin\lambda & \sin\varphi
+\end{bmatrix}
+\begin{bmatrix} X - X_0 \\ Y - Y_0 \\ Z - Z_0 \end{bmatrix}
+\]
+<p>North&ndash;East&ndash;Down (NED), common in aerospace, is the same vector reordered as \((n, e, -u)\). Note that \(u\) is measured along the ellipsoid normal, so it is a height <em>difference</em> in the \(h\) sense.</p>
+</div>
+</details>
+</section>
+
+<!-- =============================== 8. SOURCES =============================== -->
+<section id="sources">
+<h2>8. Sources and how the numbers were made</h2>
+
+<h3>How the numbers were made</h3>
+<ul class="tight">
+<li>Every ECEF, iteration and round-trip number comes from a short Python script using the two WGS84 defining constants; nothing was calculated by hand.</li>
+<li>The forward conversion (LLA &rarr; ECEF) was cross-checked against PROJ 9.8.1 (pyproj 3.8.0, <code>EPSG:4979</code> &rarr; <code>EPSG:4978</code>) at eight test points and matched exactly. The inverse matched to about 10<sup>&minus;7</sup> m except at GPS-orbit altitude (see the Bowring note).</li>
+<li>Geoid undulations are EGM96 values from the 5&prime; grid bundled in the <code>egm96</code> Python package (v0.3.0), which redistributes the GeographicLib grid and interpolates bilinearly. The &ldquo;minimum&rdquo; and &ldquo;maximum&rdquo; are grid extremes found by scanning that grid, not quoted from memory.</li>
+<li>The NMEA sentence in Section 3 is illustrative; its checksum was computed in code.</li>
+</ul>
+
+<h3>Sources consulted</h3>
+<ul class="sources tight">
+<li>National Geospatial-Intelligence Agency, <em>World Geodetic System 1984</em> definition, as summarised in this UN Office for Outer Space Affairs / ICG document: <a href="https://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS_84.pdf</a> (ECEF axes, defining constants, G1150 and G1674 realization notes).</li>
+<li>EPSG Geodetic Parameter Dataset, read through the PROJ database (EPSG:4326, 4979, 4978, 5703, 5773, 3855): <a href="https://epsg.org/">epsg.org</a> (axis order, ellipsoid, WGS 84 datum-ensemble members and accuracy).</li>
+<li>NovAtel OEM7 documentation, <a href="https://docs.novatel.com/OEM7/Content/Logs/GPGGA.htm">GPGGA log</a> (definitions of the altitude and undulation fields).</li>
+<li>TopoGrafix, <a href="https://www.topografix.com/gpx_manual.asp">GPX 1.0 manual</a> (<code>&lt;ele&gt;</code> and <code>&lt;geoidheight&gt;</code>).</li>
+<li><a href="https://pypi.org/project/egm96/">egm96 on PyPI</a>, EGM96 5&prime; grid and interpolation notes; per the package notes, the grid comes from <a href="https://geographiclib.sourceforge.io/C++/doc/geoid.html">GeographicLib&rsquo;s geoid data</a> (that page itself was not retrieved).</li>
+<li><a href="https://archive.psas.pdx.edu/RocketScience/PressureAltitude_Derived.pdf">Pressure altitude derived</a> (PSAS): standard-atmosphere constants and the pressure-altitude formula with exponent 0.190263 and scale 44,330.8&nbsp;m.</li>
+<li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Earth_Gravitational_Model">Earth Gravitational Model</a>: EGM96 and EGM2008 producers, years, degree and order, grid sizes.</li>
+<li>NOAA National Geodetic Survey, <a href="https://www.ngs.noaa.gov/datums/faq.shtml">Frequently Asked Questions: Datums</a>: how NAVD88 was defined and held.</li>
+<li>USGS, <a href="https://www.usgs.gov/faqs/why-are-nad-83-position-values-so-far-nad-27-values-were-old-coordinates-wrong">NAD 83 vs NAD 27 values</a>: the 10 to 100 m horizontal shift.</li>
+<li>Ordnance Survey, <a href="https://www.ordnancesurvey.co.uk/blog/100-years-of-ordnance-datum-newlyn">100 years of Ordnance Datum Newlyn</a>, and Geoscience Australia, <a href="https://www.ga.gov.au/scientific-topics/positioning-navigation/geodesy/ahdgm/ahd">Australian Height Datum</a>.</li>
+<li>Stewart, <a href="https://geo.libretexts.org/Bookshelves/Oceanography/Introduction_to_Physical_Oceanography_(Stewart)/10%3A_Geostrophic_Currents/10.03%3A_Surface_Geostrophic_Currents_from_Altimetry">Introduction to Physical Oceanography, section 10.3</a>: sea-surface topography of about &plusmn;1&nbsp;m, about one-hundredth of the geoid undulations.</li>
+<li>Coordinate order: Macwright, <a href="https://macwright.com/2016/11/07/the-geojson-ietf-standard">GeoJSON IETF standard (RFC 7946)</a> (positions are longitude, latitude, optional altitude), and Google&rsquo;s <a href="https://developers.google.com/kml/documentation/kmlreference?hl=FR">KML reference</a> (longitude, latitude, altitude tuples).</li>
+<li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Geographic_coordinate_conversion">Geographic coordinate conversion</a>: attributions for the ECEF-to-geodetic methods (Bowring 1976, Heikkinen 1982, Zhu 1994, Vermeille 2002, Sudano 1997, Fukushima 1999).</li>
+</ul>
+
+<h3>Background not re-checked for this page</h3>
+<p class="meta">General knowledge used as written above and not confirmed against a source while preparing this page: that the IERS Reference Meridian is essentially the Greenwich meridian; plate motion of centimetres per year; how much EGM96 and EGM2008 differ at a given point; the existence of NGS GEOID models for NAVD88; the long-term rate of sea-level rise; and typical receiver behaviour beyond the NMEA documentation cited above.</p>
+</section>
+
+</main>
+
+<script>
+(function () {
+  function render() {
+    if (typeof renderMathInElement !== "function") { return; }
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "\\[", right: "\\]", display: true },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  }
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", render); }
+  else { render(); }
+  window.addEventListener("load", render);
+})();
+</script>
+</body>
+</html>
