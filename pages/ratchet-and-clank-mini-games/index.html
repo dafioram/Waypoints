@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Ratchet &amp; Clank Mini-Games — Waypoints</title>
+<meta name="description" content="A release-order guide to the mini-games and side games inside every Ratchet &amp; Clank game from 2002 to Rift Apart in 2021, rated by how much there is and how deep it goes." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/lilita-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Ratchet & Clank Mini-Games",
+  "description": "A release-order guide to the mini-games and side games inside every Ratchet & Clank game from 2002 to Rift Apart in 2021, rated by how much there is and how deep it goes.",
+  "tags": [
+    "gaming",
+    "mini-games",
+    "reference"
+  ],
+  "date": "2026-10-12"
+}
+</script>
+<style>
+@font-face{font-family:"Lilita One";font-style:normal;font-weight:400;font-display:swap;src:url(media/lilita-one-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:300 900;font-display:swap;src:url(media/figtree-latin-wght-normal.woff2) format("woff2")}
+@font-face{font-family:"Figtree";font-style:italic;font-weight:300 900;font-display:swap;src:url(media/figtree-latin-wght-italic.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --rc-bg:#EBEFF8; --rc-surface:#F7F9FD; --rc-ink:#0E1832; --rc-muted:#434E6D;
+  --rc-rule:#C0C8DD; --rc-trail:#D17000; --rc-focus:#8A3A00;
+  --rc-lum:.50; --rc-chroma:.15;
+  --rc-display:"Lilita One","Arial Rounded MT Bold","Trebuchet MS",Verdana,sans-serif;
+  --rc-text:"Figtree","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --rc-hex:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%);
+  --rail:2.7rem; --rail-x:.8rem;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --rc-bg:#0A1022; --rc-surface:#131B38; --rc-ink:#E9EEFB; --rc-muted:#A6B0D0;
+    --rc-rule:#29335C; --rc-trail:#FF9E2C; --rc-focus:#FFC273; --rc-lum:.80; --rc-chroma:.13;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;font-synthesis:none}
+body{margin:0;background:var(--rc-bg);color:var(--rc-ink);font-family:var(--rc-text);font-size:1.0625rem;line-height:1.55;overflow-wrap:break-word}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--rc-focus);outline-offset:2px;border-radius:2px}
+.wrap{max-width:72rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+h1,h2,h3{font-family:var(--rc-display);font-weight:400;margin:0;letter-spacing:.008em}
+
+/* per-entry colour, one lightness and chroma so every hue reads alike */
+.entry,.sky-cols li{--c:#5a74b8}
+@supports (color:oklch(.5 .1 100)){
+  .entry,.sky-cols li{--c:oklch(var(--rc-lum) var(--rc-chroma) var(--h))}
+}
+
+/* ------------------------------------------------------------ hero */
+.hero{position:relative;isolation:isolate;padding-top:2.2rem}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(var(--rc-rule) 1.2px,transparent 1.6px);background-size:22px 22px;opacity:.75;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 35%,transparent 92%);mask-image:linear-gradient(to bottom,#000 0,#000 35%,transparent 92%)}
+.hero-top{display:grid;gap:1.1rem 3rem;align-items:end}
+.hero h1{font-size:clamp(2.7rem,8.4vw,5.1rem);line-height:.96;text-wrap:balance}
+.nb{white-space:nowrap}
+.h1-in{display:block;margin:.1em 0 .05em;font:700 .3em/1.2 var(--rc-text);letter-spacing:.14em;text-transform:uppercase;color:var(--rc-muted)}
+.dek{max-width:35rem;margin:0;font-size:1.15rem;line-height:1.5}
+.dek-2{max-width:35rem;margin:.55rem 0 0;color:var(--rc-muted)}
+@media (min-width:900px){.hero-top{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
+
+/* skyline chart */
+.sky{margin:2.4rem 0 0;--sky-h:clamp(170px,32vw,270px);--gap:clamp(2px,.6vw,7px)}
+.sky-plot{display:grid;grid-template-columns:1.3rem minmax(0,1fr);grid-template-rows:var(--sky-h) auto}
+.sky-axis{list-style:none;margin:0;padding:0;position:relative}
+.sky-axis li{position:absolute;right:.4rem;bottom:calc(var(--n) * 20%);transform:translateY(50%);font:700 .8rem/1 var(--rc-text);color:var(--rc-muted)}
+.sky-cols{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:var(--gap);
+  border-top:1px solid var(--rc-rule);border-bottom:2px solid var(--rc-ink);
+  background-image:linear-gradient(to top,var(--rc-rule) 1px,transparent 1px);background-size:100% 20%;background-position:0 100%;background-repeat:repeat-y}
+.sky-cols li{height:100%}
+.sky-cols a{display:block;position:relative;height:100%;border-radius:2px 2px 0 0}
+/* each bar is cut into five cells, like a nanotech meter */
+.bar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--a) * 20%);background:var(--c);border-radius:4px 4px 0 0;
+  -webkit-mask-image:repeating-linear-gradient(to top,#000 0,#000 calc(var(--sky-h) / 5 - 3px),transparent calc(var(--sky-h) / 5 - 3px),transparent calc(var(--sky-h) / 5));
+  mask-image:repeating-linear-gradient(to top,#000 0,#000 calc(var(--sky-h) / 5 - 3px),transparent calc(var(--sky-h) / 5 - 3px),transparent calc(var(--sky-h) / 5))}
+.spin .bar{background:repeating-linear-gradient(135deg,var(--c) 0 4px,transparent 4px 8px);box-shadow:inset 0 0 0 1.5px var(--c)}
+/* depth marker: a nut */
+.mark{position:absolute;left:50%;bottom:calc(var(--d) * 20%);width:1.4rem;height:1.4rem;margin-left:-.7rem;margin-bottom:-.7rem;
+  background:var(--rc-bg);clip-path:var(--rc-hex)}
+.mark::before{content:"";position:absolute;inset:.18rem;background:var(--rc-ink);clip-path:var(--rc-hex)}
+.mark::after{content:"";position:absolute;inset:.5rem;border-radius:50%;background:var(--rc-bg)}
+.sky-cols a:hover .bar,.sky-cols a:focus-visible .bar{filter:brightness(1.12) saturate(1.2)}
+.sky-cols li.dim{opacity:.2}
+.sky-labels{grid-column:2;list-style:none;margin:.35rem 0 0;padding:0;display:grid;grid-template-columns:repeat(var(--cols),minmax(0,1fr));gap:var(--gap);text-align:center}
+.sky-labels .code{display:none;font:400 .9rem/1.1 var(--rc-display);letter-spacing:.01em}
+.sky-labels .num{display:block;font:400 clamp(.7rem,2.6vw,.95rem)/1.1 var(--rc-display)}
+.sky-labels .yr{display:none;font:600 .7rem/1.2 var(--rc-text);color:var(--rc-muted)}
+.sky figcaption{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin:.9rem 0 0 1.3rem;font-size:.92rem;color:var(--rc-muted)}
+.lg{display:inline-flex;align-items:center;gap:.5rem}
+.lg-bar{width:.9rem;height:.9rem;background:oklch(var(--rc-lum) var(--rc-chroma) 250);display:inline-block;border-radius:2px}
+.lg-mark{position:relative;width:1.05rem;height:1.05rem;display:inline-block;background:var(--rc-ink);clip-path:var(--rc-hex)}
+.lg-mark::after{content:"";position:absolute;inset:.33rem;border-radius:50%;background:var(--rc-bg)}
+.lg-spin{width:.9rem;height:.9rem;display:inline-block;border-radius:2px;background:repeating-linear-gradient(135deg,var(--rc-muted) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1.5px var(--rc-muted)}
+@supports not (color:oklch(.5 .1 100)){.lg-bar{background:#5a74b8}}
+@media (min-width:640px){.sky-labels .yr{display:block}.sky-labels .code{display:block}.sky-labels .num{display:none}}
+@media (max-width:480px){.mark{width:1.15rem;height:1.15rem;margin-left:-.575rem;margin-bottom:-.575rem}.mark::before{inset:.15rem}.mark::after{inset:.4rem}}
+@media (prefers-reduced-motion:no-preference){
+  .bar{animation:rise .9s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
+  .mark{animation:pop .5s ease-out both;animation-delay:calc(.5s + var(--i) * 45ms)}
+  @keyframes rise{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+  @keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+}
+
+.rubric{margin:1.6rem 0 0;max-width:46rem}
+.rubric>summary{cursor:pointer;font-weight:700}
+.rubric-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1.2rem 2rem;margin-top:1rem}
+.rubric-h{margin:0 0 .4rem;font:400 1.4rem/1.1 var(--rc-display)}
+.scale{list-style:none;margin:0;padding:0;font-size:.97rem}
+.scale li{display:grid;grid-template-columns:1.4rem 1fr;gap:.5rem;padding:.3rem 0;border-top:1px solid var(--rc-rule)}
+.scale b{font:400 1.1rem/1.35 var(--rc-display)}
+.rubric-note{grid-column:1/-1;margin:0;color:var(--rc-muted);font-size:.95rem}
+
+/* ------------------------------------------------------------ filter bar */
+.filters{position:sticky;top:0;z-index:20;margin-top:2.2rem;background:var(--rc-bg);border-top:1px solid var(--rc-rule);border-bottom:1px solid var(--rc-rule)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .filters{background:color-mix(in srgb,var(--rc-bg) 90%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+}
+.filters-in{padding-block:.6rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem .1rem .1rem;scrollbar-width:thin}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.4rem;font:inherit;font-size:.92rem;font-weight:600;line-height:1;color:var(--rc-ink);background:transparent;
+  border:1.5px solid var(--rc-rule);border-radius:999px;padding:.5rem .8rem;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--rc-ink)}
+.chip[aria-pressed="true"]{background:var(--rc-ink);color:var(--rc-bg);border-color:var(--rc-ink)}
+.chip .ico{width:1.1rem;height:1.1rem}
+.cnt{font:700 .82rem/1 var(--rc-text);opacity:.75}
+.status{margin:0;font-size:.9rem;color:var(--rc-muted)}
+.status:empty{display:none}
+
+/* ------------------------------------------------------------ the trail */
+.trail{position:relative;padding-left:var(--rail);margin-top:1rem}
+.trail::before{content:"";position:absolute;left:var(--rail-x);top:0;bottom:0;width:3px;
+  background:repeating-linear-gradient(to bottom,var(--rc-trail) 0 12px,transparent 12px 20px)}
+.entry{position:relative;padding:2.4rem 0 2.6rem;scroll-margin-top:5.2rem}
+.entry+.entry{border-top:1px solid var(--rc-rule)}
+/* each stop on the trail is a bolt */
+.pin{position:absolute;left:calc(var(--rail-x) - var(--rail) + 1.5px - .8rem);top:2.4rem;width:1.6rem;height:1.6rem;background:var(--c);clip-path:var(--rc-hex)}
+.pin::after{content:"";position:absolute;inset:.46rem;border-radius:50%;background:var(--rc-bg)}
+.entry-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.3rem 2rem;align-items:end}
+.year{grid-column:1/-1;margin:0;font:400 clamp(2.8rem,7.4vw,4.3rem)/.9 var(--rc-display);color:var(--c)}
+.year small{font:700 .3em/1 var(--rc-text);color:var(--rc-muted);margin-left:.7rem;letter-spacing:.04em;text-transform:uppercase}
+.entry-head h2{font-size:clamp(1.75rem,3.8vw,2.5rem);line-height:1.04;text-wrap:balance}
+.where{margin:.4rem 0 0;color:var(--rc-muted);font-style:italic}
+.badge{display:inline-block;margin-left:.6rem;padding:.1rem .6rem;border:1.5px solid var(--c);border-radius:999px;font:700 .8rem/1.4 var(--rc-text);font-style:normal;color:var(--rc-ink)}
+.meters{display:grid;gap:.3rem;min-width:13.5rem}
+.meter{display:grid;grid-template-columns:4rem auto 1fr;align-items:center;gap:.6rem;margin:0;font-size:.92rem}
+.m-name{font:400 1.1rem/1 var(--rc-display)}
+.m-num{color:var(--rc-muted);font-size:.85rem;white-space:nowrap}
+.pips{display:inline-flex;gap:3px}
+.pips i{width:.95rem;height:.6rem;border-radius:2px;background:var(--rc-rule)}
+.pips i.on{background:var(--c)}
+.verdict{grid-column:1/-1;margin:.7rem 0 0;max-width:44rem;font-size:1.12rem;font-style:italic;line-height:1.45}
+
+.mg-list{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:0 2.4rem}
+.mg{display:grid;grid-template-columns:1.6rem minmax(0,1fr);gap:0 .8rem;padding:.95rem 0 1.05rem;border-top:1px solid var(--rc-rule)}
+.mg.gone{display:none}
+.ico{width:1.6rem;height:1.6rem;color:var(--c);margin-top:.1rem}
+.mg-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:.15rem .7rem}
+.mg h3{font:700 1.18rem/1.2 var(--rc-text);letter-spacing:0}
+.size{font:700 .82rem/1.3 var(--rc-text);padding:.08rem .55rem;border-radius:999px;background:var(--rc-surface);border:1px solid var(--rc-rule)}
+@supports (background:color-mix(in oklab,red,blue)){
+  .size{background:color-mix(in oklab,var(--c) 14%,transparent);border-color:color-mix(in oklab,var(--c) 40%,transparent)}
+}
+.kind{margin:.1rem 0 0;font-size:.85rem;color:var(--rc-muted);font-style:italic}
+.mg-text{margin:.4rem 0 0;max-width:36rem}
+.more{margin:.6rem 0 0}
+.more>summary{cursor:pointer;font-size:.92rem;font-weight:700;list-style:none;display:inline-flex;align-items:center;gap:.4rem}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::before{content:"+";display:inline-grid;place-items:center;width:1.15rem;height:1.15rem;border:1.5px solid currentColor;border-radius:50%;font:700 .9rem/1 var(--rc-text)}
+.more[open]>summary::before{content:"–"}
+.more-body{margin-top:.5rem;padding-left:.9rem;border-left:3px solid var(--c);font-size:.97rem;max-width:36rem}
+.more-body p{margin:.45rem 0}
+.tbl{overflow-x:auto;margin:.5rem 0}
+.tbl table{border-collapse:collapse;font-size:.9rem;min-width:100%}
+.tbl th,.tbl td{padding:.3rem .6rem;border-bottom:1px solid var(--rc-rule);text-align:left;vertical-align:top}
+.tbl thead th{font:700 .9rem/1.2 var(--rc-text);white-space:nowrap}
+.extra{margin:1.3rem 0 0;padding:.2rem 0 .2rem .9rem;border-left:3px solid var(--c);max-width:44rem}
+.note{margin:.9rem 0 0;max-width:44rem;color:var(--rc-muted);font-size:.93rem}
+
+/* ------------------------------------------------------------ closing sections */
+.after{padding-block:2.6rem 1rem}
+.after h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:1rem}
+.patterns{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr));gap:0 2.4rem}
+.patterns>div{padding:.9rem 0 1rem;border-top:1px solid var(--rc-rule)}
+.patterns dt{font:400 1.35rem/1.15 var(--rc-display)}
+.patterns dd{margin:.3rem 0 0;max-width:36rem}
+.cover{max-width:46rem;margin:0}
+.src-grid{columns:19rem;column-gap:2.4rem}
+.src{break-inside:avoid;padding:.6rem 0 .8rem;border-top:1px solid var(--rc-rule)}
+.src h3{font:700 1rem/1.3 var(--rc-text);letter-spacing:0}
+.src ul{margin:.3rem 0 0;padding-left:1.1rem;font-size:.92rem}
+.src li{margin:.15rem 0;overflow-wrap:anywhere}
+.foot{padding-block:1.2rem 3rem;color:var(--rc-muted);font-size:.9rem;max-width:46rem}
+.foot p{margin:.3rem 0}
+
+/* ------------------------------------------------------------ small screens */
+@media (max-width:640px){
+  :root{--rail:1.95rem;--rail-x:.7rem}
+  body{font-size:1rem}
+  .entry-head{grid-template-columns:minmax(0,1fr)}
+  .meters{min-width:0;margin-top:.5rem}
+  .pin{top:2.3rem}
+  .mg{grid-template-columns:1.4rem minmax(0,1fr);gap:0 .65rem}
+  .ico{width:1.4rem;height:1.4rem}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-race" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5-5-5M10 17l5-5-5-5M17 17l4-5-4-5"/></symbol><symbol id="i-space" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.6"/><ellipse cx="12" cy="12" rx="10" ry="3.6" transform="rotate(-22 12 12)"/></symbol><symbol id="i-hack" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.6"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></symbol><symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5.6"/><circle cx="12" cy="12" r="2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></symbol><symbol id="i-arena" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="7.5" rx="8" ry="3"/><path d="M4 7.5v9c0 1.7 3.6 3 8 3s8-1.3 8-3v-9"/></symbol><symbol id="i-side" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="8" height="14" rx="1.2"/><rect x="13" y="5" width="8" height="6" rx="1.2"/><rect x="13" y="13" width="8" height="6" rx="1.2"/></symbol><symbol id="i-platform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h5v-5h5v-5h5V5h3"/></symbol><symbol id="i-giant" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="3.5" width="11" height="8.5" rx="2"/><path d="M9.5 7.8h.01M14.5 7.8h.01M8.5 12v4M15.5 12v4M5 20.5h14"/></symbol><symbol id="i-rhythm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></symbol><symbol id="i-arcade" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="10" rx="5"/><path d="M8 11v4M6 13h4M15.5 12.2h.01M18 14.2h.01"/></symbol><symbol id="i-collect" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v10l-7 4-7-4V7z"/><circle cx="12" cy="12" r="2.6"/></symbol></svg>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+ <div class="wrap">
+  <div class="hero-top">
+    <h1>The <span class="nb">mini-games</span> <span class="h1-in">inside</span> <span class="nb">Ratchet &amp; Clank</span></h1>
+    <div class="hero-copy">
+      <p class="dek">Fourteen games, from the 2002 original to Rift Apart in 2021, and 64 side games between them. Each entry says what is there, how much of it there is and how much thought it asks for.</p>
+      <p class="dek-2"><a href="#acit">A Crack in Time</a> has the most to do. <a href="#qfb">Quest for Booty</a>, <a href="#a41">All 4 One</a> and <a href="#ffa">Full Frontal Assault</a> have the least. By my ratings, nothing here goes past 3 for depth.</p>
+    </div>
+  </div>
+  
+<figure class="sky" aria-labelledby="sky-cap" style="--cols:14">
+  <div class="sky-plot">
+    <ol class="sky-axis" aria-hidden="true"><li style="--n:1">1</li><li style="--n:2">2</li><li style="--n:3">3</li><li style="--n:4">4</li><li style="--n:5">5</li></ol>
+    <ol class="sky-cols"><li class="" style="--h:16;--a:3;--d:2;--i:0" data-id="rc"><a href="#rc" aria-label="Ratchet &amp; Clank, 2002. Amount 3 of 5, depth 2 of 5." title="Ratchet &amp; Clank (2002)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:41;--a:4;--d:3;--i:1" data-id="gc"><a href="#gc" aria-label="Ratchet &amp; Clank: Going Commando, 2003. Amount 4 of 5, depth 3 of 5." title="Ratchet &amp; Clank: Going Commando (2003)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:66;--a:4;--d:2;--i:2" data-id="uya"><a href="#uya" aria-label="Ratchet &amp; Clank: Up Your Arsenal, 2004. Amount 4 of 5, depth 2 of 5." title="Ratchet &amp; Clank: Up Your Arsenal (2004)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:91;--a:3;--d:2;--i:3" data-id="dl"><a href="#dl" aria-label="Ratchet: Deadlocked, 2005. Amount 3 of 5, depth 2 of 5." title="Ratchet: Deadlocked (2005)"><span class="bar"></span><span class="mark"></span></a></li><li class="spin" style="--h:116;--a:3;--d:2;--i:4" data-id="sm"><a href="#sm" aria-label="Ratchet &amp; Clank: Size Matters, 2007. Amount 3 of 5, depth 2 of 5." title="Ratchet &amp; Clank: Size Matters (2007)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:141;--a:3;--d:2;--i:5" data-id="tod"><a href="#tod" aria-label="Ratchet &amp; Clank Future: Tools of Destruction, 2007. Amount 3 of 5, depth 2 of 5." title="Ratchet &amp; Clank Future: Tools of Destruction (2007)"><span class="bar"></span><span class="mark"></span></a></li><li class="spin" style="--h:166;--a:4;--d:2;--i:6" data-id="sac"><a href="#sac" aria-label="Secret Agent Clank, 2008. Amount 4 of 5, depth 2 of 5." title="Secret Agent Clank (2008)"><span class="bar"></span><span class="mark"></span></a></li><li class="spin" style="--h:191;--a:1;--d:2;--i:7" data-id="qfb"><a href="#qfb" aria-label="Ratchet &amp; Clank Future: Quest for Booty, 2008. Amount 1 of 5, depth 2 of 5." title="Ratchet &amp; Clank Future: Quest for Booty (2008)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:216;--a:5;--d:3;--i:8" data-id="acit"><a href="#acit" aria-label="Ratchet &amp; Clank Future: A Crack in Time, 2009. Amount 5 of 5, depth 3 of 5." title="Ratchet &amp; Clank Future: A Crack in Time (2009)"><span class="bar"></span><span class="mark"></span></a></li><li class="spin" style="--h:241;--a:1;--d:2;--i:9" data-id="a41"><a href="#a41" aria-label="Ratchet &amp; Clank: All 4 One, 2011. Amount 1 of 5, depth 2 of 5." title="Ratchet &amp; Clank: All 4 One (2011)"><span class="bar"></span><span class="mark"></span></a></li><li class="spin" style="--h:266;--a:1;--d:1;--i:10" data-id="ffa"><a href="#ffa" aria-label="Ratchet &amp; Clank: Full Frontal Assault, 2012. Amount 1 of 5, depth 1 of 5." title="Ratchet &amp; Clank: Full Frontal Assault (2012)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:291;--a:2;--d:2;--i:11" data-id="itn"><a href="#itn" aria-label="Ratchet &amp; Clank: Into the Nexus, 2013. Amount 2 of 5, depth 2 of 5." title="Ratchet &amp; Clank: Into the Nexus (2013)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:316;--a:3;--d:2;--i:12" data-id="rc16"><a href="#rc16" aria-label="Ratchet &amp; Clank (2016), 2016. Amount 3 of 5, depth 2 of 5." title="Ratchet &amp; Clank (2016) (2016)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:341;--a:4;--d:3;--i:13" data-id="ra"><a href="#ra" aria-label="Ratchet &amp; Clank: Rift Apart, 2021. Amount 4 of 5, depth 3 of 5." title="Ratchet &amp; Clank: Rift Apart (2021)"><span class="bar"></span><span class="mark"></span></a></li></ol>
+    <ol class="sky-labels" aria-hidden="true"><li><span class="code">RC</span><span class="num">1</span><span class="yr">’02</span></li><li><span class="code">GC</span><span class="num">2</span><span class="yr">’03</span></li><li><span class="code">UYA</span><span class="num">3</span><span class="yr">’04</span></li><li><span class="code">DL</span><span class="num">4</span><span class="yr">’05</span></li><li><span class="code">SM</span><span class="num">5</span><span class="yr">’07</span></li><li><span class="code">TOD</span><span class="num">6</span><span class="yr">’07</span></li><li><span class="code">SAC</span><span class="num">7</span><span class="yr">’08</span></li><li><span class="code">QFB</span><span class="num">8</span><span class="yr">’08</span></li><li><span class="code">ACIT</span><span class="num">9</span><span class="yr">’09</span></li><li><span class="code">A4O</span><span class="num">10</span><span class="yr">’11</span></li><li><span class="code">FFA</span><span class="num">11</span><span class="yr">’12</span></li><li><span class="code">ITN</span><span class="num">12</span><span class="yr">’13</span></li><li><span class="code">’16</span><span class="num">13</span><span class="yr">’16</span></li><li><span class="code">RA</span><span class="num">14</span><span class="yr">’21</span></li></ol>
+  </div>
+  <figcaption id="sky-cap">
+    <span class="lg"><span class="lg-bar"></span>Amount: how much extra game there is, from 1 to 5</span>
+    <span class="lg"><span class="lg-mark"></span>Depth: how complex it gets, from 1 to 5</span>
+    <span class="lg"><span class="lg-spin"></span>Spin-off</span>
+  </figcaption>
+</figure>
+  <details class="rubric">
+    <summary>How the ratings work</summary>
+    <div class="rubric-body">
+      <div><p class="rubric-h">Amount</p><ol class="scale"><li><b>1</b><span>One or two small things, or nothing I could confirm.</span></li><li><b>2</b><span>A couple of activities you meet only now and then.</span></li><li><b>3</b><span>Several different activities spread through the game.</span></li><li><b>4</b><span>A big share of the game is something other than the main shooting.</span></li><li><b>5</b><span>The widest set in the series, with hours of it.</span></li></ol></div>
+      <div><p class="rubric-h">Depth</p><ol class="scale"><li><b>1</b><span>Press a button, or pick something up.</span></li><li><b>2</b><span>One simple rule: a race, a wave to survive, a quick puzzle.</span></li><li><b>3</b><span>Puzzles that build on themselves, or a system you upgrade.</span></li><li><b>4</b><span>A game with its own strategy. Nothing here reaches this.</span></li><li><b>5</b><span>A full standalone game inside the game. Nothing here reaches this.</span></li></ol></div>
+      <p class="rubric-note">These are my own judgment calls, based on the counts and descriptions in the sources at the bottom. They are not an official measure. The main story, the weapons and the shooting are left out on purpose, and so are the multiplayer modes.</p>
+    </div>
+  </details>
+ </div>
+</header>
+
+
+<section class="filters" hidden aria-label="Filter by kind of mini-game">
+  <div class="wrap filters-in">
+    <div class="chips" role="group" aria-label="Show only one kind of mini-game"><button type="button" class="chip" data-filter="all" aria-pressed="true">Everything<span class="cnt">64</span></button><button type="button" class="chip" data-filter="race" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg>Racing<span class="cnt">5</span></button><button type="button" class="chip" data-filter="space" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-space"/></svg>Space flight and combat<span class="cnt">6</span></button><button type="button" class="chip" data-filter="hack" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hack"/></svg>Hacking and gadget games<span class="cnt">6</span></button><button type="button" class="chip" data-filter="puzzle" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg>Puzzles<span class="cnt">11</span></button><button type="button" class="chip" data-filter="arena" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg>Arenas and challenge rounds<span class="cnt">11</span></button><button type="button" class="chip" data-filter="side" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-side"/></svg>Side-scrolling<span class="cnt">3</span></button><button type="button" class="chip" data-filter="platform" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg>Platforming<span class="cnt">2</span></button><button type="button" class="chip" data-filter="giant" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-giant"/></svg>Giant Clank and vehicles<span class="cnt">3</span></button><button type="button" class="chip" data-filter="rhythm" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-rhythm"/></svg>Rhythm and button prompts<span class="cnt">2</span></button><button type="button" class="chip" data-filter="arcade" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arcade"/></svg>Arcade and oddities<span class="cnt">6</span></button><button type="button" class="chip" data-filter="collect" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg>Collecting and skill points<span class="cnt">9</span></button></div>
+    <p class="status" id="filter-status" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="trail">
+<article class="entry" id="rc" style="--h:16" data-types="hack puzzle race space" aria-labelledby="rc-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2002<small>Nov · No. 1</small></p>
+    <div class="title-block">
+      <h2 id="rc-t">Ratchet &amp; Clank</h2>
+      <p class="where">PlayStation 2</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">A handful of breaks from the shooting: hoverboard races, a space level and hacking panels.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Hoverboard races</h3></div><p class="kind">Racing</p><p class="mg-text">Some races are needed to move on and others are optional.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>In Blackwater City you enter the Hovercon Intergalactic Hoverboard Competition. Acceleration is automatic, so the race is about picking a route: blue boost pads and rings give short bursts, and jumping a gap beats following a wide bend.</p><p>Red crates explode and knock you off the board. Once you own the Zoomerator, landing air tricks fills a boost gauge. Winning the championship awards the Platinum Zoomerator.</p><p>The page I read doesn’t say how many races the championship has.</p></div></details></div></li><li class="mg" data-type="hack"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hack"/></svg><div class="mg-body"><div class="mg-top"><h3>Hacking and door minigames</h3><span class="size">Most levels</span></div><p class="kind">Hacking and gadget games</p><p class="mg-text">Hacking is one of the minigames you must finish to move on. Others unlock doors, extend bridges or raise platforms.</p></div></li><li class="mg" data-type="space"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-space"/></svg><div class="mg-body"><div class="mg-top"><h3>Space and air shooting</h3></div><p class="kind">Space flight and combat</p><p class="mg-text">One level is space combat, and another has Ratchet flying through the air to shoot tankers.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Clank sections</h3></div><p class="kind">Puzzles</p><p class="mg-text">Clank is playable where Ratchet can’t safely explore. He can also control Gadgebots, smaller robots that do jobs for him.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="gc" style="--h:41" data-types="arcade arena giant hack puzzle race space" aria-labelledby="gc-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2003<small>Nov · No. 2</small></p>
+    <div class="title-block">
+      <h2 id="gc-t">Ratchet &amp; Clank: Going Commando</h2>
+      <p class="where">PlayStation 2</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank: Going Commando"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">The mini-game boom: bike races, ship battles, arenas, Microbot puzzles and Sheep Blasters.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Hoverbike races</h3><span class="size">Barlow and the Megacorp Games</span></div><p class="kind">Racing</p><p class="mg-text">Collect speed and weapon boosts on the track and use them against rival bikes.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>The Megacorp Hoverbike Race on Joba is optional. Winning the first race completes the mission and earns the Charge Boots, and the other hoverbike challenges pay bolts.</p></div></details></div></li><li class="mg" data-type="space"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-space"/></svg><div class="mg-body"><div class="mg-top"><h3>Ship combat and races</h3><span class="size">4 locations</span></div><p class="kind">Space flight and combat</p><p class="mg-text">Ratchet flies the ship to shoot targets or race other pilots. Raritanium buys upgrades at Slim Cognito’s Ship Shack.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Wikipedia notes that some reviewers found the space combat weaker than the rest of the game.</p></div></details></div></li><li class="mg" data-type="space"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-space"/></svg><div class="mg-body"><div class="mg-top"><h3>Mining ship</h3><span class="size">2 planets</span></div><p class="kind">Space flight and combat</p><p class="mg-text">On Tabora and Grelbin, Ratchet mines raritanium from the surface.</p></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Gladiator battles</h3></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">Arena fights at the Galactic Gladiators and the Megacorp Games pay bolts. Game Informer praised the arena combat and racing levels.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Wikipedia says the game has four types of “maxi-games”, or minigames: arena battles, spherical world battles, hoverbike races and space races. I found no more detail on the spherical world battles.</p></div></details></div></li><li class="mg" data-type="hack"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hack"/></svg><div class="mg-body"><div class="mg-top"><h3>Electrolyzer and Infiltrator</h3></div><p class="kind">Hacking and gadget games</p><p class="mg-text">Gadget minigames. Finishing one switches on a device or opens a door.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>A reviewer of the next game said none of its minigames were as bad as these two.</p></div></details></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Microbot puzzles</h3><span class="size">2 times</span></div><p class="kind">Puzzles</p><p class="mg-text">Clank has few moves of his own, but he commands Microbots that can attack, wait, follow him or enter terminals.</p></div></li><li class="mg" data-type="giant"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-giant"/></svg><div class="mg-body"><div class="mg-top"><h3>Giant Clank</h3><span class="size">2 times</span></div><p class="kind">Giant Clank and vehicles</p><p class="mg-text">Giant Clank flies to a moon, fires missiles, throws bombs and fights a boss. Unlike the other Clank sections, these can be replayed.</p></div></li><li class="mg" data-type="arcade"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arcade"/></svg><div class="mg-body"><div class="mg-top"><h3>Sheep Blasters</h3></div><p class="kind">Arcade and oddities</p><p class="mg-text">One minigame, unlocked in challenge mode or by using the Dynamo on the pyramid in Clank’s apartment.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="uya" style="--h:66" data-types="arena collect giant hack puzzle side" aria-labelledby="uya-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2004<small>Nov · No. 3</small></p>
+    <div class="title-block">
+      <h2 id="uya-t">Ratchet &amp; Clank: Up Your Arsenal</h2>
+      <p class="where">PlayStation 2</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank: Up Your Arsenal"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Qwark’s side-scrolling vid-comics and a 99-round arena finale. One review says the races and ship battles are gone.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="side"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-side"/></svg><div class="mg-body"><div class="mg-top"><h3>Captain Qwark vid-comics</h3><span class="size">5 vid-comics</span></div><p class="kind">Side-scrolling</p><p class="mg-text">Between missions you play a console in your quarters. Each episode is a 2D side-scrolling level starring Qwark in his earlier hero days.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Each episode opens with a cartoon cutscene. One review describes shooting enemies and collecting tokens.</p><p>Five skill points ask you to beat set times in the five vid-comics.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Annihilation Nation</h3><span class="size">99-round finale</span></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">A TV show arena where you fight waves of enemies for cash and prizes, some ending in a boss. Gauntlet challenges add a course you must finish while fighting.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>The final event, the Qwarktastic Challenge, has 99 rounds plus both bosses. Prizes can be used to upgrade weapons.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Deathcourses and Ranger battles</h3></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">A review mentions Deathcourses, and battle missions where you help the Galactic Rangers complete objectives for bolts.</p></div></li><li class="mg" data-type="hack"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hack"/></svg><div class="mg-body"><div class="mg-top"><h3>Hacker and disguise gadgets</h3></div><p class="kind">Hacking and gadget games</p><p class="mg-text">Certain gadgets, such as the Hacker and the Tyhrra-Guise, trigger minigames. One reviewer said none were as bad as Going Commando’s.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Gadgebots</h3></div><p class="kind">Puzzles</p><p class="mg-text">In Clank’s sections he commands smaller robots through a menu to solve puzzles and attack enemies.</p></div></li><li class="mg" data-type="giant"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-giant"/></svg><div class="mg-body"><div class="mg-top"><h3>Giant Clank and driving</h3></div><p class="kind">Giant Clank and vehicles</p><p class="mg-text">Clank grows into a larger form with rockets, bombs and a lot of health. Some planets also have driving sections.</p></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Skill points</h3><span class="size">30</span></div><p class="kind">Collecting and skill points</p><p class="mg-text">Tasks across the planets, from beating timed runs to turning 15 Floranian blood flies into ducks with the Qwack-O-Ray.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>“Feeling Lucky?” is winning the jackpot on a slot machine, and it mostly depends on luck.</p><p>“Go for hang time” is getting at least two seconds of air with the Turbo Slider.</p><p>“Break the Dan” is finding and destroying a hidden Snow Dan in Qwark’s hideout.</p><p>They unlock secrets in the Special menu.</p></div></details></div></li></ul>
+  <p class="note">The review that says racing and ship battles are gone also says a racing minigame was reportedly planned but cut. I haven’t found a second source on that.</p>
+</article>
+<article class="entry" id="dl" style="--h:91" data-types="arcade arena collect race" aria-labelledby="dl-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2005<small>Oct · No. 4</small></p>
+    <div class="title-block">
+      <h2 id="dl-t">Ratchet: Deadlocked</h2>
+      <p class="where">PlayStation 2</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet: Deadlocked"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">The whole game is a game show, so the extras are Dread Challenges with a gimmick each, plus 165 skill points.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Dread Challenges</h3><span class="size">Optional</span></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">Not every course has one, and they often have a unique mechanic. They pay bolts and Dread Points.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Grist for the Mill: survive ten waves of enemies. Two skill points go with it, ten kills in a row with one weapon and five kills without taking damage.</p><p>The Big Sleep: ten rounds with constant spawns, a health drain and high enemy damage. You collect randomly placed nanotech and ammo crates, and on Hero difficulty you have to dodge most attacks.</p><p>Dynamite Baseball: a seven-round arena challenge. Round two sends three Laser Backs at you at once.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Maraxus challenges</h3><span class="size">6 challenges</span></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">Four main challenges and two Dread Challenges. The main ones are Jail Break, Total Control, Leave No Man Behind and Showdown in Delta Block.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Total Control is a Puma challenge where you capture three bolt cranks. Showdown in Delta Block ends with a black medal.</p></div></details></div></li><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Speed Trap</h3></div><p class="kind">Racing</p><p class="mg-text">One of the Maraxus Dread Challenges: a checkpoint race in the Puma, clearing explosive barrels with your blasters.</p></div></li><li class="mg" data-type="arcade"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arcade"/></svg><div class="mg-body"><div class="mg-top"><h3>Spider on a Wire</h3></div><p class="kind">Arcade and oddities</p><p class="mg-text">The other Maraxus Dread Challenge: shoot a large number of orbs, including jackpot and explosive ones, with mortars and blasters while Stingers join in.</p></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Skill points</h3><span class="size">165</span></div><p class="kind">Collecting and skill points</p><p class="mg-text">A maximum of 165, which also reward bolts. Many extras unlock by performing specific feats.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="sm" style="--h:116" data-types="arena collect puzzle race space" aria-labelledby="sm-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2007<small>Feb · No. 5</small></p>
+    <div class="title-block">
+      <h2 id="sm-t">Ratchet &amp; Clank: Size Matters</h2>
+      <p class="where">PSP, with a PS2 port in 2008<span class="badge">PSP spin-off</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank: Size Matters"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Skyboard races, Clank’s vehicle arenas and a rail-shooter space stage, in a story of about six hours.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Skyboard races</h3></div><p class="kind">Racing</p><p class="mg-text">Racing challenges that pay bolts, gadgets and new armor pieces.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Wikipedia calls them skyboards. Other reviews say hoverboard or skateboard.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Clank’s vehicle arenas</h3></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">Arena battles where you play Clank in a variety of vehicles.</p></div></li><li class="mg" data-type="space"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-space"/></svg><div class="mg-body"><div class="mg-top"><h3>Giant Clank space shooter</h3></div><p class="kind">Space flight and combat</p><p class="mg-text">Space combat is back, but you control Giant Clank instead of a ship. Push Square calls it a rail-based space shooter segment.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Gadgebots and Clank Challenges</h3></div><p class="kind">Puzzles</p><p class="mg-text">Gadgebots do tasks for Clank in one section of the story. You can use them again in Clank Challenges outside it.</p></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Skill points and Titanium Bolts</h3><span class="size">25 and 20</span></div><p class="kind">Collecting and skill points</p><p class="mg-text">Skill points unlock cheats, and Titanium Bolts buy Ratchet skins.</p></div></li></ul>
+  <p class="note">The game also has a multiplayer mode, though the PS2 port removes the online part. I haven’t counted it.</p>
+</article>
+<article class="entry" id="tod" style="--h:141" data-types="arcade arena collect hack puzzle space" aria-labelledby="tod-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2007<small>Oct · No. 6</small></p>
+    <div class="title-block">
+      <h2 id="tod-t">Ratchet &amp; Clank Future: Tools of Destruction</h2>
+      <p class="where">PlayStation 3</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank Future: Tools of Destruction"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Motion-control extras and a carnival arena. The hacking game is a Sixaxis marble maze.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="hack"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hack"/></svg><div class="mg-body"><div class="mg-top"><h3>Decryptor hacking</h3></div><p class="kind">Hacking and gadget games</p><p class="mg-text">Tilt the Sixaxis controller to roll a metal ball across a circuit board and carry a charge to the end of the course.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Giant Bomb describes it as moving a metal ball between connection spots. The AV Club reviewer said a dozen more optional puzzles like it would have been welcome.</p></div></details></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Clank and the Zoni</h3></div><p class="kind">Puzzles</p><p class="mg-text">Clank can use the Zoni to slow time, slip under a closing door, levitate, rebuild bridges and power devices.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>The AV Club says Clank’s solo levels slow the pace but are spread out sparingly.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Imperial Fight Festival</h3></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">A gladiator arena inside a carnival park on Mukow, with bosses such as Crushto.</p></div></li><li class="mg" data-type="space"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-space"/></svg><div class="mg-body"><div class="mg-top"><h3>Rail-shooter space combat</h3></div><p class="kind">Space flight and combat</p><p class="mg-text">In certain levels you pilot a ship against enemy forces. The controls are rail-shooter style, and there are no ship upgrades.</p></div></li><li class="mg" data-type="arcade"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arcade"/></svg><div class="mg-body"><div class="mg-top"><h3>Sixaxis flight and gadgets</h3></div><p class="kind">Arcade and oddities</p><p class="mg-text">Ratchet free-falls and, with a Clank upgrade, flies, steering by tilting the controller. The Visi-Copter is a remote-controlled helicopter that fires rockets.</p></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>RYNO IV Holo-Plans</h3><span class="size">13 fragments</span></div><p class="kind">Collecting and skill points</p><p class="mg-text">Collecting thirteen Holo-Plan fragments hidden through the game unlocks the R.Y.N.O. IV.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="sac" style="--h:166" data-types="arcade arena collect giant puzzle rhythm" aria-labelledby="sac-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2008<small>Jun · No. 7</small></p>
+    <div class="title-block">
+      <h2 id="sac-t">Secret Agent Clank</h2>
+      <p class="where">PSP, with a PS2 port in 2009<span class="badge">PSP spin-off</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Secret Agent Clank"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Nearly every level is a different genre: a ballroom rhythm game, stealth button prompts and a snowboard run.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="rhythm"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-rhythm"/></svg><div class="mg-body"><div class="mg-top"><h3>Ballroom dance</h3></div><p class="kind">Rhythm and button prompts</p><p class="mg-text">Countess Ivana Lottabolts challenges Clank to a “dance of death”. Trusted Reviews describes matching button presses to a beat, and calls it great to watch but a struggle.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Wikipedia adds that Clank has to avoid traps during the dance.</p></div></details></div></li><li class="mg" data-type="rhythm"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-rhythm"/></svg><div class="mg-body"><div class="mg-top"><h3>Stealth takedowns</h3></div><p class="kind">Rhythm and button prompts</p><p class="mg-text">Stealth uses quick time events. You press Square, then repeat a button sequence within a time limit. Start from the wrong position and you get a normal attack instead, and a missed input sends you back to the checkpoint.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Gadgebot puzzles</h3></div><p class="kind">Puzzles</p><p class="mg-text">Special levels where you switch between Gadgebots to press switches, move electric currents and power bridges. Trusted Reviews found them more engaging than much of the main game.</p></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Ratchet’s prison fights</h3></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">Ratchet fights his way through rounds in his prison and closes portals with his spanner. Trusted Reviews found it repetitive.</p></div></li><li class="mg" data-type="arcade"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arcade"/></svg><div class="mg-body"><div class="mg-top"><h3>Qwark’s tall tales</h3></div><p class="kind">Arcade and oddities</p><p class="mg-text">Qwark recreates his battles for his biographer in action levels. Game Revolution says you “unleash your inner Megaman”, and Trusted Reviews found the play a little dull.</p></div></li><li class="mg" data-type="giant"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-giant"/></svg><div class="mg-body"><div class="mg-top"><h3>Snowboard, speedboat and gondolas</h3></div><p class="kind">Giant Clank and vehicles</p><p class="mg-text">Clank escapes Glaciara on a snowboard and Venantonio Labs on a speedboat, and jumps across gondolas in Rionosis.</p></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Bonus levels</h3></div><p class="kind">Collecting and skill points</p><p class="mg-text">You replay them to collect bolts, which upgrade the characters and buy items from vending machines. Trusted Reviews found them hard to feel motivated to play.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="qfb" style="--h:191" data-types="collect puzzle" aria-labelledby="qfb-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2008<small>Aug · No. 8</small></p>
+    <div class="title-block">
+      <h2 id="qfb-t">Ratchet &amp; Clank Future: Quest for Booty</h2>
+      <p class="where">PlayStation Network download<span class="badge">Download spin-off</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank Future: Quest for Booty"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="m-num">1 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">No mini-games that I could find. It is a short tether-puzzle adventure.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Tether puzzles</h3></div><p class="kind">Puzzles</p><p class="mg-text">The OmniWrench Millennium 12 has a tether that moves obstacles and manipulates objects from a distance. The new platforming and puzzle segments are built around it.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Ratchet can also pick up creatures called heliogrubs and carry them to light up dark areas.</p></div></details></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Hidden weapon mods</h3></div><p class="kind">Collecting and skill points</p><p class="mg-text">Raritanium upgrades are gone. The special modifications they gave are hidden in certain areas instead.</p></div></li></ul>
+  <p class="extra">Wikipedia quotes IGN calling it “a quick four-hour experience”. The Fandom wiki says it has no challenge mode.</p>
+</article>
+<article class="entry" id="acit" style="--h:216" data-types="arcade arena platform puzzle space" aria-labelledby="acit-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2009<small>Oct · No. 9</small></p>
+    <div class="title-block">
+      <h2 id="acit-t">Ratchet &amp; Clank Future: A Crack in Time</h2>
+      <p class="where">PlayStation 3</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank Future: A Crack in Time"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="m-num">5 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">The widest set in the series: time puzzles, a repair game, space combat, bonus moons and an arena.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Time recordings</h3><span class="size">Clank’s storyline</span></div><p class="kind">Puzzles</p><p class="mg-text">Clank records copies of himself on colored time pads. A copy can hold a switch down so another copy, or Clank himself, can pass through.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Complex puzzles need several recordings at once. Gaming Nexus says they get harder as the game goes on.</p></div></details></div></li><li class="mg" data-type="arcade"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arcade"/></svg><div class="mg-body"><div class="mg-top"><h3>Chronoscepter repairs</h3></div><p class="kind">Arcade and oddities</p><p class="mg-text">In the Great Clock’s planet rooms you fire a beam at time anomalies while controlling both the planet and the beam.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>You destroy “seekers” that try to worsen the damage, and collect power-ups to speed up repairs.</p></div></details></div></li><li class="mg" data-type="space"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-space"/></svg><div class="mg-body"><div class="mg-top"><h3>Space flight and 2D combat</h3></div><p class="kind">Space flight and combat</p><p class="mg-text">Ratchet flies the Aphelion between planets and moons, and in 2D combat sections can destroy asteroids and enemy ships for bolts. Gaming Nexus found the battles an afterthought with awkward controls.</p></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Bonus moons</h3></div><p class="kind">Platforming</p><p class="mg-text">Small moons are bonus stages. Some are complex 3D platforming levels, compared to Super Mario Galaxy. Others ask you to defeat a set number of aliens or find a hidden weapon piece.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Optional objectives on planets and moons reward bolts, Zoni, Constructo mods, gold bolts or holo-plans for the RYNO V.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Agorian Battleplex</h3></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">Cup tournaments and challenges, such as “Bros Before Foes” and “Overkill”, that win you weapons.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Gaming Nexus describes later challenges such as surviving five waves without being hit and fighting two bosses at once.</p></div></details></div></li></ul>
+  <p class="extra">Gaming Nexus puts the story at about 10 hours, with nearly twice that to find everything.</p><p class="note">A Fandom page lists an arcade game called My Blaster Runs Hot. Giant Bomb lists it only as a soundtrack title, so I haven’t counted it.</p>
+</article>
+<article class="entry" id="a41" style="--h:241" data-types="puzzle side" aria-labelledby="a41-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2011<small>Oct · No. 10</small></p>
+    <div class="title-block">
+      <h2 id="a41-t">Ratchet &amp; Clank: All 4 One</h2>
+      <p class="where">PlayStation 3<span class="badge">Co-op spin-off</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank: All 4 One"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="m-num">1 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Almost no mini-games: six critter-maze rooms that unlock the RYNO VI.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Critter puzzle rooms</h3><span class="size">6</span></div><p class="kind">Puzzles</p><p class="mg-text">Vacuuming up critters opens hidden teleporters to puzzle rooms. You guide a running critter through a maze by modifying pipes.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>If you’re slow, the critter falls and you retry. Completing all the rooms unlocks the RYNO VI.</p><p>The Sixth Axis found them fun but rare.</p></div></details></div></li><li class="mg" data-type="side"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-side"/></svg><div class="mg-body"><div class="mg-top"><h3>Side-scrolling sections</h3></div><p class="kind">Side-scrolling</p><p class="mg-text">These are part of the levels. The Sixth Axis enjoyed them at first, but says they drag on when jetpacks and obstacles are added.</p></div></li></ul>
+  <p class="note">The Sixth Axis review says there is no arena, and calls that a real loss in co-op.</p>
+</article>
+<article class="entry" id="ffa" style="--h:266" data-types="collect" aria-labelledby="ffa-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2012<small>Nov · No. 11</small></p>
+    <div class="title-block">
+      <h2 id="ffa-t">Ratchet &amp; Clank: Full Frontal Assault</h2>
+      <p class="where">PlayStation 3, with a Vita release in 2013<span class="badge">Spin-off</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank: Full Frontal Assault"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="m-num">1 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="m-num">1 of 5</span></p></div>
+    <p class="verdict">No side games. The whole game is a tower-defense shooter, and I haven’t counted that as a mini-game.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Skill points and gold bolts</h3></div><p class="kind">Collecting and skill points</p><p class="mg-text">You can collect both in the campaign. Medals earned from objectives lead to promotions, which grant armor, perks and extra pod deployments.</p></div></li></ul>
+  <p class="note">The main mode has you spend bolts on turrets, mines and barriers to protect your base’s generators. The source I read describes no separate mini-games or challenge modes. The competitive mode is a multiplayer game, which I haven’t counted.</p>
+</article>
+<article class="entry" id="itn" style="--h:291" data-types="arcade arena collect side" aria-labelledby="itn-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2013<small>Nov · No. 12</small></p>
+    <div class="title-block">
+      <h2 id="itn-t">Ratchet &amp; Clank: Into the Nexus</h2>
+      <p class="where">PlayStation 3</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank: Into the Nexus"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Clank’s 2D gravity mazes, an arena and a wildlife hunt, in a game reviewers called short.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="side"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-side"/></svg><div class="mg-body"><div class="mg-top"><h3>Netherverse mazes</h3></div><p class="kind">Side-scrolling</p><p class="mg-text">Clank’s 2D segments are puzzles set in a maze where a Nether chases him. You manipulate gravity to guide him, with the goal of letting the Nether cross the rift.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Game Informer praised the VVVVVV-inspired mini-game. GamesRadar disliked the side-scrolling sections.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Destructapalooza</h3></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">An arena tournament on Kragg.</p></div></li><li class="mg" data-type="arcade"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arcade"/></svg><div class="mg-body"><div class="mg-top"><h3>Hoverboots wildlife hunt</h3></div><p class="kind">Arcade and oddities</p><p class="mg-text">On Thram, the Smuggler rewards you for hunting native wildlife with Hoverboots.</p></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Skill points, cheats and gold bolts</h3></div><p class="kind">Collecting and skill points</p><p class="mg-text">All three return from earlier games.</p></div></li></ul>
+  <p class="extra">GamesRadar estimated about five hours for the whole game.</p><p class="note">A separate mobile endless runner, Before the Nexus, came out in December 2013. It lets you earn Raritanium for the main game, and I haven’t counted it.</p>
+</article>
+<article class="entry" id="rc16" style="--h:316" data-types="collect hack puzzle race" aria-labelledby="rc16-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2016<small>Apr · No. 13</small></p>
+    <div class="title-block">
+      <h2 id="rc16-t">Ratchet &amp; Clank (2016)</h2>
+      <p class="where">PlayStation 4<span class="badge">Reimagining</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank (2016)"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Hoverboard races, Gadgebot puzzles and laser hacking, with no arena.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Hoverboard races</h3><span class="size">Rilgar and Kalebo III</span></div><p class="kind">Racing</p><p class="mg-text">They work much like the original’s: steer, use speed boosts and do air tricks to extend them. Silver and Gold medals are optional and pay bolts and holocards.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>The Rilgar races come in three cups, Bronze, Silver and Gold, and you win each to unlock the next. You can store up to three boosts.</p><p>Silver and Gold add explosive crates that slow you down. A gold bolt is hidden on the track.</p><p>Finishing the Gold Cup in under 1:35 earns the Kalebo Thunder trophy.</p></div></details></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Gadgebot puzzles</h3></div><p class="kind">Puzzles</p><p class="mg-text">Clank picks up Gadgebots and reprograms them into Spring-bots (higher jumps), Bridge-bots (cross gaps) or Power-bots (activate machinery). Other segments have him run from Victor Von Ion, dodging attacks.</p></div></li><li class="mg" data-type="hack"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hack"/></svg><div class="mg-body"><div class="mg-top"><h3>Trespasser hacking</h3></div><p class="kind">Hacking and gadget games</p><p class="mg-text">Align lasers to open the way. A new option deactivates rings that switch off lasers and blockers.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Story hacks can be auto-completed, but you lose the bolt reward and a trophy. Optional Trespasser missions must be completed to unlock hidden items.</p></div></details></div></li><li class="mg" data-type="collect"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-collect"/></svg><div class="mg-body"><div class="mg-top"><h3>Holocards</h3></div><p class="kind">Collecting and skill points</p><p class="mg-text">Earned from optional objectives and minigame rewards. A set of three unlocks a bonus, such as higher bolt drops or the chance to buy an Omega weapon.</p></div></li></ul>
+  <p class="note">Wikipedia lists spaceship combat missions, but the Fandom wiki treats ship battles as story events, so I haven’t counted them. The Fandom wiki also says there is no arena.</p>
+</article>
+<article class="entry" id="ra" style="--h:341" data-types="arena hack platform puzzle" aria-labelledby="ra-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2021<small>Jun · No. 14</small></p>
+    <div class="title-block">
+      <h2 id="ra-t">Ratchet &amp; Clank: Rift Apart</h2>
+      <p class="where">PlayStation 5, with a PC release in 2023</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Ratchet &amp; Clank: Rift Apart"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">Glitch’s virus hunts, dimensional anomaly puzzles, pocket dimensions and a 15-challenge arena.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="hack"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hack"/></svg><div class="mg-body"><div class="mg-top"><h3>Glitch hacking</h3><span class="size">5 sections</span></div><p class="kind">Hacking and gadget games</p><p class="mg-text">As Glitch you explore a digital world and destroy every Virus Nest, while the minions the nests spawn swarm you. She can walk on any surface, ceilings included.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Three sections are part of the story and two are optional, both tied to Gold Bolts. Gfinity says you can pause and choose Skip Puzzle with no penalty.</p><p>R2 fires cannons, and L2 fires homing Blitz-Infectors, the only weapon that damages nests. X is unlocked later as an area attack.</p><p>Some nests are shielded. You follow a cable to a switch to lower the shield.</p></div></details></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Dimensional anomaly puzzles</h3><span class="size">4 puzzles, 12 courses</span></div><p class="kind">Puzzles</p><p class="mg-text">There are no enemies. You guide a stream of “possibilities” through a labyrinth to a Meta-Terminal, placing spheres in sockets to change the possibilities or the environment.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Clank plays three of the puzzles and Kit plays one. The four spheres are Lift, Speed, Heavy and Electric, and each puzzle needs at least seven possibilities to reach the terminal, according to Gfinity.</p><p>Thumb Culture compares it to Lemmings. The Technovore found the puzzles a refreshing change but said they slow the pace and aren’t optional. Gfinity says you can skip any of them from the pause menu with no penalty, though you miss story dialogue and some crates.</p></div></details></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Pocket dimensions</h3><span class="size">11</span></div><p class="kind">Platforming</p><p class="mg-text">Hidden on the planets. You use the Rift Tether to tear one open, then cross a self-contained platforming challenge to earn an armor piece.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Examples: bouncing across parade floats, wall-running past explosive crates, crossing rotating platforms and riding Speetle courses. Gfinity says combat appears in only one of the eleven.</p><p>The closest thing to a puzzle is the Blizar Prime Mines one, where invisible platforms appear briefly when you hit buttons and you have to memorize the layout.</p></div></details></div></li><li class="mg" data-type="arena"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-arena"/></svg><div class="mg-body"><div class="mg-top"><h3>Zurkie’s Battleplex</h3><span class="size">3 cups of 5</span></div><p class="kind">Arenas and challenge rounds</p><p class="mg-text">Rivet takes on challenges run by Zurkon Jr. The Bronze, Silver and Gold Cups each hold five challenges, and the last in each is a boss fight.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Tasks include surviving enemy waves with stage hazards, and riding a Speetle through a timed obstacle course.</p><p>Prizes include Bolts, Raritanium, Gold Bolts, Armor Pods, the Box Breaker and a Spybot.</p></div></details></div></li></ul>
+  <p class="extra">Thumb Culture puts the main game at 10 to 12 hours, with side content stretching it to about 20.</p>
+</article>
+  </div>
+
+  <section class="after" aria-labelledby="patterns-h">
+    <h2 id="patterns-h">What keeps coming back</h2>
+    <dl class="patterns"><div><dt>Racing</dt><dd>Hoverbikes in Going Commando, skyboards in Size Matters, and hoverboards in the 2002 game and again in 2016.</dd></div><div><dt>Arenas</dt><dd>Gladiator battles in Going Commando, Annihilation Nation, Deadlocked’s whole game show, the Imperial Fight Festival, the Agorian Battleplex, Destructapalooza and Zurkie’s Battleplex. The 2016 game has none.</dd></div><div><dt>Clank on his own</dt><dd>Gadgebots in the 2002 game, Up Your Arsenal, Size Matters and Secret Agent Clank, Zoni in Tools of Destruction, time recordings in A Crack in Time, and the dimensional anomaly puzzles in Rift Apart.</dd></div><div><dt>Hacking</dt><dd>Door minigames in 2002, the Electrolyzer and Infiltrator in Going Commando, the Hacker in Up Your Arsenal, the Decryptor in Tools of Destruction, the Trespasser in 2016, and Glitch in Rift Apart.</dd></div><div><dt>Space combat</dt><dd>One level in 2002, four locations in Going Commando, Giant Clank in Size Matters, rail-shooter stages in Tools of Destruction and 2D battles in A Crack in Time.</dd></div></dl>
+  </section>
+
+  <section class="after" aria-labelledby="cover-h">
+    <h2 id="cover-h">Not covered</h2>
+    <p class="cover">Multiplayer modes, including the online modes in Up Your Arsenal and Deadlocked and the competitive mode in Full Frontal Assault. The mobile games (Going Mobile, Before the Nexus) and the film. Counts come from wikis and reviews that sometimes disagree, and the older games have thinner coverage than the newer ones.</p>
+  </section>
+
+  <section class="after" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <div class="src-grid"><div class="src"><h3>Ratchet &amp; Clank</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank_(2002_video_game)">Wikipedia: Ratchet &amp; Clank (2002)</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Win_the_hoverboard_race_(Rilgar,_2002_game)">Ratchet &amp; Clank Wiki: hoverboard race (2002)</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank: Going Commando</h3><ul><li><a href="https://ratchetandclank.fandom.com/wiki/Ratchet_%26_Clank_2">Ratchet &amp; Clank Wiki: Ratchet &amp; Clank 2</a></li><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank:_Going_Commando">Wikipedia: Going Commando</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Win_the_Megacorp_Hoverbike_Race">Ratchet &amp; Clank Wiki: Megacorp Hoverbike Race</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank: Up Your Arsenal</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank:_Up_Your_Arsenal">Wikipedia: Up Your Arsenal</a></li><li><a href="https://giantbomb.com/wiki/Games/Ratchet_And_Clank_Up_Your_Arsenal">Giant Bomb: Up Your Arsenal</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Up_Your_Arsenal_skill_points">Ratchet &amp; Clank Wiki: skill points</a></li><li><a href="https://gamingpastime.com/ratchet-and-clank-up-your-arsenal-ps3-review/">Gaming Pastime: HD review</a></li></ul></div><div class="src"><h3>Ratchet: Deadlocked</h3><ul><li><a href="https://ratchetandclank.fandom.com/wiki/DreadZone">Ratchet &amp; Clank Wiki: DreadZone</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Maraxus_challenges">Ratchet &amp; Clank Wiki: Maraxus challenges</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Marauder_Tournament">Ratchet &amp; Clank Wiki: Marauder Tournament</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Dynamite_Baseball">Ratchet &amp; Clank Wiki: Dynamite Baseball</a></li><li><a href="https://en.wikipedia.org/wiki/Ratchet:_Deadlocked">Wikipedia: Deadlocked</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank: Size Matters</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank:_Size_Matters">Wikipedia: Size Matters</a></li><li><a href="https://pushsquare.com/reviews/psp/ratchet-and-clank-size-matters">Push Square: Size Matters review</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank Future: Tools of Destruction</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank_Future:_Tools_of_Destruction">Wikipedia: Tools of Destruction</a></li><li><a href="https://giantbomb.com/wiki/Games/Ratchet_And_Clank_Future_Tools_of_Destruction">Giant Bomb: Tools of Destruction</a></li><li><a href="https://avclub.com/ratchet-clank-future-tools-of-destruction-1798212907">The AV Club: Tools of Destruction review</a></li></ul></div><div class="src"><h3>Secret Agent Clank</h3><ul><li><a href="https://en.wikipedia.org/wiki/Secret_Agent_Clank">Wikipedia: Secret Agent Clank</a></li><li><a href="https://www.trustedreviews.com/reviews/secret-agent-clank">Trusted Reviews: Secret Agent Clank</a></li><li><a href="https://www.gamerevolution.com/review/40999-secret-agent-clank-review">Game Revolution: Secret Agent Clank review</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank Future: Quest for Booty</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank_Future:_Quest_for_Booty">Wikipedia: Quest for Booty</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Ratchet_%26_Clank_Future:_Quest_for_Booty">Ratchet &amp; Clank Wiki: Quest for Booty</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank Future: A Crack in Time</h3><ul><li><a href="https://ratchetandclank.fandom.com/wiki/Ratchet_%26_Clank_Future:_A_Crack_in_Time">Ratchet &amp; Clank Wiki: A Crack in Time</a></li><li><a href="https://giantbomb.com/wiki/Games/Ratchet_And_Clank_Future_A_Crack_in_Time">Giant Bomb: A Crack in Time</a></li><li><a href="https://www.gamingnexus.com/Article/2460/Ratchet-and-Clank-Future-Crack-In-Time">Gaming Nexus: A Crack in Time</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank: All 4 One</h3><ul><li><a href="https://www.thesixthaxis.com/2011/10/25/ratchet-clank-all-4-one-review-ps3/">The Sixth Axis: All 4 One review</a></li><li><a href="https://giantbomb.com/wiki/Games/Ratchet_And_Clank_All_4_One">Giant Bomb: All 4 One</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank: Full Frontal Assault</h3><ul><li><a href="https://ratchetandclank.fandom.com/wiki/Ratchet_%26_Clank:_Full_Frontal_Assault">Ratchet &amp; Clank Wiki: Full Frontal Assault</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank: Into the Nexus</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank:_Into_the_Nexus">Wikipedia: Into the Nexus</a></li><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank">Wikipedia: the series (mobile spin-offs)</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank (2016)</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank_(2016_video_game)">Wikipedia: Ratchet &amp; Clank (2016)</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Ratchet_%26_Clank_(2016_game)">Ratchet &amp; Clank Wiki: Ratchet &amp; Clank (2016)</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Win_the_hoverboard_race_(Rilgar,_2016_game)">Ratchet &amp; Clank Wiki: Rilgar hoverboard race</a></li></ul></div><div class="src"><h3>Ratchet &amp; Clank: Rift Apart</h3><ul><li><a href="https://ratchetandclank.fandom.com/wiki/Ratchet_%26_Clank:_Rift_Apart">Ratchet &amp; Clank Wiki: Rift Apart</a></li><li><a href="https://www.gfinityesports.com/ratchet-clank/ratchet-and-clank-rift-apart-how-to-play-as-glitch/">Gfinity: playing as Glitch</a></li><li><a href="https://thetechnovore.com/2021/06/08/ratchet-clank-rift-apart-ps5-reviewed/">The Technovore: Rift Apart review</a></li><li><a href="https://www.thumbculture.co.uk/ratchet-clank-rift-apart-review">Thumb Culture: Rift Apart review</a></li><li><a href="https://www.gfinityesports.com/ratchet-clank/ratchet-and-clank-rift-apart-dimensional-anomalies-possibilities-puzzle-solutions/">Gfinity: dimensional anomaly puzzles</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/Investigate_the_Dimensional_Anomaly">Ratchet &amp; Clank Wiki: the first dimensional anomaly</a></li><li><a href="https://www.gamepressure.com/ratchet-clank-rift-apart/clank-and-kit-puzzles/z7e8ee">GamePressure: Clank and Kit puzzles</a></li><li><a href="https://www.gfinityesports.com/ratchet-clank/ratchet-and-clank-rift-apart-all-pocket-dimensions/">Gfinity: all pocket dimensions</a></li><li><a href="https://ratchetandclank.fandom.com/wiki/65-31-99">Ratchet &amp; Clank Wiki: pocket dimensions</a></li></ul></div><div class="src"><h3>Release order</h3><ul><li><a href="https://en.wikipedia.org/wiki/Ratchet_%26_Clank">Wikipedia: the Ratchet &amp; Clank series (release order)</a></li></ul></div></div>
+  </section>
+
+  <footer class="foot">
+    <p>Ratchet &amp; Clank belongs to Sony Interactive Entertainment. This is a fan reference and is not affiliated with Sony or Insomniac Games.</p>
+    <p>Typefaces: Lilita One and Figtree, both under the SIL Open Font License.</p>
+  </footer>
+</main>
+
+<script type="application/json" id="type-labels">{"race": "Racing", "space": "Space flight and combat", "hack": "Hacking and gadget games", "puzzle": "Puzzles", "arena": "Arenas and challenge rounds", "side": "Side-scrolling", "platform": "Platforming", "giant": "Giant Clank and vehicles", "rhythm": "Rhythm and button prompts", "arcade": "Arcade and oddities", "collect": "Collecting and skill points"}</script>
+<script>
+(function () {
+  var bar = document.querySelector(".filters");
+  if (!bar) return;
+  bar.hidden = false;
+  var chips = [].slice.call(bar.querySelectorAll(".chip"));
+  var entries = [].slice.call(document.querySelectorAll(".entry"));
+  var cols = [].slice.call(document.querySelectorAll(".sky-cols li"));
+  var status = document.getElementById("filter-status");
+  var labels = JSON.parse(document.getElementById("type-labels").textContent);
+
+  function apply(f) {
+    var shownGames = 0, shownItems = 0;
+    entries.forEach(function (en, i) {
+      var items = [].slice.call(en.querySelectorAll(".mg"));
+      var any = 0;
+      items.forEach(function (li) {
+        var show = f === "all" || li.getAttribute("data-type") === f;
+        li.classList.toggle("gone", !show);
+        if (show) any++;
+      });
+      en.hidden = any === 0;
+      cols[i].classList.toggle("dim", any === 0);
+      if (any) { shownGames++; shownItems += any; }
+    });
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false");
+    });
+    status.textContent = f === "all" ? "" :
+      "Showing " + labels[f].toLowerCase() + ": " + shownItems + " side games in " + shownGames + " of " + entries.length + " releases.";
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () { apply(c.getAttribute("data-filter")); });
+  });
+  apply("all");
+})();
+</script>
+</body>
+</html>
