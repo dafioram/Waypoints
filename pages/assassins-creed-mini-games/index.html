@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Assassin’s Creed Mini-Games — Waypoints</title>
+<meta name="description" content="A release-order guide to the mini-games and side games inside every Assassin&#x27;s Creed title from 2007 to the 2026 Black Flag remake, rated by how much there is and how deep it goes." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Assassin's Creed Mini-Games",
+  "description": "A release-order guide to the mini-games and side games inside every Assassin's Creed title from 2007 to the 2026 Black Flag remake, rated by how much there is and how deep it goes.",
+  "tags": [
+    "gaming",
+    "mini-games",
+    "reference"
+  ],
+  "date": "2026-10-12"
+}
+</script>
+<style>
+@font-face{font-family:"Big Shoulders Display";font-style:normal;font-weight:700;font-display:swap;src:url(media/big-shoulders-display-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Big Shoulders Display";font-style:normal;font-weight:800;font-display:swap;src:url(media/big-shoulders-display-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:"Source Serif 4";font-style:normal;font-weight:200 900;font-display:swap;src:url(media/source-serif-4-latin-wght-normal.woff2) format("woff2")}
+@font-face{font-family:"Source Serif 4";font-style:italic;font-weight:200 900;font-display:swap;src:url(media/source-serif-4-latin-wght-italic.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --ac-bg:#E6E9E4; --ac-surface:#F3F5F1; --ac-ink:#16201B; --ac-muted:#475650;
+  --ac-rule:#BFC8BE; --ac-trail:#D9A441; --ac-focus:#7A4E00;
+  --ac-lum:.50; --ac-chroma:.12;
+  --ac-display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --ac-text:"Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --rail:2.25rem; --rail-x:.55rem;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ac-bg:#0D1411; --ac-surface:#151E1A; --ac-ink:#E8EDE7; --ac-muted:#A2B0A8;
+    --ac-rule:#2B3832; --ac-focus:#F2C566; --ac-lum:.80; --ac-chroma:.11;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ac-bg);color:var(--ac-ink);font-family:var(--ac-text);font-size:1.0625rem;line-height:1.55;overflow-wrap:break-word}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--ac-focus);outline-offset:2px;border-radius:2px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:70rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+h1,h2,h3{font-family:var(--ac-display);font-weight:800;margin:0;letter-spacing:.005em}
+
+/* per-entry colour, drawn from one lightness/chroma so every hue reads alike */
+.entry,.sky-cols li{--c:#5c7a68}
+@supports (color:oklch(.5 .1 100)){
+  .entry,.sky-cols li{--c:oklch(var(--ac-lum) var(--ac-chroma) var(--h))}
+}
+
+/* ------------------------------------------------------------ hero */
+.hero{padding-top:2.2rem}
+.hero-top{display:grid;gap:1.1rem 3rem;align-items:end}
+.hero h1{font-size:clamp(2.7rem,8vw,5rem);line-height:.92;text-wrap:balance}
+.nb{white-space:nowrap}
+.dek{max-width:34rem;margin:0;font-size:1.15rem;line-height:1.5}
+.dek-2{max-width:34rem;margin:.55rem 0 0;color:var(--ac-muted)}
+@media (min-width:900px){.hero-top{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
+
+/* skyline chart */
+.sky{margin:2.4rem 0 0;--sky-h:clamp(170px,32vw,270px);--gap:clamp(2px,.7vw,8px)}
+.sky-plot{display:grid;grid-template-columns:1.3rem minmax(0,1fr);grid-template-rows:var(--sky-h) auto}
+.sky-axis{list-style:none;margin:0;padding:0;position:relative}
+.sky-axis li{position:absolute;right:.4rem;bottom:calc(var(--n) * 20%);transform:translateY(50%);font:700 .8rem/1 var(--ac-display);color:var(--ac-muted)}
+.sky-cols{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:var(--gap);
+  border-top:1px solid var(--ac-rule);border-bottom:2px solid var(--ac-ink);
+  background-image:linear-gradient(to top,var(--ac-rule) 1px,transparent 1px);background-size:100% 20%;background-position:0 100%;background-repeat:repeat-y}
+.sky-cols li{height:100%}
+.sky-cols a{display:block;position:relative;height:100%;border-radius:2px 2px 0 0}
+.bar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--a) * 20%);background:var(--c);border-radius:3px 3px 0 0;transform-origin:bottom}
+.spin .bar{background:repeating-linear-gradient(135deg,var(--c) 0 4px,transparent 4px 8px);box-shadow:inset 0 0 0 1.5px var(--c)}
+.mark{position:absolute;left:50%;bottom:calc(var(--d) * 20%);width:.8rem;height:.8rem;margin-left:-.4rem;margin-bottom:-.4rem;
+  background:var(--ac-ink);border:2px solid var(--ac-bg);transform:rotate(45deg)}
+.sky-cols a:hover .bar,.sky-cols a:focus-visible .bar{filter:brightness(1.12) saturate(1.2)}
+.sky-cols li.dim{opacity:.2}
+.sky-labels{grid-column:2;list-style:none;margin:.35rem 0 0;padding:0;display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:var(--gap);text-align:center}
+.sky-labels .code{display:block;font:700 clamp(.64rem,2.2vw,.95rem)/1.1 var(--ac-display);letter-spacing:.01em}
+.sky-labels .yr{display:none;font:700 .72rem/1.2 var(--ac-display);color:var(--ac-muted)}
+.sky figcaption{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin:.9rem 0 0 1.3rem;font-size:.92rem;color:var(--ac-muted)}
+.lg{display:inline-flex;align-items:center;gap:.5rem}
+.lg-bar{width:.9rem;height:.9rem;background:oklch(var(--ac-lum) var(--ac-chroma) 40);display:inline-block;border-radius:2px}
+.lg-mark{width:.7rem;height:.7rem;background:var(--ac-ink);border:2px solid var(--ac-bg);outline:1px solid var(--ac-rule);transform:rotate(45deg);display:inline-block}
+.lg-spin{width:.9rem;height:.9rem;display:inline-block;border-radius:2px;background:repeating-linear-gradient(135deg,var(--ac-muted) 0 3px,transparent 3px 6px);box-shadow:inset 0 0 0 1.5px var(--ac-muted)}
+@supports not (color:oklch(.5 .1 100)){.lg-bar{background:#5c7a68}}
+@media (min-width:640px){.sky-labels .yr{display:block}}
+@media (max-width:480px){.mark{width:.62rem;height:.62rem;margin-left:-.31rem;margin-bottom:-.31rem;border-width:1.5px}}
+@media (prefers-reduced-motion:no-preference){
+  .bar{animation:rise .9s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
+  .mark{animation:pop .5s ease-out both;animation-delay:calc(.5s + var(--i) * 45ms)}
+  @keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes pop{from{opacity:0;transform:rotate(45deg) scale(.2)}to{opacity:1;transform:rotate(45deg) scale(1)}}
+}
+
+.rubric{margin:1.6rem 0 0;max-width:46rem}
+.rubric>summary{cursor:pointer;font-weight:600}
+.rubric-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1.2rem 2rem;margin-top:1rem}
+.rubric-h{margin:0 0 .4rem;font:800 1.35rem/1.1 var(--ac-display)}
+.scale{list-style:none;margin:0;padding:0;font-size:.97rem}
+.scale li{display:grid;grid-template-columns:1.4rem 1fr;gap:.5rem;padding:.3rem 0;border-top:1px solid var(--ac-rule)}
+.scale b{font:700 1.05rem/1.4 var(--ac-display)}
+.rubric-note{grid-column:1/-1;margin:0;color:var(--ac-muted);font-size:.95rem}
+
+/* ------------------------------------------------------------ filter bar */
+.filters{position:sticky;top:0;z-index:20;margin-top:2.2rem;background:var(--ac-bg);border-top:1px solid var(--ac-rule);border-bottom:1px solid var(--ac-rule)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .filters{background:color-mix(in srgb,var(--ac-bg) 90%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+}
+.filters-in{padding-block:.6rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem .1rem .1rem;scrollbar-width:thin}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.4rem;font:inherit;font-size:.92rem;line-height:1;color:var(--ac-ink);background:transparent;
+  border:1.5px solid var(--ac-rule);border-radius:999px;padding:.5rem .8rem;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--ac-ink)}
+.chip[aria-pressed="true"]{background:var(--ac-ink);color:var(--ac-bg);border-color:var(--ac-ink)}
+.chip .ico{width:1.1rem;height:1.1rem}
+.cnt{font:700 .85rem/1 var(--ac-display);opacity:.75}
+.status{margin:0;font-size:.9rem;color:var(--ac-muted)}
+.status:empty{display:none}
+
+/* ------------------------------------------------------------ the trail */
+.trail{position:relative;padding-left:var(--rail);margin-top:1rem}
+.trail::before{content:"";position:absolute;left:var(--rail-x);top:0;bottom:0;width:3px;
+  background:repeating-linear-gradient(to bottom,var(--ac-trail) 0 12px,transparent 12px 20px)}
+.entry{position:relative;padding:2.4rem 0 2.6rem;scroll-margin-top:5.2rem}
+.entry+.entry{border-top:1px solid var(--ac-rule)}
+.pin{position:absolute;left:calc(var(--rail-x) - var(--rail) - .55rem + 1.5px);top:2.65rem;width:1.1rem;height:1.1rem;border-radius:50%;background:var(--ac-bg);border:.28rem solid var(--c)}
+.entry-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.3rem 2rem;align-items:end}
+.year{grid-column:1/-1;margin:0;font:800 clamp(2.6rem,7vw,4rem)/.85 var(--ac-display);color:var(--c)}
+.year small{font-size:.38em;font-weight:700;color:var(--ac-muted);margin-left:.5rem;letter-spacing:.02em}
+.entry-head h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1}
+.where{margin:.35rem 0 0;color:var(--ac-muted);font-style:italic}
+.badge{display:inline-block;margin-left:.6rem;padding:.05rem .55rem;border:1.5px solid var(--c);border-radius:999px;font:700 .85rem/1.4 var(--ac-display);font-style:normal;color:var(--ac-ink)}
+.meters{display:grid;gap:.3rem;min-width:13rem}
+.meter{display:grid;grid-template-columns:4.2rem auto 1fr;align-items:center;gap:.6rem;margin:0;font-size:.92rem}
+.m-name{font:700 1.05rem/1 var(--ac-display)}
+.m-num{color:var(--ac-muted);font-size:.85rem;white-space:nowrap}
+.pips{display:inline-flex;gap:3px}
+.pips i{width:.95rem;height:.55rem;border-radius:1.5px;background:var(--ac-rule)}
+.pips i.on{background:var(--c)}
+.verdict{grid-column:1/-1;margin:.6rem 0 0;max-width:44rem;font-size:1.12rem;font-style:italic;line-height:1.45}
+
+.mg-list{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:0 2.4rem}
+.mg{display:grid;grid-template-columns:1.6rem minmax(0,1fr);gap:0 .8rem;padding:.95rem 0 1.05rem;border-top:1px solid var(--ac-rule)}
+.mg.gone{display:none}
+.ico{width:1.6rem;height:1.6rem;color:var(--c);margin-top:.1rem}
+.mg-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:.15rem .7rem}
+.mg h3{font-size:1.42rem;font-weight:700;line-height:1.1}
+.size{font:700 .98rem/1.3 var(--ac-display);letter-spacing:.015em;padding:.08rem .5rem;border-radius:3px;background:var(--ac-surface);border:1px solid var(--ac-rule)}
+@supports (background:color-mix(in oklab,red,blue)){
+  .size{background:color-mix(in oklab,var(--c) 14%,transparent);border-color:color-mix(in oklab,var(--c) 40%,transparent)}
+}
+.kind{margin:.1rem 0 0;font-size:.85rem;color:var(--ac-muted);font-style:italic}
+.mg-text{margin:.4rem 0 0;max-width:36rem}
+.more{margin:.6rem 0 0}
+.more>summary{cursor:pointer;font-size:.92rem;font-weight:600;list-style:none;display:inline-flex;align-items:center;gap:.4rem}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::before{content:"+";display:inline-grid;place-items:center;width:1.15rem;height:1.15rem;border:1.5px solid currentColor;border-radius:50%;font:700 .9rem/1 var(--ac-display)}
+.more[open]>summary::before{content:"–"}
+.more-body{margin-top:.5rem;padding-left:.9rem;border-left:3px solid var(--c);font-size:.97rem;max-width:36rem}
+.more-body p{margin:.45rem 0}
+.tbl{overflow-x:auto;margin:.5rem 0}
+.tbl table{border-collapse:collapse;font-size:.9rem;min-width:100%}
+.tbl th,.tbl td{padding:.3rem .6rem;border-bottom:1px solid var(--ac-rule);text-align:left;vertical-align:top}
+.tbl thead th{font:700 .95rem/1.2 var(--ac-display);white-space:nowrap}
+.extra{margin:1.3rem 0 0;padding:.2rem 0 .2rem .9rem;border-left:3px solid var(--c);max-width:44rem}
+.note{margin:.9rem 0 0;max-width:44rem;color:var(--ac-muted);font-size:.93rem}
+
+/* ------------------------------------------------------------ closing sections */
+.after{padding-block:2.6rem 1rem}
+.after h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:1rem}
+.patterns{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr));gap:0 2.4rem}
+.patterns>div{padding:.9rem 0 1rem;border-top:1px solid var(--ac-rule)}
+.patterns dt{font:700 1.3rem/1.15 var(--ac-display)}
+.patterns dd{margin:.3rem 0 0;max-width:36rem}
+.cover{max-width:46rem;margin:0}
+.src-grid{columns:19rem;column-gap:2.4rem}
+.src{break-inside:avoid;padding:.6rem 0 .8rem;border-top:1px solid var(--ac-rule)}
+.src h3{font-size:1.15rem;font-weight:700}
+.src ul{margin:.3rem 0 0;padding-left:1.1rem;font-size:.92rem}
+.src li{margin:.15rem 0;overflow-wrap:anywhere}
+.foot{padding-block:1.2rem 3rem;color:var(--ac-muted);font-size:.9rem;max-width:46rem}
+.foot p{margin:.3rem 0}
+
+/* ------------------------------------------------------------ small screens */
+@media (max-width:640px){
+  :root{--rail:1.55rem;--rail-x:.2rem}
+  body{font-size:1rem}
+  .entry-head{grid-template-columns:minmax(0,1fr)}
+  .meters{min-width:0;margin-top:.5rem}
+  .pin{top:2.55rem}
+  .mg{grid-template-columns:1.4rem minmax(0,1fr);gap:0 .65rem}
+  .ico{width:1.4rem;height:1.4rem}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-board" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17"/></symbol><symbol id="i-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1.1.9-1.1 1.8"/><path d="M12 16.8v.2"/></symbol><symbol id="i-platform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h5v-5h5v-5h5V5h3"/></symbol><symbol id="i-combat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l9 9M19 4l-9 9"/><path d="M4 15l5 5M20 15l-5 5"/></symbol><symbol id="i-timing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14v5M9.5 8v11M14 11v8M18.5 5v14"/></symbol><symbol id="i-strategy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V9h3V6h2v3h4V6h2v3h3v11zM10 20v-5h4v5"/></symbol><symbol id="i-race" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 5h12l-2.5 3.5L18 12H6"/></symbol><symbol id="i-hunt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="1.8"/><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4"/></symbol><symbol id="i-tasks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7l2 2 3-3.5M4 15l2 2 3-3.5M12 7.5h8M12 15.5h8"/></symbol><symbol id="i-calm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.6 8.2a8 8 0 1 0 1.3 5.2"/></symbol></svg>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero wrap">
+  <div class="hero-top">
+    <h1>The <span class="nb">mini-games</span> inside Assassin’s&nbsp;Creed</h1>
+    <div class="hero-copy">
+      <p class="dek">Sixteen releases, from the 2007 original to the July 2026 Black Flag remake, and 80 side games between them. Each entry says what is there, how much of it there is and how much thought it asks for.</p>
+      <p class="dek-2"><a href="#valhalla">Valhalla</a> has the most to play. <a href="#mirage">Mirage</a> has the least.</p>
+    </div>
+  </div>
+  
+<figure class="sky" aria-labelledby="sky-cap">
+  <div class="sky-plot">
+    <ol class="sky-axis" aria-hidden="true"><li style="--n:1">1</li><li style="--n:2">2</li><li style="--n:3">3</li><li style="--n:4">4</li><li style="--n:5">5</li></ol>
+    <ol class="sky-cols"><li class="" style="--h:40;--a:2;--d:1;--i:0" data-id="ac1"><a href="#ac1" aria-label="Assassin’s Creed, 2007. Amount 2 of 5, depth 1 of 5." title="Assassin’s Creed (2007)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:62;--a:4;--d:3;--i:1" data-id="ac2"><a href="#ac2" aria-label="Assassin’s Creed II, 2009. Amount 4 of 5, depth 3 of 5." title="Assassin’s Creed II (2009)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:84;--a:4;--d:3;--i:2" data-id="brotherhood"><a href="#brotherhood" aria-label="Assassin’s Creed Brotherhood, 2010. Amount 4 of 5, depth 3 of 5." title="Assassin’s Creed Brotherhood (2010)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:106;--a:3;--d:4;--i:3" data-id="revelations"><a href="#revelations" aria-label="Assassin’s Creed Revelations, 2011. Amount 3 of 5, depth 4 of 5." title="Assassin’s Creed Revelations (2011)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:128;--a:3;--d:3;--i:4" data-id="ac3"><a href="#ac3" aria-label="Assassin’s Creed III, 2012. Amount 3 of 5, depth 3 of 5." title="Assassin’s Creed III (2012)"><span class="bar"></span><span class="mark"></span></a></li><li class="spin" style="--h:150;--a:2;--d:1;--i:5" data-id="liberation"><a href="#liberation" aria-label="Assassin’s Creed III: Liberation, 2012. Amount 2 of 5, depth 1 of 5." title="Assassin’s Creed III: Liberation (2012)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:172;--a:4;--d:3;--i:6" data-id="blackflag"><a href="#blackflag" aria-label="Assassin’s Creed IV: Black Flag, 2013. Amount 4 of 5, depth 3 of 5." title="Assassin’s Creed IV: Black Flag (2013)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:194;--a:2;--d:2;--i:7" data-id="rogue"><a href="#rogue" aria-label="Assassin’s Creed Rogue, 2014. Amount 2 of 5, depth 2 of 5." title="Assassin’s Creed Rogue (2014)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:216;--a:4;--d:3;--i:8" data-id="unity"><a href="#unity" aria-label="Assassin’s Creed Unity, 2014. Amount 4 of 5, depth 3 of 5." title="Assassin’s Creed Unity (2014)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:238;--a:3;--d:2;--i:9" data-id="syndicate"><a href="#syndicate" aria-label="Assassin’s Creed Syndicate, 2015. Amount 3 of 5, depth 2 of 5." title="Assassin’s Creed Syndicate (2015)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:260;--a:4;--d:3;--i:10" data-id="origins"><a href="#origins" aria-label="Assassin’s Creed Origins, 2017. Amount 4 of 5, depth 3 of 5." title="Assassin’s Creed Origins (2017)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:282;--a:4;--d:3;--i:11" data-id="odyssey"><a href="#odyssey" aria-label="Assassin’s Creed Odyssey, 2018. Amount 4 of 5, depth 3 of 5." title="Assassin’s Creed Odyssey (2018)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:304;--a:5;--d:4;--i:12" data-id="valhalla"><a href="#valhalla" aria-label="Assassin’s Creed Valhalla, 2020. Amount 5 of 5, depth 4 of 5." title="Assassin’s Creed Valhalla (2020)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:326;--a:1;--d:2;--i:13" data-id="mirage"><a href="#mirage" aria-label="Assassin’s Creed Mirage, 2023. Amount 1 of 5, depth 2 of 5." title="Assassin’s Creed Mirage (2023)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:348;--a:4;--d:2;--i:14" data-id="shadows"><a href="#shadows" aria-label="Assassin’s Creed Shadows, 2025. Amount 4 of 5, depth 2 of 5." title="Assassin’s Creed Shadows (2025)"><span class="bar"></span><span class="mark"></span></a></li><li class="" style="--h:10;--a:3;--d:3;--i:15" data-id="resynced"><a href="#resynced" aria-label="Assassin’s Creed Black Flag Resynced, 2026. Amount 3 of 5, depth 3 of 5." title="Assassin’s Creed Black Flag Resynced (2026)"><span class="bar"></span><span class="mark"></span></a></li></ol>
+    <ol class="sky-labels" aria-hidden="true"><li><span class="code">I</span><span class="yr">’07</span></li><li><span class="code">II</span><span class="yr">’09</span></li><li><span class="code">BH</span><span class="yr">’10</span></li><li><span class="code">RV</span><span class="yr">’11</span></li><li><span class="code">III</span><span class="yr">’12</span></li><li><span class="code">LIB</span><span class="yr">’12</span></li><li><span class="code">IV</span><span class="yr">’13</span></li><li><span class="code">ROG</span><span class="yr">’14</span></li><li><span class="code">UNI</span><span class="yr">’14</span></li><li><span class="code">SYN</span><span class="yr">’15</span></li><li><span class="code">ORI</span><span class="yr">’17</span></li><li><span class="code">ODY</span><span class="yr">’18</span></li><li><span class="code">VAL</span><span class="yr">’20</span></li><li><span class="code">MIR</span><span class="yr">’23</span></li><li><span class="code">SHA</span><span class="yr">’25</span></li><li><span class="code">RS</span><span class="yr">’26</span></li></ol>
+  </div>
+  <figcaption id="sky-cap">
+    <span class="lg"><span class="lg-bar"></span>Amount: how much extra game there is, from 1 to 5</span>
+    <span class="lg"><span class="lg-mark"></span>Depth: how complex it gets, from 1 to 5</span>
+    <span class="lg"><span class="lg-spin"></span>Spin-off</span>
+  </figcaption>
+</figure>
+  <details class="rubric">
+    <summary>How the ratings work</summary>
+    <div class="rubric-body">
+      <div><p class="rubric-h">Amount</p><ol class="scale"><li><b>1</b><span>A handful of small tasks.</span></li><li><b>2</b><span>A few repeatable activities, mostly errands or collecting.</span></li><li><b>3</b><span>Several different activities, with dozens of instances between them.</span></li><li><b>4</b><span>Many different activities that take up a large part of the map.</span></li><li><b>5</b><span>More different side games than any other entry, with plenty to do in each.</span></li></ol></div>
+      <div><p class="rubric-h">Depth</p><ol class="scale"><li><b>1</b><span>Press a button, or pick something up.</span></li><li><b>2</b><span>One simple rule or one skill check.</span></li><li><b>3</b><span>Rules or multi-step puzzles you have to learn.</span></li><li><b>4</b><span>A real game with strategy in it, like a dice game or a tower defense.</span></li><li><b>5</b><span>A full standalone game inside the game. Nothing in the series reaches this.</span></li></ol></div>
+      <p class="rubric-note">These are my own judgment calls, based on the counts and descriptions in the sources at the bottom. They are not an official measure. The main story, combat and open-world exploring are left out on purpose.</p>
+    </div>
+  </details>
+</header>
+
+
+<div class="filters" hidden>
+  <div class="wrap filters-in">
+    <div class="chips" role="group" aria-label="Show only one kind of mini-game"><button type="button" class="chip" data-filter="all" aria-pressed="true">Everything<span class="cnt">80</span></button><button type="button" class="chip" data-filter="board" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-board"/></svg>Board and dice<span class="cnt">6</span></button><button type="button" class="chip" data-filter="puzzle" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg>Puzzles and riddles<span class="cnt">10</span></button><button type="button" class="chip" data-filter="platform" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg>Platforming<span class="cnt">7</span></button><button type="button" class="chip" data-filter="combat" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg>Fights and arenas<span class="cnt">15</span></button><button type="button" class="chip" data-filter="timing" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-timing"/></svg>Timing and rhythm<span class="cnt">5</span></button><button type="button" class="chip" data-filter="strategy" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-strategy"/></svg>Strategy and management<span class="cnt">6</span></button><button type="button" class="chip" data-filter="race" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg>Racing and riding<span class="cnt">4</span></button><button type="button" class="chip" data-filter="hunt" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg>Hunting and diving<span class="cnt">9</span></button><button type="button" class="chip" data-filter="tasks" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg>Small missions and collecting<span class="cnt">17</span></button><button type="button" class="chip" data-filter="calm" aria-pressed="false"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-calm"/></svg>Calm and creative<span class="cnt">1</span></button></div>
+    <p class="status" id="filter-status" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="trail">
+<article class="entry" id="ac1" style="--h:40" data-types="combat tasks" aria-labelledby="ac1-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2007<small>Nov</small></p>
+    <div class="title-block">
+      <h2 id="ac1-t">Assassin’s Creed</h2>
+      <p class="where">The Holy Land</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="m-num">1 of 5</span></p></div>
+    <p class="verdict">Barely any mini-games yet. The extras are errands before each kill, and 420 flags to collect.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Flags</h3><span class="size">420 flags</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Scattered across the Holy Land: 20 in Masyaf, then 100 each in the Kingdom, Damascus, Acre and Jerusalem. Some informers pay for a batch of Assassin flags collected against a time limit.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Intel errands</h3></div><p class="kind">Small missions and collecting</p><p class="mg-text">Eavesdrop on a conversation, pick a pocket or lean on someone for answers. They are short tasks that feed the main hunt, so they feel more like chores than games.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Citizens in need</h3></div><p class="kind">Fights and arenas</p><p class="mg-text">Fight off city guards who are threatening or harassing townspeople.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Templar challenges</h3></div><p class="kind">Fights and arenas</p><p class="mg-text">Optional hunts for Templars that have nothing to do with the story.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="ac2" style="--h:62" data-types="combat platform puzzle race tasks" aria-labelledby="ac2-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2009<small>Nov</small></p>
+    <div class="title-block">
+      <h2 id="ac2-t">Assassin’s Creed II</h2>
+      <p class="where">Renaissance Italy</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed II"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">The first real side games: tomb platforming, a run of glyph puzzles and 100 feathers to find.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Glyph puzzles</h3><span class="size">20 puzzles</span></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Hidden glyphs unlock puzzles that reveal a video called The Truth, one piece at a time.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>The puzzles come in a fixed order, so it doesn’t matter which glyph you find first.</p><p>Tasks vary: pick the right paintings, complete a picture, identify an object, find a Piece of Eden, enter a password, or drag something onto a target.</p><p>Unlocking all 20 pieces of the video earns the Vitruvian Man trophy or achievement.</p></div></details></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Assassin’s tombs</h3><span class="size">6 tombs</span></div><p class="kind">Platforming</p><p class="mg-text">Platforming gauntlets with a few guards in them. Each ends at a sarcophagus holding a seal, and six seals open the lock on Altaïr’s armor.</p></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Templar lairs</h3><span class="size">3 lairs</span></div><p class="kind">Platforming</p><p class="mg-text">Platforming-heavy lairs that end in treasure instead of a seal. They are not in the base game, and how many you get depends on the edition you bought.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Feathers</h3><span class="size">100 feathers</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Collectibles spread over the cities. Returning all 100 earns the Auditore cape.</p></div></li><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Races and courier runs</h3></div><p class="kind">Racing and riding</p><p class="mg-text">Races send you through a string of markers before a timer runs out, often over rooftops. Courier jobs are letter deliveries with generous time limits.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Beat-ups</h3></div><p class="kind">Fights and arenas</p><p class="mg-text">Find a cheating partner and fight until they submit. Later ones give only a general area, so you search with Eagle Vision.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Assassination contracts</h3><span class="size">2 or 3 per city</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Contracts from Lorenzo de’ Medici, started at rooftop pigeon coops. Some add conditions, such as no weapons or never being seen.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="brotherhood" style="--h:84" data-types="combat platform strategy tasks" aria-labelledby="brotherhood-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2010<small>Nov</small></p>
+    <div class="title-block">
+      <h2 id="brotherhood-t">Assassin’s Creed Brotherhood</h2>
+      <p class="where">Rome</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Brotherhood"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">Side content turns into systems: recruit assassins, rebuild Rome and test Leonardo’s war machines.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="strategy"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-strategy"/></svg><div class="mg-body"><div class="mg-top"><h3>Assassin recruits</h3></div><p class="kind">Strategy and management</p><p class="mg-text">Rescue citizens to recruit Assassins, send them on missions around Europe or call them into fights, and spend skill points on them. Recruits can die on missions and don’t come back.</p></div></li><li class="mg" data-type="strategy"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-strategy"/></svg><div class="mg-body"><div class="mg-top"><h3>Rome restoration</h3><span class="size">5 districts, 12 towers</span></div><p class="kind">Strategy and management</p><p class="mg-text">Destroy a Borgia tower to free a district, then renovate it for rewards, much like investing in Monteriggioni in the second game.</p></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Romulus lairs</h3></div><p class="kind">Platforming</p><p class="mg-text">Underground exploration to find keys to the treasure of a secret cult that worships Romulus.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Leonardo’s war machines</h3></div><p class="kind">Fights and arenas</p><p class="mg-text">A short run of missions in his inventions, including a cannon-equipped Great Kite and a prototype tank. Afterwards you destroy the machines and their designs.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Guild challenges</h3><span class="size">3 factions</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">The Courtesans, Thieves and Mercenaries each set their own challenges.</p></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Animus training</h3></div><p class="kind">Platforming</p><p class="mg-text">Virtual training missions that test combat and free-running skills.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="revelations" style="--h:106" data-types="platform strategy tasks" aria-labelledby="revelations-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2011<small>Nov</small></p>
+    <div class="title-block">
+      <h2 id="revelations-t">Assassin’s Creed Revelations</h2>
+      <p class="where">Constantinople</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Revelations"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p></div>
+    <p class="verdict">Fewer extras, but two of them are whole genres: a tower defense and a first-person puzzle platformer.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="strategy"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-strategy"/></svg><div class="mg-body"><div class="mg-top"><h3>Den Defense</h3><span class="size">Triggered by notoriety</span></div><p class="kind">Strategy and management</p><p class="mg-text">A tower defense. When Templar awareness is maxed, they attack one of your dens. You place crossbowmen and riflemen on rooftops, hold the street with barricades and survive the final wave.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Assassin Leaders on rooftops generate Morale, which pays for more units and unlocks rooftop placement.</p><p>Riflemen fire slower than crossbowmen but pierce armor, so the guide rates them best against the toughest enemies in the final wave. Caltrop bombers slow enemies down near the end of the street.</p><p>Barricades can be upgraded mid-fight to restore their health. Ezio can fire his wrist gun or a cannon, though cannon fire lowers your score and rewards.</p><p>Losing doesn’t lose the den for good: you can retake it by killing the Templar captain. Rewards are rare bomb ingredients, Assassin experience and money.</p></div></details></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Desmond’s Journey</h3><span class="size">5 memory sequences</span></div><p class="kind">Platforming</p><p class="mg-text">First-person puzzle platforming on Animus Island, with Desmond narrating. The Lost Archive DLC adds another campaign in the same style.</p></div></li><li class="mg" data-type="strategy"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-strategy"/></svg><div class="mg-body"><div class="mg-top"><h3>Bomb crafting</h3><span class="size">About 15 bombs</span></div><p class="kind">Strategy and management</p><p class="mg-text">Mix shells and ingredients into smoke, lethal and other bombs. You can only carry three types at once. Piri Reis missions teach what each does.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Guild challenges and recruit contracts</h3></div><p class="kind">Small missions and collecting</p><p class="mg-text">Challenges for the Thieves, Mercenaries and Romani. Recruits earn levels on contracts, and a top-ranked one can become a Den Master who unlocks a unique mission for each district.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="ac3" style="--h:128" data-types="board combat hunt" aria-labelledby="ac3-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2012<small>Oct</small></p>
+    <div class="title-block">
+      <h2 id="ac3-t">Assassin’s Creed III</h2>
+      <p class="where">Colonial America</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed III"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">The board games arrive: Fanorona, Morris and lawn bowls, with a fight club and frontier hunting around them.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="board"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-board"/></svg><div class="mg-body"><div class="mg-top"><h3>Fanorona</h3><span class="size">22 pieces a side</span></div><p class="kind">Board and dice</p><p class="mg-text">A capture game on a 9×5 board. Capturing is compulsory and can chain. It unlocks at DNA sequence 5 and is played from the Homestead Manor. Early opponents are tough and later ones much harder.</p></div></li><li class="mg" data-type="board"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-board"/></svg><div class="mg-body"><div class="mg-top"><h3>Nine Men’s Morris</h3></div><p class="kind">Board and dice</p><p class="mg-text">Each player places nine stones, trying to line up three to form a mill and remove an opponent’s piece. Then you slide pieces. Higher difficulty levels are available.</p></div></li><li class="mg" data-type="board"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-board"/></svg><div class="mg-body"><div class="mg-top"><h3>Lawn bowls</h3><span class="size">First to 5 points</span></div><p class="kind">Board and dice</p><p class="mg-text">Throw four balls each and get yours closest to the red ball. The easiest of the three, and it unlocks after the fourth Homestead mission.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Most side activities need you to finish a good part of the Homestead missions first.</p><p>Only the bowls field by the Inn counts toward the trophy, not the one in Aquila.</p></div></details></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Boston Brawlers</h3><span class="size">6 Brawlers to beat</span></div><p class="kind">Fights and arenas</p><p class="mg-text">A fight club. You have to beat six Brawlers to enter its tournaments.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Hunting</h3></div><p class="kind">Hunting and diving</p><p class="mg-text">Hunting animals on the frontier. Black Flag later kept this system.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="liberation" style="--h:150" data-types="puzzle" aria-labelledby="liberation-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2012<small>Oct</small></p>
+    <div class="title-block">
+      <h2 id="liberation-t">Assassin’s Creed III: Liberation</h2>
+      <p class="where">New Orleans and the bayou<span class="badge">Spin-off</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed III: Liberation"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="m-num">1 of 5</span></p></div>
+    <p class="verdict">A few Vita touchscreen and tilt gimmicks, and little else.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Touchscreen and tilt tasks</h3></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Tear open a letter, hold a paper up to the light to find treasure, or tilt a maze like a Labyrinth board. Giant Bomb’s write-up calls them “extremely forced-in.”</p></div></li></ul>
+  
+</article>
+<article class="entry" id="blackflag" style="--h:172" data-types="board hunt puzzle strategy" aria-labelledby="blackflag-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2013<small>Oct</small></p>
+    <div class="title-block">
+      <h2 id="blackflag-t">Assassin’s Creed IV: Black Flag</h2>
+      <p class="where">The Caribbean</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed IV: Black Flag"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">Tavern board games, spear-fishing sharks, a diving bell and a fleet minigame on top of the sailing.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="board"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-board"/></svg><div class="mg-body"><div class="mg-top"><h3>Tavern board games</h3><span class="size">3 games, 3 skill levels</span></div><p class="kind">Board and dice</p><p class="mg-text">Checkers, Nine Men’s Morris and Fanorona are played at tavern tables. Beginner, intermediate and expert opponents sit in different ports.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Shark fishing and harpooning</h3><span class="size">Limited spears</span></div><p class="kind">Hunting and diving</p><p class="mg-text">Spear a shark from a rowboat as it tows you along. Miss too often and it breaks free and charges the boat. You can also harpoon large sea animals.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Diving bell</h3><span class="size">About a minute of air</span></div><p class="kind">Hunting and diving</p><p class="mg-text">Get lowered to wrecks and swim for gold chests. Sharks patrol, and Kenway can’t fight underwater, so you swim away or retreat to the bell. Shipwrecks sit at several marked locations.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Hunting and fishing</h3></div><p class="kind">Hunting and diving</p><p class="mg-text">The hunting system from the third game stays, and you can fish too. The resources go into crafting equipment upgrades.</p></div></li><li class="mg" data-type="strategy"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-strategy"/></svg><div class="mg-body"><div class="mg-top"><h3>Edward’s Fleet</h3><span class="size">Companion minigame</span></div><p class="kind">Strategy and management</p><p class="mg-text">A fleet minigame that needed the Uplay Passport at launch. That requirement was removed on October 31, 2013.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Abstergo hacking</h3></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Present-day hacking minigames, similar to the cluster and glyph puzzles from earlier games, reveal secrets about Abstergo.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="rogue" style="--h:194" data-types="combat hunt tasks" aria-labelledby="rogue-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2014<small>Nov</small></p>
+    <div class="title-block">
+      <h2 id="rogue-t">Assassin’s Creed Rogue</h2>
+      <p class="where">The North Atlantic, River Valley and New York</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Rogue"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Ship-and-fort side work. I found no tavern board games here.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Assassin hideouts</h3><span class="size">10 hideouts</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Gang hideouts across the three main regions. You kill the leader and burn the flag, and sometimes kill Templar defectors or rescue captured British soldiers.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Assassin Interception</h3></div><p class="kind">Small missions and collecting</p><p class="mg-text">Catch a messenger pigeon carrying a contract, then find and kill the hidden Assassins before the target dies.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Legendary ships</h3><span class="size">5 ships</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Hidden boss battles in the North Atlantic.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Tavern brawls</h3><span class="size">10 taverns</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Beat four thugs in hand-to-hand combat to open a tavern. Afterwards you can recruit crew there.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Hunting and fishing</h3></div><p class="kind">Hunting and diving</p><p class="mg-text">Gather animal pelts for crafting upgrades.</p></div></li></ul>
+  <p class="note">The sources I checked list taverns only as places to fight and recruit crew. If you know of a board game in Rogue, tell me and I’ll add it.</p>
+</article>
+<article class="entry" id="unity" style="--h:216" data-types="puzzle strategy tasks timing" aria-labelledby="unity-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2014<small>Nov</small></p>
+    <div class="title-block">
+      <h2 id="unity-t">Assassin’s Creed Unity</h2>
+      <p class="where">Paris</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Unity"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">Riddle hunts, murder mysteries, glitch mini-games and a café you can renovate for income.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Nostradamus Enigmas</h3><span class="size">18 enigmas</span></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Poetic riddles point to symbols hidden around Paris that you reveal with Eagle Vision. Collected fragments open three puzzle rooms beneath the Café Théâtre.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Some enigmas span several districts.</p><p>Fragments feed the cage around Thomas de Carneillon’s Master Assassin armor. Cella Constellatio (4 fragments) asks you to pair pillar symbols with floor symbols. Cella Astri (10) has you rotate planets with three switches. Cella Vaporis (all 18) is a leap across stepping stones between bursts of steam.</p></div></details></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Murder mysteries</h3></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Search a scene with Eagle Vision for clues, talk to the suspect and make an accusation. Accuse the wrong person and you lose some of your reward.</p></div></li><li class="mg" data-type="timing"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-timing"/></svg><div class="mg-body"><div class="mg-top"><h3>Helix Rifts</h3></div><p class="kind">Timing and rhythm</p><p class="mg-text">Breaks in the Animus code that play as short mini-games. You collect data while dodging tornadoes or falling rocks, for money and intel.</p></div></li><li class="mg" data-type="strategy"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-strategy"/></svg><div class="mg-body"><div class="mg-top"><h3>Café Théâtre</h3><span class="size">5 tiers, 5 missions</span></div><p class="kind">Strategy and management</p><p class="mg-text">Renovate the café in five tiers. It and your Social Clubs pay into a bank every 20 minutes, and you have to collect the profits. Five café missions raise how much each deposit earns.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Renovating Social Clubs across Paris increases profits and unlocks Social Club missions.</p><p>The Club Hall lets you join or create a club online and earn rewards together.</p></div></details></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Paris Stories</h3></div><p class="kind">Small missions and collecting</p><p class="mg-text">Help citizens with tasks, from tearing down posters to rescuing kidnapped people.</p></div></li></ul>
+  
+</article>
+<article class="entry" id="syndicate" style="--h:238" data-types="combat race tasks" aria-labelledby="syndicate-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2015<small>Oct</small></p>
+    <div class="title-block">
+      <h2 id="syndicate-t">Assassin’s Creed Syndicate</h2>
+      <p class="where">Victorian London</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Syndicate"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Mostly activity checklists. Fight clubs and street races come closest to mini-games.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Fight clubs</h3></div><p class="kind">Fights and arenas</p><p class="mg-text">Boxing-style matches in which you face several opponents at once. The bookie Robert Topping runs the gambling around them.</p></div></li><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Carriage races</h3></div><p class="kind">Racing and riding</p><p class="mg-text">Street races between horse-drawn carriages, which are also a way to earn money.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Bounty hunts</h3><span class="size">17 hunts</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Enter a restricted area, find the target and kill or kidnap them, then carry them by carriage to a drop-off. Keeping them alive pays more.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Child liberations</h3><span class="size">10 factories</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Sneak into a factory, kill the foreman and free the children. No alarms means a bonus.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Gang strongholds and Templar hunts</h3><span class="size">11 and 17</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Clear out a stronghold, or track down a named Templar. Killing the Templar in a set way earns a bonus.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Gang wars</h3><span class="size">6 gang leaders</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Unlocked when you finish every associate activity in a borough. You then fight the gang leader.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Train heists</h3></div><p class="kind">Small missions and collecting</p><p class="mg-text">Rob trains for money.</p></div></li></ul>
+  <p class="note">Counts come from a walkthrough’s contents list, so treat them as approximate.</p>
+</article>
+<article class="entry" id="origins" style="--h:260" data-types="combat puzzle race" aria-labelledby="origins-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2017<small>Oct</small></p>
+    <div class="title-block">
+      <h2 id="origins-t">Assassin’s Creed Origins</h2>
+      <p class="where">Ptolemaic Egypt</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Origins"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">Chariot races, gladiator arenas and two different kinds of riddle hunt.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Hippodrome</h3><span class="size">8 tournaments</span></div><p class="kind">Racing and riding</p><p class="mg-text">Horse and chariot tournaments that get harder as you go. Each win pays drachmas, and winning Darius’ Great Battle gives you the Roman Warhorse.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Gladiator arenas</h3><span class="size">2 arenas</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Waves of tougher and tougher enemy mixes, ending in a boss. Krokodilopolis and Cyrene both host fights. Finish every Cyrene event to earn three legendary outfits.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Papyrus puzzles</h3><span class="size">About 24</span></div><p class="kind">Puzzles and riddles</p><p class="mg-text">A scroll gives a cryptic riddle that points to hidden gear. Work out the place, then search it. The prize is usually legendary gear that scales to your level.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Stone circles</h3><span class="size">12 circles</span></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Match the star patterns at each circle to finish the Bayek’s Promise quest and open a locked area in the Great Sphinx vault.</p></div></li><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Tomb and pyramid riddles</h3><span class="size">6 Isu mechanisms</span></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Explore tombs and pyramids, solve riddle puzzles for rare loot and activate Isu devices in the vaults to play their messages.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Phylakes and war elephants</h3><span class="size">10 and 4</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Elite bounty hunters and four armored level-40 elephants. Killing every Phylakes unlocks a quest with a legendary outfit.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Trials of the Gods</h3><span class="size">Free update</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Free missions in which you fight high-level bosses inspired by Egyptian deities.</p></div></li></ul>
+  <p class="extra">Bonus mode: Discovery Tour, added in February 2018, has 75 guided tours of five to 25 minutes each and removes combat entirely.</p><p class="note">One guide counts 24 papyrus puzzles, but a citation in Wikipedia mentions 29 scrolls, so treat the number as approximate.</p>
+</article>
+<article class="entry" id="odyssey" style="--h:282" data-types="combat hunt puzzle" aria-labelledby="odyssey-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2018<small>Oct</small></p>
+    <div class="title-block">
+      <h2 id="odyssey-t">Assassin’s Creed Odyssey</h2>
+      <p class="where">Ancient Greece</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Odyssey"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">A 60-tablet riddle hunt, a wave-fight arena and mass conquest battles.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Ainigmata Ostraka</h3><span class="size">60 on the main map</span></div><p class="kind">Puzzles and riddles</p><p class="mg-text">Stone tablets carry riddles that describe real places in the game world. Find the place and you upgrade one of 12 engravings.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Each engraving can be upgraded five times, in any order.</p><p>At the top level the bonuses include +50% critical damage at full or low health, +10% critical chance and +20% damage to Overpower abilities.</p><p>Other maps have tablets of their own.</p></div></details></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>The Arena</h3><span class="size">Level 22 to 50</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Found on the island of Pephka in the far southeast. It is wave-based fighting with a mini-boss at the end of each wave, and you need level 50 to finish it.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Conquest battles</h3><span class="size">28 city-states</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Mass battles for Sparta or Athens. You weaken a region by killing its leader, burning supplies or looting nation chests, then join the attackers or the defenders.</p></div></li><li class="mg" data-type="combat"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-combat"/></svg><div class="mg-body"><div class="mg-top"><h3>Mercenaries</h3><span class="size">50+ mercenaries</span></div><p class="kind">Fights and arenas</p><p class="mg-text">Crimes put a bounty on you, and mercenaries come to collect. You can fight them, pay up, or assassinate whoever posted the bounty.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Legendary animals</h3></div><p class="kind">Hunting and diving</p><p class="mg-text">Hunt rare beasts on land.</p></div></li></ul>
+  <p class="extra">Bonus mode: Discovery Tour: Ancient Greece (September 2019) is an educational mode with free roaming or historian-led tours. The Fate of Atlantis expansion adds three regions, each with a series of trials.</p>
+</article>
+<article class="entry" id="valhalla" style="--h:304" data-types="board hunt timing" aria-labelledby="valhalla-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2020<small>Nov</small></p>
+    <div class="title-block">
+      <h2 id="valhalla-t">Assassin’s Creed Valhalla</h2>
+      <p class="where">England and Norway</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Valhalla"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="m-num">5 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p></div>
+    <p class="verdict">The series high. It has a full dice game, rap battles, drinking contests and fishing.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="board"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-board"/></svg><div class="mg-body"><div class="mg-top"><h3>Orlog</h3><span class="size">19 opponents</span></div><p class="kind">Board and dice</p><p class="mg-text">A dice game of attack, defense and gods’ favors, played against 19 people in the base game: 2 in Norway and 17 in England. You win by wiping out the other player’s health.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Each player starts with 15 health. The dice show axes, arrows, helmets, shields and hands.</p><p>A turn allows up to three rolls, then a God Favor phase and a resolution phase.</p><p>Dice with gold print earn God Tokens, and a hand steals one from your opponent. Tokens pay for favors such as Thor’s Strike (damage), Idun’s Rejuvenation (healing) and Vidar’s Might (strips helmets).</p><p>A physical Orlog dice game was also sold.</p></div></details></div></li><li class="mg" data-type="timing"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-timing"/></svg><div class="mg-body"><div class="mg-top"><h3>Flyting</h3><span class="size">About 16 locations</span></div><p class="kind">Timing and rhythm</p><p class="mg-text">Viking rap battles. You pick the reply that rhymes and matches the rhythm of the insult, against a timer.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Winning raises your Charisma, which opens more dialogue options, and some choices can change the story.</p><p>You can bet on a match. One launch-era guide listed 16 flyting locations and warned that the list might be incomplete.</p></div></details></div></li><li class="mg" data-type="timing"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-timing"/></svg><div class="mg-body"><div class="mg-top"><h3>Drinking contests</h3><span class="size">First to 4 cups</span></div><p class="kind">Timing and rhythm</p><p class="mg-text">Tap along in rhythm as the tempo climbs. A mistake resets the speed. You can bet 100, 150 or 200 silver and the winner takes it all.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Fishing</h3><span class="size">19 fish types</span></div><p class="kind">Hunting and diving</p><p class="mg-text">Build a Fishing Hut in Ravensthorpe, then cast, hook and reel against line tension. Too much strain snaps the line. 15 types live in England and 4 in Norway.</p></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Alpha animals</h3></div><p class="kind">Hunting and diving</p><p class="mg-text">Legendary beasts to hunt down. A trophy asks you to defeat all of them.</p></div></li></ul>
+  <p class="extra">The trophy list also names standing-stone puzzles, cairn challenges and 10 Animus anomalies. I didn’t look into how those play.</p>
+</article>
+<article class="entry" id="mirage" style="--h:326" data-types="puzzle tasks" aria-labelledby="mirage-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2023<small>Oct</small></p>
+    <div class="title-block">
+      <h2 id="mirage-t">Assassin’s Creed Mirage</h2>
+      <p class="where">Baghdad</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Mirage"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="m-num">1 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">The lightest entry. It has riddle treasure hunts and contracts, but no mini-games that I could find.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="puzzle"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><div class="mg-body"><div class="mg-top"><h3>Enigmas</h3><span class="size">12 enigmas</span></div><p class="kind">Puzzles and riddles</p><p class="mg-text">A map, riddle or letter points to buried treasure that isn’t marked on your map. You search for the glowing spot and dig. Rewards are talismans or outfit dyes.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Contracts</h3><span class="size">19 contracts</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Each has a main mission and an optional sub-task, such as killing no one, staying unseen or taking no damage.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Tales of Baghdad</h3><span class="size">6 tales</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Small stories you tend to stumble across rather than seek out.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Pickpocketing</h3></div><p class="kind">Small missions and collecting</p><p class="mg-text">One review liked it at first but found skill points make it much easier. It yields materials and tokens.</p></div></li></ul>
+  <p class="extra">A review I read describes much of the rest as “box-ticking exercises.” It also doesn’t mention any mini-games.</p>
+</article>
+<article class="entry" id="shadows" style="--h:348" data-types="calm platform race tasks timing" aria-labelledby="shadows-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2025<small>Mar</small></p>
+    <div class="title-block">
+      <h2 id="shadows-t">Assassin’s Creed Shadows</h2>
+      <p class="where">Feudal Japan</p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Shadows"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="m-num">4 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="m-num">2 of 5</span></p></div>
+    <p class="verdict">Around 195 shrine, temple, castle and training activities. Most are quick, and one is a meditation rhythm game.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="timing"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-timing"/></svg><div class="mg-body"><div class="mg-top"><h3>Kuji-kiri</h3><span class="size">22 (Naoe)</span></div><p class="kind">Timing and rhythm</p><p class="mg-text">Naoe meditates while you hit four buttons in time, then repeat the growing sequence from memory.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>A white circle must land in a grey zone as you press each button. The sequence grows, the symbols fade and you have to remember them.</p><p>Some steps need two buttons at once, and the rhythm speeds up near the end. A mistake partly resets the sequence.</p><p>You can switch to a simpler arrow-key input, or to Auto, which completes it for you.</p><p>Finding four unlocks a Naoe quest, and finishing all 22 unlocks the Zen Master achievement.</p></div></details></div></li><li class="mg" data-type="timing"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-timing"/></svg><div class="mg-body"><div class="mg-top"><h3>Katas</h3><span class="size">18 (Yasuke)</span></div><p class="kind">Timing and rhythm</p><p class="mg-text">Timed quick-time sequences in which Yasuke performs a chain of combat moves.</p></div></li><li class="mg" data-type="race"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-race"/></svg><div class="mg-body"><div class="mg-top"><h3>Horse archery</h3><span class="size">10 (Yasuke)</span></div><p class="kind">Racing and riding</p><p class="mg-text">Shoot targets from horseback along a set path. Rewards include experience and a new horse design.</p></div></li><li class="mg" data-type="calm"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-calm"/></svg><div class="mg-body"><div class="mg-top"><h3>Sumi-e painting</h3><span class="size">24</span></div><p class="kind">Calm and creative</p><p class="mg-text">Paint landscapes and scenes as a calm break from combat. You can hang a painting in your hideout study.</p></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Kofun tombs</h3><span class="size">10 tombs</span></div><p class="kind">Platforming</p><p class="mg-text">Tombs full of traps and puzzles, with level-scaled legendary gear at the end.</p></div></li><li class="mg" data-type="platform"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-platform"/></svg><div class="mg-body"><div class="mg-top"><h3>Hidden trails</h3><span class="size">10 (Naoe)</span></div><p class="kind">Platforming</p><p class="mg-text">Grappling-hook platforming routes. Chests along the way often hold rare gear.</p></div></li><li class="mg" data-type="tasks"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-tasks"/></svg><div class="mg-body"><div class="mg-top"><h3>Temples, shrines and castles</h3><span class="size">36, 27 and 38</span></div><p class="kind">Small missions and collecting</p><p class="mg-text">Collect lost pages at temples, pray at shrines and infiltrate fortified castles. Temples and shrines give knowledge points and experience, and castles give a large amount of experience.</p></div></li></ul>
+  <p class="extra">Domains, added in the final major update on June 16, 2026, is an endgame mode: a replayable Animus simulation with five challenge maps.</p><p class="note">The 195 total adds up one guide’s counts across nine activity types.</p>
+</article>
+<article class="entry" id="resynced" style="--h:10" data-types="board hunt" aria-labelledby="resynced-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2026<small>Jul</small></p>
+    <div class="title-block">
+      <h2 id="resynced-t">Assassin’s Creed Black Flag Resynced</h2>
+      <p class="where">The Caribbean<span class="badge">Remake</span></p>
+    </div>
+    <div class="meters" role="group" aria-label="Ratings for Assassin’s Creed Black Flag Resynced"><p class="meter"><span class="m-name">Amount</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p><p class="meter"><span class="m-name">Depth</span><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="m-num">3 of 5</span></p></div>
+    <p class="verdict">The three tavern games come back with silver wagers, and diving gets bigger.</p>
+  </header>
+  <ul class="mg-list"><li class="mg" data-type="board"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-board"/></svg><div class="mg-body"><div class="mg-top"><h3>Tavern board games</h3><span class="size">11 taverns</span></div><p class="kind">Board and dice</p><p class="mg-text">Checkers, Nine Men’s Morris and Fanorona return. You pick one of three wagers before each match, and the stakes rise with the opponent’s skill.</p><details class="more"><summary>More detail</summary><div class="more-body"><p>Ordering a drink starts a brawl with five enemies, and beating them unlocks the tavern. Havana and Nassau unlock through the story, and Great Inagua costs 100 reales to restore.</p><p>Checkers wagers in reales, by opponent skill:</p><div class="tbl"><table><thead><tr><th scope="col">Wager</th><th scope="col">Beginner</th><th scope="col">Intermediate</th><th scope="col">Expert</th></tr></thead><tbody><tr><th scope="row">“I’ll wager my luck.”</th><td>100</td><td>200</td><td>300</td></tr><tr><th scope="row">“Aye, let’s see what you got.”</th><td>200</td><td>400</td><td>600</td></tr><tr><th scope="row">“You are outmatched, lad!”</th><td>300</td><td>800</td><td>900</td></tr></tbody></table></div><p>The Grandmaster trophy needs wins at each tavern game, and one guide says beating each beginner opponent once is enough.</p></div></details></div></li><li class="mg" data-type="hunt"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-hunt"/></svg><div class="mg-body"><div class="mg-top"><h3>Diving</h3></div><p class="kind">Hunting and diving</p><p class="mg-text">You can dive almost anywhere to explore, and some treasure moved to dive spots. A reviewer says this ties into the Smuggler’s Coves.</p></div></li></ul>
+  <p class="note">I could confirm the board games and the bigger diving. The sources I found don’t say whether the original’s harpooning, shark fishing or fleet minigame came back, so I haven’t counted them.</p>
+</article>
+  </div>
+
+  <section class="after" aria-labelledby="patterns-h">
+    <h2 id="patterns-h">What keeps coming back</h2>
+    <dl class="patterns"><div><dt>Board and dice</dt><dd>Fanorona and Nine Men’s Morris first show up in III. Black Flag adds checkers, and Resynced keeps all three. Valhalla’s Orlog is the one dice game, and the most involved game of the lot.</dd></div><div><dt>Riddle treasure hunts</dt><dd>Nostradamus Enigmas in Unity, papyrus puzzles in Origins, Ainigmata Ostraka in Odyssey and Enigmas in Mirage all ask you to read a riddle, work out the place and go there.</dd></div><div><dt>Fight clubs and arenas</dt><dd>The Boston Brawlers in III, Syndicate’s fight clubs, Origins’ Hippodrome and arenas, and Odyssey’s Arena.</dd></div><div><dt>Rhythm and memory</dt><dd>Valhalla’s drinking contests and flyting, and Shadows’ Kuji-kiri.</dd></div><div><dt>Small management games</dt><dd>Recruiting assassins and rebuilding Rome in Brotherhood, Den Defense in Revelations, and the Café Théâtre in Unity.</dd></div></dl>
+  </section>
+
+  <section class="after" aria-labelledby="cover-h">
+    <h2 id="cover-h">Not covered</h2>
+    <p class="cover">Other spin-offs (the handheld, mobile, browser, side-scrolling and VR titles), most downloadable expansions, and the multiplayer modes. Counts come from different guides, so they can disagree a little.</p>
+  </section>
+
+  <section class="after" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <div class="src-grid"><div class="src"><h3>Assassin’s Creed</h3><ul><li><a href="https://strategywiki.org/wiki/Assassin%27s_Creed/Gameplay">StrategyWiki: gameplay</a></li><li><a href="https://assassinscreedwiki.accesstheanimus.com/wiki/Flag">Assassin’s Creed Wiki mirror: Flag</a></li></ul></div><div class="src"><h3>Assassin’s Creed II</h3><ul><li><a href="https://strategywiki.org/wiki/Assassin%27s_Creed_II/Side_Missions">StrategyWiki: side missions</a></li><li><a href="https://www.supercheats.com/guides/assassins-creed-ii/glyph-puzzle-solutions">SuperCheats: glyph puzzles</a></li><li><a href="https://www.playstationlifestyle.net/2010/01/03/assassins-creed-ii-%E2%80%94-trophy-guide/2/">PlayStation LifeStyle: trophy guide</a></li></ul></div><div class="src"><h3>Assassin’s Creed Brotherhood</h3><ul><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed:_Brotherhood">Wikipedia: Brotherhood</a></li></ul></div><div class="src"><h3>Assassin’s Creed Revelations</h3><ul><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_Revelations">Wikipedia: Revelations</a></li><li><a href="https://gamerguides.com/assassins-creed-revelations/guide/general-tips-and-tricks/den-defense-minigame">GamerGuides: Den Defense</a></li></ul></div><div class="src"><h3>Assassin’s Creed III</h3><ul><li><a href="https://segmentnext.com/2012/11/01/assassins-creed-3-mini-games-guide-bowls-morris-fanorona/">SegmentNext: mini-games guide</a></li><li><a href="https://assassinscreedwiki.accesstheanimus.com/wiki/Fight_Club">Assassin’s Creed Wiki mirror: Fight Club</a></li><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_IV:_Black_Flag">Wikipedia: Black Flag (hunting carried over)</a></li></ul></div><div class="src"><h3>Assassin’s Creed III: Liberation</h3><ul><li><a href="https://www.giantbomb.com/games/3030-38507/">Giant Bomb: Liberation</a></li></ul></div><div class="src"><h3>Assassin’s Creed IV: Black Flag</h3><ul><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_IV:_Black_Flag">Wikipedia: Black Flag</a></li><li><a href="https://gameranx.com/updates/id/18713/article/assassin-s-creed-4-black-flag-find-the-mini-games-and-beat-them/">Gameranx: finding the mini-games</a></li><li><a href="https://primagames.com/?p=26204">Prima Games: activities preview</a></li></ul></div><div class="src"><h3>Assassin’s Creed Rogue</h3><ul><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_Rogue">Wikipedia: Rogue</a></li><li><a href="https://www.gamerguides.com/assassins-creed-rogue/guide/side-activities/taverns">GamerGuides: taverns</a></li></ul></div><div class="src"><h3>Assassin’s Creed Unity</h3><ul><li><a href="https://primagames.com/tips/assassins-creed-unity-nostradamus-enigma-guide-solve-riddles">Prima Games: Nostradamus Enigmas</a></li><li><a href="https://primagames.com/tips/assassins-creed-unity-advanced-tips-solve-murder-mysteries-customize-hud">Prima Games: murder mysteries and Helix Rifts</a></li><li><a href="https://www.gamerguides.com/assassins-creed-unity/guide/side-quests/cafe-theatre/basics">GamerGuides: Café Théâtre</a></li></ul></div><div class="src"><h3>Assassin’s Creed Syndicate</h3><ul><li><a href="https://gamerguides.com/assassins-creed-syndicate/guide/basics/gameplay/gangs-and-boroughs">GamerGuides: gangs and boroughs</a></li><li><a href="https://assassinscreedwiki.accesstheanimus.com/wiki/Syndicate">Assassin’s Creed Wiki mirror: Syndicate</a></li><li><a href="https://assassinscreedwiki.accesstheanimus.com/wiki/Fight_Club">Assassin’s Creed Wiki mirror: Fight Club</a></li></ul></div><div class="src"><h3>Assassin’s Creed Origins</h3><ul><li><a href="https://www.keengamer.com/articles/guides/9-things-to-do-in-assassins-creed-origins-after-completing-the-game/">KeenGamer: things to do after the story</a></li><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_Origins">Wikipedia: Origins</a></li><li><a href="https://twinfinite.net/guides/assassins-creed-origins-papyrus-puzzles-locations-solve/">Twinfinite: papyrus puzzles</a></li></ul></div><div class="src"><h3>Assassin’s Creed Odyssey</h3><ul><li><a href="https://guides4gamers.com/assassins-creed-odyssey/articles/ainigmata-ostraka-locations/">Guides4Gamers: Ainigmata Ostraka</a></li><li><a href="https://primagames.com/tips/how-find-arena-assassins-creed-odyssey">Prima Games: the Arena</a></li><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_Odyssey">Wikipedia: Odyssey</a></li><li><a href="https://assassinscreedwiki.accesstheanimus.com/wiki/Odyssey">Assassin’s Creed Wiki mirror: Odyssey</a></li></ul></div><div class="src"><h3>Assassin’s Creed Valhalla</h3><ul><li><a href="https://vulkk.com/2020/12/04/assassins-creed-valhalla-mini-games-guide/">VULKK: mini-games guide</a></li><li><a href="https://www.gamerguides.com/assassins-creed-valhalla/psn-trophies/orlog-champion">GamerGuides: Orlog Champion</a></li><li><a href="https://www.gfinityesports.com/article/assassin-s-creed-valhalla-how-to-play-orlog-guide-rules-tips-and-tricks-pc-xbox-ps4-ps5-series-x-s">Gfinity: how to play Orlog</a></li><li><a href="https://gamewatcher.com/news/assassins-creed-valhalla-flyting-locations">GameWatcher: flyting locations</a></li><li><a href="https://www.powerpyx.com/assassins-creed-valhalla-all-fish-locations/">PowerPyx: fish locations</a></li><li><a href="https://www.powerpyx.com/assassins-creed-valhalla-trophy-guide-roadmap/">PowerPyx: trophy guide</a></li><li><a href="https://www.nobleknight.com/P/2147985148">Noble Knight: Orlog dice game</a></li></ul></div><div class="src"><h3>Assassin’s Creed Mirage</h3><ul><li><a href="https://powerpyx.com/assassins-creed-mirage-wiki-strategy-guide">PowerPyx: strategy guide</a></li><li><a href="https://gamerguides.com/assassins-creed-mirage/guide/enigmas">GamerGuides: Enigmas</a></li><li><a href="https://gamerguides.com/assassins-creed-mirage/guide/contracts">GamerGuides: Contracts</a></li><li><a href="https://www.trustedreviews.com/reviews/assassins-creed-mirage">Trusted Reviews: Mirage review</a></li></ul></div><div class="src"><h3>Assassin’s Creed Shadows</h3><ul><li><a href="https://wp-prod.icy-veins.com/all-ac-shadows-side-activities-and-what-they-give-you/">Icy Veins: side activities</a></li><li><a href="https://vulkk.com/2025/03/20/all-kuji-kiri-locations-in-assassins-creed-shadows/">VULKK: Kuji-kiri</a></li><li><a href="https://www.trueachievements.com/game/Assassins-Creed-Shadows/walkthrough/6">TrueAchievements: hideout walkthrough</a></li><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_Shadows">Wikipedia: Shadows</a></li></ul></div><div class="src"><h3>Assassin’s Creed Black Flag Resynced</h3><ul><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed_Black_Flag_Resynced">Wikipedia: Black Flag Resynced</a></li><li><a href="https://www.gamesradar.com/games/assassin-s-creed/assassins-creed-black-flag-resynced-review/">GamesRadar: Resynced review</a></li><li><a href="https://vulkk.com/2026/07/18/where-and-how-to-play-checkers-in-assassins-creed-black-flag-resynced/">VULKK: checkers in Resynced</a></li><li><a href="https://consolepulse.com/multiplatform/assassins-creed/guides/assassins-creed-black-flag-resynced-all-tavern-locations-guide">ConsolePulse: tavern locations</a></li></ul></div><div class="src"><h3>Release order</h3><ul><li><a href="https://en.wikipedia.org/wiki/Assassin%27s_Creed">Wikipedia: Assassin’s Creed series (release order)</a></li></ul></div></div>
+  </section>
+
+  <footer class="foot">
+    <p>Assassin’s Creed is a trademark of Ubisoft. This is a fan reference and is not affiliated with Ubisoft.</p>
+    <p>Typefaces: Big Shoulders Display and Source Serif 4, both under the SIL Open Font License.</p>
+  </footer>
+</main>
+
+<script type="application/json" id="type-labels">{"board": "Board and dice", "puzzle": "Puzzles and riddles", "platform": "Platforming", "combat": "Fights and arenas", "timing": "Timing and rhythm", "strategy": "Strategy and management", "race": "Racing and riding", "hunt": "Hunting and diving", "tasks": "Small missions and collecting", "calm": "Calm and creative"}</script>
+<script>
+(function () {
+  var bar = document.querySelector(".filters");
+  if (!bar) return;
+  bar.hidden = false;
+  var chips = [].slice.call(bar.querySelectorAll(".chip"));
+  var entries = [].slice.call(document.querySelectorAll(".entry"));
+  var cols = [].slice.call(document.querySelectorAll(".sky-cols li"));
+  var status = document.getElementById("filter-status");
+  var labels = JSON.parse(document.getElementById("type-labels").textContent);
+
+  function apply(f) {
+    var shownGames = 0, shownItems = 0;
+    entries.forEach(function (en, i) {
+      var items = [].slice.call(en.querySelectorAll(".mg"));
+      var any = 0;
+      items.forEach(function (li) {
+        var show = f === "all" || li.getAttribute("data-type") === f;
+        li.classList.toggle("gone", !show);
+        if (show) any++;
+      });
+      en.hidden = any === 0;
+      cols[i].classList.toggle("dim", any === 0);
+      if (any) { shownGames++; shownItems += any; }
+    });
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false");
+    });
+    status.textContent = f === "all" ? "" :
+      "Showing " + labels[f].toLowerCase() + ": " + shownItems + " side games in " + shownGames + " of " + entries.length + " releases.";
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () { apply(c.getAttribute("data-filter")); });
+  });
+  apply("all");
+})();
+</script>
+</body>
+</html>
