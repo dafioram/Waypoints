@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Ocarina of Time Guide — Waypoints</title>
+<meta name="description" content="Cheat sheet, 93-step walkthrough and playthrough times for The Legend of Zelda: Ocarina of Time on the N64, with songs, items, skulltulas, beans and heart locations you can tick off." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/almendra-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Ocarina of Time Guide",
+  "description": "Cheat sheet, 93-step walkthrough and playthrough times for The Legend of Zelda: Ocarina of Time on the N64, with songs, items, skulltulas, beans and heart locations you can tick off.",
+  "tags": [
+    "gaming",
+    "walkthrough",
+    "reference",
+    "zelda"
+  ],
+  "date": "2026-10-14"
+}
+</script>
+<style>
+@font-face{font-family:"Almendra";font-style:normal;font-weight:400;font-display:swap;src:url(media/almendra-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:400;font-display:swap;src:url(media/atkinson-hyperlegible-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:700;font-display:swap;src:url(media/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
+:root{
+  color-scheme:light dark;
+  --bg:#eceef7;--surface:#ffffff;--surface2:#dfe3f3;--text:#171a3c;--muted:#454a78;--line:#b6bddc;--edge:#5b628f;
+  --gold:#c8921a;--goldink:#76490a;--meter:#8f6200;--focus:#2d5be3;
+  --a-fill:#2d5be3;--a-edge:#142d85;--a-text:#ffffff;--c-fill:#f2c230;--c-edge:#7d5a00;--c-text:#241a00;
+  --tick:#f2c230;--tick-edge:#7d5a00;--tick-ink:#241a00;
+  --hero:#12143c;--hero-text:#f3efe2;--hero-sub:#d3d8f6;--hero-gold:#f0c55b;
+  --todo-bg:rgba(45,91,227,.06);--hl:#fff0b8;--hl-ink:#3b2a00;
+  --head:"Almendra",Georgia,"Times New Roman",serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0c0e26;--surface:#161940;--surface2:#20245a;--text:#e9ebfb;--muted:#b3b9e6;--line:#363c80;--edge:#8e97d6;
+  --gold:#e8b941;--goldink:#f2cc6b;--meter:#f2c230;--focus:#9db4ff;
+  --a-edge:#b9c8ff;--c-edge:#ffe08a;
+  --hero:#12143c;
+  --todo-bg:rgba(157,180,255,.07);--hl:#4a3d00;--hl-ink:#ffeaa0;
+}}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1.0625rem/1.55 var(--body);overflow-wrap:break-word}
+a{color:var(--goldink);text-underline-offset:.18em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:3px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+h1,h2,h3,h4{font-weight:400;margin:0}
+abbr[title]{text-decoration:underline dotted;text-underline-offset:.2em;cursor:help}
+
+/* hero */
+.hero{background:var(--hero);color:var(--hero-text);border-bottom:3px solid var(--gold)}
+.hero-in{max-width:1240px;margin:0 auto;padding:1.25rem 1rem 1.75rem;display:grid;gap:1.25rem;align-items:center}
+.hero h1{font:400 clamp(2.6rem,9vw,4.4rem)/.98 var(--head);letter-spacing:.005em}
+.hero .pre{display:block;font-size:.36em;color:var(--hero-gold);margin-bottom:.4em;line-height:1.1}
+.hero .sub{margin:1rem 0 0;max-width:30rem;color:var(--hero-sub);font-size:1.1rem}
+.hero-staff{margin:0}
+.hero-staff svg{display:block;width:100%;height:auto;max-width:44rem;margin-inline:auto}
+.hero-staff figcaption{margin-top:.35rem;text-align:center;color:var(--hero-sub);font-size:1rem}
+.hero-staff a{color:var(--hero-gold)}
+.hero .sl line{stroke:#8f98d8;stroke-width:1.6}
+.hero .bar{stroke:#8f98d8;stroke-width:1.6}
+.hero .bar.thick{stroke:#d3d8f6;stroke-width:5}
+.contour{fill:none;stroke:var(--hero-gold);stroke-width:2;stroke-linejoin:round;opacity:.6}
+.na{fill:var(--a-fill);stroke:#b9c8ff;stroke-width:2}
+.nc{fill:var(--c-fill);stroke:#ffe08a;stroke-width:2}
+.ta{fill:#fff;font:700 19px var(--body)}
+.tc{fill:var(--c-text);font:700 19px var(--body)}
+@media (min-width:900px){.hero-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding-block:1.75rem 2.25rem}}
+@media (prefers-reduced-motion:no-preference){
+  .hn{animation:pop .5s cubic-bezier(.2,.8,.3,1) backwards;animation-delay:calc(.35s + var(--i)*.42s);transform-box:fill-box;transform-origin:center}
+  .hero .contour{stroke-dasharray:1;animation:draw 2.6s ease-in-out .35s backwards}
+}
+@keyframes pop{from{opacity:0;transform:scale(.4)}}
+@keyframes draw{from{stroke-dashoffset:1}}
+
+/* layout */
+.layout{max-width:1240px;margin:0 auto;padding:0 1rem 3rem;display:flex;flex-direction:column}
+main{order:1}
+.prog{order:2}
+.rail{display:contents}
+.toc{position:sticky;top:0;z-index:20;margin:0 -1rem;padding:.5rem 1rem;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);overflow-x:auto}
+.toc ul{list-style:none;margin:0;padding:0;display:flex;gap:.35rem;width:max-content}
+.toc ul ul{display:none}
+.toc a{display:block;padding:.45rem .8rem;border-radius:999px;color:var(--text);text-decoration:none;font-weight:700;font-size:.95rem;white-space:nowrap;border:1px solid var(--line);background:var(--surface)}
+.toc a[aria-current]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.prog{margin:1rem 0 0;padding:1rem;background:var(--surface);border:1px solid var(--line);border-radius:.6rem}
+.prog h2{font:400 1.25rem/1.2 var(--head);margin-bottom:.5rem}
+.meters{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 1rem}
+.meters li{display:grid;gap:.2rem}
+.meters .ml{font-weight:700;font-size:.95rem}
+.meters .mv{color:var(--muted);font-size:.9rem;line-height:1.3}
+.bar2{display:block;height:.5rem;border-radius:.25rem;background:var(--surface2);overflow:hidden}
+.bar2 i{display:block;height:100%;width:0;background:var(--meter);transition:width .25s}
+.prog .acts{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:.75rem}
+.prog small{display:block;margin-top:.5rem;color:var(--muted);font-size:.88rem;line-height:1.35}
+#save-note{color:var(--text);font-size:.9rem;margin:.6rem 0 0}
+button{font:700 1rem/1.2 var(--body);color:var(--text);background:var(--surface);border:2px solid var(--edge);border-radius:.5rem;padding:.65rem 1rem;min-height:2.75rem;cursor:pointer}
+button:hover{background:var(--surface2)}
+button.arm{background:var(--text);color:var(--bg);border-color:var(--text)}
+main{min-width:0}
+@media (min-width:900px){
+  .layout{display:grid;grid-template-columns:15rem minmax(0,1fr);gap:0 3rem;padding-top:1.5rem}
+  main{order:0}
+  .rail{display:block;position:sticky;top:1rem;align-self:start;max-height:calc(100vh - 2rem);overflow:auto;padding:.25rem}
+  .toc{position:static;margin:0;padding:0;background:none;backdrop-filter:none;border:0;overflow:visible}
+  .toc ul{display:block;width:auto}
+  .toc ul ul{display:block;margin:0 0 .15rem .9rem}
+  .toc a{padding:.2rem .7rem;border-radius:.4rem;border:0;border-left:3px solid transparent;background:none;font-weight:400;white-space:normal;font-size:1rem}
+  .toc ul ul a{font-size:.92rem;padding-block:.1rem;color:var(--muted)}
+  .toc a:hover{background:var(--surface2)}
+  .toc a[aria-current]{background:var(--surface);color:var(--text);border-left-color:var(--gold);font-weight:700}
+  .prog{margin-top:1rem;padding:.85rem}
+  .meters{gap:.5rem .75rem}
+}
+
+/* sections */
+.sect{padding-top:2.75rem;scroll-margin-top:3.5rem}
+.sect>h2{font:400 clamp(1.9rem,4.5vw,2.6rem)/1.1 var(--head);padding-bottom:.45rem;margin-bottom:1.25rem;border-bottom:1px solid var(--line)}
+.sect h3{font:400 1.6rem/1.2 var(--head);margin:2.25rem 0 .75rem}
+.sect h3 .cnt{font:400 1rem/1 var(--body);color:var(--muted);margin-left:.5rem}
+.sect h3.sub{font-size:1.35rem}
+.lead{margin:.25rem 0 1rem;max-width:44rem}
+.key{margin:0 0 1rem;color:var(--muted);max-width:44rem}
+.sect,.era,.part,li[id]{scroll-margin-top:4.25rem}
+@media (min-width:900px){.sect,.era,.part,li[id]{scroll-margin-top:1.25rem}}
+
+/* keys and chips */
+.seq{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.35rem}
+.k{display:grid;place-items:center;width:2.15rem;height:2.15rem;border-radius:50%;font-weight:700;font-size:1rem;border:2px solid var(--edge);background:var(--surface)}
+.k.a{background:var(--a-fill);border-color:var(--a-edge);color:var(--a-text)}
+.k.c{background:var(--c-fill);border-color:var(--c-edge);color:var(--c-text)}
+.k.x{border-radius:.4rem;background:var(--surface2);color:var(--text)}
+
+/* destinations */
+.dest{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.dest>li{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.5rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.dn{font:400 1.45rem/1.2 var(--head);min-width:10.5rem}
+
+/* songs */
+.songs{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.song{display:grid;gap:.8rem 2rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.song h3{font:400 1.55rem/1.2 var(--head);margin:0}
+.song .eff{margin:.2rem 0 0}
+.song .used{margin:.35rem 0 0;color:var(--muted);font-size:.95rem}
+.sl-r{display:grid;gap:.55rem;align-content:center;justify-items:start}
+.staff{display:block;max-width:100%;height:auto;color:var(--edge)}
+.staff .sl line{stroke:currentColor;stroke-width:1.2}
+.staff .contour{stroke:var(--goldink);opacity:.55;stroke-width:1.5}
+.staff .na,.staff .nc{stroke-width:1.5}
+.staff .na{stroke:var(--a-edge)}
+.staff .nc{stroke:var(--c-edge)}
+.staff.empty .sl line{stroke-dasharray:4 4}
+.soon{margin:0;color:var(--muted)}
+.todo-row h3{color:var(--text)}
+@media (min-width:700px){.song{grid-template-columns:minmax(0,1fr) minmax(0,22rem)}}
+
+/* placeholders */
+.todo{margin:1.25rem 0 0;padding:.85rem 1rem;border:2px dashed var(--edge);border-radius:.5rem;background:var(--todo-bg)}
+.todo p{margin:0}
+.todo.slim{margin:0 0 1rem;padding:.55rem .85rem}
+dl.todo{display:grid;gap:.75rem 1.25rem;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr))}
+dl.todo>div{min-width:0}
+dl.descs dt{font-weight:700}
+dl.descs dd{margin:0;color:var(--muted)}
+.unk,.blank{display:inline-block;color:var(--muted);border-bottom:2px dashed var(--edge);line-height:1.2}
+.unk{font-weight:700;min-width:1.2rem;text-align:center}
+.none{color:var(--muted)}
+
+/* tables */
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th,td{text-align:left;vertical-align:top;padding:.7rem .75rem;border-bottom:1px solid var(--line)}
+thead th{font-weight:700;border-bottom:2px solid var(--edge);white-space:nowrap}
+tbody th{font-weight:400;min-width:7.5rem}
+.nm{font:400 1.25rem/1.2 var(--head)}
+.ab{display:inline-block;font-weight:700;font-size:.8rem;line-height:1;padding:.2rem .4rem;border-radius:.3rem;background:var(--surface2);border:1px solid var(--line);vertical-align:.1em}
+.spot{display:block;color:var(--muted);font-size:.95rem}
+.spot.blank{border:0}
+table.stack tbody tr:target{background:var(--hl)}
+@media (max-width:520px){.dest>li{display:block}.dn{display:block;margin-bottom:.5rem}}
+@media (max-width:760px){
+  .tw{overflow:visible}
+  table.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  table.stack,table.stack tbody,table.stack tr,table.stack th,table.stack td{display:block;width:100%}
+  table.stack tr{padding:.7rem 0;border-bottom:1px solid var(--line)}
+  table.stack th[scope=row]{padding:.25rem 0 .5rem;border:0}
+  table.stack td{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:.75rem;padding:.25rem 0;border:0}
+  table.stack td .v{min-width:0}
+  table.stack td::before{content:attr(data-label);color:var(--muted);font-weight:700}
+}
+
+/* checklists */
+.chk{list-style:none;margin:0;padding:0}
+.chk li{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:0 .4rem;padding:.2rem 0}
+.chk input{appearance:none;-webkit-appearance:none;margin:.55rem 0 0;width:1.5rem;height:1.5rem;border:2px solid var(--edge);border-radius:.4rem;background:var(--surface);display:grid;place-content:center;cursor:pointer;flex:none}
+.chk input:checked{background:var(--tick);border-color:var(--tick-edge)}
+.chk input:checked::after{content:"";width:.75rem;height:.4rem;border-left:3px solid var(--tick-ink);border-bottom:3px solid var(--tick-ink);transform:translateY(-2px) rotate(-45deg)}
+.chk label{display:grid;grid-template-columns:2.1rem minmax(0,1fr);gap:.25rem;padding:.5rem .25rem;cursor:pointer;border-radius:.4rem}
+.chk label:hover{background:var(--surface2)}
+.chk .num{font-weight:700;color:var(--goldink);text-align:right;padding-right:.35rem;font-variant-numeric:tabular-nums}
+.chk .ln{display:block}
+.chk .ln+.ln{margin-top:.3rem}
+.chk input:checked+label .txt{color:var(--muted)}
+.chk li:target label{background:var(--hl);color:var(--hl-ink)}
+.chk li:target .num{color:var(--hl-ink)}
+.chk a.sg{color:inherit;text-decoration:underline dotted;text-decoration-thickness:2px;text-underline-offset:.2em}
+@media (min-width:760px){
+  ol.chk:not(.steps){display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:0 1.5rem}
+}
+mark.q{background:none;color:inherit}
+body.show-q mark.q{background:var(--hl);color:var(--hl-ink);border-radius:.2rem;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* skull rewards */
+.rewards{list-style:none;margin:0 0 1.25rem;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.rewards li{display:flex;align-items:baseline;gap:.5rem;padding:.45rem .8rem;border:1px solid var(--line);border-radius:.5rem;background:var(--surface)}
+.rewards b{font:700 1.2rem/1 var(--body);color:var(--goldink)}
+.rewards li.got{background:var(--tick);border-color:var(--tick-edge);color:var(--tick-ink)}
+.rewards li.got b{color:var(--tick-ink)}
+
+/* walkthrough */
+.walk-tools{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;margin:0 0 .5rem}
+.walk-tools .cnt{color:var(--muted)}
+.era+.era{margin-top:3rem}
+.era>h3{margin-top:1rem}
+.era>.note{margin:0 0 1.25rem;color:var(--muted)}
+.part{margin-top:2rem}
+.part h4{font:400 1.4rem/1.25 var(--head);padding:.4rem 0;border-bottom:1px solid var(--line);margin-bottom:.5rem}
+.part .rng{font:400 .95rem/1 var(--body);color:var(--muted);margin-left:.6rem;white-space:nowrap}
+
+/* playthroughs */
+.runs{display:grid;gap:1rem;grid-template-columns:minmax(0,1fr)}
+.run{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:.6rem}
+.run summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.35rem 1rem;align-items:baseline;padding:1rem 3rem 1rem 1.1rem;position:relative}
+.run summary::-webkit-details-marker{display:none}
+.run summary::after{content:"";position:absolute;right:1.2rem;top:1.35rem;width:.6rem;height:.6rem;border-right:3px solid var(--edge);border-bottom:3px solid var(--edge);transform:rotate(45deg);transition:transform .2s}
+.run[open] summary::after{transform:rotate(-135deg);top:1.6rem}
+.rn{font:700 1.25rem/1.25 var(--body)}
+.rt{text-align:right}
+.rt b{font-size:1.15rem}
+.rbar{grid-column:1/-1;display:block;height:.7rem;border-radius:.35rem;background:var(--surface2);overflow:hidden}
+.rbar i{display:block;height:100%;background:var(--meter);border-radius:.35rem}
+.rbody{padding:0 1.1rem 1.1rem}
+.rnote{margin:0 0 1rem;color:var(--muted)}
+.stops{counter-reset:stop}
+.stops tbody tr{counter-increment:stop}
+.stops .no::before{content:counter(stop);font-weight:700;color:var(--goldink)}
+.stops th:first-child,.stops td.no{width:2.2rem;padding-left:.25rem;padding-right:.25rem;text-align:right}
+.stops td.what span:not(:last-child)::after{content:"›";content:"›" / "";margin:0 .1em 0 .45em;color:var(--goldink);font-weight:700}
+.stops th:nth-child(4),.stops td.cum{text-align:right}
+.stops td.cum{white-space:nowrap}
+.stops thead th{white-space:normal}
+.stops td.h{width:46%}
+.stops th:nth-child(3){padding-left:.75rem}
+.hw{display:flex;align-items:center;gap:.7rem}
+.hv{flex:none;width:2.4rem;text-align:right;font-variant-numeric:tabular-nums}
+.hbw{flex:1;min-width:0}
+.hb{display:block;height:.55rem;border-radius:.28rem;background:var(--meter);width:var(--w,0%)}
+.stops td.cum{font-variant-numeric:tabular-nums;color:var(--muted)}
+@media (max-width:520px){
+  .stops th,.stops td{padding-inline:.4rem}
+  .stops td.h{width:2.8rem}
+  .stops th:nth-child(3){padding-left:.4rem}
+  .hbw{display:none}
+  .hv{width:auto}
+  .stops td.what::after{content:"";display:block;height:.45rem;margin-top:.45rem;border-radius:.22rem;background:var(--meter);width:var(--w,0%)}
+  .run summary{padding-right:2.6rem}
+  .rt{grid-column:1/-1;text-align:left}
+}
+
+/* master quest */
+.tips{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.tips li{padding:.9rem 0;border-bottom:1px solid var(--line)}
+.tips li:first-child{border-top:1px solid var(--line)}
+.tips h3{font:400 1.45rem/1.2 var(--head);margin:0 0 .15rem}
+.tips p{margin:0}
+.xref{display:block;margin-top:.3rem;color:var(--muted);font-size:.95rem}
+
+/* to fill in */
+.todolist{margin:.5rem 0 0;padding-left:1.25rem;display:grid;gap:.4rem}
+.hl-row{margin:1.25rem 0 0}
+.hl-row label{display:inline-flex;gap:.6rem;align-items:center;cursor:pointer}
+.hl-row input{width:1.5rem;height:1.5rem;accent-color:var(--meter)}
+
+.foot{max-width:1240px;margin:0 auto;padding:1.5rem 1rem 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.foot p{margin:.3rem 0;max-width:46rem}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+  <div class="hero-in">
+    <div>
+      <h1><span class="pre">The Legend of Zelda<span class="sr">: </span></span>Ocarina of Time</h1>
+      <p class="sub">Songs, items, collectibles, a 93-step walkthrough and playthrough times in one place. Tick things off as you play.</p>
+    </div>
+    <figure class="hero-staff">
+      <svg viewBox="0 0 688 200" aria-hidden="true" focusable="false"><g class="sl"><line x1="10" x2="678" y1="36" y2="36"/><line x1="10" x2="678" y1="68" y2="68"/><line x1="10" x2="678" y1="100" y2="100"/><line x1="10" x2="678" y1="132" y2="132"/><line x1="10" x2="678" y1="164" y2="164"/></g><line class="bar" x1="10" x2="10" y1="36" y2="164"/><line class="bar" x1="672" x2="672" y1="36" y2="164"/><line class="bar thick" x1="678" x2="678" y1="36" y2="164"/><path class="contour" pathLength="1" d="M64 100 L176 164 L288 132 L400 100 L512 164 L624 132"/><g class="hn" style="--i:0"><circle class="nc" cx="64" cy="100" r="17"/><text x="64" y="100" class="tc" text-anchor="middle" dominant-baseline="central">R</text></g><g class="hn" style="--i:1"><circle class="na" cx="176" cy="164" r="17"/><text x="176" y="164" class="ta" text-anchor="middle" dominant-baseline="central">A</text></g><g class="hn" style="--i:2"><circle class="nc" cx="288" cy="132" r="17"/><text x="288" y="132" class="tc" text-anchor="middle" dominant-baseline="central">D</text></g><g class="hn" style="--i:3"><circle class="nc" cx="400" cy="100" r="17"/><text x="400" y="100" class="tc" text-anchor="middle" dominant-baseline="central">R</text></g><g class="hn" style="--i:4"><circle class="na" cx="512" cy="164" r="17"/><text x="512" y="164" class="ta" text-anchor="middle" dominant-baseline="central">A</text></g><g class="hn" style="--i:5"><circle class="nc" cx="624" cy="132" r="17"/><text x="624" y="132" class="tc" text-anchor="middle" dominant-baseline="central">D</text></g></svg>
+      <figcaption><a href="#song-time">Song of Time</a>: R A D R A D</figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="rail">
+    <nav class="toc" aria-label="Sections"><ul>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="#songs">Songs</a></li>
+      <li><a href="#items">Items</a></li>
+      <li><a href="#collect">Collectibles</a><ul><li><a href="#skulls">Skulltulas</a></li><li><a href="#beans">Beans</a></li><li><a href="#hearts">Hearts</a></li><li><a href="#common">Common items</a></li></ul></li>
+      <li><a href="#walkthrough">Walkthrough</a><ul><li><a href="#young">As Young Link</a></li><li><a href="#old">As Old Link</a></li></ul></li>
+      <li><a href="#runs">Playthroughs</a></li>
+      <li><a href="#mq">Master Quest</a></li>
+      <li><a href="#open">To fill in</a></li>
+    </ul></nav>
+    <section class="prog" aria-labelledby="prog-h">
+      <h2 id="prog-h">Your checks</h2>
+      <ul class="meters"><li><span class="ml">Steps</span><span class="mv" data-count="steps">0 of 93</span><span class="bar2" aria-hidden="true"><i data-bar="steps"></i></span></li><li><span class="ml">Skulltulas</span><span class="mv" data-count="skulls">0 of 28</span><span class="bar2" aria-hidden="true"><i data-bar="skulls"></i></span></li><li><span class="ml">Beans</span><span class="mv" data-count="beans">0 of 10</span><span class="bar2" aria-hidden="true"><i data-bar="beans"></i></span></li><li><span class="ml">Hearts</span><span class="mv" data-count="hearts">0 of 24</span><span class="bar2" aria-hidden="true"><i data-bar="hearts"></i></span></li></ul>
+      <div class="acts"><button type="button" id="reset">Reset all checks</button></div>
+      <small>Checks are saved in this browser only.</small>
+      <p id="save-note" hidden>This browser is not letting the page save, so checks will be gone when you leave.</p>
+      <p id="prog-msg" class="sr" role="status"></p>
+    </section>
+  </div>
+
+  <main id="main">
+<section class="sect" id="destinations" aria-labelledby="destinations-h">
+  <h2 id="destinations-h">Kokiri Forest Destinations</h2>
+  <p class="key">Turns to take to find your way through the forest to each destination. R is turn right, L is turn left and C is go straight (center).</p>
+  <ul class="dest"><li><span class="dn">Forest Temple</span><ol class="seq"><li class="k x">R</li><li class="k x">L</li><li class="k x">R</li><li class="k x">L</li><li class="k x">C</li><li class="k x">L</li><li class="k x">R</li></ol></li><li><span class="dn">Goron City</span><ol class="seq"><li class="k x">R</li><li class="k x">L</li><li class="k x">C</li></ol></li><li><span class="dn">Zora’s River</span><ol class="seq"><li class="k x">R</li><li class="k x">L</li><li class="k x">R</li><li class="k x">C</li></ol></li></ul>
+</section>
+<section class="sect" id="songs" aria-labelledby="songs-h">
+  <h2 id="songs-h">Songs</h2>
+  <p class="key">A is the A button. U, D, L and R are the C buttons: up, down, left and right. Each button sits on its own line of the staff.</p>
+  <ul class="songs"><li class="song" id="song-minuet"><div class="sl-l"><h3>Minuet of Forest</h3><p class="eff">Transports Link to the temple in Kokiri Forest</p></div><div class="sl-r"><svg class="staff" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g><path class="contour" d="M18 58 L46 10 L74 22 L102 34 L130 22 L158 34"/><circle class="na" cx="18" cy="58" r="7.5"/><circle class="nc" cx="46" cy="10" r="7.5"/><circle class="nc" cx="74" cy="22" r="7.5"/><circle class="nc" cx="102" cy="34" r="7.5"/><circle class="nc" cx="130" cy="22" r="7.5"/><circle class="nc" cx="158" cy="34" r="7.5"/></svg><ol class="seq"><li class="k a">A</li><li class="k c">U</li><li class="k c">L</li><li class="k c">R</li><li class="k c">L</li><li class="k c">R</li></ol></div></li><li class="song" id="song-serenade"><div class="sl-l"><h3>Serenade of Water</h3><p class="eff">Transports Link to Lake Hylia</p></div><div class="sl-r"><svg class="staff" viewBox="0 0 148 68" width="148" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="146" y1="10" y2="10"/><line x1="2" x2="146" y1="22" y2="22"/><line x1="2" x2="146" y1="34" y2="34"/><line x1="2" x2="146" y1="46" y2="46"/><line x1="2" x2="146" y1="58" y2="58"/></g><path class="contour" d="M18 58 L46 46 L74 34 L102 34 L130 22"/><circle class="na" cx="18" cy="58" r="7.5"/><circle class="nc" cx="46" cy="46" r="7.5"/><circle class="nc" cx="74" cy="34" r="7.5"/><circle class="nc" cx="102" cy="34" r="7.5"/><circle class="nc" cx="130" cy="22" r="7.5"/></svg><ol class="seq"><li class="k a">A</li><li class="k c">D</li><li class="k c">R</li><li class="k c">R</li><li class="k c">L</li></ol></div></li><li class="song" id="song-time"><div class="sl-l"><h3>Song of Time</h3><p class="used">Used in steps <a href="#s36">36</a>, <a href="#s37">37</a>, <a href="#s40">40</a>, <a href="#s84">84</a></p></div><div class="sl-r"><svg class="staff" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g><path class="contour" d="M18 34 L46 58 L74 46 L102 34 L130 58 L158 46"/><circle class="nc" cx="18" cy="34" r="7.5"/><circle class="na" cx="46" cy="58" r="7.5"/><circle class="nc" cx="74" cy="46" r="7.5"/><circle class="nc" cx="102" cy="34" r="7.5"/><circle class="na" cx="130" cy="58" r="7.5"/><circle class="nc" cx="158" cy="46" r="7.5"/></svg><ol class="seq"><li class="k c">R</li><li class="k a">A</li><li class="k c">D</li><li class="k c">R</li><li class="k a">A</li><li class="k c">D</li></ol></div></li><li class="song" id="song-sun"><div class="sl-l"><h3>Sun’s Song</h3><p class="used">Used in step <a href="#s9">9</a></p></div><div class="sl-r"><svg class="staff" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g><path class="contour" d="M18 34 L46 46 L74 10 L102 34 L130 46 L158 10"/><circle class="nc" cx="18" cy="34" r="7.5"/><circle class="nc" cx="46" cy="46" r="7.5"/><circle class="nc" cx="74" cy="10" r="7.5"/><circle class="nc" cx="102" cy="34" r="7.5"/><circle class="nc" cx="130" cy="46" r="7.5"/><circle class="nc" cx="158" cy="10" r="7.5"/></svg><ol class="seq"><li class="k c">R</li><li class="k c">D</li><li class="k c">U</li><li class="k c">R</li><li class="k c">D</li><li class="k c">U</li></ol></div></li><li class="song" id="song-zelda"><div class="sl-l"><h3>Zelda’s Lullaby</h3><p class="used">Used in steps <a href="#s8">8</a>, <a href="#s9">9</a>, <a href="#s15">15</a>, <a href="#s29">29</a>, <a href="#s47">47</a></p></div><div class="sl-r"><svg class="staff" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g><path class="contour" d="M18 22 L46 10 L74 34 L102 22 L130 10 L158 34"/><circle class="nc" cx="18" cy="22" r="7.5"/><circle class="nc" cx="46" cy="10" r="7.5"/><circle class="nc" cx="74" cy="34" r="7.5"/><circle class="nc" cx="102" cy="22" r="7.5"/><circle class="nc" cx="130" cy="10" r="7.5"/><circle class="nc" cx="158" cy="34" r="7.5"/></svg><ol class="seq"><li class="k c">L</li><li class="k c">U</li><li class="k c">R</li><li class="k c">L</li><li class="k c">U</li><li class="k c">R</li></ol></div></li></ul>
+  <h3 class="sub" id="songs-more">Named in your notes, notes still to add</h3>
+  <p class="key" id="td-songs">Waiting for the notes of 5 songs: Saria’s Song, Epona’s Song, Song of Storms, Nocturne of Shadow, Scarecrow’s Song.</p>
+  <ul class="songs"><li class="song todo-row" id="song-saria"><div class="sl-l"><h3>Saria’s Song</h3><p class="used">Used in steps <a href="#s10">10</a>, <a href="#s15">15</a></p></div><div class="sl-r"><svg class="staff empty" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g></svg><p class="soon">Notes not written yet</p></div></li><li class="song todo-row" id="song-epona"><div class="sl-l"><h3>Epona’s Song</h3><p class="used">Used in step <a href="#s11">11</a></p></div><div class="sl-r"><svg class="staff empty" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g></svg><p class="soon">Notes not written yet</p></div></li><li class="song todo-row" id="song-storms"><div class="sl-l"><h3>Song of Storms</h3><p class="used">Used in step <a href="#s45">45</a></p></div><div class="sl-r"><svg class="staff empty" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g></svg><p class="soon">Notes not written yet</p></div></li><li class="song todo-row" id="song-nocturne"><div class="sl-l"><h3>Nocturne of Shadow</h3></div><div class="sl-r"><svg class="staff empty" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g></svg><p class="soon">Notes not written yet</p></div></li><li class="song todo-row" id="song-scarecrow"><div class="sl-l"><h3>Scarecrow’s Song</h3><p class="used">Used in steps <a href="#s30">30</a>, <a href="#s54">54</a>, <a href="#s72">72</a></p></div><div class="sl-r"><svg class="staff empty" viewBox="0 0 176 68" width="176" height="68" aria-hidden="true" focusable="false"><g class="sl"><line x1="2" x2="174" y1="10" y2="10"/><line x1="2" x2="174" y1="22" y2="22"/><line x1="2" x2="174" y1="34" y2="34"/><line x1="2" x2="174" y1="46" y2="46"/><line x1="2" x2="174" y1="58" y2="58"/></g></svg><p class="soon">Notes not written yet</p></div></li></ul>
+</section>
+<section class="sect" id="items" aria-labelledby="items-h">
+  <h2 id="items-h">Item Acquisitions</h2>
+  <p class="key"><abbr title="Young Link">YL</abbr> is Young Link and <abbr title="Old Link">OL</abbr> is Old Link.</p>
+  <div class="tw"><table class="stack" role="table">
+    <caption class="sr">Where to get each item</caption>
+    <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col">Item</th><th role="columnheader" scope="col">Age</th><th role="columnheader" scope="col">Acquire from</th><th role="columnheader" scope="col">Quest</th><th role="columnheader" scope="col">Prereqs</th><th role="columnheader" scope="col">Where</th><th role="columnheader" scope="col">Upgrades</th></tr></thead>
+    <tbody role="rowgroup"><tr role="row" id="item-boomerang"><th role="rowheader" scope="row"><span class="nm">Boomerang</span> <span class="ab">BR</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Young Link">YL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v"><span class="unk" title="Not filled in">?</span></div></td><td role="cell" data-label="Quest"><div class="v"><span class="unk" title="Not filled in">?</span></div></td><td role="cell" data-label="Prereqs"><div class="v"><span class="unk" title="Not filled in">?</span></div></td><td role="cell" data-label="Where"><div class="v"><span class="unk" title="Not filled in">?</span></div></td><td role="cell" data-label="Upgrades"><div class="v"><span class="none">None</span></div></td></tr><tr role="row" id="item-hookshot"><th role="rowheader" scope="row"><span class="nm">Hookshot</span> <span class="ab">HS</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v">Dampé’s Ghost</div></td><td role="cell" data-label="Quest"><div class="v">Race Dampé’s Ghost</div></td><td role="cell" data-label="Prereqs"><div class="v"><span class="none">None</span></div></td><td role="cell" data-label="Where"><div class="v">Kakariko Village, Graveyard<span class="spot">Dampé’s tomb</span></div></td><td role="cell" data-label="Upgrades"><div class="v">Longshot</div></td></tr><tr role="row" id="item-fairy-bow"><th role="rowheader" scope="row"><span class="nm">Fairy Bow</span> <span class="ab">FB</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v">Chest</div></td><td role="cell" data-label="Quest"><div class="v">Forest Temple</div></td><td role="cell" data-label="Prereqs"><div class="v"><span class="none">None</span></div></td><td role="cell" data-label="Where"><div class="v">Kokiri Village, Forest Temple<span class="spot">Middle</span></div></td><td role="cell" data-label="Upgrades"><div class="v"><span class="none">None</span></div></td></tr><tr role="row" id="item-iron-boots"><th role="rowheader" scope="row"><span class="nm">Iron Boots</span> <span class="ab">IB</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v">Sheik</div></td><td role="cell" data-label="Quest"><div class="v">Clear Ice Caverns</div></td><td role="cell" data-label="Prereqs"><div class="v"><abbr title="Fairy Bow">FB</abbr></div></td><td role="cell" data-label="Where"><div class="v">Zora’s Domain<span class="spot">Ice Cavern</span></div></td><td role="cell" data-label="Upgrades"><div class="v"><span class="none">None</span></div></td></tr><tr role="row" id="item-blue-tunic"><th role="rowheader" scope="row"><span class="nm">Blue Tunic</span> <span class="ab">BT</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v">Zora Leader</div></td><td role="cell" data-label="Quest"><div class="v">Unfreeze Zora Leader</div></td><td role="cell" data-label="Prereqs"><div class="v">Bow</div></td><td role="cell" data-label="Where"><div class="v">Zora’s Domain<span class="spot">Chambers</span></div></td><td role="cell" data-label="Upgrades"><div class="v"><span class="none">None</span></div></td></tr><tr role="row" id="item-red-tunic"><th role="rowheader" scope="row"><span class="nm">Red Tunic</span> <span class="ab">RT</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v">Goron</div></td><td role="cell" data-label="Quest"><div class="v">Talk to Rolling Goron</div></td><td role="cell" data-label="Prereqs"><div class="v">Bomb</div></td><td role="cell" data-label="Where"><div class="v">Goron City<span class="spot">Main area</span></div></td><td role="cell" data-label="Upgrades"><div class="v"><span class="none">None</span></div></td></tr><tr role="row" id="item-longshot"><th role="rowheader" scope="row"><span class="nm">Longshot</span> <span class="ab">LS</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v">Chest</div></td><td role="cell" data-label="Quest"><div class="v">Clear Water Temple</div></td><td role="cell" data-label="Prereqs"><div class="v"><abbr title="Hookshot">HS</abbr></div></td><td role="cell" data-label="Where"><div class="v">Zora’s Domain<span class="spot">Water Temple</span></div></td><td role="cell" data-label="Upgrades"><div class="v"><span class="none">None</span></div></td></tr><tr role="row" id="item-hammer"><th role="rowheader" scope="row"><span class="nm">Hammer</span> <span class="ab">H</span></th><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Acquire from"><div class="v">Chest</div></td><td role="cell" data-label="Quest"><div class="v">Save the Gorons</div></td><td role="cell" data-label="Prereqs"><div class="v"><span class="none">None</span></div></td><td role="cell" data-label="Where"><div class="v">Fire Temple<span class="spot blank">Spot left blank</span></div></td><td role="cell" data-label="Upgrades"><div class="v"><span class="none">None</span></div></td></tr></tbody>
+  </table></div>
+  <h3 class="sub" id="item-desc">Item Descriptions</h3>
+  <dl class="descs todo" id="td-desc"><div><dt>Boomerang <span class="ab">BR</span></dt><dd>Description to add</dd></div><div><dt>Hookshot <span class="ab">HS</span></dt><dd>Description to add</dd></div><div><dt>Fairy Bow <span class="ab">FB</span></dt><dd>Description to add</dd></div><div><dt>Iron Boots <span class="ab">IB</span></dt><dd>Description to add</dd></div><div><dt>Blue Tunic <span class="ab">BT</span></dt><dd>Description to add</dd></div><div><dt>Red Tunic <span class="ab">RT</span></dt><dd>Description to add</dd></div><div><dt>Longshot <span class="ab">LS</span></dt><dd>Description to add</dd></div><div><dt>Hammer <span class="ab">H</span></dt><dd>Description to add</dd></div></dl>
+</section>
+<section class="sect" id="collect" aria-labelledby="collect-h">
+  <h2 id="collect-h">Collectibles</h2>
+
+  <h3 id="skulls">Gold Skulltula locations <span class="cnt" data-tally="skulls" data-total="28">28 listed</span></h3>
+  <p class="lead">Rewards for collecting skulls:</p>
+  <ol class="rewards" id="rewards"><li data-n="10"><b>10</b><span>200 rupee wallet</span><span class="sr state"></span></li><li data-n="20"><b>20</b><span>Stone of Agony</span><span class="sr state"></span></li><li data-n="30"><b>30</b><span>500 rupee wallet</span><span class="sr state"></span></li><li data-n="40"><b>40</b><span>Ten Bombchus</span><span class="sr state"></span></li><li data-n="50"><b>50</b><span>Heart piece</span><span class="sr state"></span></li></ol>
+  <ol class="chk" role="list"><li id="sk1"><input type="checkbox" id="c-skulls-1" data-g="skulls" data-i="1"><label for="c-skulls-1"><span class="num">1</span><span class="txt"><span class="ln">Deku Tree, 2nd room</span></span></label></li><li id="sk2"><input type="checkbox" id="c-skulls-2" data-g="skulls" data-i="2"><label for="c-skulls-2"><span class="num">2</span><span class="txt"><span class="ln">Deku Tree, after you drop</span></span></label></li><li id="sk3"><input type="checkbox" id="c-skulls-3" data-g="skulls" data-i="3"><label for="c-skulls-3"><span class="num">3</span><span class="txt"><span class="ln">Deku Tree, after you drop</span></span></label></li><li id="sk4"><input type="checkbox" id="c-skulls-4" data-g="skulls" data-i="4"><label for="c-skulls-4"><span class="num">4</span><span class="txt"><span class="ln">Hyrule money room</span></span></label></li><li id="sk5"><input type="checkbox" id="c-skulls-5" data-g="skulls" data-i="5"><label for="c-skulls-5"><span class="num">5</span><span class="txt"><span class="ln">Hyrule Castle bump tree</span></span></label></li><li id="sk6"><input type="checkbox" id="c-skulls-6" data-g="skulls" data-i="6"><label for="c-skulls-6"><span class="num">6</span><span class="txt"><span class="ln">Behind the Kakariko house at night</span></span></label></li><li id="sk7"><input type="checkbox" id="c-skulls-7" data-g="skulls" data-i="7"><label for="c-skulls-7"><span class="num">7</span><span class="txt"><span class="ln">Behind the Kakariko house at night</span></span></label></li><li id="sk8"><input type="checkbox" id="c-skulls-8" data-g="skulls" data-i="8"><label for="c-skulls-8"><span class="num">8</span><span class="txt"><span class="ln">Kakariko, top of the construction</span></span></label></li><li id="sk9"><input type="checkbox" id="c-skulls-9" data-g="skulls" data-i="9"><label for="c-skulls-9"><span class="num">9</span><span class="txt"><span class="ln">Tree</span></span></label></li><li id="sk10"><input type="checkbox" id="c-skulls-10" data-g="skulls" data-i="10"><label for="c-skulls-10"><span class="num">10</span><span class="txt"><span class="ln">Lon Lon Ranch tree</span></span></label></li><li id="sk11"><input type="checkbox" id="c-skulls-11" data-g="skulls" data-i="11"><label for="c-skulls-11"><span class="num">11</span><span class="txt"><span class="ln">Cavern</span></span></label></li><li id="sk12"><input type="checkbox" id="c-skulls-12" data-g="skulls" data-i="12"><label for="c-skulls-12"><span class="num">12</span><span class="txt"><span class="ln">Cavern</span></span></label></li><li id="sk13"><input type="checkbox" id="c-skulls-13" data-g="skulls" data-i="13"><label for="c-skulls-13"><span class="num">13</span><span class="txt"><span class="ln">Kakariko Village, night, ladder</span></span></label></li><li id="sk14"><input type="checkbox" id="c-skulls-14" data-g="skulls" data-i="14"><label for="c-skulls-14"><span class="num">14</span><span class="txt"><span class="ln">One of the last rooms in the Cavern, use bombs</span></span></label></li><li id="sk15"><input type="checkbox" id="c-skulls-15" data-g="skulls" data-i="15"><label for="c-skulls-15"><span class="num">15</span><span class="txt"><span class="ln">Death Mountain, base, blow up rocks</span></span></label></li><li id="sk16"><input type="checkbox" id="c-skulls-16" data-g="skulls" data-i="16"><label for="c-skulls-16"><span class="num">16</span><span class="txt"><span class="ln">Go to Goron City, top, blow up 4 rocks</span></span></label></li><li id="sk17"><input type="checkbox" id="c-skulls-17" data-g="skulls" data-i="17"><label for="c-skulls-17"><span class="num">17</span><span class="txt"><span class="ln">Top of Zora’s River, night</span></span></label></li><li id="sk18"><input type="checkbox" id="c-skulls-18" data-g="skulls" data-i="18"><label for="c-skulls-18"><span class="num">18</span><span class="txt"><span class="ln">In Jabu-Jabu</span></span></label></li><li id="sk19"><input type="checkbox" id="c-skulls-19" data-g="skulls" data-i="19"><label for="c-skulls-19"><span class="num">19</span><span class="txt"><span class="ln">In Jabu-Jabu, get the boomerang first</span></span></label></li><li id="sk20"><input type="checkbox" id="c-skulls-20" data-g="skulls" data-i="20"><label for="c-skulls-20"><span class="num">20</span><span class="txt"><span class="ln">In Jabu-Jabu, get the boomerang first</span></span></label></li><li id="sk21"><input type="checkbox" id="c-skulls-21" data-g="skulls" data-i="21"><label for="c-skulls-21"><span class="num">21</span><span class="txt"><span class="ln">Zora’s Fountain</span></span></label></li><li id="sk22"><input type="checkbox" id="c-skulls-22" data-g="skulls" data-i="22"><label for="c-skulls-22"><span class="num">22</span><span class="txt"><span class="ln">Graveyard, night, boomerang</span></span></label></li><li id="sk23"><input type="checkbox" id="c-skulls-23" data-g="skulls" data-i="23"><label for="c-skulls-23"><span class="num">23</span><span class="txt"><span class="ln">Forest Temple</span></span></label></li><li id="sk24"><input type="checkbox" id="c-skulls-24" data-g="skulls" data-i="24"><label for="c-skulls-24"><span class="num">24</span><span class="txt"><span class="ln">Forest Temple</span></span></label></li><li id="sk25"><input type="checkbox" id="c-skulls-25" data-g="skulls" data-i="25"><label for="c-skulls-25"><span class="num">25</span><span class="txt"><span class="ln">Well</span></span></label></li><li id="sk26"><input type="checkbox" id="c-skulls-26" data-g="skulls" data-i="26"><label for="c-skulls-26"><span class="num">26</span><span class="txt"><span class="ln">Under Goron City, Old Link</span></span></label></li><li id="sk27"><input type="checkbox" id="c-skulls-27" data-g="skulls" data-i="27"><label for="c-skulls-27"><span class="num">27</span><span class="txt"><span class="ln">Ice Cavern, Old Link</span></span></label></li><li id="sk28"><input type="checkbox" id="c-skulls-28" data-g="skulls" data-i="28"><label for="c-skulls-28"><span class="num">28</span><span class="txt"><span class="ln">Lake Hylia, Laboratory, Iron Boots</span></span></label></li></ol>
+  <div class="todo" id="td-skulls"><p>The rewards go up to 50 skulls and this list stops at 28. Add the rest here.</p></div>
+
+  <h3 id="beans">Bean planting locations <span class="cnt" data-tally="beans" data-total="10">10 listed</span></h3>
+  <ol class="chk" role="list"><li id="bn1"><input type="checkbox" id="c-beans-1" data-g="beans" data-i="1"><label for="c-beans-1"><span class="num">1</span><span class="txt"><span class="ln">In front of the bean man</span></span></label></li><li id="bn2"><input type="checkbox" id="c-beans-2" data-g="beans" data-i="2"><label for="c-beans-2"><span class="num">2</span><span class="txt"><span class="ln">Dodongo’s Cavern, in front</span></span></label></li><li id="bn3"><input type="checkbox" id="c-beans-3" data-g="beans" data-i="3"><label for="c-beans-3"><span class="num">3</span><span class="txt"><span class="ln">Lakeside lab, on top</span></span></label></li><li id="bn4"><input type="checkbox" id="c-beans-4" data-g="beans" data-i="4"><label for="c-beans-4"><span class="num">4</span><span class="txt"><span class="ln">Behind the shop in Deku Village</span></span></label></li><li id="bn5"><input type="checkbox" id="c-beans-5" data-g="beans" data-i="5"><label for="c-beans-5"><span class="num">5</span><span class="txt"><span class="ln">Lost Woods, 2 lefts</span></span></label></li><li id="bn6"><input type="checkbox" id="c-beans-6" data-g="beans" data-i="6"><label for="c-beans-6"><span class="num">6</span><span class="txt"><span class="ln">Lost Woods, RLRLL</span></span></label></li><li id="bn7"><input type="checkbox" id="c-beans-7" data-g="beans" data-i="7"><label for="c-beans-7"><span class="num">7</span><span class="txt"><span class="ln">Spirit Temple</span></span></label></li><li id="bn8"><input type="checkbox" id="c-beans-8" data-g="beans" data-i="8"><label for="c-beans-8"><span class="num">8</span><span class="txt"><span class="ln">Death Mountain Crater</span></span></label></li><li id="bn9"><input type="checkbox" id="c-beans-9" data-g="beans" data-i="9"><label for="c-beans-9"><span class="num">9</span><span class="txt"><span class="ln">Gerudo Valley ledge with the cow at the bottom</span></span></label></li><li id="bn10"><input type="checkbox" id="c-beans-10" data-g="beans" data-i="10"><label for="c-beans-10"><span class="num">10</span><span class="txt"><span class="ln">Graveyard</span></span></label></li></ol>
+
+  <h3 id="hearts">Heart locations <span class="cnt" data-tally="hearts" data-total="24">24 listed</span></h3>
+  <ol class="chk" role="list"><li id="ht1"><input type="checkbox" id="c-hearts-1" data-g="hearts" data-i="1"><label for="c-hearts-1"><span class="num">1</span><span class="txt"><span class="ln">First boss</span></span></label></li><li id="ht2"><input type="checkbox" id="c-hearts-2" data-g="hearts" data-i="2"><label for="c-hearts-2"><span class="num">2</span><span class="txt"><span class="ln">Hyrule, night, bring the dog lady the white dog in the alley</span></span></label></li><li id="ht3"><input type="checkbox" id="c-hearts-3" data-g="hearts" data-i="3"><label for="c-hearts-3"><span class="num">3</span><span class="txt"><span class="ln">Play Sun’s Song at the 4th top-right tomb</span></span></label></li><li id="ht4"><input type="checkbox" id="c-hearts-4" data-g="hearts" data-i="4"><label for="c-hearts-4"><span class="num">4</span><span class="txt"><span class="ln">Throw three bombs into the spinning thing in Goron City (fire sticks)</span></span></label></li><li id="ht5"><input type="checkbox" id="c-hearts-5" data-g="hearts" data-i="5"><label for="c-hearts-5"><span class="num">5</span><span class="txt"><span class="ln">Lost Woods, first left, play Saria’s Song for the Skull Kids</span></span></label></li><li id="ht6"><input type="checkbox" id="c-hearts-6" data-g="hearts" data-i="6"><label for="c-hearts-6"><span class="num">6</span><span class="txt"><span class="ln">Lost Woods, first right, go down, win the game 3 times</span></span></label></li><li id="ht7"><input type="checkbox" id="c-hearts-7" data-g="hearts" data-i="7"><label for="c-hearts-7"><span class="num">7</span><span class="txt"><span class="ln">After beating the Cavern boss</span></span></label></li><li id="ht8"><input type="checkbox" id="c-hearts-8" data-g="hearts" data-i="8"><label for="c-hearts-8"><span class="num">8</span><span class="txt"><span class="ln">Up the river, take the chicken to the top</span></span></label></li><li id="ht9"><input type="checkbox" id="c-hearts-9" data-g="hearts" data-i="9"><label for="c-hearts-9"><span class="num">9</span><span class="txt"><span class="ln">There is another, do the same thing</span></span></label></li><li id="ht10"><input type="checkbox" id="c-hearts-10" data-g="hearts" data-i="10"><label for="c-hearts-10"><span class="num">10</span><span class="txt"><span class="ln">Defeat the Jabu monster</span></span></label></li><li id="ht11"><input type="checkbox" id="c-hearts-11" data-g="hearts" data-i="11"><label for="c-hearts-11"><span class="num">11</span><span class="txt"><span class="ln">Gerudo Valley, jump with the chicken to the opposite ledge</span></span></label></li><li id="ht12"><input type="checkbox" id="c-hearts-12" data-g="hearts" data-i="12"><label for="c-hearts-12"><span class="num">12</span><span class="txt"><span class="ln">After you get the hookshot, play the Song of Time to get to the top of the windmill</span></span></label></li><li id="ht13"><input type="checkbox" id="c-hearts-13" data-g="hearts" data-i="13"><label for="c-hearts-13"><span class="num">13</span><span class="txt"><span class="ln">Defeat the boss of the Forest Temple</span></span></label></li><li id="ht14"><input type="checkbox" id="c-hearts-14" data-g="hearts" data-i="14"><label for="c-hearts-14"><span class="num">14</span><span class="txt"><span class="ln">Win the treasure game with the Lens</span></span></label></li><li id="ht15"><input type="checkbox" id="c-hearts-15" data-g="hearts" data-i="15"><label for="c-hearts-15"><span class="num">15</span><span class="txt"><span class="ln">Old Link, Cavern entrance, bean plant</span></span></label></li><li id="ht16"><input type="checkbox" id="c-hearts-16" data-g="hearts" data-i="16"><label for="c-hearts-16"><span class="num">16</span><span class="txt"><span class="ln">Zora’s Fountain, Old Link, jump across the ice</span></span></label></li><li id="ht17"><input type="checkbox" id="c-hearts-17" data-g="hearts" data-i="17"><label for="c-hearts-17"><span class="num">17</span><span class="txt"><span class="ln">Ice Cavern</span></span></label></li><li id="ht18"><input type="checkbox" id="c-hearts-18" data-g="hearts" data-i="18"><label for="c-hearts-18"><span class="num">18</span><span class="txt"><span class="ln">Use the Iron Boots, Zora’s Fountain</span></span></label></li><li id="ht19"><input type="checkbox" id="c-hearts-19" data-g="hearts" data-i="19"><label for="c-hearts-19"><span class="num">19</span><span class="txt"><span class="ln">Lake Hylia, bean plant</span></span></label></li><li id="ht20"><input type="checkbox" id="c-hearts-20" data-g="hearts" data-i="20"><label for="c-hearts-20"><span class="num">20</span><span class="txt"><span class="ln">Defeat the Water Temple</span></span></label></li><li id="ht21"><input type="checkbox" id="c-hearts-21" data-g="hearts" data-i="21"><label for="c-hearts-21"><span class="num">21</span><span class="txt"><span class="ln">Graveyard, use the Longshot</span></span></label></li><li id="ht22"><input type="checkbox" id="c-hearts-22" data-g="hearts" data-i="22"><label for="c-hearts-22"><span class="num">22</span><span class="txt"><span class="ln">Defeat the dragon</span></span></label></li><li id="ht23"><input type="checkbox" id="c-hearts-23" data-g="hearts" data-i="23"><label for="c-hearts-23"><span class="num">23</span><span class="txt"><span class="ln">Climb down in the rock crater</span></span></label></li><li id="ht24"><input type="checkbox" id="c-hearts-24" data-g="hearts" data-i="24"><label for="c-hearts-24"><span class="num">24</span><span class="txt"><span class="ln">Boss of the Shadow Temple</span></span></label></li></ol>
+
+  <h3 id="common">Common item locations</h3>
+  <div class="tw"><table class="stack" role="table">
+    <caption class="sr">Common items and where to find them</caption>
+    <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col">Item</th><th role="columnheader" scope="col">Where</th><th role="columnheader" scope="col">Age</th><th role="columnheader" scope="col">Prereqs</th><th role="columnheader" scope="col">Requires jar</th><th role="columnheader" scope="col">Price</th></tr></thead>
+    <tbody role="rowgroup"><tr role="row"><th role="rowheader" scope="row">Blue Flame</th><td role="cell" data-label="Where"><div class="v">Ice Cavern, several locations</div></td><td role="cell" data-label="Age"><div class="v"><abbr title="Old Link">OL</abbr></div></td><td role="cell" data-label="Prereqs"><div class="v"><span class="none">None</span></div></td><td role="cell" data-label="Requires jar"><div class="v">Yes</div></td><td role="cell" data-label="Price"><div class="v">N/A</div></td></tr><tr role="row"><th role="rowheader" scope="row">Fairies</th><td role="cell" data-label="Where"><div class="v">Hyrule Castle, play Zelda’s Lullaby in front of the stones</div></td><td role="cell" data-label="Age"><div class="v">Both</div></td><td role="cell" data-label="Prereqs"><div class="v">Zelda’s Lullaby</div></td><td role="cell" data-label="Requires jar"><div class="v">Yes</div></td><td role="cell" data-label="Price"><div class="v">N/A</div></td></tr></tbody>
+  </table></div>
+</section>
+<section class="sect" id="walkthrough" aria-labelledby="walk-h">
+  <h2 id="walk-h">Walkthrough</h2>
+  <div class="walk-tools">
+    <button type="button" id="next-step" hidden>Go to my next step</button>
+    <span class="cnt" data-tally="steps" data-total="93">93 steps</span>
+    <p id="next-msg" class="sr" role="status"></p>
+  </div>
+  <div class="era" id="young"><h3>As Young Link</h3><p class="note">Steps 1 to 35, before the Master Sword.</p><div class="part"><h4>Kokiri Forest and the Deku Tree <span class="rng">Steps 1 to 5</span></h4><ol class="chk steps" role="list"><li id="s1"><input type="checkbox" id="c-steps-1" data-g="steps" data-i="1"><label for="c-steps-1"><span class="num">1</span><span class="txt"><span class="ln">Get Kokiri Sword by crawling through the hole at the southern end of town.</span></span></label></li><li id="s2"><input type="checkbox" id="c-steps-2" data-g="steps" data-i="2"><label for="c-steps-2"><span class="num">2</span><span class="txt"><span class="ln">Buy Deku Shield from the store for 40 rupees.</span></span></label></li><li id="s3"><input type="checkbox" id="c-steps-3" data-g="steps" data-i="3"><label for="c-steps-3"><span class="num">3</span><span class="txt"><span class="ln">Enter the Deku Tree, get Fairy Slingshot.</span></span></label></li><li id="s4"><input type="checkbox" id="c-steps-4" data-g="steps" data-i="4"><label for="c-steps-4"><span class="num">4</span><span class="txt"><span class="ln">Jump down with fire on a stick to open the area below, order is 231.</span></span></label></li><li id="s5"><input type="checkbox" id="c-steps-5" data-g="steps" data-i="5"><label for="c-steps-5"><span class="num">5</span><span class="txt"><span class="ln">For the boss, shoot his eye when it is red.</span></span></label></li></ol></div><div class="part"><h4>Hyrule errands, Death Mountain and Goron City <span class="rng">Steps 6 to 16</span></h4><ol class="chk steps" role="list"><li id="s6"><input type="checkbox" id="c-steps-6" data-g="steps" data-i="6"><label for="c-steps-6"><span class="num">6</span><span class="txt"><span class="ln">Go to the Castle at night and the farm girl gives you an egg that hatches into a chicken to wake her dad.</span></span></label></li><li id="s7"><input type="checkbox" id="c-steps-7" data-g="steps" data-i="7"><label for="c-steps-7"><span class="num">7</span><span class="txt"><span class="ln">Win the Slingshot game to get the big Deku seed bag.</span></span></label></li><li id="s8"><input type="checkbox" id="c-steps-8" data-g="steps" data-i="8"><label for="c-steps-8"><span class="num">8</span><span class="txt"><span class="ln">Sneak into Hyrule Castle to see Zelda. Get the Ocarina from her and <a class="sg" href="#song-zelda">Zelda’s Lullaby</a>. Buy a shield for 80 from the store.</span></span></label></li><li id="s9"><input type="checkbox" id="c-steps-9" data-g="steps" data-i="9"><label for="c-steps-9"><span class="num">9</span><span class="txt"><span class="ln">Play the lullaby at the graveyard to enter the tomb. Get <a class="sg" href="#song-sun">Sun’s Song</a>.</span></span></label></li><li id="s10"><input type="checkbox" id="c-steps-10" data-g="steps" data-i="10"><label for="c-steps-10"><span class="num">10</span><span class="txt"><span class="ln">Go to the Lost Woods and get <a class="sg" href="#song-saria">Saria’s Song</a>.</span></span></label></li><li id="s11"><input type="checkbox" id="c-steps-11" data-g="steps" data-i="11"><label for="c-steps-11"><span class="num">11</span><span class="txt"><span class="ln">Can get a bottle and <a class="sg" href="#song-epona">Epona’s Song</a> at Lon Lon Ranch.</span></span></label></li><li id="s12"><input type="checkbox" id="c-steps-12" data-g="steps" data-i="12"><label for="c-steps-12"><span class="num">12</span><span class="txt"><span class="ln">Give the guard Zelda’s letter at Death Mountain, now the mask shop is open.</span></span></label></li><li id="s13"><input type="checkbox" id="c-steps-13" data-g="steps" data-i="13"><label for="c-steps-13"><span class="num">13</span><span class="txt"><span class="ln">Get the first skull award, giant wallet 200.</span></span></label></li><li id="s14"><input type="checkbox" id="c-steps-14" data-g="steps" data-i="14"><label for="c-steps-14"><span class="num">14</span><span class="txt"><span class="ln">Sell the Keaton Mask to the Death Mountain guard.</span></span></label></li><li id="s15"><input type="checkbox" id="c-steps-15" data-g="steps" data-i="15"><label for="c-steps-15"><span class="num">15</span><span class="txt"><span class="ln">Go to Goron City, play <a class="sg" href="#song-zelda">Zelda’s Lullaby</a> in front of the door, then play <a class="sg" href="#song-saria">Saria’s Song</a> in front of the Goron guy.</span></span></label></li><li id="s16"><input type="checkbox" id="c-steps-16" data-g="steps" data-i="16"><label for="c-steps-16"><span class="num">16</span><span class="txt"><span class="ln">If you light the fire the bottle will spin.</span><span class="ln"><mark class="q">Open connect to the Lost Woods, have bomb gauntlets.</mark> Stopping the rolling Goron does nothing.</span></span></label></li></ol></div><div class="part"><h4>Dodongo’s Cavern and the errands around it <span class="rng">Steps 17 to 28</span></h4><ol class="chk steps" role="list"><li id="s17"><input type="checkbox" id="c-steps-17" data-g="steps" data-i="17"><label for="c-steps-17"><span class="num">17</span><span class="txt"><span class="ln">Outside, throw bombs to open the cavern below. Go in.</span></span></label></li><li id="s18"><input type="checkbox" id="c-steps-18" data-g="steps" data-i="18"><label for="c-steps-18"><span class="num">18</span><span class="txt"><span class="ln">Use bombs, also some creatures blow up, for opening cracked walls. Blow up bombs symmetrically.</span></span></label></li><li id="s19"><input type="checkbox" id="c-steps-19" data-g="steps" data-i="19"><label for="c-steps-19"><span class="num">19</span><span class="txt"><span class="ln">Get the bomb bag, but you can’t get bombs at the shop.</span><span class="ln">You have bombs.</span></span></label></li><li id="s20"><input type="checkbox" id="c-steps-20" data-g="steps" data-i="20"><label for="c-steps-20"><span class="num">20</span><span class="txt"><span class="ln">Talk to the Skull Kid with the Skull Mask to give it to him.</span></span></label></li><li id="s21"><input type="checkbox" id="c-steps-21" data-g="steps" data-i="21"><label for="c-steps-21"><span class="num">21</span><span class="txt"><span class="ln">Go to the next room and use the wooden shield on the guy to get a Deku shield capacity upgrade.</span></span></label></li><li id="s22"><input type="checkbox" id="c-steps-22" data-g="steps" data-i="22"><label for="c-steps-22"><span class="num">22</span><span class="txt"><span class="ln">From the start go right, shoot the target 3 times, get the biggest Deku Shield bag (50).</span></span></label></li><li id="s23"><input type="checkbox" id="c-steps-23" data-g="steps" data-i="23"><label for="c-steps-23"><span class="num">23</span><span class="txt"><span class="ln">Get the Spooky Mask, go to the graveyard by day and give it to the kid.</span></span></label></li><li id="s24"><input type="checkbox" id="c-steps-24" data-g="steps" data-i="24"><label for="c-steps-24"><span class="num">24</span><span class="txt"><span class="ln">Get the bunny hat, can use it until the 3rd dungeon is completed, when the runner appears.</span></span></label></li><li id="s25"><input type="checkbox" id="c-steps-25" data-g="steps" data-i="25"><label for="c-steps-25"><span class="num">25</span><span class="txt"><span class="ln">Bomb the eyes from above. The other cracked walls have nothing of value.</span></span></label></li><li id="s26"><input type="checkbox" id="c-steps-26" data-g="steps" data-i="26"><label for="c-steps-26"><span class="num">26</span><span class="txt"><span class="ln">Defeat the boss: throw bombs in its mouth and then attack when it is stunned.</span></span></label></li><li id="s27"><input type="checkbox" id="c-steps-27" data-g="steps" data-i="27"><label for="c-steps-27"><span class="num">27</span><span class="txt"><span class="ln">Climb to the summit by using bombs to see a fairy, and get the sword technique, the spin attack.</span></span></label></li><li id="s28"><input type="checkbox" id="c-steps-28" data-g="steps" data-i="28"><label for="c-steps-28"><span class="num">28</span><span class="txt"><span class="ln">Go to Hyrule Castle, blow up the rock and see the great fairy, get Din’s Fire.</span></span></label></li></ol></div><div class="part"><h4>Zora’s River, Zora’s Domain and Jabu-Jabu <span class="rng">Steps 29 to 35</span></h4><ol class="chk steps" role="list"><li id="s29"><input type="checkbox" id="c-steps-29" data-g="steps" data-i="29"><label for="c-steps-29"><span class="num">29</span><span class="txt"><span class="ln">Go up the river, play <a class="sg" href="#song-zelda">Zelda’s Lullaby</a> at the top in front of the fall. Buy beans, go into Zora’s Domain.</span></span></label></li><li id="s30"><input type="checkbox" id="c-steps-30" data-g="steps" data-i="30"><label for="c-steps-30"><span class="num">30</span><span class="txt"><span class="ln">Do Zora’s Domain: the diving game at the top of the water to get the silver scale, which holds breath longer. Then <mark class="q">get empty water on the outside of Lake Hylia</mark>, <mark class="q">give the scarecrow song xyxy...</mark></span></span></label></li><li id="s31"><input type="checkbox" id="c-steps-31" data-g="steps" data-i="31"><label for="c-steps-31"><span class="num">31</span><span class="txt"><span class="ln">Open the letter in the bottle in front of the Zora leader.</span></span></label></li><li id="s32"><input type="checkbox" id="c-steps-32" data-g="steps" data-i="32"><label for="c-steps-32"><span class="num">32</span><span class="txt"><span class="ln">Jabu’s Belly: lay the fish in front to go in.</span></span></label></li><li id="s33"><input type="checkbox" id="c-steps-33" data-g="steps" data-i="33"><label for="c-steps-33"><span class="num">33</span><span class="txt"><span class="ln">Jabu. Ignore the monsters, <mark class="q">drop down to meet in Zora</mark>, use her to get to the next area. <mark class="q">A settle has a fairy in of. She will help you get x.</mark> Use the boomerang to destroy shock shields. Defeat the monster by throwing the boomerang.</span></span></label></li><li id="s34"><input type="checkbox" id="c-steps-34" data-g="steps" data-i="34"><label for="c-steps-34"><span class="num">34</span><span class="txt"><span class="ln">After the monster is blown up, use the rock to see the fairy and get Farore’s Wind.</span></span></label></li><li id="s35"><input type="checkbox" id="c-steps-35" data-g="steps" data-i="35"><label for="c-steps-35"><span class="num">35</span><span class="txt"><span class="ln">Get the Stone of Agony for collecting skulls.</span></span></label></li></ol></div></div><div class="era" id="old"><h3>As Old Link</h3><p class="note">Steps 36 to 93, from the Master Sword on. Steps 45 and 81 are marked YL.</p><div class="part"><h4>The Master Sword and the hookshot <span class="rng">Steps 36 to 37</span></h4><ol class="chk steps" role="list"><li id="s36"><input type="checkbox" id="c-steps-36" data-g="steps" data-i="36"><label for="c-steps-36"><span class="num">36</span><span class="txt"><span class="ln">Go to Hyrule, then do the <a class="sg" href="#song-time">Song of Time</a> and get the Master Sword.</span></span></label></li><li id="s37"><input type="checkbox" id="c-steps-37" data-g="steps" data-i="37"><label for="c-steps-37"><span class="num">37</span><span class="txt"><span class="ln">Go to the graveyard, leftmost tomb. Win the race to get the hookshot. Use the <a class="sg" href="#song-time">Song of Time</a> to move blocks.</span></span></label></li></ol></div><div class="part"><h4>Forest Temple <span class="rng">Steps 38 to 42</span></h4><ol class="chk steps" role="list"><li id="s38"><input type="checkbox" id="c-steps-38" data-g="steps" data-i="38"><label for="c-steps-38"><span class="num">38</span><span class="txt"><span class="ln">Go to the lost forest temple. Can kill or sneak past the guards.</span></span></label></li><li id="s39"><input type="checkbox" id="c-steps-39" data-g="steps" data-i="39"><label for="c-steps-39"><span class="num">39</span><span class="txt"><span class="ln">Before entering the temple, climb up to get a silver key. Use the hookshot.</span></span></label></li><li id="s40"><input type="checkbox" id="c-steps-40" data-g="steps" data-i="40"><label for="c-steps-40"><span class="num">40</span><span class="txt"><span class="ln">Enter the room with the box in front, use the <a class="sg" href="#song-time">Song of Time</a>.</span></span></label></li><li id="s41"><input type="checkbox" id="c-steps-41" data-g="steps" data-i="41"><label for="c-steps-41"><span class="num">41</span><span class="txt"><span class="ln">Once done, <mark class="q">do the rock clockwise from that one, then do one counter-clockwise from the first</mark>.</span><span class="ln">Shooting the second eye turns the room.</span><span class="ln">Shoot pictures to get the ghosts to come out.</span><span class="ln">There’s some back and forth.</span></span></label></li><li id="s42"><input type="checkbox" id="c-steps-42" data-g="steps" data-i="42"><label for="c-steps-42"><span class="num">42</span><span class="txt"><span class="ln">Fight Phantom Ganon. Shoot him right as he is coming out of the picture, watch out for fakes.</span><span class="ln">Then play lightning ping-pong.</span></span></label></li></ol></div><div class="part"><h4>Epona, the Temple of Time and the Well <span class="rng">Steps 43 to 48</span></h4><ol class="chk steps" role="list"><li id="s43"><input type="checkbox" id="c-steps-43" data-g="steps" data-i="43"><label for="c-steps-43"><span class="num">43</span><span class="txt"><span class="ln">Win Epona in the race twice and then jump the fence.</span></span></label></li><li id="s44"><input type="checkbox" id="c-steps-44" data-g="steps" data-i="44"><label for="c-steps-44"><span class="num">44</span><span class="txt"><span class="ln">Visit the Temple of Time.</span></span></label></li><li id="s45"><input type="checkbox" id="c-steps-45" data-g="steps" data-i="45"><label for="c-steps-45"><span class="num">45</span><span class="txt"><span class="ln">As YL, play the <a class="sg" href="#song-storms">Song of Storms</a> at the windmill to lower the water level.</span></span></label></li><li id="s46"><input type="checkbox" id="c-steps-46" data-g="steps" data-i="46"><label for="c-steps-46"><span class="num">46</span><span class="txt"><span class="ln"><mark class="q">Light sticks near the back to get the silver key, crypts.</mark></span></span></label></li><li id="s47"><input type="checkbox" id="c-steps-47" data-g="steps" data-i="47"><label for="c-steps-47"><span class="num">47</span><span class="txt"><span class="ln">Play <a class="sg" href="#song-zelda">Zelda’s Lullaby</a> to stop the water.</span><span class="ln">Go back to get the silver key, crypts.</span></span></label></li><li id="s48"><input type="checkbox" id="c-steps-48" data-g="steps" data-i="48"><label for="c-steps-48"><span class="num">48</span><span class="txt"><span class="ln">Get keys, blow up debris with bombs. No boss.</span></span></label></li></ol></div><div class="part"><h4>Goron City, the crater and the Ice Cavern <span class="rng">Steps 49 to 53</span></h4><ol class="chk steps" role="list"><li id="s49"><input type="checkbox" id="c-steps-49" data-g="steps" data-i="49"><label for="c-steps-49"><span class="num">49</span><span class="txt"><span class="ln">Go to Goron City, stop the rolling Goron to get the Fire Temple.</span></span></label></li><li id="s50"><input type="checkbox" id="c-steps-50" data-g="steps" data-i="50"><label for="c-steps-50"><span class="num">50</span><span class="txt"><span class="ln">Go to the Death Mountain crater. Can’t destroy rocks.</span></span></label></li><li id="s51"><input type="checkbox" id="c-steps-51" data-g="steps" data-i="51"><label for="c-steps-51"><span class="num">51</span><span class="txt"><span class="ln">Get the giant wallet.</span></span></label></li><li id="s52"><input type="checkbox" id="c-steps-52" data-g="steps" data-i="52"><label for="c-steps-52"><span class="num">52</span><span class="txt"><span class="ln">Ice Cavern: get the boots, unfreeze the Zora and shop.</span></span></label></li><li id="s53"><input type="checkbox" id="c-steps-53" data-g="steps" data-i="53"><label for="c-steps-53"><span class="num">53</span><span class="txt"><span class="ln">He gives you the Zora tunic.</span></span></label></li></ol></div><div class="part"><h4>Lake Hylia and the Water Temple <span class="rng">Steps 54 to 63</span></h4><ol class="chk steps" role="list"><li id="s54"><input type="checkbox" id="c-steps-54" data-g="steps" data-i="54"><label for="c-steps-54"><span class="num">54</span><span class="txt"><span class="ln">Go to Lake Hylia (song). Talk to the scarecrow so you can do that.</span></span></label></li><li id="s55"><input type="checkbox" id="c-steps-55" data-g="steps" data-i="55"><label for="c-steps-55"><span class="num">55</span><span class="txt"><span class="ln">Go into the Water Temple. Go under water to meet the Zora girl.</span><span class="ln">Get the dungeon map. <mark class="q">Open button does to get a silver key.</mark></span></span></label></li><li id="s56"><input type="checkbox" id="c-steps-56" data-g="steps" data-i="56"><label for="c-steps-56"><span class="num">56</span><span class="txt"><span class="ln"><mark class="q">Climb tower tower middle.</mark> Don’t raise the water yet. Clear the area, get the compass, now raise the water.</span></span></label></li><li id="s57"><input type="checkbox" id="c-steps-57" data-g="steps" data-i="57"><label for="c-steps-57"><span class="num">57</span><span class="txt"><span class="ln">Go to the bottom, get a silver key from the green path.</span></span></label></li><li id="s58"><input type="checkbox" id="c-steps-58" data-g="steps" data-i="58"><label for="c-steps-58"><span class="num">58</span><span class="txt"><span class="ln">Go through the locked key door on the 2nd level. Go raise the water to the third level, move the crate.</span></span></label></li><li id="s59"><input type="checkbox" id="c-steps-59" data-g="steps" data-i="59"><label for="c-steps-59"><span class="num">59</span><span class="txt"><span class="ln">Lower the water, push the crate in on the bottom level. Get a silver key.</span></span></label></li><li id="s60"><input type="checkbox" id="c-steps-60" data-g="steps" data-i="60"><label for="c-steps-60"><span class="num">60</span><span class="txt"><span class="ln">Raise the water to level 3, go in. Locked door. You will use the other key. You fight Shadow Link.</span><span class="ln">You can defeat him by attacking without locking on, you will get hurt. Get the Longshot.</span></span></label></li><li id="s61"><input type="checkbox" id="c-steps-61" data-g="steps" data-i="61"><label for="c-steps-61"><span class="num">61</span><span class="txt"><span class="ln">Raise the water to the second level. Go in the room, get another key.</span></span></label></li><li id="s62"><input type="checkbox" id="c-steps-62" data-g="steps" data-i="62"><label for="c-steps-62"><span class="num">62</span><span class="txt"><span class="ln">Use the boots, go to the room on the bottom level, use the key, get the boss key.</span></span></label></li><li id="s63"><input type="checkbox" id="c-steps-63" data-g="steps" data-i="63"><label for="c-steps-63"><span class="num">63</span><span class="txt"><span class="ln">For the boss, pull it out with the slingshot, then attack the brain.</span></span></label></li></ol></div><div class="part"><h4>Fire Arrows and the Fire Temple <span class="rng">Steps 64 to 77</span></h4><ol class="chk steps" role="list"><li id="s64"><input type="checkbox" id="c-steps-64" data-g="steps" data-i="64"><label for="c-steps-64"><span class="num">64</span><span class="txt"><span class="ln">Shoot the sun in the morning, Fire Arrow.</span></span></label></li><li id="s65"><input type="checkbox" id="c-steps-65" data-g="steps" data-i="65"><label for="c-steps-65"><span class="num">65</span><span class="txt"><span class="ln">Go to Goron City, move the statue in Darunia’s room.</span><span class="ln">May need to talk to the Goron, go into the Fire Temple.</span></span></label></li><li id="s66"><input type="checkbox" id="c-steps-66" data-g="steps" data-i="66"><label for="c-steps-66"><span class="num">66</span><span class="txt"><span class="ln">Go into the top left door, go left, get a key.</span><span class="ln">Go back to <mark class="q">the pranos room</mark>, use the key.</span></span></label></li><li id="s67"><input type="checkbox" id="c-steps-67" data-g="steps" data-i="67"><label for="c-steps-67"><span class="num">67</span><span class="txt"><span class="ln">Go left, go in the bottom door, get a silver key.</span><span class="ln">Go right, blow up the wall, get a key.</span><span class="ln">Go through the key door.</span><span class="ln">Push black down, use the other key.</span></span></label></li><li id="s68"><input type="checkbox" id="c-steps-68" data-g="steps" data-i="68"><label for="c-steps-68"><span class="num">68</span><span class="txt"><span class="ln">Move a block so that you can climb up. Now throw a bomb at the switch so you can climb past the fin.</span></span></label></li><li id="s69"><input type="checkbox" id="c-steps-69" data-g="steps" data-i="69"><label for="c-steps-69"><span class="num">69</span><span class="txt"><span class="ln">The room has two silver keys and one hidden skull, find them. Go into the locked room.</span></span></label></li><li id="s70"><input type="checkbox" id="c-steps-70" data-g="steps" data-i="70"><label for="c-steps-70"><span class="num">70</span><span class="txt"><span class="ln">Shoot the switch and get the dungeon map, go into the other locked room.</span></span></label></li><li id="s71"><input type="checkbox" id="c-steps-71" data-g="steps" data-i="71"><label for="c-steps-71"><span class="num">71</span><span class="txt"><span class="ln">Get two silver keys, go back to the other room, use a key.</span></span></label></li><li id="s72"><input type="checkbox" id="c-steps-72" data-g="steps" data-i="72"><label for="c-steps-72"><span class="num">72</span><span class="txt"><span class="ln"><mark class="q">You can do the scarecrow thing to get it at the entrance, facing away from the door.</mark></span></span></label></li><li id="s73"><input type="checkbox" id="c-steps-73" data-g="steps" data-i="73"><label for="c-steps-73"><span class="num">73</span><span class="txt"><span class="ln">Go through the left locked door. Pass through the next locked room. Go left and blow up the fake door.</span></span></label></li><li id="s74"><input type="checkbox" id="c-steps-74" data-g="steps" data-i="74"><label for="c-steps-74"><span class="num">74</span><span class="txt"><span class="ln"><mark class="q">Treasure chest has name in it</mark>, hookshot to the chest.</span></span></label></li><li id="s75"><input type="checkbox" id="c-steps-75" data-g="steps" data-i="75"><label for="c-steps-75"><span class="num">75</span><span class="txt"><span class="ln">Go through the middle door.</span><span class="ln">Knock down the elevator first, get a silver key.</span><span class="ln">Before leaving this area go right from the entrance and get the compass.</span><span class="ln">Now jump down.</span></span></label></li><li id="s76"><input type="checkbox" id="c-steps-76" data-g="steps" data-i="76"><label for="c-steps-76"><span class="num">76</span><span class="txt"><span class="ln">Go to the entrance of the dungeon, knock the blocks, get the boss key, go to the boss.</span></span></label></li><li id="s77"><input type="checkbox" id="c-steps-77" data-g="steps" data-i="77"><label for="c-steps-77"><span class="num">77</span><span class="txt"><span class="ln">Boss: let him pop out of the hole and swing, and then bop him on the hand. <mark class="q">You get a hat.</mark></span></span></label></li></ol></div><div class="part"><h4>Errands before the Shadow Temple <span class="rng">Steps 78 to 84</span></h4><ol class="chk steps" role="list"><li id="s78"><input type="checkbox" id="c-steps-78" data-g="steps" data-i="78"><label for="c-steps-78"><span class="num">78</span><span class="txt"><span class="ln">Destroy rocks with the hammer, use the fairy, get more magic.</span></span></label></li><li id="s79"><input type="checkbox" id="c-steps-79" data-g="steps" data-i="79"><label for="c-steps-79"><span class="num">79</span><span class="txt"><span class="ln">Go to Kakariko Village, the Shadow Temple is revealed.</span></span></label></li><li id="s80"><input type="checkbox" id="c-steps-80" data-g="steps" data-i="80"><label for="c-steps-80"><span class="num">80</span><span class="txt"><span class="ln">Get the big quiver by winning the archery game in Kakariko Village.</span></span></label></li><li id="s81"><input type="checkbox" id="c-steps-81" data-g="steps" data-i="81"><label for="c-steps-81"><span class="num">81</span><span class="txt"><span class="ln">YL, Bombchu game: win twice, big bomb bag.</span><span class="ln">Goron City, YL: stop the rolling guy when he rolls behind the area, to get the 2nd bomb bag.</span></span></label></li><li id="s82"><input type="checkbox" id="c-steps-82" data-g="steps" data-i="82"><label for="c-steps-82"><span class="num">82</span><span class="txt"><span class="ln">Gerudo, jump down next to the chest <mark class="q">to get the final guy</mark>.</span></span></label></li><li id="s83"><input type="checkbox" id="c-steps-83" data-g="steps" data-i="83"><label for="c-steps-83"><span class="num">83</span><span class="txt"><span class="ln"><mark class="q">2nd winning archery gives you quiver big.</mark></span></span></label></li><li id="s84"><input type="checkbox" id="c-steps-84" data-g="steps" data-i="84"><label for="c-steps-84"><span class="num">84</span><span class="txt"><span class="ln">Do training, use the <a class="sg" href="#song-time">Song of Time</a> on the red carpets. Use keys to the right, use the Lens above the fake door.</span></span></label></li></ol></div><div class="part"><h4>Shadow Temple <span class="rng">Steps 85 to 90</span></h4><ol class="chk steps" role="list"><li id="s85"><input type="checkbox" id="c-steps-85" data-g="steps" data-i="85"><label for="c-steps-85"><span class="num">85</span><span class="txt"><span class="ln">Go to the Shadow Temple, OL. Get the hover shoes. <mark class="q">Rotate 4 o’clock.</mark></span></span></label></li><li id="s86"><input type="checkbox" id="c-steps-86" data-g="steps" data-i="86"><label for="c-steps-86"><span class="num">86</span><span class="txt"><span class="ln">Go to the room on the right, get the compass, now go left, get a silver key.</span></span></label></li><li id="s87"><input type="checkbox" id="c-steps-87" data-g="steps" data-i="87"><label for="c-steps-87"><span class="num">87</span><span class="txt"><span class="ln">Go back, blow up rocks.</span><span class="ln">Nothing of value to the left so go right.</span><span class="ln">Get a silver key.</span></span></label></li><li id="s88"><input type="checkbox" id="c-steps-88" data-g="steps" data-i="88"><label for="c-steps-88"><span class="num">88</span><span class="txt"><span class="ln">Cross the air and open the locked door. Blow up a pot, get a key, use it in another room.</span></span></label></li><li id="s89"><input type="checkbox" id="c-steps-89" data-g="steps" data-i="89"><label for="c-steps-89"><span class="num">89</span><span class="txt"><span class="ln">Blow up debris to get a key.</span><span class="ln">Ride the ghost ship.</span><span class="ln">Use Din’s Fire on the trap, get the boss key.</span></span></label></li><li id="s90"><input type="checkbox" id="c-steps-90" data-g="steps" data-i="90"><label for="c-steps-90"><span class="num">90</span><span class="txt"><span class="ln">Shoot bombs, fight the boss. Shoot both hands, then shoot the eye and attack the eye. Use the Lens.</span></span></label></li></ol></div><div class="part"><h4>The desert and Gerudo training <span class="rng">Steps 91 to 93</span></h4><ol class="chk steps" role="list"><li id="s91"><input type="checkbox" id="c-steps-91" data-g="steps" data-i="91"><label for="c-steps-91"><span class="num">91</span><span class="txt"><span class="ln">Go to the desert temple.</span></span></label></li><li id="s92"><input type="checkbox" id="c-steps-92" data-g="steps" data-i="92"><label for="c-steps-92"><span class="num">92</span><span class="txt"><span class="ln">Gerudo training. The lost key is in the left room ceiling, in the treasure room. Get the Ice Arrows.</span></span></label></li><li id="s93"><input type="checkbox" id="c-steps-93" data-g="steps" data-i="93"><label for="c-steps-93"><span class="num">93</span><span class="txt"><span class="ln">Get the golden gloves from the purple door. <mark class="q">Do before red.</mark> See a fairy outside the castle.</span></span></label></li></ol></div></div>
+  <div class="todo" id="td-end"><p>The steps stop at 93, with Gerudo training. Spirit Temple, Ganon’s Castle and Ganondorf have no steps yet; your playthrough times do list them.</p></div>
+</section>
+<section class="sect" id="runs" aria-labelledby="runs-h">
+  <h2 id="runs-h">Playthroughs</h2>
+  <p class="lead">Each playthrough is a list of stops in the order you did them, with the hours for each. Open one to see it stop by stop. The bar next to each name is its total, drawn to the same scale.</p>
+  <div class="runs" id="run-list">
+    <details class="run" id="run-1" open>
+      <summary>
+        <span class="rn">Playthrough 1</span>
+        <span class="rt"><b class="tot">16.1</b> hours, <span class="cnt">19 stops</span></span>
+        <span class="rbar" aria-hidden="true"><i style="width:100%"></i></span>
+      </summary>
+      <div class="rbody">
+        <div class="todo slim" id="td-run1"><p>Add when you played this and what the order was.</p></div>
+        <table class="stops">
+          <caption class="sr">Playthrough 1, stop by stop</caption>
+          <thead><tr><th scope="col"><span class="sr">Stop number</span></th><th scope="col">Stops</th><th scope="col">Hours</th><th scope="col">Running total</th></tr></thead>
+          <tbody><tr data-h="0.4" style="--w:21.1%"><td class="no"></td><td class="what"><span>Sword</span> <span>Shield</span> <span>Deku Tree</span></td><td class="h"><div class="hw"><span class="hv">0.4</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">0.4</td></tr><tr data-h="1.4" style="--w:73.7%"><td class="no"></td><td class="what"><span>Princess</span> <span>Graveyard</span> <span>Sun’s Song</span> <span>Shield</span> <span>Saria</span> <span>Death Mountain</span></td><td class="h"><div class="hw"><span class="hv">1.4</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">1.8</td></tr><tr data-h="1.3" style="--w:68.4%"><td class="no"></td><td class="what"><span>Mask</span> <span>Cavern</span> <span>Fairy</span> <span>Zora’s Domain</span></td><td class="h"><div class="hw"><span class="hv">1.3</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">3.1</td></tr><tr data-h="0.8" style="--w:42.1%"><td class="no"></td><td class="what"><span>Fairy</span> <span>Castle</span> <span>Ocarina</span></td><td class="h"><div class="hw"><span class="hv">0.8</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">3.9</td></tr><tr data-h="0.3" style="--w:15.8%"><td class="no"></td><td class="what"><span>Kakariko Village</span> <span>Hookshot</span> <span>Song of Storms</span></td><td class="h"><div class="hw"><span class="hv">0.3</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">4.2</td></tr><tr data-h="1.5" style="--w:78.9%"><td class="no"></td><td class="what"><span>Forest Temple</span></td><td class="h"><div class="hw"><span class="hv">1.5</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">5.7</td></tr><tr data-h="1.3" style="--w:68.4%"><td class="no"></td><td class="what"><span>Temple of Time</span> <span>YL Kakariko Village</span> <span>Song of Storms</span> <span>Well</span></td><td class="h"><div class="hw"><span class="hv">1.3</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">7.0</td></tr><tr data-h="1.9" style="--w:100.0%"><td class="no"></td><td class="what"><span>Fire Temple</span> <span>Goron City</span></td><td class="h"><div class="hw"><span class="hv">1.9</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">8.9</td></tr><tr data-h="0.5" style="--w:26.3%"><td class="no"></td><td class="what"><span>Fairy</span> <span>Ice Cavern</span> <span>Boots</span> <span>Blue Tunic</span> <span>Serenade of Water</span></td><td class="h"><div class="hw"><span class="hv">0.5</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">9.4</td></tr><tr data-h="1.0" style="--w:52.6%"><td class="no"></td><td class="what"><span>Water Temple</span></td><td class="h"><div class="hw"><span class="hv">1.0</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">10.4</td></tr><tr data-h="0.2" style="--w:10.5%"><td class="no"></td><td class="what"><span>Kakariko</span> <span>Nocturne of Shadow</span></td><td class="h"><div class="hw"><span class="hv">0.2</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">10.6</td></tr><tr data-h="1.1" style="--w:57.9%"><td class="no"></td><td class="what"><span>Shadow Temple</span></td><td class="h"><div class="hw"><span class="hv">1.1</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">11.7</td></tr><tr data-h="0.5" style="--w:26.3%"><td class="no"></td><td class="what"><span>Gerudo Valley</span></td><td class="h"><div class="hw"><span class="hv">0.5</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">12.2</td></tr><tr data-h="0.1" style="--w:5.3%"><td class="no"></td><td class="what"><span>Desert</span></td><td class="h"><div class="hw"><span class="hv">0.1</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">12.3</td></tr><tr data-h="1.0" style="--w:52.6%"><td class="no"></td><td class="what"><span>Desert Temple</span> <span>YL</span></td><td class="h"><div class="hw"><span class="hv">1.0</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">13.3</td></tr><tr data-h="1.4" style="--w:73.7%"><td class="no"></td><td class="what"><span>Desert Temple</span> <span>OL</span></td><td class="h"><div class="hw"><span class="hv">1.4</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">14.7</td></tr><tr data-h="0.1" style="--w:5.3%"><td class="no"></td><td class="what"><span>To Castle</span></td><td class="h"><div class="hw"><span class="hv">0.1</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">14.8</td></tr><tr data-h="0.9" style="--w:47.4%"><td class="no"></td><td class="what"><span>Ganon’s Castle</span></td><td class="h"><div class="hw"><span class="hv">0.9</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">15.7</td></tr><tr data-h="0.4" style="--w:21.1%"><td class="no"></td><td class="what"><span>Ganondorf</span></td><td class="h"><div class="hw"><span class="hv">0.4</span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum">16.1</td></tr></tbody>
+        </table>
+      </div>
+    </details>
+    <!-- NEW RUN: copy from here to the closing details tag, paste it below Playthrough 1, then rename it and edit the rows.
+     Hours go in data-h. The row number, hours, running total and bars fill in by themselves.
+<details class="run" id="run-2">
+  <summary>
+    <span class="rn">Playthrough 2</span>
+    <span class="rt"><b class="tot"></b> hours, <span class="cnt"></span></span>
+    <span class="rbar" aria-hidden="true"><i></i></span>
+  </summary>
+  <div class="rbody">
+    <p class="rnote">When you played it and what was different about the order.</p>
+    <table class="stops">
+      <caption class="sr">Playthrough 2, stop by stop</caption>
+      <thead><tr><th scope="col"><span class="sr">Stop number</span></th><th scope="col">Stops</th><th scope="col">Hours</th><th scope="col">Running total</th></tr></thead>
+      <tbody>
+        <tr data-h="0.4"><td class="no"></td><td class="what"><span>Sword</span> <span>Shield</span> <span>Deku Tree</span></td><td class="h"><div class="hw"><span class="hv"></span><span class="hbw"><i class="hb"></i></span></div></td><td class="cum"></td></tr>
+      </tbody>
+    </table>
+  </div>
+</details>
+-->
+  </div>
+  <div class="todo" id="td-run2"><p>Playthrough 2 goes here. Copy the template from the comment in this file (search for NEW RUN).</p></div>
+</section>
+<section class="sect" id="mq" aria-labelledby="mq-h">
+  <h2 id="mq-h">Master Quest Tips</h2>
+  <ul class="tips"><li><h3>Deku Tree</h3><p>Shrubs code is 132. <span class="xref">Compare <a href="#s4">step 4</a>, where the order is 231.</span></p></li><li><h3>Forest Temple</h3><p>Shoot the target in the well, under water.</p></li><li><h3>Shadow Temple</h3><p>Blow up guys with fire.</p></li></ul>
+</section>
+<section class="sect" id="open" aria-labelledby="open-h">
+  <h2 id="open-h">To fill in</h2>
+  <p class="lead">Everything the merge left open, in one place. Each item links to its spot on the page.</p>
+  <ul class="todolist">
+    <li><a href="#songs-more">Notes for 5 songs</a>: <a href="#song-saria">Saria’s Song</a>, <a href="#song-epona">Epona’s Song</a>, <a href="#song-storms">Song of Storms</a>, <a href="#song-nocturne">Nocturne of Shadow</a>, <a href="#song-scarecrow">Scarecrow’s Song</a>.</li>
+    <li><a href="#td-desc">Item descriptions</a>: the heading had nothing under it.</li>
+    <li><a href="#item-boomerang">The Boomerang row</a>: only the age is filled in.</li>
+    <li><a href="#item-hammer">The Hammer spot</a>: left blank.</li>
+    <li><a href="#td-skulls">Skulltula locations past 28</a>.</li>
+    <li><a href="#td-end">Steps after 93</a>: Spirit Temple, Ganon’s Castle and Ganondorf.</li>
+    <li><a href="#td-run1">Notes for Playthrough 1</a> and <a href="#td-run2">more playthroughs</a>.</li>
+  </ul>
+  <h3 id="reword">Steps to reword</h3>
+  <p class="lead">These passages came across unclear. They are kept exactly as written.</p>
+  <ul class="todolist"><li><a href="#s16">Step 16</a>: “Open connect to the Lost Woods, have bomb gauntlets.”</li><li><a href="#s30">Step 30</a>: “get empty water on the outside of Lake Hylia”; “give the scarecrow song xyxy...”</li><li><a href="#s33">Step 33</a>: “drop down to meet in Zora”; “A settle has a fairy in of. She will help you get x.”</li><li><a href="#s41">Step 41</a>: “do the rock clockwise from that one, then do one counter-clockwise from the first”</li><li><a href="#s46">Step 46</a>: “Light sticks near the back to get the silver key, crypts.”</li><li><a href="#s55">Step 55</a>: “Open button does to get a silver key.”</li><li><a href="#s56">Step 56</a>: “Climb tower tower middle.”</li><li><a href="#s66">Step 66</a>: “the pranos room”</li><li><a href="#s72">Step 72</a>: “You can do the scarecrow thing to get it at the entrance, facing away from the door.”</li><li><a href="#s74">Step 74</a>: “Treasure chest has name in it”</li><li><a href="#s77">Step 77</a>: “You get a hat.”</li><li><a href="#s82">Step 82</a>: “to get the final guy”</li><li><a href="#s83">Step 83</a>: “2nd winning archery gives you quiver big.”</li><li><a href="#s85">Step 85</a>: “Rotate 4 o’clock.”</li><li><a href="#s93">Step 93</a>: “Do before red.”</li></ul>
+  <p class="hl-row"><label><input type="checkbox" id="hl" hidden> Highlight them in the walkthrough</label></p>
+</section>
+  </main>
+</div>
+
+<footer class="foot">
+  <p><a href="../../index.html">Back to the Waypoints index</a></p>
+  <p>The Legend of Zelda and Ocarina of Time belong to Nintendo. These are fan notes and are not affiliated with them.</p>
+  <p>Typefaces: Almendra and Atkinson Hyperlegible, both under the SIL Open Font License.</p>
+</footer>
+<script>
+(function(){
+  'use strict';
+  var KEY = 'waypoints:zelda-ocarina-of-time-guide';
+  var G = ['steps','skulls','beans','hearts'];
+  var S = {steps:[],skulls:[],beans:[],hearts:[]};
+  var storageOk = true;
+  var $ = function(s, r){ return (r||document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+  function read(){
+    try{
+      var raw = window.localStorage.getItem(KEY);
+      if(!raw) return;
+      var o = JSON.parse(raw);
+      if(!o || typeof o !== 'object') return;
+      G.forEach(function(g){
+        if(Array.isArray(o[g])) S[g] = o[g].filter(function(n){ return typeof n === 'number' && isFinite(n); });
+      });
+    }catch(err){ storageOk = false; }
+  }
+  function write(){
+    try{
+      window.localStorage.setItem(KEY, JSON.stringify({v:1, steps:S.steps, skulls:S.skulls, beans:S.beans, hearts:S.hearts}));
+    }catch(err){ storageOk = false; }
+    note();
+  }
+  function note(){ var n = $('#save-note'); if(n) n.hidden = storageOk; }
+
+  function say(t){ var m = $('#prog-msg'); if(m){ m.textContent = ''; setTimeout(function(){ m.textContent = t; }, 30); } }
+
+  function paint(){
+    G.forEach(function(g){
+      var all = $$('input[data-g="'+g+'"]');
+      var n = all.filter(function(b){ return b.checked; }).length;
+      var v = $('[data-count="'+g+'"]'); if(v) v.textContent = n + ' of ' + all.length;
+      var t = $('[data-tally="'+g+'"]'); if(t) t.textContent = n ? (n + ' of ' + all.length + ' ticked') : (all.length + (g === 'steps' ? ' steps' : ' listed'));
+      var b = $('[data-bar="'+g+'"]'); if(b) b.style.width = (all.length ? n/all.length*100 : 0) + '%';
+    });
+    var sk = $$('input[data-g="skulls"]').filter(function(b){ return b.checked; }).length;
+    $$('#rewards li').forEach(function(li){
+      var got = sk >= parseInt(li.getAttribute('data-n'), 10);
+      li.classList.toggle('got', got);
+      var st = $('.state', li); if(st) st.textContent = got ? ' (reached)' : '';
+    });
+  }
+
+  read();
+  $$('input[data-g]').forEach(function(b){
+    b.checked = S[b.getAttribute('data-g')].indexOf(parseInt(b.getAttribute('data-i'), 10)) > -1;
+  });
+  paint(); note();
+
+  document.addEventListener('change', function(ev){
+    var b = ev.target;
+    if(!b.matches || !b.matches('input[data-g]')) return;
+    var g = b.getAttribute('data-g'), i = parseInt(b.getAttribute('data-i'), 10);
+    var at = S[g].indexOf(i);
+    if(b.checked && at < 0) S[g].push(i);
+    if(!b.checked && at > -1) S[g].splice(at, 1);
+    write(); paint();
+  });
+
+  /* reset: two clicks, no dialog */
+  var rb = $('#reset'), timer;
+  function disarm(){ rb.classList.remove('arm'); rb.textContent = 'Reset all checks'; }
+  rb.addEventListener('click', function(){
+    if(!rb.classList.contains('arm')){
+      rb.classList.add('arm'); rb.textContent = 'Click again to clear'; timer = setTimeout(disarm, 4000); return;
+    }
+    clearTimeout(timer); disarm();
+    S = {steps:[],skulls:[],beans:[],hearts:[]};
+    $$('input[data-g]').forEach(function(b){ b.checked = false; });
+    try{ window.localStorage.removeItem(KEY); }catch(err){ storageOk = false; note(); }
+    paint(); say('All checks cleared.');
+  });
+
+  /* jump to the first step not ticked yet */
+  var nb = $('#next-step');
+  if(nb){
+    nb.hidden = false;
+    nb.addEventListener('click', function(){
+      var next = $$('input[data-g="steps"]').filter(function(b){ return !b.checked; })[0];
+      var m = $('#next-msg');
+      if(!next){ if(m) m.textContent = 'Every step is ticked.'; return; }
+      var li = next.closest('li');
+      li.scrollIntoView({block:'center'});
+      next.focus({preventScroll:true});
+      if(m) m.textContent = 'Step ' + next.getAttribute('data-i');
+    });
+  }
+
+  /* highlight unclear wording */
+  var hl = $('#hl');
+  if(hl){ hl.hidden = false; hl.addEventListener('change', function(){ document.body.classList.toggle('show-q', hl.checked); }); }
+
+  /* playthroughs: hours, running totals, bars */
+  function fmt(x){ var s = String(Number(x.toFixed(2))); return s.indexOf('.') < 0 ? s + '.0' : s; }
+  function runs(){
+    var list = $$('details.run');
+    var maxH = 0, maxT = 0, info = [];
+    list.forEach(function(d){
+      var rows = $$('tbody tr[data-h]', d), t = 0;
+      rows.forEach(function(r){ var h = parseFloat(r.getAttribute('data-h')) || 0; t += h; if(h > maxH) maxH = h; });
+      info.push({d:d, rows:rows, t:t}); if(t > maxT) maxT = t;
+    });
+    info.forEach(function(r){
+      var cum = 0;
+      r.rows.forEach(function(tr){
+        var h = parseFloat(tr.getAttribute('data-h')) || 0; cum += h;
+        var hv = $('.hv', tr), cu = $('.cum', tr);
+        if(hv) hv.textContent = fmt(h);
+        tr.style.setProperty('--w', (maxH ? h/maxH*100 : 0) + '%');
+        if(cu) cu.textContent = fmt(cum);
+      });
+      var tot = $('.tot', r.d), cnt = $('.cnt', r.d), bar = $('.rbar i', r.d);
+      if(tot) tot.textContent = fmt(r.t);
+      if(cnt) cnt.textContent = r.rows.length + (r.rows.length === 1 ? ' stop' : ' stops');
+      if(bar) bar.style.width = (maxT ? r.t/maxT*100 : 0) + '%';
+    });
+  }
+  runs();
+
+  /* current section in the contents */
+  if('IntersectionObserver' in window){
+    var links = {};
+    $$('.toc > ul > li > a').forEach(function(l){ links[l.getAttribute('href').slice(1)] = l; });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(!en.isIntersecting) return;
+        Object.keys(links).forEach(function(k){ links[k].removeAttribute('aria-current'); });
+        var l = links[en.target.id]; if(l) l.setAttribute('aria-current','true');
+      });
+    }, {rootMargin:'-15% 0px -75% 0px'});
+    Object.keys(links).forEach(function(k){ var s = document.getElementById(k); if(s) io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
