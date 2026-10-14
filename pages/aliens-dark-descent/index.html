@@ -3,163 +3,252 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Aliens: Dark Descent</title>
+<meta name="color-scheme" content="light dark" />
+<title>Aliens: Dark Descent — Waypoints</title>
+<meta name="description" content="Mission-by-mission walkthrough notes for Aliens: Dark Descent, with the Death Clock’s day limit by difficulty and how many days the late missions take." />
 <link rel="stylesheet" href="../../assets/page.css" />
-<style>
-  body { font-family: Georgia, "Source Serif 4", serif; margin: 0; background: #f6f1e4; color: #1f2b24; }
-  main { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
-  h1 { font-size: 2rem; margin-bottom: 0.15rem; }
-  p.lede { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: #6b6252; margin-top: 0; }
-  .note {
-    background: rgba(31,43,36,0.06); border-left: 3px solid #d9a441;
-    padding: 0.75rem 1rem; margin: 1.5rem 0; font-size: 0.92rem;
-  }
-  .note h4 { margin: 0 0 0.3rem; font-family: "IBM Plex Sans", sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
-  nav.toc { margin: 1.75rem 0 2.5rem; font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; }
-  nav.toc ul { columns: 2; padding-left: 1.1rem; }
-  nav.toc a { color: #1f2b24; }
-  h2 { font-size: 1.5rem; margin-top: 3rem; border-bottom: 2px solid #1f2b24; padding-bottom: 0.3rem; }
-  h3 { font-size: 1.1rem; margin-top: 2rem; font-family: "IBM Plex Sans", sans-serif; }
-  h4 { font-size: 0.95rem; margin: 1.25rem 0 0.3rem; }
-  code, .code {
-    font-family: "IBM Plex Mono", monospace; background: rgba(31,43,36,0.08);
-    padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.9rem;
-  }
-  table { border-collapse: collapse; margin: 0.75rem 0; }
-  table td { border: 1px solid #c9c2a9; padding: 0.35rem 0.9rem; font-family: "IBM Plex Mono", monospace; font-size: 0.9rem; text-align: center; }
-  figure { margin: 1rem 0; }
-  figure img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid #c9c2a9; }
-  figcaption { font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: #6b6252; margin-top: 0.3rem; }
-  audio { display: block; margin: 0.4rem 0 1rem; }
-  ul { padding-left: 1.3rem; }
-  
-  body {
-    background: #f4f1ea;
-    font-family: Georgia, serif;
-    padding: 20px;
-  }
-  .map-wrap {
-    background: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  h1 {
-    font-size: 20px;
-    margin-top: 0;
-  }
-  pre.map {
-    font-family: "Courier New", monospace;
-    font-size: 12px;
-    line-height: 1.15;
-    white-space: pre;
-    overflow-x: auto;
-    background: #ffffff;
-    margin: 0;
-  }
-  .legend {
-    margin-top: 18px;
-    font-family: Georgia, serif;
-    font-size: 14px;
-    color: #222;
-  }
-  .legend span.swatch {
-    display: inline-block;
-    width: 14px;
-    font-weight: bold;
-  }
-  .k { color: #1a1a1a; }
-  .r { color: #e21a1a; }
-  .m { color: #8b1414; }
-  .y { color: #b8860b; }
-  
-</style>
+<link rel="preload" href="media/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/ibm-plex-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 <script type="application/json" id="page-meta">
 {
-  "title": "Alien: Dark Descent",
-  "description": "Puzzle solutions, codes, and area notes for the original PC release of Myst.",
-  "tags": ["games", "walkthrough", "myst"],
+  "title": "Aliens: Dark Descent",
+  "description": "Mission-by-mission walkthrough notes for Aliens: Dark Descent, with the Death Clock’s day limit by difficulty and how many days the late missions take.",
+  "tags": [
+    "gaming",
+    "walkthrough"
+  ],
   "date": "2026-08-21"
 }
 </script>
+<style>
+@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(media/barlow-condensed-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(media/barlow-condensed-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:100 700;font-display:swap;src:url(media/ibm-plex-sans-latin-wght-normal.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(media/ibm-plex-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:600;font-display:swap;src:url(media/ibm-plex-mono-latin-600-normal.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --c-bg:#E4EAE9; --c-panel:#F3F7F6; --c-panel2:#D6DFDE; --c-ink:#0F1B21; --c-muted:#42555D;
+  --c-rule:#B3C2C4; --c-rule2:#657C83;
+  --c-amber:#F2AE3A; --c-edge:#7E4B00; --c-onamber:#1A1200; --c-amber-t:#7E4B00;
+  --c-teal:#0A6A6E; --c-alert:#B2301A; --c-focus:#7E4B00;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-text:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --c-bg:#0A1116; --c-panel:#111B22; --c-panel2:#192630; --c-ink:#DCE7E9; --c-muted:#9AADB4;
+    --c-rule:#25363F; --c-rule2:#52707B;
+    --c-amber:#F4B13E; --c-edge:#F4B13E; --c-onamber:#1A1200; --c-amber-t:#F4B13E;
+    --c-teal:#62D2D3; --c-alert:#FF7C5C; --c-focus:#FFD27A;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;font-synthesis:none;scroll-padding-top:1rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--c-bg);color:var(--c-ink);font-family:var(--f-text);font-size:1.0625rem;line-height:1.55;overflow-wrap:break-word}
+a{color:inherit;text-underline-offset:.18em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--c-focus);outline-offset:2px;border-radius:2px}
+.wrap{max-width:68rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.ic{width:1.15em;height:1.15em;flex:none}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;margin:0;letter-spacing:.01em;line-height:1}
+
+/* ---------------------------------------------------------------- hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;padding-block:2.2rem 2rem}
+.hero-in{display:grid;gap:1.4rem 3rem;align-items:end}
+.hero h1{font-size:clamp(4.4rem,19vw,10.5rem);line-height:.8;text-transform:uppercase;letter-spacing:.005em}
+.hero h1 .l2{display:block;font-size:.455em;line-height:1;letter-spacing:.075em;margin-top:.14em;color:var(--c-muted)}
+.lede{margin:0;max-width:27rem;font-size:1.12rem;line-height:1.5}
+.rings{position:absolute;z-index:-1;right:-11rem;top:-8rem;width:34rem;height:34rem;color:var(--c-rule);pointer-events:none}
+@media (min-width:860px){.hero-in{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}}
+
+.route-wrap{margin-top:2.2rem}
+.route{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.45rem;align-items:stretch}
+.stop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;min-width:3.2rem;height:3.9rem;padding:.2rem .35rem;
+  border:2px solid var(--c-rule2);border-radius:4px;background:var(--c-panel);text-decoration:none}
+.stop b{font:700 1.75rem/1 var(--f-display)}
+.stop small{font:600 .78rem/1 var(--f-mono);color:var(--c-muted)}
+.stop.timed{border-color:var(--c-edge);background:var(--c-amber);color:var(--c-onamber)}
+.stop.timed small{color:var(--c-onamber)}
+.stop:hover{border-color:var(--c-ink)}
+.stop.timed:hover{outline:2px solid var(--c-ink);outline-offset:1px}
+.flag{display:flex;align-items:center;gap:.35rem;padding:0 .5rem;font:600 .86rem/1.15 var(--f-text);color:var(--c-alert);max-width:6.8rem}
+.route-note{margin:.7rem 0 0;color:var(--c-muted);font-size:.95rem;max-width:40rem}
+
+/* ---------------------------------------------------------------- the clock */
+.sect{padding-top:3.4rem}
+.sect>h2{font-size:clamp(2.2rem,5vw,3rem);text-transform:uppercase}
+.sect-dek{margin:.6rem 0 0;max-width:42rem;font-size:1.12rem}
+.clock-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem 3rem;margin-top:1.8rem;align-items:start}
+.clock-grid>*{min-width:0}
+@media (min-width:900px){.clock-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
+
+.cal{margin:0}
+.cal-body{display:grid;grid-template-columns:minmax(0,1fr) 1.9rem;gap:0 .5rem;max-width:34rem;align-items:stretch}
+.cal-grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.cal-days{display:grid;grid-template-rows:repeat(3,1fr);font:400 .8rem/1 var(--f-mono);color:var(--c-muted)}
+.cal-days span{display:flex;align-items:center}
+.day{position:relative;display:grid;place-items:center;aspect-ratio:1;border:1.5px solid var(--c-rule2);border-radius:3px;font:600 .8rem/1 var(--f-mono);color:var(--c-muted)}
+.day.z2{border-style:dashed}
+.day.z3{border-style:dotted;border-color:var(--c-rule)}
+.day.y{background:var(--c-amber);border-color:var(--c-edge);color:var(--c-onamber)}
+.day.p{border-color:var(--c-edge);background:repeating-linear-gradient(135deg,var(--c-amber) 0 3px,transparent 3px 7px)}
+.day.o{border:1.5px dashed var(--c-edge);color:var(--c-amber-t);font-size:1rem}
+.day .tg{position:absolute;inset:0;display:grid;place-items:center;font:700 .9rem/1 var(--f-display)}
+.cal figcaption{margin-top:.8rem;max-width:31rem;color:var(--c-muted);font-size:.95rem}
+.key{list-style:none;margin:.9rem 0 0;padding:0;display:grid;gap:.4rem .9rem;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));max-width:36rem;font-size:.92rem}
+.key li{display:flex;align-items:center;gap:.5rem}
+.key .day{width:1.1rem;flex:none;font-size:.7rem}
+
+.budget{width:100%;border-collapse:collapse;max-width:30rem}
+.budget caption{text-align:left;font:700 1.5rem/1.1 var(--f-display);padding-bottom:.5rem}
+.budget th,.budget td{padding:.55rem .4rem;border-top:1px solid var(--c-rule);text-align:left;vertical-align:baseline}
+.budget thead th{border-top:0;border-bottom:2px solid var(--c-ink);font:600 .86rem/1.25 var(--f-text);color:var(--c-muted);vertical-align:bottom}
+.budget thead th:not(:first-child){text-align:right}
+.budget tbody th{font:700 1.25rem/1.1 var(--f-display)}
+.budget td.n{text-align:right;font:600 1.05rem/1.2 var(--f-mono)}
+.budget tr.nf td{color:var(--c-muted);font:400 .95rem/1.3 var(--f-text);text-align:right}
+.budget-note{margin:.8rem 0 0;max-width:30rem;color:var(--c-muted);font-size:.93rem}
+
+.how{margin:2.2rem 0 0;display:grid;gap:0 2.4rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr))}
+.how>div{padding:.9rem 0 1rem;border-top:1px solid var(--c-rule)}
+.how dt{font:700 1.4rem/1.1 var(--f-display)}
+.how dd{margin:.3rem 0 0;max-width:34rem}
+
+/* ---------------------------------------------------------------- missions */
+.legend{margin:.9rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;color:var(--c-muted);font-size:.95rem}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.mlist{list-style:none;margin:1.6rem 0 0;padding:0}
+.mlist.after{margin-top:0;border-left:4px solid var(--c-alert);padding-left:clamp(.8rem,2.4vw,1.4rem)}
+.mission{display:grid;grid-template-columns:3.4rem minmax(0,1fr);gap:.3rem 1rem;padding:1.5rem 0 1.6rem;border-top:1px solid var(--c-rule)}
+.num{grid-row:1/3;font:700 3.6rem/.8 var(--f-display);color:var(--c-teal)}
+.mission.timed .num{color:var(--c-amber-t)}
+.head h3{font-size:clamp(1.9rem,4.4vw,2.5rem);text-transform:uppercase;line-height:.95}
+.where{margin:.45rem 0 0;display:flex;flex-wrap:wrap;gap:.2rem .9rem;color:var(--c-muted);font-size:.98rem}
+.where .place{font-weight:600;color:var(--c-ink)}
+.squad{margin:.7rem 0 0;max-width:26rem}
+.days{margin:.8rem 0 0;display:flex;align-items:center;gap:.7rem;font:400 .98rem/1.2 var(--f-text)}
+.days b{font:600 1.15rem/1 var(--f-mono)}
+.cells{display:inline-flex;gap:3px}
+.cells i{display:block;width:1rem;height:1rem;border-radius:2px}
+.cells .s{background:var(--c-amber);outline:1.5px solid var(--c-edge);outline-offset:-1.5px}
+.cells .m{border:1.5px solid var(--c-edge);background:repeating-linear-gradient(135deg,var(--c-amber) 0 2px,transparent 2px 5px)}
+.cells .o{border:1.5px dashed var(--c-edge)}
+.notes{list-style:none;margin:.6rem 0 0;padding:0;grid-column:2}
+.notes li{display:flex;gap:.6rem;align-items:flex-start;padding:.38rem 0}
+.notes .ic{margin-top:.22em}
+.notes .bonus .ic{color:var(--c-teal)}
+.notes .caution .ic{color:var(--c-amber-t)}
+.notes .clock{color:var(--c-alert);font-weight:600}
+.notes .clock .ic{color:var(--c-alert)}
+.empty{grid-column:2;margin:.4rem 0 0;color:var(--c-muted)}
+@media (min-width:820px){
+  .mission{grid-template-columns:4.4rem minmax(0,1fr) minmax(0,1fr);gap:.3rem 1.6rem}
+  .num{grid-row:auto;font-size:4.6rem}
+  .notes,.empty{grid-column:3;margin-top:.5rem}
+}
+.runs{margin:0;padding:1.1rem 0 1.2rem;border-block:2px solid var(--c-alert);background:var(--c-panel);position:relative}
+.runs::before,.runs::after{content:"";position:absolute;left:0;right:0;height:8px;background:repeating-linear-gradient(135deg,var(--c-alert) 0 10px,transparent 10px 20px);opacity:.9}
+.runs::before{top:0}
+.runs::after{bottom:0}
+.runs>*{position:relative}
+.runs h3{font-size:1.7rem;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;color:var(--c-alert);padding:.55rem clamp(.8rem,2.4vw,1.4rem) 0}
+.runs p{margin:.35rem 0 0;padding:0 clamp(.8rem,2.4vw,1.4rem) .55rem;max-width:44rem}
+
+/* ---------------------------------------------------------------- closing */
+.src{margin:1rem 0 0;padding-left:1.1rem;font-size:.95rem;max-width:46rem}
+.src li{margin:.25rem 0}
+.foot{padding-block:2.4rem 3.4rem;color:var(--c-muted);font-size:.92rem;max-width:46rem}
+.foot p{margin:.3rem 0}
+@media (max-width:640px){
+  body{font-size:1rem}
+  .rings{right:-14rem;top:-8rem}
+  .mission{grid-template-columns:2.6rem minmax(0,1fr);gap:.3rem .8rem}
+  .num{font-size:3rem}
+  .stop{min-width:2.9rem}
+}
+</style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-plus" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 5.6v8.8M5.6 10h8.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></symbol><symbol id="i-warn" viewBox="0 0 20 20"><path d="M10 2.6 18.2 17H1.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 7.8v4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="10" cy="14.4" r="1.05" fill="currentColor"/></symbol><symbol id="i-clock" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 5.2V10l3.2 2.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol></svg>
 <a class="kb-topbar" href="../../index.html">← Waypoints</a>
 
-<main>
-  <h1>Alien: Dark Descent</h1>
-  <p class="lede">Walkthrough notes</p>
+<header class="hero">
+  <svg class="rings" viewBox="0 0 400 400" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.2">
+    <circle cx="200" cy="200" r="196"/><circle cx="200" cy="200" r="147"/><circle cx="200" cy="200" r="98"/><circle cx="200" cy="200" r="49"/>
+    <path d="M200 4V396M4 200H396"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-in">
+      <h1>Aliens<span class="sr">: </span><span class="l2">Dark Descent</span></h1>
+      <p class="lede">Notes for all 13 missions: what you unlock, what locks behind you, who to bring, and how many days the late missions cost once the Death Clock is running.</p>
+    </div>
+    <nav class="route-wrap" aria-label="Jump to a mission">
+      <ol class="route"><li><a class="stop" href="#m1" aria-label="Mission 1: Prologue"><b>1</b></a></li><li><a class="stop" href="#m2" aria-label="Mission 2: Dead Hills"><b>2</b></a></li><li><a class="stop" href="#m3" aria-label="Mission 3: Berkley’s Docks"><b>3</b></a></li><li><a class="stop" href="#m4" aria-label="Mission 4: Harper’s Hell"><b>4</b></a></li><li><a class="stop" href="#m5" aria-label="Mission 5: Otago’s Last Stand"><b>5</b></a></li><li><a class="stop" href="#m6" aria-label="Mission 6: Nuclear Protocol"><b>6</b></a></li><li class="flag"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg><span>Death Clock starts</span></li><li><a class="stop timed" href="#m7" aria-label="Mission 7: Atmospheric Nightmare, 3 days"><b>7</b><small>3</small></a></li><li><a class="stop timed" href="#m8" aria-label="Mission 8: The Monterro, 2–3 days"><b>8</b><small>2–3</small></a></li><li><a class="stop timed" href="#m9" aria-label="Mission 9: Extraction, 1–2 days"><b>9</b><small>1–2</small></a></li><li><a class="stop timed" href="#m10" aria-label="Mission 10: Hayes evades the Alien"><b>10</b></a></li><li><a class="stop timed" href="#m11" aria-label="Mission 11: Pryce, 2–3 days"><b>11</b><small>2–3</small></a></li><li><a class="stop timed" href="#m12" aria-label="Mission 12: Olduvai Dig Site, 2+ days"><b>12</b><small>2+</small></a></li><li><a class="stop timed" href="#m13" aria-label="Mission 13: Redemption"><b>13</b></a></li></ol>
+      <p class="route-note">Amber tiles run on the Death Clock. The small figure is the days that mission takes.</p>
+    </nav>
+  </div>
+</header>
 
-  <h2>Missions</h2>
+<main class="wrap">
+  <section class="sect" id="death-clock" aria-labelledby="clock-h">
+    <h2 id="clock-h">The Death Clock</h2>
+    <p class="sect-dek">Once you finish the Cerberus objective in Nuclear Protocol (Mission 6), a day counter starts. If it reaches zero, the planet is bombarded and the campaign is lost. The number of days depends on difficulty.</p>
+    <div class="clock-grid">
+      <figure class="cal">
+        <div class="cal-body" aria-hidden="true"><div class="cal-grid"><i class="day y z1"><span class="tg">7</span></i><i class="day y z1"></i><i class="day y z1"></i><i class="day y z1"><span class="tg">8</span></i><i class="day y z1"></i><i class="day p z1"></i><i class="day y z1"><span class="tg">9</span></i><i class="day p z1"></i><i class="day y z1"><span class="tg">11</span></i><i class="day y z1"></i><i class="day p z1"></i><i class="day y z1"><span class="tg">12</span></i><i class="day y z1"></i><i class="day o z1">+</i><i class="day e z1"></i><i class="day e z1"></i><i class="day e z1"></i><i class="day e z1"></i><i class="day e z1"></i><i class="day e z1"></i><i class="day e z2"></i><i class="day e z2"></i><i class="day e z2"></i><i class="day e z2"></i><i class="day e z2"></i><i class="day e z3"></i><i class="day e z3"></i><i class="day e z3"></i><i class="day e z3"></i><i class="day e z3"></i></div><div class="cal-days"><span>10</span><span>20</span><span>30</span></div></div>
+        <figcaption>One square is one day. The squares in amber are the five timed missions in order, with the mission number on its first day. At 13 days, the five timed missions use about two thirds of Nightmare’s 20 days.</figcaption>
+        <ul class="key" aria-label="How to read the calendar">
+          <li><i class="day y"></i>Days a mission always takes</li>
+          <li><i class="day p"></i>Extra days at the high end</li>
+          <li><i class="day o">+</i>Open-ended, such as 2+</li>
+          <li><i class="day z1"></i>Day 1–20, every difficulty</li>
+          <li><i class="day z2"></i>Day 21–25, Medium and Story</li>
+          <li><i class="day z3"></i>Day 26–30, Story only</li>
+        </ul>
+      </figure>
+      <div>
+        <table class="budget">
+          <caption>Days on the clock</caption>
+          <thead><tr><th scope="col">Difficulty</th><th scope="col">Days at the start</th><th scope="col">At most left after Missions 7, 8, 9, 11 and 12</th></tr></thead>
+          <tbody><tr><th scope="row">Story</th><td class="n">30</td><td class="n">17–20</td></tr><tr><th scope="row">Medium</th><td class="n">25</td><td class="n">12–15</td></tr><tr><th scope="row">Nightmare</th><td class="n">20</td><td class="n">7–10</td></tr><tr class="nf"><th scope="row">High</th><td class="n" colspan="2">No figure found</td></tr></tbody>
+        </table>
+        <p class="budget-note">Those five missions take 10 to 13 days or more in total. Missions 10 and 13 have no figure of their own, and Missions 9 and 12 are noted as leading straight into them. Base events can cost days too, so the last column is a ceiling, not a promise.</p>
+        <p class="budget-note">Story and Nightmare: Gamepressure and Steam posters. Medium: Gamepressure and two Steam threads. No figure for High turned up in any source. The days for each mission come from the page author.</p>
+      </div>
+    </div>
+    <dl class="how">
+      <div><dt>Before it starts</dt><dd>Days cost nothing against the clock until you finish the Cerberus objective. Steam players say you can wait as long as you like first.</dd></div>
+      <div><dt>What costs a day</dt><dd>One deployment per day: after a mission you return to the Otago and advance a day before the next. Some base events cost a day or more. Gamepressure suggests planning for about 3 days per new mission.</dd></div>
+      <div><dt>Switch it off</dt><dd>When you start a new campaign, choose Custom and set “Disable nuclear countdown”. Difficulty can’t be changed mid-campaign, and a Steam poster says an existing save needs a mod or a restart.</dd></div>
+      <div><dt>In practice</dt><dd>Steam players report finishing Medium runs with about 14 days left.</dd></div>
+    </dl>
+  </section>
 
-  <h3>Mission 1: Prologue (Pioneer Stations)</h3>
-  <p>
-    + Skippable on new game+
-  </p>
+  <section class="sect" id="missions" aria-labelledby="missions-h">
+    <h2 id="missions-h">Missions</h2>
+    <p class="legend">
+      <span><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg> Bonus: something you gain</span>
+      <span><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg> Caution: something to plan for</span>
+      <span><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg> Death Clock</span>
+    </p>
+    <ol class="mlist"><li class="mission" id="m1" aria-labelledby="m1-t"><span class="num" aria-hidden="true">1</span><div class="head"><h3 id="m1-t"><span class="sr">Mission 1: </span>Prologue</h3><p class="where"><span class="place">Pioneer Stations</span></p></div><ul class="notes"><li class="bonus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg><span><span class="sr">Bonus: </span>Skippable on New Game+</span></li></ul></li><li class="mission" id="m2" aria-labelledby="m2-t"><span class="num" aria-hidden="true">2</span><div class="head"><h3 id="m2-t"><span class="sr">Mission 2: </span>Dead Hills</h3></div><ul class="notes"><li class="bonus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg><span><span class="sr">Bonus: </span>Sentry Gun</span></li><li class="bonus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg><span><span class="sr">Bonus: </span>Alien Research (Stasis Grenade)</span></li></ul></li><li class="mission" id="m3" aria-labelledby="m3-t"><span class="num" aria-hidden="true">3</span><div class="head"><h3 id="m3-t"><span class="sr">Mission 3: </span>Berkley’s Docks</h3></div><ul class="notes"><li class="bonus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg><span><span class="sr">Bonus: </span>Training Room</span></li><li class="bonus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg><span><span class="sr">Bonus: </span>Psychiatry Ward</span></li></ul></li><li class="mission" id="m4" aria-labelledby="m4-t"><span class="num" aria-hidden="true">4</span><div class="head"><h3 id="m4-t"><span class="sr">Mission 4: </span>Harper’s Hell</h3><p class="where"><span class="place">Refinery</span><span class="setting">Long underground section</span></p></div><ul class="notes"><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Countdown starts once terminal activated</span></li><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Bottom level unavailable afterwards</span></li></ul></li><li class="mission" id="m5" aria-labelledby="m5-t"><span class="num" aria-hidden="true">5</span><div class="head"><h3 id="m5-t"><span class="sr">Mission 5: </span>Otago’s Last Stand</h3><p class="where"><span class="place">Lethe’s Wasteland</span><span class="setting">Defend the Otago</span></p></div><ul class="notes"><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Forced</span></li><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Must do in one turn</span></li><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>No autosave</span></li><li class="bonus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg><span><span class="sr">Bonus: </span>Dropship Barrage Fire</span></li></ul></li><li class="mission" id="m6" aria-labelledby="m6-t"><span class="num" aria-hidden="true">6</span><div class="head"><h3 id="m6-t"><span class="sr">Mission 6: </span>Nuclear Protocol</h3><p class="where"><span class="place">Pioneer Stations</span></p><p class="squad"><b>Squad:</b> Good to have sentries and a sniper</p></div><ul class="notes"><li class="clock"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg><span><span class="sr">Death Clock: </span>Deactivating Cerberus starts the countdown timer, the Death Clock</span></li></ul></li></ol><div class="runs" id="clock-running"><h3><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-clock"/></svg> The Death Clock is running from here</h3><p>Missions 7 to 13. The clock starts at 30 days on Story, 25 days on Medium and 20 on Nightmare. <a href="#death-clock">How the clock works</a></p></div><ol class="mlist after" start="7"><li class="mission timed" id="m7" aria-labelledby="m7-t"><span class="num" aria-hidden="true">7</span><div class="head"><h3 id="m7-t"><span class="sr">Mission 7: </span>Atmospheric Nightmare</h3><p class="squad"><b>Squad:</b> Good to have sentries and a sniper</p><p class="days"><span class="cells" aria-hidden="true"><i class="s"></i><i class="s"></i><i class="s"></i></span><span><span class="sr">Days to complete: </span><b>3</b> days</span></p></div><ul class="notes"><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Lights out section</span></li><li class="bonus"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-plus"/></svg><span><span class="sr">Bonus: </span>5 person APC</span></li><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Long final part, catwalks and Queen</span></li></ul></li><li class="mission timed" id="m8" aria-labelledby="m8-t"><span class="num" aria-hidden="true">8</span><div class="head"><h3 id="m8-t"><span class="sr">Mission 8: </span>The Monterro</h3><p class="where"><span class="place">Berkley’s Docks</span></p><p class="squad"><b>Squad:</b> Best to have a full squad with a sniper</p><p class="days"><span class="cells" aria-hidden="true"><i class="s"></i><i class="s"></i><i class="m"></i></span><span><span class="sr">Days to complete: </span><b>2–3</b> days</span></p></div><ul class="notes"><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Lights out section</span></li></ul></li><li class="mission timed" id="m9" aria-labelledby="m9-t"><span class="num" aria-hidden="true">9</span><div class="head"><h3 id="m9-t"><span class="sr">Mission 9: </span>Extraction</h3><p class="where"><span class="place">Tantalus Research Station</span><span class="setting">Snow level</span></p><p class="days"><span class="cells" aria-hidden="true"><i class="s"></i><i class="m"></i></span><span><span class="sr">Days to complete: </span><b>1–2</b> days</span></p></div><ul class="notes"><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Can’t return to underground base after completing</span></li><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Immediate next mission</span></li></ul></li><li class="mission timed" id="m10" aria-labelledby="m10-t"><span class="num" aria-hidden="true">10</span><div class="head"><h3 id="m10-t"><span class="sr">Mission 10: </span>Hayes evades the Alien</h3></div></li><li class="mission timed" id="m11" aria-labelledby="m11-t"><span class="num" aria-hidden="true">11</span><div class="head"><h3 id="m11-t"><span class="sr">Mission 11: </span>Pryce</h3><p class="where"><span class="place">Pharos Spire</span><span class="setting">City level</span></p><p class="squad"><b>Squad:</b> Need a stacked team</p><p class="days"><span class="cells" aria-hidden="true"><i class="s"></i><i class="s"></i><i class="m"></i></span><span><span class="sr">Days to complete: </span><b>2–3</b> days</span></p></div></li><li class="mission timed" id="m12" aria-labelledby="m12-t"><span class="num" aria-hidden="true">12</span><div class="head"><h3 id="m12-t"><span class="sr">Mission 12: </span>Olduvai Dig Site</h3><p class="where"><span class="place">Refinery</span><span class="setting">City level</span></p><p class="squad"><b>Squad:</b> Need a stacked team</p><p class="days"><span class="cells" aria-hidden="true"><i class="s"></i><i class="s"></i><i class="o"></i></span><span><span class="sr">Days to complete: </span><b>2+</b> days</span></p></div><ul class="notes"><li class="caution"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-warn"/></svg><span><span class="sr">Caution: </span>Immediate next mission</span></li></ul></li><li class="mission timed" id="m13" aria-labelledby="m13-t"><span class="num" aria-hidden="true">13</span><div class="head"><h3 id="m13-t"><span class="sr">Mission 13: </span>Redemption</h3><p class="where"><span class="place">Xeno City</span></p></div><p class="empty">No notes yet.</p></li></ol>
+  </section>
 
-  <h3>Mission 2: Dead Hills</h3>
-  <p>
-    + Sentry Gun
-  </p>
-  <p>
-    + Alien Research (Stasis Grenade)
-  </p>
+  <section class="sect" id="sources" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <ul class="src"><li><a href="https://www.gamepressure.com/aliens-dark-descent/death-clock/zd10d26">Gamepressure: Death Clock (days by difficulty, what costs a day, what happens at zero)</a></li><li><a href="https://www.gamepressure.com/aliens-dark-descent/difficulty-levels/z810cd0">Gamepressure: difficulty levels (the clock is a difficulty setting)</a></li><li><a href="https://techraptor.net/gaming/news/aliens-dark-descent-update">TechRaptor: update adds the option to remove the death clock (Aug 1, 2023)</a></li><li><a href="https://steamcommunity.com/app/1150440/discussions/0/3807278624246812262">Steam thread: Nightmare is 20 days, easiest is 30</a></li><li><a href="https://steamcommunity.com/app/1150440/discussions/0/3810656958845143311">Steam thread: 25 days on Medium, players’ days left at the end</a></li><li><a href="https://steamcommunity.com/app/1150440/discussions/0/4854407119826410544">Steam thread: the countdown starts at the Cerberus control room</a></li><li><a href="https://steamcommunity.com/app/1150440/discussions/0/3810657811767384449">Steam thread: Story 30, Nightmare 20 days</a></li><li><a href="https://steamcommunity.com/app/1150440/discussions/0/3811786028475727400">Steam thread: turning the countdown off in Custom difficulty</a></li><li><a href="https://en.wikipedia.org/wiki/Aliens:_Dark_Descent">Wikipedia: Aliens: Dark Descent (spelling of Monterro, Pryce and Berkley’s Docks)</a></li></ul>
+  </section>
 
-  <h3>Mission 3: Berkley's Docks</h3>
-  <p>
-    + Training Room
-  </p>
-  <p>
-    + Psychiatry Ward
-  </p>
-  
-  <h3>Mission 4: Harper's Hell (Refinery)</h3>
-  <i>Long underground section</i>
-  <p>- Countdown starts once terminal activated</p>
-  <p>- Bottom level unavailable afterwords</p>
- 
-  <h3>Mission 5: Otago's Last Stand (Lethe's Wasteland)</h3>
-  <i>Defend the Otago</i>
-  <p>- Forced</p>
-  <p>- Must do in one turn</p>
-  <p>- No autosave</p>
-  <p>+ Dropship Barrage Fire</p>
- 
-  <h3>Mission 6: Nuclear Protocol (Pioneer Stations)</h3>
-  <i>Good to have sentrys and a sniper</i>
-  <p>- Deactivating Cerberus Starts Countdown Timer</p>
- 
-  <h3>Mission 7: Atmospheric Nightmare</h3>
-  <i>Good to have sentrys and a sniper</i>
-  <p>- Lights out section</p>
-  <p>+ 5 person APC</p>
-  <p>- Long Final Part, Catwalks and Queen</p>
- 
-  <h3>Mission 8: The Montero (Berkley's Docks)</h3>
-  <p>- Lights out section. Best to have full squad with a sniper.</p>
- 
-  <h3>Mission 9: Extraction (Tantalus Research Station)</h3>
-  <i>Snow level</i>
-  <p>- Can't return to underground base after completing</p>
-  <p>- Immediate Next Mission</p>
- 
-  <h3>Mission 10</h3>
-  <i>Hayes evades the Alien</i>
-
-  <h3>Mission 11: Pyrce (Pharos Spire)</h3>
-  <i>City level</i>
-  <p>Need Stacked Team</p>
-
-  <h3>Mission 12: Olduvai Dig Site (Refinery)</h3>
-  <i>City level</i>
-  <p>Need Stacked Team</p>
-  <p>- Immediate Next Mission</p>
-
-  <h3>Mission 13: Redemption (Xeno City)</h3>
-
+  <footer class="foot">
+    <p>Aliens: Dark Descent and its characters belong to their rights holders. These are fan notes and are not affiliated with them.</p>
+    <p>Typefaces: Barlow Condensed, IBM Plex Sans and IBM Plex Mono, all under the SIL Open Font License.</p>
+  </footer>
 </main>
 </body>
 </html>
