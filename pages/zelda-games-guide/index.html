@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Zelda Games Guide — Waypoints</title>
+<meta name="description" content="Every main-line Legend of Zelda game in release order, with its ports, remasters and remakes labelled by how different they really are, plus approximate play times." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/marcellus-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/alegreya-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Zelda Games Guide",
+  "description": "Every main-line Legend of Zelda game in release order, with its ports, remasters and remakes labelled by how different they really are, plus approximate play times.",
+  "tags": [
+    "gaming",
+    "reference"
+  ],
+  "date": "2026-10-13"
+}
+</script>
+<style>
+@font-face{font-family:"Marcellus";font-style:normal;font-weight:400;font-display:swap;src:url(media/marcellus-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Alegreya";font-style:normal;font-weight:400 900;font-display:swap;src:url(media/alegreya-latin-wght-normal.woff2) format("woff2")}
+@font-face{font-family:"Alegreya";font-style:italic;font-weight:400 900;font-display:swap;src:url(media/alegreya-latin-wght-italic.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --zl-bg:#F3EEDF; --zl-surface:#FBF8EE; --zl-ink:#14241B; --zl-muted:#46564C;
+  --zl-rule:#CFC4A4; --zl-gold:#A56E00; --zl-focus:#7A4A00;
+  --zl-lv1:#566B5E; --zl-lv2:#1B7A6E; --zl-lv3:#9B4F00; --zl-lv4:#A02D46; --zl-on:#FFFFFF;
+  --zl-display:"Marcellus","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --zl-text:"Alegreya","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --zl-ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --tri:polygon(50% 2%,100% 98%,0 98%);
+  --rail:2.7rem; --rail-x:.8rem;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --zl-bg:#0D1912; --zl-surface:#14241B; --zl-ink:#EDE7D3; --zl-muted:#AEB9AA;
+    --zl-rule:#2B3F33; --zl-gold:#E3B04B; --zl-focus:#F3CF84;
+    --zl-lv1:#9FB5A6; --zl-lv2:#5CC4B2; --zl-lv3:#F0A04B; --zl-lv4:#F08FA3; --zl-on:#0D1912;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;font-synthesis:none}
+body{margin:0;background:var(--zl-bg);color:var(--zl-ink);font-family:var(--zl-text);font-size:1.2rem;line-height:1.5;overflow-wrap:break-word}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--zl-focus);outline-offset:2px;border-radius:2px}
+.wrap{max-width:72rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+h1,h2,h3{font-family:var(--zl-display);font-weight:400;margin:0;letter-spacing:.01em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.ti{width:1em;height:1em;vertical-align:-.12em}
+
+/* level colours, used for shapes only; every shape sits next to a text label */
+.lv1{--c:var(--zl-lv1)} .lv2{--c:var(--zl-lv2)} .lv3{--c:var(--zl-lv3)} .lv4{--c:var(--zl-lv4)} .lv0{--c:var(--zl-ink)}
+.pips{display:inline-flex;gap:2px;vertical-align:middle}
+.pips i{display:block;width:.8rem;height:.7rem;background:var(--zl-rule);clip-path:var(--tri)}
+.pips i.on{background:var(--c)}
+.pips.o i{background:transparent;position:relative}
+.pips.o i::before{content:"";position:absolute;inset:0;background:var(--zl-ink);clip-path:var(--tri)}
+.pips.o i::after{content:"";position:absolute;inset:.13rem .17rem .12rem;background:var(--zl-bg);clip-path:var(--tri)}
+
+/* ------------------------------------------------------------ hero */
+.hero{position:relative;isolation:isolate;padding-top:2.2rem}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.4;
+  background-image:linear-gradient(60deg,var(--zl-rule) 1px,transparent 1px),linear-gradient(-60deg,var(--zl-rule) 1px,transparent 1px),linear-gradient(0deg,var(--zl-rule) 1px,transparent 1px);
+  background-size:52px 90px,52px 90px,52px 90px;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 28%,transparent 85%);mask-image:linear-gradient(to bottom,#000 0,#000 28%,transparent 85%)}
+.hero-top{display:grid;gap:1.1rem 3rem;align-items:end}
+.hero h1{font-size:clamp(2.8rem,8.4vw,5.2rem);line-height:1;text-wrap:balance}
+.nb{white-space:nowrap}
+.h1-in{display:block;margin:.35em 0 0;font:600 .27em/1.25 var(--zl-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--zl-muted)}
+.dek{max-width:36rem;margin:0;font-size:1.3rem;line-height:1.42}
+.dek-2{max-width:36rem;margin:.6rem 0 0;color:var(--zl-muted)}
+@media (min-width:900px){.hero-top{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
+
+/* the answer in four cards */
+.overview{display:grid;grid-template-columns:minmax(0,1fr);gap:2.4rem 3rem;margin-top:2.4rem;align-items:start}
+@media (min-width:1000px){.overview{grid-template-columns:minmax(0,21rem) minmax(0,1fr)}}
+.ov-h{font-size:1.6rem;line-height:1.1;margin-bottom:.9rem}
+.levels{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:1rem;align-items:start}
+@media (min-width:1000px){.levels{grid-template-columns:minmax(0,1fr)}}
+.lc{background:var(--zl-surface);border:1px solid var(--zl-rule);border-top:4px solid var(--c);border-radius:0 0 6px 6px;padding:.9rem 1rem 1rem}
+.lc-h{font-size:1.45rem;line-height:1.1;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem}
+.lc-n{font:700 .8rem/1 var(--zl-ui);padding:.22rem .5rem;border-radius:999px;border:1px solid var(--zl-rule)}
+.lc-d{margin:.45rem 0 .5rem;color:var(--zl-muted);font-size:1.05rem;line-height:1.35}
+.lc-list{list-style:none;margin:0;padding:0;font-size:1.08rem}
+.lc-list li{padding:.25rem 0;border-top:1px solid var(--zl-rule)}
+.lc-y{color:var(--zl-muted);font-size:.95rem}
+.lc-all{margin:0;font-size:1.05rem}
+
+/* release map */
+.map{margin:0}
+.map figcaption,.glance figcaption{font:400 1.6rem/1.1 var(--zl-display)}
+.map-sub{display:block;margin-top:.35rem;font:400 1.05rem/1.35 var(--zl-text);color:var(--zl-muted);max-width:40rem}
+.map-scroll{position:relative;margin-top:.8rem;overflow-x:auto}
+.mtable{width:100%;border-collapse:collapse;min-width:21rem}
+.mtable th,.mtable td{padding:.18rem .25rem;border-top:1px solid var(--zl-rule);text-align:center;vertical-align:middle}
+.mtable thead th{border-top:0;border-bottom:2px solid var(--zl-ink);padding-bottom:.4rem;vertical-align:bottom;font:700 .78rem/1.15 var(--zl-ui);width:4.1rem}
+.mtable thead .pips{display:flex;justify-content:center;margin-bottom:.3rem}
+.mtable thead .gcol{width:auto}
+.mtable tbody th{text-align:left;font-weight:400;padding-left:0;overflow-wrap:normal}
+.mtable tbody th a{display:grid;grid-template-columns:1.6rem minmax(0,1fr) auto;align-items:baseline;gap:0 .4rem;text-decoration:none;padding:.3rem 0}
+.mtable tbody th a:hover .g{text-decoration:underline}
+.mtable .n{font:400 .95rem/1 var(--zl-display);color:var(--zl-muted);text-align:right}
+.mtable .g{font-size:1.1rem;line-height:1.15}
+.mtable .y{font:600 .78rem/1 var(--zl-ui);color:var(--zl-muted)}
+.tcell{display:inline-grid;place-items:end center;width:2.1rem;height:1.85rem;background:var(--c);clip-path:var(--tri);color:var(--zl-on)}
+.tcell b{font:700 .8rem/1 var(--zl-ui);padding-bottom:.2rem}
+.none{color:var(--zl-muted)}
+.mtable tr.dim{opacity:.22}
+.map-foot{margin:.6rem 0 0;color:var(--zl-muted);font-size:1rem}
+
+.rubric{margin:1.6rem 0 0;max-width:46rem}
+.rubric>summary{cursor:pointer;font-weight:700;font-family:var(--zl-ui);font-size:.95rem}
+.rubric p{margin:.7rem 0 0;color:var(--zl-muted)}
+.rubric+.rubric{margin-top:.9rem}
+
+/* play time at a glance */
+.ov-right{min-width:0}
+.glance{margin:2.8rem 0 0}
+.gl-list{list-style:none;margin:.8rem 0 0;padding:0}
+.gl-list li{display:grid;grid-template-columns:minmax(0,14.5rem) minmax(0,1fr) 10rem;gap:.1rem .9rem;align-items:center;padding:.22rem 0;border-top:1px solid var(--zl-rule)}
+.gl-list li.dim{opacity:.22}
+.gl-n{display:grid;grid-template-columns:1.6rem minmax(0,1fr) auto;align-items:baseline;gap:0 .4rem;text-decoration:none;padding:.2rem 0}
+.gl-n:hover .g{text-decoration:underline}
+.gl-n .n{font:400 .95rem/1 var(--zl-display);color:var(--zl-muted);text-align:right}
+.gl-n .g{font-size:1.1rem;line-height:1.15}
+.gl-n .y{font:600 .78rem/1 var(--zl-ui);color:var(--zl-muted)}
+.gl-bar{display:block;height:.85rem;border:1px solid var(--zl-rule);
+  background:linear-gradient(to right,transparent calc(33.333% - 1px),var(--zl-rule) calc(33.333% - 1px) 33.333%,transparent 33.333% calc(66.666% - 1px),var(--zl-rule) calc(66.666% - 1px) 66.666%,transparent 66.666%),var(--zl-surface)}
+.gl-bar i{display:block;height:100%;min-width:.35rem;background:var(--zl-gold)}
+.gl-v{font:700 .92rem/1.2 var(--zl-ui)}
+.gl-v small{display:block;font:400 .78rem/1.25 var(--zl-ui);color:var(--zl-muted)}
+
+/* ------------------------------------------------------------ filter bar */
+.filters{position:sticky;top:0;z-index:20;margin-top:2.2rem;background:var(--zl-bg);border-top:1px solid var(--zl-rule);border-bottom:1px solid var(--zl-rule)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .filters{background:color-mix(in srgb,var(--zl-bg) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+}
+.filters-in{padding-block:.6rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.45rem;font:600 .9rem/1 var(--zl-ui);color:var(--zl-ink);background:transparent;
+  border:1.5px solid var(--zl-rule);border-radius:999px;padding:.5rem .8rem;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--zl-ink)}
+.chip[aria-pressed="true"]{background:var(--zl-ink);color:var(--zl-bg);border-color:var(--zl-ink)}
+.cnt{font:700 .78rem/1 var(--zl-ui);opacity:.75}
+.status{margin:0;font:400 .92rem/1.3 var(--zl-ui);color:var(--zl-muted)}
+.status:empty{display:none}
+.status:not(:empty){margin-top:.45rem}
+
+/* ------------------------------------------------------------ the trail */
+.trail{position:relative;padding-left:var(--rail);margin-top:1rem}
+.trail::before{content:"";position:absolute;left:var(--rail-x);top:0;bottom:0;width:3px;
+  background:repeating-linear-gradient(to bottom,var(--zl-gold) 0 12px,transparent 12px 20px)}
+.entry{position:relative;padding:2.4rem 0 2.6rem;scroll-margin-top:5.4rem}
+.entry+.entry{border-top:1px solid var(--zl-rule)}
+.pin{position:absolute;left:calc(var(--rail-x) - var(--rail) + 1.5px - .85rem);top:2.55rem;width:1.7rem;height:1.5rem;background:var(--zl-gold);clip-path:var(--tri)}
+.pin::after{content:"";position:absolute;inset:.5rem .5rem .22rem;background:var(--zl-bg);clip-path:var(--tri)}
+.entry-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.3rem 2rem;align-items:end}
+.year{grid-column:1/-1;margin:0;font:400 clamp(3rem,7.6vw,4.5rem)/.9 var(--zl-display);color:var(--zl-gold)}
+.year small{font:700 .26em/1 var(--zl-ui);color:var(--zl-muted);margin-left:.8rem;letter-spacing:.06em;text-transform:uppercase}
+.entry-head h2{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.05;text-wrap:balance}
+.where{margin:.4rem 0 0;color:var(--zl-muted);font-style:italic}
+.stats{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem;align-self:end}
+.stats li{font:400 .88rem/1.2 var(--zl-ui);padding:.28rem .65rem;border-radius:999px;border:1px solid var(--zl-rule);background:var(--zl-surface);white-space:nowrap}
+.s-k{color:var(--zl-muted)}
+.about{margin:1.1rem 0 0;max-width:44rem;font-size:1.3rem;line-height:1.42}
+.facts{list-style:none;margin:.9rem 0 0;padding:0;max-width:44rem}
+.facts li{position:relative;padding:.15rem 0 .15rem 1.35rem}
+.facts li::before{content:"";position:absolute;left:.1rem;top:.62em;width:.62rem;height:.55rem;background:var(--zl-gold);clip-path:var(--tri)}
+
+.versions{margin-top:1.6rem}
+.v-h{font-size:1.35rem;padding-bottom:.45rem;border-bottom:2px solid var(--zl-ink)}
+.vlist{list-style:none;margin:0;padding:0}
+.ver{display:grid;grid-template-columns:9.4rem minmax(0,1fr);gap:.2rem 1.2rem;padding:.85rem 0;border-bottom:1px solid var(--zl-rule)}
+.v-side{display:flex;flex-direction:column;gap:.2rem;align-items:flex-start}
+.lvb{display:inline-flex;align-items:center;gap:.45rem;font:700 .84rem/1.1 var(--zl-ui)}
+.v-when{font:600 .82rem/1.2 var(--zl-ui);color:var(--zl-muted)}
+.v-name{margin:0;font-weight:700;font-size:1.22rem;line-height:1.2}
+.tag{display:inline-block;margin-left:.6rem;padding:.08rem .5rem;border:1.5px solid var(--zl-ink);border-radius:999px;font:700 .72rem/1.4 var(--zl-ui);vertical-align:.15em;letter-spacing:.02em}
+.tag.soon{border-color:var(--zl-lv3);background:var(--zl-lv3);color:var(--zl-on)}
+.v-where{margin:.05rem 0 0;color:var(--zl-muted);font-style:italic;font-size:1.02rem}
+.v-text{margin:.35rem 0 0;max-width:40rem}
+.more{margin:.55rem 0 0}
+.more>summary{cursor:pointer;font:700 .85rem/1 var(--zl-ui);list-style:none;display:inline-flex;align-items:center;gap:.4rem}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary::before{content:"+";display:inline-grid;place-items:center;width:1.1rem;height:1.1rem;border:1.5px solid currentColor;border-radius:50%;font:700 .85rem/1 var(--zl-ui)}
+.more[open]>summary::before{content:"–"}
+.more-body{list-style:none;margin:.5rem 0 0;padding:0 0 0 .9rem;border-left:3px solid var(--c);max-width:40rem;font-size:1.08rem;line-height:1.4}
+.more-body li{margin:.35rem 0}
+.verdict{margin:1rem 0 0;max-width:44rem;font-size:1.22rem;line-height:1.4;font-style:italic}
+.verdict b{font-style:normal;font-family:var(--zl-ui);font-size:.78em;text-transform:uppercase;letter-spacing:.07em;margin-right:.3rem}
+.related{margin:1rem 0 0;padding:.2rem 0 .2rem .9rem;border-left:3px solid var(--zl-gold);max-width:44rem}
+.related b{font-family:var(--zl-ui);font-size:.8em}
+.note{margin:.9rem 0 0;max-width:44rem;color:var(--zl-muted);font-size:1.02rem}
+
+/* play time on each card */
+.pt{margin-top:1.5rem;max-width:44rem;padding:.7rem 1rem .85rem;background:var(--zl-surface);border:1px solid var(--zl-rule);border-left:4px solid var(--zl-gold);border-radius:0 6px 6px 0}
+.pt-h{font-size:1.25rem;line-height:1.2;display:flex;flex-wrap:wrap;align-items:baseline;gap:.15rem .7rem}
+.pt-u{font:700 .72rem/1 var(--zl-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--zl-muted)}
+.pt-row{display:grid;grid-template-columns:minmax(0,1fr);gap:.3rem;margin-top:.6rem}
+.pt-row+.pt-row{padding-top:.6rem;border-top:1px solid var(--zl-rule)}
+.pt-lbl{margin:0;font:700 .86rem/1.3 var(--zl-ui)}
+.pt-vals{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.35rem}
+.pt-vals li{font:400 .88rem/1.2 var(--zl-ui);padding:.28rem .65rem;border-radius:999px;border:1px solid var(--zl-rule);background:var(--zl-bg);white-space:nowrap}
+.pt-src{margin:0;font:400 .8rem/1.35 var(--zl-ui);color:var(--zl-muted)}
+.pt-note{margin:.7rem 0 0;color:var(--zl-muted);font-size:1.02rem;line-height:1.4}
+@media (min-width:641px){
+  .pt-row.has-lbl{grid-template-columns:8rem minmax(0,1fr)}
+  .pt-row.has-lbl .pt-lbl{grid-row:1;align-self:center}
+  .pt-row.has-lbl .pt-vals{grid-column:2;grid-row:1}
+  .pt-row.has-lbl .pt-src{grid-column:2;grid-row:2}
+}
+
+/* ------------------------------------------------------------ closing sections */
+.after{padding-block:2.6rem 1rem}
+.after h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:.4rem}
+.after-sub{margin:0 0 1rem;max-width:42rem;color:var(--zl-muted)}
+.patterns{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr));gap:0 2.4rem}
+.patterns>div{padding:.9rem 0 1rem;border-top:1px solid var(--zl-rule)}
+.patterns dt{font:400 1.4rem/1.15 var(--zl-display)}
+.patterns dd{margin:.3rem 0 0;max-width:36rem}
+.cover{max-width:46rem;margin:0}
+.src-grid{columns:19rem;column-gap:2.4rem}
+.src{break-inside:avoid;padding:.6rem 0 .8rem;border-top:1px solid var(--zl-rule)}
+.src h3{font:700 1rem/1.3 var(--zl-ui);letter-spacing:0}
+.src ul{margin:.3rem 0 0;padding-left:1.1rem;font:400 .92rem/1.4 var(--zl-ui)}
+.src li{margin:.15rem 0;overflow-wrap:anywhere}
+.foot{padding-block:1.2rem 3rem;color:var(--zl-muted);font-size:1rem;max-width:46rem}
+.foot p{margin:.3rem 0}
+
+/* ------------------------------------------------------------ small screens */
+@media (max-width:640px){
+  :root{--rail:1.95rem;--rail-x:.7rem}
+  body{font-size:1.1rem}
+  .entry-head{grid-template-columns:minmax(0,1fr)}
+  .pin{top:2.45rem}
+  .ver{grid-template-columns:minmax(0,1fr);gap:.3rem}
+  .v-side{flex-direction:row;align-items:center;gap:.8rem}
+  .about{font-size:1.2rem}
+  .mtable{min-width:19rem}
+  .mtable .y{display:none}
+  .mtable tbody th a{grid-template-columns:1.3rem minmax(0,1fr)}
+  .mtable .g{font-size:1.02rem}
+  .mtable thead th{width:3rem;font-size:.66rem;padding-inline:.05rem}
+  .mtable thead .pips i{width:.55rem;height:.5rem}
+  .mtable td{padding-inline:.05rem}
+  .tcell{width:1.9rem;height:1.65rem}
+  .glance{margin-top:2.2rem}
+  .gl-n .g{font-size:1.02rem}
+  .gl-n{grid-template-columns:1.3rem minmax(0,1fr) auto}
+  .pt{padding-inline:.8rem}
+}
+@media (max-width:640px),(min-width:1000px) and (max-width:1279px){
+  .gl-list li{grid-template-columns:minmax(0,1fr) 8.6rem}
+  .gl-n{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:no-preference){
+  .tcell{animation:pop .45s ease-out both}
+  @keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="tri" viewBox="0 0 24 24"><path d="M12 2.6 22.4 21.4H1.6z" fill="currentColor"/></symbol><symbol id="tri-o" viewBox="0 0 24 24"><path d="M12 3.8 21 20.2H3z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></symbol></svg>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+ <div class="wrap">
+  <div class="hero-top">
+    <h1><span class="nb">Zelda</span>, in <span class="nb">release order</span><span class="h1-in">and what each <span class="nb">re-release</span> really changes</span></h1>
+    <div class="hero-copy">
+      <p class="dek">Twenty entries from 1986 to 2024, counting the two Oracle games as one. Every port, remaster and remake is filed under the game it came from and marked for how different it is, from the same game on new hardware to a remix with new puzzles. Each entry also has an approximate play time.</p>
+      <p class="dek-2">The count so far: 33 same-game re-releases, 8 polished versions, 4 remakes and 2 remixes. A rebuilt <a href="#oot">Ocarina of Time</a> arrives on Switch 2 on Nov 5, 2026.</p>
+    </div>
+  </div>
+  <div class="overview">
+    <section class="ov-left" aria-labelledby="lv-h"><h2 class="ov-h" id="lv-h">How different is each version?</h2><ol class="levels"><li class="lc lv1"><h3 class="lc-h"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game <span class="lc-n">33</span></h3><p class="lc-d">A port, emulation or re-listing of the original. Small fixes at most, nothing you would notice.</p><p class="lc-all">33 version rows across 14 games: the Virtual Console, Switch Online, compilation and handheld re-listings.</p></li><li class="lc lv2"><h3 class="lc-h"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished <span class="lc-n">8</span></h3><p class="lc-d">The same content with better visuals, controls or extras: HD remasters, a colour edition, a new mode.</p><ul class="lc-list"><li><a href="#alttp">A Link to the Past and Four Swords</a><span class="lc-y"> 2002–03</span></li><li><a href="#la">Link’s Awakening DX</a><span class="lc-y"> 1998</span></li><li><a href="#fs">Four Swords Anniversary Edition</a><span class="lc-y"> 2011</span></li><li><a href="#ww">The Wind Waker HD</a><span class="lc-y"> 2013</span></li><li><a href="#tp">Twilight Princess HD</a><span class="lc-y"> 2016</span></li><li><a href="#ss">Skyward Sword HD</a><span class="lc-y"> 2021</span></li><li><a href="#botw">Breath of the Wild: Nintendo Switch 2 Edition</a><span class="lc-y"> 2025</span></li><li><a href="#totk">Tears of the Kingdom: Nintendo Switch 2 Edition</a><span class="lc-y"> 2025</span></li></ul></li><li class="lc lv3"><h3 class="lc-h"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>Remake <span class="lc-n">4</span></h3><p class="lc-d">Rebuilt for new hardware with new visuals and controls and some design changes, but the same world and story.</p><ul class="lc-list"><li><a href="#la">Link’s Awakening (2019)</a><span class="lc-y"> 2019</span></li><li><a href="#oot">Ocarina of Time 3D</a><span class="lc-y"> 2011</span></li><li><a href="#oot">Ocarina of Time (2026)</a><span class="lc-y"> Nov 5, 2026, not out yet</span></li><li><a href="#mm">Majora’s Mask 3D</a><span class="lc-y"> 2015</span></li></ul></li><li class="lc lv4"><h3 class="lc-h"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>Remix <span class="lc-n">2</span></h3><p class="lc-d">The same foundation with much of the content rearranged or new, such as revised puzzles or maps.</p><ul class="lc-list"><li><a href="#loz">The Legend of Zelda: BS Zelda no Densetsu</a><span class="lc-y"> 1995–97, Japan only</span></li><li><a href="#oot">Ocarina of Time: Master Quest</a><span class="lc-y"> 2002–03</span></li></ul></li></ol></section>
+    <div class="ov-right">
+<figure class="map" aria-labelledby="map-cap">
+  <figcaption id="map-cap">Every re-release, filed under its game
+    <span class="map-sub">The number in each triangle is how many versions of that kind exist. Games are in release order.</span></figcaption>
+  <div class="map-scroll">
+  <table class="mtable">
+    <thead><tr><th scope="col" class="gcol"><span class="sr">Game</span></th><th scope="col" class="c lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span><span class="c-l">Same game</span></th><th scope="col" class="c lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="c-l">Polished</span></th><th scope="col" class="c lv3"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="c-l">Remake</span></th><th scope="col" class="c lv4"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="c-l">Remix</span></th></tr></thead>
+    <tbody><tr data-id="loz" data-tags="remix"><th scope="row"><a href="#loz"><span class="n">1</span><span class="g">The Legend of Zelda</span><span class="y">1986</span></a></th><td><span class="tcell lv1" role="img" aria-label="7 same game versions"><b>7</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="tcell lv4" role="img" aria-label="1 remix version"><b>1</b></span></td></tr><tr data-id="z2" data-tags="ports"><th scope="row"><a href="#z2"><span class="n">2</span><span class="g">Zelda II: The Adventure of Link</span><span class="y">1987</span></a></th><td><span class="tcell lv1" role="img" aria-label="6 same game versions"><b>6</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="alttp" data-tags="polish"><th scope="row"><a href="#alttp"><span class="n">3</span><span class="g">A Link to the Past</span><span class="y">1991</span></a></th><td><span class="tcell lv1" role="img" aria-label="3 same game versions"><b>3</b></span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="la" data-tags="remake polish"><th scope="row"><a href="#la"><span class="n">4</span><span class="g">Link’s Awakening</span><span class="y">1993</span></a></th><td><span class="tcell lv1" role="img" aria-label="1 same game version"><b>1</b></span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="tcell lv3" role="img" aria-label="1 remake version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="oot" data-tags="remake remix"><th scope="row"><a href="#oot"><span class="n">5</span><span class="g">Ocarina of Time</span><span class="y">1998</span></a></th><td><span class="tcell lv1" role="img" aria-label="3 same game versions"><b>3</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="tcell lv3" role="img" aria-label="2 remake versions, 1 not out yet"><b>2</b></span></td><td><span class="tcell lv4" role="img" aria-label="1 remix version"><b>1</b></span></td></tr><tr data-id="mm" data-tags="remake"><th scope="row"><a href="#mm"><span class="n">6</span><span class="g">Majora’s Mask</span><span class="y">2000</span></a></th><td><span class="tcell lv1" role="img" aria-label="3 same game versions"><b>3</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="tcell lv3" role="img" aria-label="1 remake version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="oracles" data-tags="ports"><th scope="row"><a href="#oracles"><span class="n">7</span><span class="g">Oracle of Seasons and Oracle of Ages</span><span class="y">2001</span></a></th><td><span class="tcell lv1" role="img" aria-label="2 same game versions"><b>2</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="fs" data-tags="polish multi"><th scope="row"><a href="#fs"><span class="n">8</span><span class="g">Four Swords</span><span class="y">2002</span></a></th><td><span class="tcell lv1" role="img" aria-label="1 same game version"><b>1</b></span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="ww" data-tags="polish"><th scope="row"><a href="#ww"><span class="n">9</span><span class="g">The Wind Waker</span><span class="y">2002</span></a></th><td><span class="tcell lv1" role="img" aria-label="1 same game version"><b>1</b></span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="fsa" data-tags="none multi"><th scope="row"><a href="#fsa"><span class="n">10</span><span class="g">Four Swords Adventures</span><span class="y">2004</span></a></th><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="mc" data-tags="ports"><th scope="row"><a href="#mc"><span class="n">11</span><span class="g">The Minish Cap</span><span class="y">2004</span></a></th><td><span class="tcell lv1" role="img" aria-label="2 same game versions"><b>2</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="tp" data-tags="polish"><th scope="row"><a href="#tp"><span class="n">12</span><span class="g">Twilight Princess</span><span class="y">2006</span></a></th><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="ph" data-tags="ports"><th scope="row"><a href="#ph"><span class="n">13</span><span class="g">Phantom Hourglass</span><span class="y">2007</span></a></th><td><span class="tcell lv1" role="img" aria-label="1 same game version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="st" data-tags="ports"><th scope="row"><a href="#st"><span class="n">14</span><span class="g">Spirit Tracks</span><span class="y">2009</span></a></th><td><span class="tcell lv1" role="img" aria-label="1 same game version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="ss" data-tags="polish"><th scope="row"><a href="#ss"><span class="n">15</span><span class="g">Skyward Sword</span><span class="y">2011</span></a></th><td><span class="tcell lv1" role="img" aria-label="1 same game version"><b>1</b></span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="albw" data-tags="ports"><th scope="row"><a href="#albw"><span class="n">16</span><span class="g">A Link Between Worlds</span><span class="y">2013</span></a></th><td><span class="tcell lv1" role="img" aria-label="1 same game version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="tfh" data-tags="none multi"><th scope="row"><a href="#tfh"><span class="n">17</span><span class="g">Tri Force Heroes</span><span class="y">2015</span></a></th><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="botw" data-tags="polish"><th scope="row"><a href="#botw"><span class="n">18</span><span class="g">Breath of the Wild</span><span class="y">2017</span></a></th><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="totk" data-tags="polish"><th scope="row"><a href="#totk"><span class="n">19</span><span class="g">Tears of the Kingdom</span><span class="y">2023</span></a></th><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="tcell lv2" role="img" aria-label="1 polished version"><b>1</b></span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr><tr data-id="eow" data-tags="none"><th scope="row"><a href="#eow"><span class="n">20</span><span class="g">Echoes of Wisdom</span><span class="y">2024</span></a></th><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td><td><span class="none" aria-hidden="true">·</span><span class="sr">none</span></td></tr></tbody>
+  </table>
+  </div>
+  <p class="map-foot">The Remake count for Ocarina of Time includes the Switch 2 version due on Nov 5, 2026.</p>
+</figure>
+<figure class="glance" aria-labelledby="gl-cap">
+  <figcaption id="gl-cap">How long does each game take?
+    <span class="map-sub">Bars show approximate hours for the main story, on a scale from 0 to 60 hours with lines at 20 and 40. The smaller line beside each bar is the figure for finishing everything. Each game’s card has the details and sources.</span></figcaption>
+  <ol class="gl-list"><li data-id="loz" data-tags="remix"><a class="gl-n" href="#loz"><span class="n">1</span><span class="g">The Legend of Zelda</span><span class="y">1986</span></a><span class="gl-bar" aria-hidden="true"><i style="width:14.2%"></i></span><span class="gl-v"><b>8–9 h</b> <small>everything 10–11 h</small></span></li><li data-id="z2" data-tags="ports"><a class="gl-n" href="#z2"><span class="n">2</span><span class="g">Zelda II: The Adventure of Link</span><span class="y">1987</span></a><span class="gl-bar" aria-hidden="true"><i style="width:17.5%"></i></span><span class="gl-v"><b>10–11 h</b> <small>everything 11–12 h</small></span></li><li data-id="alttp" data-tags="polish"><a class="gl-n" href="#alttp"><span class="n">3</span><span class="g">A Link to the Past</span><span class="y">1991</span></a><span class="gl-bar" aria-hidden="true"><i style="width:24.2%"></i></span><span class="gl-v"><b>14–15 h</b> <small>everything 16–17 h</small></span></li><li data-id="la" data-tags="remake polish"><a class="gl-n" href="#la"><span class="n">4</span><span class="g">Link’s Awakening</span><span class="y">1993</span></a><span class="gl-bar" aria-hidden="true"><i style="width:24.2%"></i></span><span class="gl-v"><b>14–15 h</b> <small>everything 16–21 h</small></span></li><li data-id="oot" data-tags="remake remix"><a class="gl-n" href="#oot"><span class="n">5</span><span class="g">Ocarina of Time</span><span class="y">1998</span></a><span class="gl-bar" aria-hidden="true"><i style="width:43.3%"></i></span><span class="gl-v"><b>25–27 h</b> <small>everything 37–39 h</small></span></li><li data-id="mm" data-tags="remake"><a class="gl-n" href="#mm"><span class="n">6</span><span class="g">Majora’s Mask</span><span class="y">2000</span></a><span class="gl-bar" aria-hidden="true"><i style="width:35.8%"></i></span><span class="gl-v"><b>20–23 h</b> <small>everything 31–35 h</small></span></li><li data-id="oracles" data-tags="ports"><a class="gl-n" href="#oracles"><span class="n">7</span><span class="g">Oracle of Seasons and Oracle of Ages</span><span class="y">2001</span></a><span class="gl-bar" aria-hidden="true"><i style="width:27.5%"></i></span><span class="gl-v"><b>15–18 h</b> <small>everything 21–25 h</small></span></li><li data-id="fs" data-tags="polish multi"><a class="gl-n" href="#fs"><span class="n">8</span><span class="g">Four Swords</span><span class="y">2002</span></a><span class="gl-bar" aria-hidden="true"><i style="width:4.2%"></i></span><span class="gl-v"><b>2–3 h</b> <small>everything: no figure found</small></span></li><li data-id="ww" data-tags="polish"><a class="gl-n" href="#ww"><span class="n">9</span><span class="g">The Wind Waker</span><span class="y">2002</span></a><span class="gl-bar" aria-hidden="true"><i style="width:49.2%"></i></span><span class="gl-v"><b>29–30 h</b> <small>everything about 60 h</small></span></li><li data-id="fsa" data-tags="none multi"><a class="gl-n" href="#fsa"><span class="n">10</span><span class="g">Four Swords Adventures</span><span class="y">2004</span></a><span class="gl-bar" aria-hidden="true"><i style="width:25.8%"></i></span><span class="gl-v"><b>15–16 h</b> <small>everything 15–16 h</small></span></li><li data-id="mc" data-tags="ports"><a class="gl-n" href="#mc"><span class="n">11</span><span class="g">The Minish Cap</span><span class="y">2004</span></a><span class="gl-bar" aria-hidden="true"><i style="width:25.8%"></i></span><span class="gl-v"><b>15–16 h</b> <small>everything 26–27 h</small></span></li><li data-id="tp" data-tags="polish"><a class="gl-n" href="#tp"><span class="n">12</span><span class="g">Twilight Princess</span><span class="y">2006</span></a><span class="gl-bar" aria-hidden="true"><i style="width:63.0%"></i></span><span class="gl-v"><b>37½–38 h</b> <small>everything 55½–60 h</small></span></li><li data-id="ph" data-tags="ports"><a class="gl-n" href="#ph"><span class="n">13</span><span class="g">Phantom Hourglass</span><span class="y">2007</span></a><span class="gl-bar" aria-hidden="true"><i style="width:29.2%"></i></span><span class="gl-v"><b>17–18 h</b> <small>everything 32–33 h</small></span></li><li data-id="st" data-tags="ports"><a class="gl-n" href="#st"><span class="n">14</span><span class="g">Spirit Tracks</span><span class="y">2009</span></a><span class="gl-bar" aria-hidden="true"><i style="width:34.2%"></i></span><span class="gl-v"><b>20–21 h</b> <small>everything 33–34 h</small></span></li><li data-id="ss" data-tags="polish"><a class="gl-n" href="#ss"><span class="n">15</span><span class="g">Skyward Sword</span><span class="y">2011</span></a><span class="gl-bar" aria-hidden="true"><i style="width:64.2%"></i></span><span class="gl-v"><b>38½ h</b> <small>everything 58 h</small></span></li><li data-id="albw" data-tags="ports"><a class="gl-n" href="#albw"><span class="n">16</span><span class="g">A Link Between Worlds</span><span class="y">2013</span></a><span class="gl-bar" aria-hidden="true"><i style="width:27.5%"></i></span><span class="gl-v"><b>16–17 h</b> <small>everything 24–25 h</small></span></li><li data-id="tfh" data-tags="none multi"><a class="gl-n" href="#tfh"><span class="n">17</span><span class="g">Tri Force Heroes</span><span class="y">2015</span></a><span class="gl-bar" aria-hidden="true"><i style="width:24.2%"></i></span><span class="gl-v"><b>14–15 h</b> <small>everything 59–60 h</small></span></li><li data-id="botw" data-tags="polish"><a class="gl-n" href="#botw"><span class="n">18</span><span class="g">Breath of the Wild</span><span class="y">2017</span></a><span class="gl-bar" aria-hidden="true"><i style="width:84.2%"></i></span><span class="gl-v"><b>50½ h</b> <small>everything 193½ h</small></span></li><li data-id="totk" data-tags="polish"><a class="gl-n" href="#totk"><span class="n">19</span><span class="g">Tears of the Kingdom</span><span class="y">2023</span></a><span class="gl-bar" aria-hidden="true"><i style="width:99.2%"></i></span><span class="gl-v"><b>59½ h</b> <small>everything 247½ h</small></span></li><li data-id="eow" data-tags="none"><a class="gl-n" href="#eow"><span class="n">20</span><span class="g">Echoes of Wisdom</span><span class="y">2024</span></a><span class="gl-bar" aria-hidden="true"><i style="width:35.0%"></i></span><span class="gl-v"><b>21 h</b> <small>everything 34½ h</small></span></li></ol>
+</figure></div>
+  </div>
+  <details class="rubric">
+    <summary>How the labels work</summary>
+    <p>The four labels are my own judgment, based on the changes each source lists. They are not Nintendo’s terms, and Wikipedia calls some of these “remasters” that I list as remakes. Each version row says what changed so you can disagree. Counts are of the version rows on this page, and one row such as Virtual Console can cover several platforms. Scores and sales figures are as quoted on each game’s Wikipedia page, and sales are for the original release unless stated.</p>
+  </details>
+  <details class="rubric">
+    <summary>How the play times work</summary>
+    <p>Play times are approximate hours. Where I could, they are HowLongToBeat’s averages, which come from players reporting their own times. I could not open HowLongToBeat’s own pages, so I read those through Deku Deals’ copy of them for Switch games, checked on Oct 14, 2026. For the other games they come from articles: Game Rant says it used HowLongToBeat as a reference, WatchMojo and ProGameGuides do not name a source, and Nintendo Life gives its own estimates. Each card names its source, and the ones without a named source are the roughest.</p>
+    <p>“Main story” is playing through to the credits, “Main + extras” adds side content, and “Everything” is a full completion, which HowLongToBeat calls Completionist. The articles label their columns a little differently (standard, average, story, completionist), and I have filed them under main story and everything. A missing “Main + extras” means the source did not give one. Averages shift as more players report, and a remake can run shorter than its original, so read these as a sense of scale.</p>
+  </details>
+ </div>
+</header>
+
+
+<section class="filters" hidden aria-label="Filter the games">
+  <div class="wrap filters-in">
+    <div class="chips" role="group" aria-label="Show only games with"><button type="button" class="chip" data-filter="all" aria-pressed="true">Everything<span class="cnt">20</span></button><button type="button" class="chip" data-filter="remake" aria-pressed="false">Has a remake<span class="cnt">3</span></button><button type="button" class="chip" data-filter="remix" aria-pressed="false">Has a remix<span class="cnt">2</span></button><button type="button" class="chip" data-filter="polish" aria-pressed="false">Has an HD or polished version<span class="cnt">8</span></button><button type="button" class="chip" data-filter="ports" aria-pressed="false">Only same-game re-releases<span class="cnt">6</span></button><button type="button" class="chip" data-filter="none" aria-pressed="false">No re-release found<span class="cnt">3</span></button><button type="button" class="chip" data-filter="multi" aria-pressed="false">Built for multiplayer<span class="cnt">3</span></button></div>
+    <p class="status" id="filter-status" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="trail">
+<article class="entry" id="loz" data-tags="remix" aria-labelledby="loz-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">1986<small>Feb · No. 1</small></p>
+    <div class="title-block">
+      <h2 id="loz-t">The Legend of Zelda</h2>
+      <p class="where">First released: Famicom Disk System, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for The Legend of Zelda"><li><span class="s-k">Sold</span> <b>6.51M</b></li></ul>
+  </header>
+  <p class="about">You explore Hyrule from above, one screen at a time, to gather eight fragments of the Triforce of Wisdom and rescue Princess Zelda from Ganon. The map is open and the dungeons are mazes, so where you go next is largely up to you.</p>
+  <ul class="facts"><li>Seen from overhead on flip screens, with a large outdoor map.</li><li>Eight dungeons, each guarding a Triforce fragment. Some have secret entrances you find by wandering.</li><li>Non-linear. Wikipedia notes it is possible to reach the final boss without picking up the sword.</li><li>A harder Second Quest unlocks when you finish.</li><li>The US cartridge was one of the first games with a battery inside to save progress, replacing passwords.</li></ul>
+  <section class="pt" aria-label="Play time for The Legend of Zelda"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>8–9 h</b></li><li><span class="s-k">Everything</span> <b>10–11 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div></section>
+  <section class="versions" aria-label="Versions of The Legend of Zelda">
+    <h3 class="v-h">Versions (8 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">1986–87</span></div><div class="v-main"><p class="v-name">Famicom Disk System, NES</p><p class="v-text">Famicom Disk System in Japan on Feb 21, 1986. NES cartridge in North America on Aug 22, 1987 and in Europe on Nov 15, 1987.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">1992, 1994</span></div><div class="v-main"><p class="v-name">Cartridge reissues</p><p class="v-where">NES, Famicom</p><p class="v-text">A grey-cartridge “Classic Series” reissue in North America (1992) and a Japanese cartridge release titled Zelda no Densetsu 1 (1994).</p></div></li><li class="ver lv4"><div class="v-side"><span class="lvb lv4"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>Remix</span><span class="v-when">1995–97</span></div><div class="v-main"><p class="v-name">BS Zelda no Densetsu<span class="tag">Japan only</span></p><p class="v-where">Satellaview, Japan only</p><p class="v-text">A satellite broadcast for the Super Famicom built on the first game, with remixed maps, an original story and a narration track. A second version, MAP 2, aired in late 1995 and early 1996.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2001, 2003</span></div><div class="v-main"><p class="v-name">GameCube compilations</p><p class="v-where">GameCube</p><p class="v-text">Included inside Animal Crossing (2001) and on The Legend of Zelda: Collector’s Edition disc (2003).</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2004</span></div><div class="v-main"><p class="v-name">Classic NES Series</p><p class="v-where">Game Boy Advance</p><p class="v-text">Wikipedia says the GameCube, GBA and Virtual Console versions corrected some unusual grammar in the original text.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2006–12</span></div><div class="v-main"><p class="v-name">Virtual Console</p><p class="v-where">Wii, Nintendo 3DS</p><p class="v-text">Wii in 2006, then Nintendo 3DS from 2011.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2016</span></div><div class="v-main"><p class="v-name">NES Classic Edition</p><p class="v-where">Mini console</p><p class="v-text">One of 30 built-in games.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2018</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Nintendo Switch</p><p class="v-text">Added to the NES library in September 2018. A “SP” edition with all equipment unlocked followed on Oct 10, 2018.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2021</span></div><div class="v-main"><p class="v-name">Game &amp; Watch: The Legend of Zelda</p><p class="v-where">Handheld</p><p class="v-text">A handheld released Nov 12, 2021 that bundles this game, Zelda II and the Game Boy version of Link’s Awakening.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> Every official re-release is the same game, apart from a Japan-only satellite broadcast that remixed it. On current hardware it is on Switch Online.</p>
+  </section>
+  
+</article>
+<article class="entry" id="z2" data-tags="ports" aria-labelledby="z2-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">1987<small>Jan · No. 2</small></p>
+    <div class="title-block">
+      <h2 id="z2-t">Zelda II: The Adventure of Link</h2>
+      <p class="where">First released: Famicom Disk System, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Zelda II: The Adventure of Link"><li><span class="s-k">Sold</span> <b>4.38M</b></li></ul>
+  </header>
+  <p class="about">Set several years after the first game, Link sets out to wake Princess Zelda from a sleeping spell. A top-down world map is mixed with side-scrolling action, and Link now levels up.</p>
+  <ul class="facts"><li>Side-scrolling areas sit inside a larger top-down world map.</li><li>Defeating enemies earns experience points that raise Attack, Magic and Life, each up to seven levels above its start.</li><li>Eight spells are learned from wise men in eight towns.</li><li>The only Zelda with lives and 1-up dolls. Wikipedia says the RPG elements have not been used in the canonical entries since.</li><li>The series’ odd one out, but it introduced the magic meter and Dark Link.</li></ul>
+  <section class="pt" aria-label="Play time for Zelda II: The Adventure of Link"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>10–11 h</b></li><li><span class="s-k">Everything</span> <b>11–12 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div></section>
+  <section class="versions" aria-label="Versions of Zelda II: The Adventure of Link">
+    <h3 class="v-h">Versions (6 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">1987–88</span></div><div class="v-main"><p class="v-name">Famicom Disk System, NES</p><p class="v-text">Famicom Disk System in Japan on Jan 14, 1987. NES in Europe on Sep 26, 1988 and in North America on Dec 1, 1988. Wikipedia ties the delay partly to a shortage of ROM chips.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2003</span></div><div class="v-main"><p class="v-name">Collector’s Edition</p><p class="v-where">GameCube</p><p class="v-text">On the same compilation disc as the first game.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2004–05</span></div><div class="v-main"><p class="v-name">Classic NES Series</p><p class="v-where">Game Boy Advance</p><p class="v-text">Small changes: the intro says “third Triforce” instead of “No.3 Triforce”, the copyright line reads 1987–2004, and the death animation is solid red instead of flashing.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Japan on Aug 10, 2004, North America on Oct 25, 2004, Europe on Jan 7, 2005.</li><li>The Wii Virtual Console version leaves out the text changes but keeps the solid red death animation.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2007–13</span></div><div class="v-main"><p class="v-name">Virtual Console</p><p class="v-where">Wii, Nintendo 3DS, Wii U</p><p class="v-text">It was the 100th Wii Virtual Console title. The Nintendo 3DS version came first to Ambassadors in 2011, then to everyone in 2012, and the Wii U version in 2013.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2016</span></div><div class="v-main"><p class="v-name">NES Classic Edition</p><p class="v-where">Mini console</p><p class="v-text">One of 30 built-in games.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2019</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Nintendo Switch</p><p class="v-text">Added to the NES library on Jan 16, 2019, with a “SP” edition on Mar 13, 2019.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2021</span></div><div class="v-main"><p class="v-name">Game &amp; Watch: The Legend of Zelda</p><p class="v-where">Handheld</p><p class="v-text">Bundled with the first game and Link’s Awakening.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> All the same game. Nothing was rebuilt or remixed.</p>
+  </section>
+  
+</article>
+<article class="entry" id="alttp" data-tags="polish" aria-labelledby="alttp-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">1991<small>Nov · No. 3</small></p>
+    <div class="title-block">
+      <h2 id="alttp-t">A Link to the Past</h2>
+      <p class="where">First released: Super Nintendo, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for A Link to the Past"><li><span class="s-k">Sold</span> <b>4.61M on SNES</b></li><li><span class="s-k">With GBA</span> <b>6.5M by 2004</b></li></ul>
+  </header>
+  <p class="about">Back to the overhead view of the first game, now on the Super Nintendo. Link sets out to save Hyrule and stop Ganon, in a game that is a distant prequel to the earlier two. Hyrule has a twin, the Dark World, reached through portals.</p>
+  <ul class="facts"><li>Link can move diagonally, which the first game could not do.</li><li>Light World and Dark World share a largely matching map but have different enemies, characters and dungeons.</li><li>Each multi-level dungeon has a large chest holding a key piece of equipment.</li><li>Sword and shield come early and can be upgraded. Four Heart Pieces make one Heart Container.</li><li>Wikipedia calls it “among the greatest video games ever made”.</li></ul>
+  <section class="pt" aria-label="Play time for A Link to the Past"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>14–15 h</b></li><li><span class="s-k">Everything</span> <b>16–17 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div></section>
+  <section class="versions" aria-label="Versions of A Link to the Past">
+    <h3 class="v-h">Versions (4 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">1991–92</span></div><div class="v-main"><p class="v-name">Super Nintendo</p><p class="v-text">Japan on Nov 21, 1991, North America on Apr 13, 1992, Europe on Sep 24, 1992. Japan’s title was Kamigami no Triforce, “Triforce of the Gods”.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">1997</span></div><div class="v-main"><p class="v-name">Satellaview broadcast<span class="tag">Japan only</span></p><p class="v-where">Super Famicom, Japan only</p><p class="v-text">An unaltered broadcast of the Japanese original on Mar 2, 1997, without SoundLink support.</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">2002–03</span></div><div class="v-main"><p class="v-name">A Link to the Past and Four Swords</p><p class="v-where">Game Boy Advance</p><p class="v-text">The same adventure with a few touches, packaged with the multiplayer Four Swords (see below).</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Voice clips and sound effects were taken from Ocarina of Time and Majora’s Mask.</li><li>Finishing Four Swords unlocks the Palace of the Four Sword dungeon in this game.</li><li>The secret Chris Houlihan room was made inaccessible, though its code remained.</li><li>Developed by Nintendo and Capcom. North America in 2002, other regions in 2003.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2010s</span></div><div class="v-main"><p class="v-name">Virtual Console and SNES Classic</p><p class="v-where">Wii, Wii U, New 3DS, mini console</p><p class="v-text">Emulations of the original, including the Chris Houlihan room. Wikipedia gives no dates for these.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2019</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Nintendo Switch</p><p class="v-text">Added on Sep 5, 2019 with 19 other SNES games.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> No remake. The Game Boy Advance version is the only one that differs, and only by sound effects and an extra Four Swords link.</p>
+  </section>
+  <p class="related"><b>Not a version:</b> A Link Between Worlds (2013) is a sequel set in the same world, not a remake. BS Zelda: Ancient Stone Tablets (1997) is a separate Satellaview follow-up set six years later, not a port.</p>
+</article>
+<article class="entry" id="la" data-tags="remake polish" aria-labelledby="la-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">1993<small>Jun · No. 4</small></p>
+    <div class="title-block">
+      <h2 id="la-t">Link’s Awakening</h2>
+      <p class="where">First released: Game Boy, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Link’s Awakening"><li><span class="s-k">GameRankings</span> <b>90%</b></li><li><span class="s-k">Sold</span> <b>4M</b></li></ul>
+  </header>
+  <p class="about">Link is stranded on Koholint Island after a storm wrecks his boat, and must find eight musical instruments to escape. It is one of the few Zelda games not set in Hyrule: there is no Triforce and Zelda gets only a passing mention.</p>
+  <ul class="facts"><li>A mostly overhead view, but Link can jump, which adds side-scrolling sections.</li><li>The A and B buttons can each be assigned to a different item.</li><li>Bosses give heart containers and instruments.</li><li>Optional extras include a trading sequence, hidden secret seashells, fishing and ocarina songs.</li><li>Its small-town feel was influenced by Twin Peaks, per Wikipedia.</li></ul>
+  <section class="pt" aria-label="Play time for Link’s Awakening"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row has-lbl"><p class="pt-lbl">Original and DX</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>14–15 h</b></li><li><span class="s-k">Everything</span> <b>16–20 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><div class="pt-row has-lbl"><p class="pt-lbl">2019 remake</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>14 h</b></li><li><span class="s-k">Main + extras</span> <b>16½ h</b></li><li><span class="s-k">Everything</span> <b>21 h</b></li></ul><p class="pt-src">Source: <a href="https://dekudeals.com/items/the-legend-of-zelda-links-awakening">HowLongToBeat, via Deku Deals</a></p></div><p class="pt-note">The remake row is the Switch game. Game Rant gives one line for every version of the game, which I have used for the older ones. The two come out about the same.</p></section>
+  <section class="versions" aria-label="Versions of Link’s Awakening">
+    <h3 class="v-h">Versions (3 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">1993</span></div><div class="v-main"><p class="v-name">Game Boy</p><p class="v-text">Japan on Jun 6, 1993, North America on Aug 6, 1993, Europe on Dec 1, 1993.</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">1998</span></div><div class="v-main"><p class="v-name">Link’s Awakening DX</p><p class="v-where">Game Boy Color</p><p class="v-text">Full colour, still playable on the original Game Boy. Adds an optional colour-based dungeon and a camera shop with 12 photos that print on the Game Boy Printer.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>The extra colour dungeon cannot be played on non-colour models.</li><li>Released on Nintendo 3DS Virtual Console in June 2011 and on Switch Online on Feb 8, 2023. Both are the DX version.</li></ul></details></div></li><li class="ver lv3"><div class="v-side"><span class="lvb lv3"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>Remake</span><span class="v-when">2019</span></div><div class="v-main"><p class="v-name">Link’s Awakening (2019)</p><p class="v-where">Nintendo Switch</p><p class="v-text">A rebuild by Grezzo with new toy-like 3D visuals, released Sep 20, 2019. Engadget’s review says the gameplay and level design are “almost entirely unchanged”.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Look: “toy-ish 3D characters in a pseudo-3D world” with a tilt-shift effect and an orchestral soundtrack (Engadget).</li><li>Controls were updated a little for Switch: two action items on X and Y, the shield on ZL (Engadget).</li><li>The Game Boy Color’s extra dungeon is included (Engadget).</li><li>Adds an optional Chamber Dungeons feature that lets you build dungeons for Dampé. Engadget’s reviewer found it “nowhere near as fun or open-ended” as the main game.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2021</span></div><div class="v-main"><p class="v-name">Game &amp; Watch: The Legend of Zelda</p><p class="v-where">Handheld</p><p class="v-text">Includes the original Game Boy version, alongside the first two Zelda games.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> The 2019 version looks completely different but plays like the same game. If you want the old version, DX is the one on Switch Online.</p>
+  </section>
+  <p class="related"><b>Not a version:</b> Echoes of Wisdom (2024) borrows the 2019 remake’s look and began as an expansion of its dungeon editor. It is a new game, covered below.</p>
+</article>
+<article class="entry" id="oot" data-tags="remake remix" aria-labelledby="oot-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">1998<small>Nov · No. 5</small></p>
+    <div class="title-block">
+      <h2 id="oot-t">Ocarina of Time</h2>
+      <p class="where">First released: Nintendo 64, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Ocarina of Time"><li><span class="s-k">Metacritic</span> <b>99</b></li><li><span class="s-k">Sold</span> <b>7M+</b></li></ul>
+  </header>
+  <p class="about">The first 3D Zelda. Link plays through Hyrule on a quest to stop the evil king Ganondorf, and the quest involves travelling through time.</p>
+  <ul class="facts"><li>Z-targeting: lock onto an enemy and Link keeps facing it while you move, and projectiles aim automatically.</li><li>Context-sensitive buttons let one button do several jobs, which simplified the controls.</li><li>Ocarina songs solve music puzzles and teleport you to places you have visited.</li><li>Link can switch between younger and adult forms, each with different abilities.</li></ul>
+  <section class="pt" aria-label="Play time for Ocarina of Time"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>25–27 h</b></li><li><span class="s-k">Everything</span> <b>37–39 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a>, <a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo</a></p></div><p class="pt-note">Game Rant lists the 3D remake at these same figures, and WatchMojo also says the two are about the same length.</p></section>
+  <section class="versions" aria-label="Versions of Ocarina of Time">
+    <h3 class="v-h">Versions (6 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">1998</span></div><div class="v-main"><p class="v-name">Nintendo 64</p><p class="v-text">Japan on Nov 21, North America on Nov 23, Europe on Dec 11 and Australia on Dec 18, 1998.</p></div></li><li class="ver lv4"><div class="v-side"><span class="lvb lv4"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>Remix</span><span class="v-when">2002–03</span></div><div class="v-main"><p class="v-name">Master Quest</p><p class="v-where">GameCube</p><p class="v-text">A harder alternate version with revised puzzles, first released officially as a bonus disc for Wind Waker preorders in Japan and North America in 2002.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Japan on Nov 28, 2002, North America on Feb 18, 2003, Europe on May 3, 2003. In Europe it came in bundles.</li><li>Ura Zelda, the 64DD version, was never released on N64. It was later ported to GameCube as Master Quest (Wikipedia).</li><li>The 3DS remake includes it as an unlock. Nintendo Life describes that version as “the same adventure” with a mirrored world, tougher enemies and more complex dungeon puzzles.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2003</span></div><div class="v-main"><p class="v-name">Collector’s Edition</p><p class="v-where">GameCube</p><p class="v-text">The standard game run as an emulation at 640×480 with progressive scan. Targeting moves to the L button.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>This disc does not contain Master Quest.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2007, 2015</span></div><div class="v-main"><p class="v-name">Virtual Console</p><p class="v-where">Wii, Wii U</p><p class="v-text">The Wii version in 2007 lacked controller vibration, so the Stone of Agony item did nothing. The Wii U version on Jul 2, 2015 restored it.</p></div></li><li class="ver lv3"><div class="v-side"><span class="lvb lv3"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>Remake</span><span class="v-when">2011</span></div><div class="v-main"><p class="v-name">Ocarina of Time 3D</p><p class="v-where">Nintendo 3DS</p><p class="v-text">New visuals and controls by Nintendo and Grezzo, plus extra modes. Wikipedia calls it a “remaster”. I list it as a remake because it also changes controls, adds modes and eases a dungeon.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Touch screen and gyroscope controls. Nintendo Life says the touch screen gives quick access to items, the ocarina, the map and Navi.</li><li>A Boss Challenge mode and hint videos for players who are stuck.</li><li>A Water Temple with reduced difficulty (Wikipedia).</li><li>Master Quest unlocks after you finish the main game.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2021</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Nintendo 64 library</p><p class="v-text">Added on Oct 25, 2021 to the N64 library, which needs the Expansion Pack tier.</p></div></li><li class="ver lv3"><div class="v-side"><span class="lvb lv3"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>Remake</span><span class="v-when">Nov 5, 2026</span></div><div class="v-main"><p class="v-name">Ocarina of Time (2026)<span class="tag soon">Not out yet</span></p><p class="v-where">Nintendo Switch 2</p><p class="v-text">A rebuilt version that Nintendo says was “remade with completely overhauled visuals, fully voiced cutscenes, expanded character dialogue”. The developer has not been named in the coverage I read.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Digital price $59.99, physical $69.99 (Gematsu). Switch 2 only.</li><li>Visuals redone “down to the textures of each material”, with faster load times and an orchestral soundtrack (Nintendo, as quoted by Gematsu).</li><li>New button commands for jumping and running, camera control on the right stick, and motion aiming (Gematsu and Game Informer).</li><li>A Threads of Time feature shows your story progress and next objective. You can hum a learned song into the microphone to play it.</li><li>Series producer Eiji Aonuma calls it “a faithful interpretation using modern technologies”, and the trailers keep the world layout and lock-on combat (Zelda Universe).</li><li>Not stated in any coverage I read: the developer, and whether Master Quest is included.</li></ul></details></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> One rebuild is out (the 3DS one, 2011) and a second arrives on Nov 5, 2026. Master Quest is the version with different puzzles, and the 3DS remake includes it.</p>
+  </section>
+  
+</article>
+<article class="entry" id="mm" data-tags="remake" aria-labelledby="mm-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2000<small>Apr · No. 6</small></p>
+    <div class="title-block">
+      <h2 id="mm-t">Majora’s Mask</h2>
+      <p class="where">First released: Nintendo 64, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Majora’s Mask"><li><span class="s-k">Metacritic</span> <b>95</b></li><li><span class="s-k">Sold</span> <b>3.36M on N64</b></li></ul>
+  </header>
+  <p class="about">Link arrives in Termina, a parallel world that Wikipedia calls a darker, more unsettling version of Hyrule, where a moon will crash into the land in three days. It is the sequel to Ocarina of Time.</p>
+  <ul class="facts"><li>A repeating three-day cycle of about 54 minutes of real time. The Song of Time resets you to the first day, and you keep your items, masks and songs.</li><li>24 masks. Three transform Link into a Deku Scrub, a Goron or a Zora, each with its own abilities.</li><li>Built on an upgraded Ocarina of Time engine and reusing its assets and character models.</li><li>The Nintendo 64 version requires the Expansion Pak add-on.</li></ul>
+  <section class="pt" aria-label="Play time for Majora’s Mask"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>20–23 h</b></li><li><span class="s-k">Everything</span> <b>31–35 h</b></li></ul><p class="pt-src">Source: <a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo</a>, <a href="https://progameguides.com/legend-of-zelda/shortest-zelda-games-all-zelda-games-ordered-by-lengths/">ProGameGuides</a></p></div><p class="pt-note">Estimates from WatchMojo and ProGameGuides. Neither names its source, so this is a rougher guide than most. WatchMojo says the 3D remake can run up to 38 hours for everything.</p></section>
+  <section class="versions" aria-label="Versions of Majora’s Mask">
+    <h3 class="v-h">Versions (4 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2000</span></div><div class="v-main"><p class="v-name">Nintendo 64</p><p class="v-text">Japan on Apr 27, North America on Oct 26 and Europe on Nov 17, 2000.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2003–04</span></div><div class="v-main"><p class="v-name">Collector’s Edition</p><p class="v-where">GameCube</p><p class="v-text">An emulation with minor button-icon changes and slightly higher native resolution with progressive scan. GameSpot’s Ricardo Torres found the frame rate “appears choppier”.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2009, 2016</span></div><div class="v-main"><p class="v-name">Virtual Console</p><p class="v-where">Wii, Wii U</p><p class="v-text">The Wii version in 2009 and the Wii U version in 2016.</p></div></li><li class="ver lv3"><div class="v-side"><span class="lvb lv3"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>Remake</span><span class="v-when">2015</span></div><div class="v-main"><p class="v-name">Majora’s Mask 3D</p><p class="v-where">Nintendo 3DS</p><p class="v-text">Rebuilt by Grezzo with improved character models, stereoscopic 3D, altered boss fights and an added fishing minigame. The team also reviewed moments it found unreasonable, a list it called “what in the world”.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Supports the New 3DS’s second analog stick (Wikipedia).</li><li>Zelda Universe’s review says the Bombers’ Notebook was heavily overhauled into a “quest log”, owl statues now work as real save points, and the Song of Double Time lets you pick the hour to skip to.</li><li>The same review says Odolwa and Gyorg are “much improved”, Goht is weaker than the original, and Zora swimming is slower and more precise by default.</li><li>The three-day limit still exists but is, in that reviewer’s words, “much easier to manage”.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2022</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Nintendo 64 library</p><p class="v-text">Added on Feb 25, 2022 to the N64 library, which needs the Expansion Pack tier of the service.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> The 3D version is a real rework of how the game manages time and saves. The other versions are the same game.</p>
+  </section>
+  <p class="related"><b>Not a version:</b> Majora’s Mask is a new game built from Ocarina of Time’s engine and assets, not a version of it.</p>
+</article>
+<article class="entry" id="oracles" data-tags="ports" aria-labelledby="oracles-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2001<small>Feb · No. 7</small></p>
+    <div class="title-block">
+      <h2 id="oracles-t">Oracle of Seasons and Oracle of Ages</h2>
+      <p class="where">First released: Game Boy Color, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Oracle of Seasons and Oracle of Ages"><li><span class="s-k">Sold</span> <b>3.96M each</b></li></ul>
+  </header>
+  <p class="about">Two Game Boy Color games released together. Each is complete on its own, but they link: finishing either gives a password for an alternate version of the other, and items, upgrades and rings carry across.</p>
+  <ul class="facts"><li>Oracle of Seasons is set in Holodrum. Its Rod of Seasons changes the season, and Wikipedia describes the game as focused on action.</li><li>Oracle of Ages is set in Labrynna. Its Harp of Ages lets Link travel through time, and Wikipedia describes the game as concentrating on puzzles.</li><li>Both use an overhead view.</li><li>Developed by Flagship, then Capcom’s scenario-writing subsidiary, and published by Nintendo.</li><li>Critics faulted inconsistent sound quality, per Wikipedia.</li></ul>
+  <section class="pt" aria-label="Play time for Oracle of Seasons and Oracle of Ages"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row has-lbl"><p class="pt-lbl">Seasons</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>15–16 h</b></li><li><span class="s-k">Everything</span> <b>21–22 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><div class="pt-row has-lbl"><p class="pt-lbl">Ages</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>17–18 h</b></li><li><span class="s-k">Everything</span> <b>24–25 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><p class="pt-note">WatchMojo’s estimate for Ages is about the same.</p></section>
+  <section class="versions" aria-label="Versions of Oracle of Seasons and Oracle of Ages">
+    <h3 class="v-h">Versions (2 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2001</span></div><div class="v-main"><p class="v-name">Game Boy Color</p><p class="v-text">Japan on Feb 27, North America on May 14, Europe on Oct 5, 2001.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2013</span></div><div class="v-main"><p class="v-name">Virtual Console</p><p class="v-where">Nintendo 3DS</p><p class="v-text">Both games on May 30, 2013.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2023</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Game Boy library</p><p class="v-text">Both added in July 2023.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> The same two games each time. The sources I read list no changes in the re-releases.</p>
+  </section>
+  
+</article>
+<article class="entry" id="fs" data-tags="polish multi" aria-labelledby="fs-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2002<small>Dec · No. 8</small></p>
+    <div class="title-block">
+      <h2 id="fs-t">Four Swords</h2>
+      <p class="where">First released: Game Boy Advance, North America</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Four Swords"><li><span class="s-k">Metacritic</span> <b>95</b></li></ul>
+  </header>
+  <p class="about">A multiplayer-first Zelda for two to four players, each with their own Game Boy Advance and copy of the game. Players cooperate through randomized, puzzle-filled dungeons while competing for rupees. It is set before Ocarina of Time.</p>
+  <ul class="facts"><li>Each dungeon has three levels, and the third is a boss fight.</li><li>Puzzles scale to the number of connected players.</li><li>Each player holds one item at a time, swapped at pedestals.</li><li>The rupee leader at the end of a level wins a special prize, but rupees are shared in the long run.</li><li>Cubed3’s review called the lack of single-player “a let-down”.</li></ul>
+  <section class="pt" aria-label="Play time for Four Swords"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row has-lbl"><p class="pt-lbl">Anniversary Edition</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>2–3 h</b></li></ul><p class="pt-src">Source: <a href="https://www.nintendolife.com/reviews/2011/10/legend_of_zelda_four_swords_anniversary_edition_dsiware">Nintendo Life</a></p></div><p class="pt-note">Nintendo Life’s 2011 review of the Anniversary Edition says it takes “around two-three hours” to work through the four main stages, and the reviewer’s own multiplayer run took about three. I found no dependable figure for finishing everything.</p></section>
+  <section class="versions" aria-label="Versions of Four Swords">
+    <h3 class="v-h">Versions (2 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2002–03</span></div><div class="v-main"><p class="v-name">Game Boy Advance</p><p class="v-text">A mode of A Link to the Past &amp; Four Swords. North America on Dec 3, 2002, Japan on Mar 14, 2003 and Europe on Mar 28, 2003. Wikipedia says its 95 is the highest Metacritic score for a Game Boy Advance game.</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">2011</span></div><div class="v-main"><p class="v-name">Four Swords Anniversary Edition</p><p class="v-where">Nintendo DSi, Nintendo 3DS</p><p class="v-text">A Grezzo port that adds a single-player mode where you control two Links, plus two new areas, Realm of Memories and a harder Hero’s Trial.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Released Sep 28, 2011 and free to DSi and 3DS owners until Feb 20, 2012.</li><li>Offered free again from Jan 31 to Feb 2, 2014 to promote A Link Between Worlds.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2024</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Game Boy Advance library</p><p class="v-text">Added on Jun 18, 2024 as A Link to the Past &amp; Four Swords, an Expansion Pack title.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> The Anniversary Edition adds a single-player mode, which the original did not have.</p>
+  </section>
+  <p class="note">The sources I read do not say what camera view Four Swords uses, so I have not described it.</p>
+</article>
+<article class="entry" id="ww" data-tags="polish" aria-labelledby="ww-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2002<small>Dec · No. 9</small></p>
+    <div class="title-block">
+      <h2 id="ww-t">The Wind Waker</h2>
+      <p class="where">First released: GameCube, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for The Wind Waker"><li><span class="s-k">Metacritic</span> <b>96</b></li><li><span class="s-k">Sold</span> <b>4.6M</b></li></ul>
+  </header>
+  <p class="about">Link sails the Great Sea, a world of islands, in a cartoon look made with cel shading. Wikipedia calls the setting “a departure for the series”. He explores islands and dungeons to gain the power to face Ganon.</p>
+  <ul class="facts"><li>Sailing on the King of Red Lions. The wind blows in one of eight directions and a tailwind gives top speed.</li><li>The Wind Waker is a baton you conduct with. The first tune changes the wind, and others warp you or turn night into day.</li><li>The Great Sea has 49 gridded sections, and a sea chart tracks islands.</li><li>The cel-shaded look was revealed at Space World 2001 and fans pushed back, some mocking it as “Celda”.</li></ul>
+  <section class="pt" aria-label="Play time for The Wind Waker"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row has-lbl"><p class="pt-lbl">Original</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>29–30 h</b></li><li><span class="s-k">Everything</span> <b>about 60 h</b></li></ul><p class="pt-src">Source: <a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo</a>, <a href="https://progameguides.com/legend-of-zelda/shortest-zelda-games-all-zelda-games-ordered-by-lengths/">ProGameGuides</a></p></div><div class="pt-row has-lbl"><p class="pt-lbl">HD remaster</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>25½ h</b></li><li><span class="s-k">Everything</span> <b>42 h</b></li></ul><p class="pt-src">Source: <a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo</a></p></div><p class="pt-note">Estimates from WatchMojo and ProGameGuides. Neither names its source, so this is a rougher guide than most.</p></section>
+  <section class="versions" aria-label="Versions of The Wind Waker">
+    <h3 class="v-h">Versions (2 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2002–03</span></div><div class="v-main"><p class="v-name">GameCube</p><p class="v-text">Japan on Dec 13, 2002, North America on Mar 24, 2003, Europe on May 2, 2003.</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">2013</span></div><div class="v-main"><p class="v-name">The Wind Waker HD</p><p class="v-where">Wii U</p><p class="v-text">HD graphics and lighting, plus changes that speed up sailing and the Triforce quest. Wikipedia lists no changes to the islands, dungeons or story.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Wikipedia: GamePad touch screen as map and inventory, off-TV play, motion controls for the wind baton and aiming, a Swift Sail to speed up sailing, a streamlined Triforce quest and a better Picto Box.</li><li>A Tingle Bottle replaced the Tingle Tuner. Its Miiverse link ended when Miiverse shut down on Nov 8, 2017.</li><li>A fan-compiled change list reposted by Zelda Universe also lists a Hero Mode (double damage, no heart drops) and five Triforce charts replaced by the pieces themselves. That list is unofficial.</li><li>North America on Sep 20, 2013, Japan on Sep 26, Europe on Oct 4, Australia on Oct 5.</li></ul></details></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2025</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">GameCube library, Switch 2 only</p><p class="v-text">Added on Jun 5, 2025 as one of the first three GameCube titles. It needs a Switch 2 and the Expansion Pack tier.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> The HD version is the one with changes. The original is back on Switch 2 through Switch Online.</p>
+  </section>
+  
+</article>
+<article class="entry" id="fsa" data-tags="none multi" aria-labelledby="fsa-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2004<small>Mar · No. 10</small></p>
+    <div class="title-block">
+      <h2 id="fsa-t">Four Swords Adventures</h2>
+      <p class="where">First released: GameCube, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Four Swords Adventures"><li><span class="s-k">Metacritic</span> <b>86</b></li></ul>
+  </header>
+  <p class="about">Link and three clones, created by the magic Four Sword, set out to restore peace to Hyrule after an evil counterpart, Shadow Link, appears. It plays from the same top-down view as A Link to the Past and can be played alone or with up to four players.</p>
+  <ul class="facts"><li>The main Hyrulean Adventure has eight worlds of three stages and a boss each.</li><li>Players collect Force Gems to power up the Four Sword.</li><li>Each multiplayer player needs their own Game Boy Advance, which serves as the controller. The link cable came in the box in North America and Europe.</li><li>Solo play can use a GameCube controller or a GBA.</li><li>Shadow Battle is a competitive mode with five arenas, plus five more unlocked by finishing the main game.</li></ul>
+  <section class="pt" aria-label="Play time for Four Swords Adventures"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>15–16 h</b></li><li><span class="s-k">Everything</span> <b>15–16 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><p class="pt-note">Game Rant gives the same figure for both. ProGameGuides lists about 3 hours, which conflicts, so I have gone with Game Rant.</p></section>
+  <section class="versions" aria-label="Versions of Four Swords Adventures">
+    <h3 class="v-h">Versions</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2004–05</span></div><div class="v-main"><p class="v-name">GameCube</p><p class="v-text">Japan on Mar 18, 2004, North America on Jun 7, 2004, Europe on Jan 7, 2005, Australia on Apr 7, 2005.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> No re-release listed in the sources I read.</p>
+  </section>
+  <p class="note">Producer Eiji Aonuma said sales were disappointing because each player needed a Game Boy Advance and a link cable.</p>
+</article>
+<article class="entry" id="mc" data-tags="ports" aria-labelledby="mc-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2004<small>Nov · No. 11</small></p>
+    <div class="title-block">
+      <h2 id="mc-t">The Minish Cap</h2>
+      <p class="where">First released: Game Boy Advance, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for The Minish Cap"><li><span class="s-k">Metacritic</span> <b>89</b></li><li><span class="s-k">Sold</span> <b>1.76M</b></li></ul>
+  </header>
+  <p class="about">Link meets Ezlo, a magical talking cap, during the Picori Festival. Ezlo lets him shrink to the size of the tiny Minish. The art is cartoonish, like The Wind Waker, and the game keeps the top-down elements of A Link to the Past.</p>
+  <ul class="facts"><li>Shrinking works through portals and changes what Link can reach. A puddle he can walk over is too deep at Minish size.</li><li>Three new items: the Mole Mitts, the Gust Jar and the Cane of Pacci.</li><li>Kinstones are collectibles split into two halves. Matching pieces open new things or award prizes.</li><li>In certain areas Link can make copies of himself. It is not co-op: the game is single-player and borrows the idea from the Four Swords games.</li><li>Developed by Capcom and Flagship. Wikipedia calls it a prequel to Four Swords.</li></ul>
+  <section class="pt" aria-label="Play time for The Minish Cap"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>15–16 h</b></li><li><span class="s-k">Everything</span> <b>26–27 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div></section>
+  <section class="versions" aria-label="Versions of The Minish Cap">
+    <h3 class="v-h">Versions (2 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2004–05</span></div><div class="v-main"><p class="v-name">Game Boy Advance</p><p class="v-text">Japan on Nov 4, 2004, Europe on Nov 12, 2004, North America on Jan 10, 2005, Australia on Apr 7, 2005.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2011, 2014</span></div><div class="v-main"><p class="v-name">Virtual Console</p><p class="v-where">Nintendo 3DS, Wii U</p><p class="v-text">A Nintendo 3DS release through the Ambassador program, then a Wii U release in 2014. Wikipedia describes no changes.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2023</span></div><div class="v-main"><p class="v-name">Nintendo Switch Online</p><p class="v-where">Game Boy Advance library</p><p class="v-text">Added on Feb 8, 2023 to the Game Boy Advance library, which needs the Expansion Pack tier.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> Always the same game. The sources I read list no changes.</p>
+  </section>
+  
+</article>
+<article class="entry" id="tp" data-tags="polish" aria-labelledby="tp-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2006<small>Nov · No. 12</small></p>
+    <div class="title-block">
+      <h2 id="tp-t">Twilight Princess</h2>
+      <p class="where">First released: Wii and GameCube</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Twilight Princess"><li><span class="s-k">Metacritic</span> <b>96 GC, 95 Wii</b></li><li><span class="s-k">Sold</span> <b>8.85M by 2015</b></li></ul>
+  </header>
+  <p class="about">A third-person Zelda, darker in tone, in which Hyrule is being engulfed by a corrupted parallel dimension, the Twilight Realm. Link is helped by Midna, a mysterious imp. It was a launch game for the Wii and the last first-party game for the GameCube.</p>
+  <ul class="facts"><li>Nine dungeons and a large overworld, travelled on foot, on horseback with Epona, or by Midna’s warping.</li><li>Link can become a wolf, which lets him dig, track scents and bite, but not use his sword or secondary items.</li><li>Horseback combat was a central goal, following advice from Shigeru Miyamoto.</li><li>The twilight areas “were intended to make players feel uncomfortable”, per Wikipedia.</li><li>Two launch versions: the Wii version has motion controls, a mirrored world map and four equippable secondary items. The GameCube version keeps the original map orientation, has a free camera and two items.</li></ul>
+  <section class="pt" aria-label="Play time for Twilight Princess"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row has-lbl"><p class="pt-lbl">Original</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>37½–38 h</b></li><li><span class="s-k">Everything</span> <b>55½–60 h</b></li></ul><p class="pt-src">Source: <a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo</a>, <a href="https://progameguides.com/legend-of-zelda/shortest-zelda-games-all-zelda-games-ordered-by-lengths/">ProGameGuides</a></p></div><div class="pt-row has-lbl"><p class="pt-lbl">HD remaster</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>30 h</b></li><li><span class="s-k">Everything</span> <b>44 h</b></li></ul><p class="pt-src">Source: <a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo</a></p></div><p class="pt-note">Estimates from WatchMojo and ProGameGuides. Neither names its source, so this is a rougher guide than most.</p></section>
+  <section class="versions" aria-label="Versions of Twilight Princess">
+    <h3 class="v-h">Versions (1 re-release)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2006</span></div><div class="v-main"><p class="v-name">Original (Wii and GameCube)</p><p class="v-where">Wii, GameCube</p><p class="v-text">Wii: North America on Nov 19, 2006 (a launch game), Japan on Dec 2, Australia on Dec 7, Europe on Dec 8. GameCube: Japan on Dec 2, North America on Dec 11, Europe on Dec 15, Australia on Dec 19.</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">2016</span></div><div class="v-main"><p class="v-name">Twilight Princess HD</p><p class="v-where">Wii U</p><p class="v-text">Enhanced graphics and GamePad features, from Tantalus Media and Nintendo, released Mar 4, 2016 in North America and Europe. Wikipedia says the frame rate stays at 30 fps.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Wikipedia: the GameCube control scheme was carried over, some cutscenes were sped up, underwater gameplay was improved and collecting Tears of Light was reduced.</li><li>A Wolf Link amiibo unlocks the Cave of Shadows, a wolf-only trial with few health recovery opportunities (Wikipedia).</li><li>RPG Site’s list of new things also names a Hero Mode (double damage, no heart drops) and a Ghost Lantern item that glows near Poes.</li><li>Nvidia Shield TV, China, Dec 5, 2017 (Wikipedia flags this date as needing a citation).</li></ul></details></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> HD is the only upgrade, and it is a polish pass. I found no Switch release. It was not on Game Informer’s December 2025 Switch Online list.</p>
+  </section>
+  
+</article>
+<article class="entry" id="ph" data-tags="ports" aria-labelledby="ph-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2007<small>Jun · No. 13</small></p>
+    <div class="title-block">
+      <h2 id="ph-t">Phantom Hourglass</h2>
+      <p class="where">First released: Nintendo DS, Japan</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Phantom Hourglass"><li><span class="s-k">Metacritic</span> <b>90</b></li><li><span class="s-k">Sold</span> <b>4.13M by Mar 2008</b></li></ul>
+  </header>
+  <p class="about">The direct sequel to The Wind Waker, on the DS, with 3D cel-shaded graphics and an overhead camera. Link works to save his friend Tetra from the antagonist Bellum, with help from Captain Linebeck and his ship.</p>
+  <ul class="facts"><li>The stylus is central: you move Link by pointing, tap to attack or interact, draw shapes to open doors and plot ship courses on a sea chart. The microphone is used too.</li><li>Two modes of play: sailing between islands, and exploring islands and dungeons on foot.</li><li>The Temple of the Ocean King drains Link’s life with a curse. The Phantom Hourglass gives limited safe time, invincible Phantoms patrol, and the temple resets each time you leave.</li><li>A one-on-one battle mode supports local play, Wi-Fi and Download Play.</li></ul>
+  <section class="pt" aria-label="Play time for Phantom Hourglass"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>17–18 h</b></li><li><span class="s-k">Everything</span> <b>32–33 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><p class="pt-note">WatchMojo (about 17 and 31½) and ProGameGuides (16–20 and 30) land in the same range.</p></section>
+  <section class="versions" aria-label="Versions of Phantom Hourglass">
+    <h3 class="v-h">Versions (1 re-release)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2007</span></div><div class="v-main"><p class="v-name">Nintendo DS</p><p class="v-text">Japan on Jun 23, North America on Oct 1 and Europe on Oct 19, 2007.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2015–16</span></div><div class="v-main"><p class="v-name">Wii U Virtual Console</p><p class="v-where">Wii U</p><p class="v-text">Europe in November 2015, North America in May 2016, Japan in August 2016. Wikipedia describes no changes.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> Only one re-release found, and it is the same game.</p>
+  </section>
+  <p class="related"><b>Not a version:</b> Spirit Tracks (2009) is the next game in this style.</p>
+</article>
+<article class="entry" id="st" data-tags="ports" aria-labelledby="st-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2009<small>Dec · No. 14</small></p>
+    <div class="title-block">
+      <h2 id="st-t">Spirit Tracks</h2>
+      <p class="where">First released: Nintendo DS, North America</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Spirit Tracks"><li><span class="s-k">Metacritic</span> <b>87</b></li><li><span class="s-k">Sold</span> <b>2.61M by Mar 2010</b></li></ul>
+  </header>
+  <p class="about">Set a century after Phantom Hourglass, Link and Zelda explore the land of New Hyrule to prevent the awakening of the Demon King Malladus. It keeps the stylus-driven style of the earlier DS game.</p>
+  <ul class="facts"><li>Overworld travel is by train: you can speed up, slow down, reverse, route it at intersections and sound the whistle. Later Link gains a cannon and a cargo car.</li><li>The Spirit Flute is played by blowing into the DS microphone.</li><li>Zelda adventures with Link in spirit form, and in certain dungeons she can possess Phantoms that you steer along a path you draw.</li><li>Up to four players can play via DS Download Play from one game card.</li></ul>
+  <section class="pt" aria-label="Play time for Spirit Tracks"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>20–21 h</b></li><li><span class="s-k">Everything</span> <b>33–34 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><p class="pt-note">WatchMojo (about 19½ and 32) and ProGameGuides (16–20 and 30) are a little lower.</p></section>
+  <section class="versions" aria-label="Versions of Spirit Tracks">
+    <h3 class="v-h">Versions (1 re-release)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2009</span></div><div class="v-main"><p class="v-name">Nintendo DS</p><p class="v-text">North America on Dec 7, Europe on Dec 11 and Japan on Dec 23, 2009.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2016</span></div><div class="v-main"><p class="v-name">Wii U Virtual Console</p><p class="v-where">Wii U</p><p class="v-text">Reached North America on Oct 20, 2016 at $9.99 (Nintendo Wire). The sources I read do not say whether anything changed.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> One re-release, a Wii U port.</p>
+  </section>
+  <p class="note">The Wikipedia page I read does not state the camera view for this game, so I have not described it beyond saying it continues the earlier game’s style.</p>
+</article>
+<article class="entry" id="ss" data-tags="polish" aria-labelledby="ss-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2011<small>Nov · No. 15</small></p>
+    <div class="title-block">
+      <h2 id="ss-t">Skyward Sword</h2>
+      <p class="where">First released: Wii</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Skyward Sword"><li><span class="s-k">Metacritic</span> <b>93</b></li><li><span class="s-k">Sold</span> <b>3.67M Wii, 4.15M HD</b></li></ul>
+  </header>
+  <p class="about">Link lives on Skyloft, a floating town in the sky, and the story moves between the sky and the surface below. Wikipedia calls it the first game in the series timeline and says it tells the origin of the Master Sword.</p>
+  <ul class="facts"><li>Needs Wii MotionPlus. Sword moves follow the direction you swing the Wii Remote.</li><li>A stamina meter limits sprinting, climbing and carrying heavy objects.</li><li>Shields (except the Hylian Shield) take damage from poorly timed parries and can break for good.</li><li>Link flies between islands on a giant bird called a Loftwing.</li><li>Items and equipment are upgraded with materials gathered from enemies, the world and chests.</li></ul>
+  <section class="pt" aria-label="Play time for Skyward Sword"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row has-lbl"><p class="pt-lbl">Wii original</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>38½ h</b></li><li><span class="s-k">Main + extras</span> <b>46½ h</b></li><li><span class="s-k">Everything</span> <b>58 h</b></li></ul><p class="pt-src">Source: <a href="https://www.svg.com/461865/how-long-does-it-take-to-beat-the-legend-of-zelda-skyward-sword-hd/">SVG, citing HowLongToBeat</a>, <a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo</a></p></div><div class="pt-row has-lbl"><p class="pt-lbl">HD remaster</p><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>31 h</b></li><li><span class="s-k">Main + extras</span> <b>38½ h</b></li><li><span class="s-k">Everything</span> <b>42 h</b></li></ul><p class="pt-src">Source: <a href="https://www.dekudeals.com/items/the-legend-of-zelda-skyward-sword-hd">HowLongToBeat, via Deku Deals</a></p></div><p class="pt-note">SVG gives 46½ hours for “fully exploring” the Wii game and up to 58 for completionists. The HD version comes out several hours shorter.</p></section>
+  <section class="versions" aria-label="Versions of Skyward Sword">
+    <h3 class="v-h">Versions (2 re-releases)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2011</span></div><div class="v-main"><p class="v-name">Wii</p><p class="v-text">Europe on Nov 18, North America on Nov 20, Japan on Nov 23, Australia on Nov 24, 2011. Directed by Hidemaro Fujibayashi, with help from Monolith Soft’s Kyoto branch.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2016</span></div><div class="v-main"><p class="v-name">Wii U Virtual Console</p><p class="v-where">Wii U</p><p class="v-text">Re-released on Sep 1, 2016 for the series’ 30th anniversary (Wikipedia).</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">2021</span></div><div class="v-main"><p class="v-name">Skyward Sword HD</p><p class="v-where">Nintendo Switch</p><p class="v-text">Co-developed with Tantalus Media, released Jul 16, 2021. High-definition graphics at 60 fps, a button-only control option and many quality-of-life changes.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Two control schemes: Joy-Con motion controls that imitate the Wii Remote Plus and Nunchuk, or the right analog stick for the sword, which allows handheld mode, Pro Controller and Switch Lite play.</li><li>Autosave, three save files, and Hero Mode (a New Game Plus option) gets its own slot once unlocked.</li><li>Many of Fi’s hints are now optional, dialogue and cutscenes can be skipped, and item descriptions no longer repeat after the first time.</li><li>A Zelda and Loftwing amiibo enables fast travel between sky and surface.</li></ul></details></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> The HD version is the same adventure with the motion-control requirement removed.</p>
+  </section>
+  
+</article>
+<article class="entry" id="albw" data-tags="ports" aria-labelledby="albw-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2013<small>Nov · No. 16</small></p>
+    <div class="title-block">
+      <h2 id="albw-t">A Link Between Worlds</h2>
+      <p class="where">First released: Nintendo 3DS</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for A Link Between Worlds"><li><span class="s-k">Metacritic</span> <b>91</b></li><li><span class="s-k">Sold</span> <b>4.26M by 2022</b></li></ul>
+  </header>
+  <p class="about">Nintendo describes it as “a successor to A Link to the Past, set within the same world but featuring new mechanics, new dungeons, and an original story”. Link must rescue the Seven Sages and stop a villain named Yuga. Wikipedia says it is mostly top-down, with stereoscopic 3D graphics.</p>
+  <ul class="facts"><li>Link can merge into walls as a flat mural and move along them. The energy gauge drains while he does.</li><li>Items are not found in dungeons. They are rented or bought from the merchant Ravio, and rented items return to Ravio if Link dies.</li><li>Rented items share one energy gauge instead of using ammunition.</li><li>Many of the dungeons can be tackled in any order.</li><li>The world is based on A Link to the Past’s, with many areas reworked, and a second kingdom, Lorule, mirrors Hyrule’s layout.</li></ul>
+  <section class="pt" aria-label="Play time for A Link Between Worlds"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>16–17 h</b></li><li><span class="s-k">Everything</span> <b>24–25 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><p class="pt-note">WatchMojo (about 16 and 23) is close.</p></section>
+  <section class="versions" aria-label="Versions of A Link Between Worlds">
+    <h3 class="v-h">Versions (1 re-release)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2013</span></div><div class="v-main"><p class="v-name">Nintendo 3DS</p><p class="v-text">North America and Europe on Nov 22, Japan on Dec 26, 2013. Japan’s title was Triforce of the Gods 2.</p></div></li><li class="ver lv1"><div class="v-side"><span class="lvb lv1"><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>Same game</span><span class="v-when">2015</span></div><div class="v-main"><p class="v-name">Nintendo Selects</p><p class="v-where">Nintendo 3DS, Europe</p><p class="v-text">A budget re-release in Europe, with no changes to the game named.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> The only re-release is a European budget reissue. It is not a remake of A Link to the Past.</p>
+  </section>
+  <p class="related"><b>Not a version:</b> This is a sequel to A Link to the Past that reuses and reworks its map, not a remake of it.</p>
+</article>
+<article class="entry" id="tfh" data-tags="none multi" aria-labelledby="tfh-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2015<small>Oct · No. 17</small></p>
+    <div class="title-block">
+      <h2 id="tfh-t">Tri Force Heroes</h2>
+      <p class="where">First released: Nintendo 3DS</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Tri Force Heroes"><li><span class="s-k">Metacritic</span> <b>73</b></li><li><span class="s-k">Sold</span> <b>1.36M by 2020</b></li></ul>
+  </header>
+  <p class="about">Three Links are summoned by Hytopia, a fashion-focused kingdom, to deal with a curse on its princess. It is built for three players, locally or online, and a single player uses doll-like companions called Doppels.</p>
+  <ul class="facts"><li>Players take items at the start of each level and work together to solve puzzles and fight enemies.</li><li>Links can stack into a totem, so the top player reaches higher places, attacks or is thrown across gaps.</li><li>Collected items craft outfits that grant hidden abilities. The team shares one heart meter.</li><li>Players communicate with icons on the touch screen.</li><li>Its style is “strongly based on” A Link Between Worlds, mixed with The Wind Waker’s look (Wikipedia and Zelda Wiki).</li></ul>
+  <section class="pt" aria-label="Play time for Tri Force Heroes"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>14–15 h</b></li><li><span class="s-k">Everything</span> <b>59–60 h</b></li></ul><p class="pt-src">Source: <a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023</a></p></div><p class="pt-note">The two figures are far apart, and I found no source that explains the gap.</p></section>
+  <section class="versions" aria-label="Versions of Tri Force Heroes">
+    <h3 class="v-h">Versions</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2015</span></div><div class="v-main"><p class="v-name">Nintendo 3DS</p><p class="v-text">Japan on Oct 22, North America and Europe on Oct 23, Australia on Oct 24, 2015. A free update on Dec 2, 2015 added the Den of Trials dungeon and two costumes.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> No re-release found. Online co-op is gone: Nintendo ended online play for 3DS and Wii U games on Apr 8, 2024.</p>
+  </section>
+  <p class="note">Reception was mixed. Critics praised the presentation, soundtrack and multiplayer, and criticized the single-player mode, the lack of a two-player option and the online matchmaking.</p>
+</article>
+<article class="entry" id="botw" data-tags="polish" aria-labelledby="botw-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2017<small>Mar · No. 18</small></p>
+    <div class="title-block">
+      <h2 id="botw-t">Breath of the Wild</h2>
+      <p class="where">First released: Wii U and Nintendo Switch</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Breath of the Wild"><li><span class="s-k">Metacritic</span> <b>97 Switch</b></li><li><span class="s-k">Sold</span> <b>34.51M by Mar 2025</b></li></ul>
+  </header>
+  <p class="about">An open-world Zelda. Link, an amnesiac warrior, wakes on the Great Plateau and is free to explore Hyrule, with the goal of saving Zelda and stopping Calamity Ganon. The story can be completed in nonlinear order.</p>
+  <ul class="facts"><li>Link can climb, swim and glide with a paraglider, limited by stamina.</li><li>A physics engine and a “chemistry engine” govern how things behave. In storms, for example, metal attracts lightning.</li><li>Weapons and shields break with use. The Master Sword is the only unbreakable weapon, but it needs recharging.</li><li>Cooking turns food and materials into meals and elixirs. Shrines offer puzzles or robot battles, and Divine Beasts act as extended puzzles.</li><li>A paid Expansion Pass added two DLC packs in 2017: The Master Trials and The Champions’ Ballad.</li></ul>
+  <section class="pt" aria-label="Play time for Breath of the Wild"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>50½ h</b></li><li><span class="s-k">Main + extras</span> <b>98½ h</b></li><li><span class="s-k">Everything</span> <b>193½ h</b></li></ul><p class="pt-src">Source: <a href="https://www.dekudeals.com/items/the-legend-of-zelda-breath-of-the-wild">HowLongToBeat, via Deku Deals</a></p></div></section>
+  <section class="versions" aria-label="Versions of Breath of the Wild">
+    <h3 class="v-h">Versions (1 re-release)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2017</span></div><div class="v-main"><p class="v-name">Original (Wii U and Switch)</p><p class="v-where">Wii U, Nintendo Switch</p><p class="v-text">Both released on Mar 3, 2017. Wikipedia calls it the final Nintendo-published Wii U game and a Switch launch title. The Switch version performs better docked, and touch-screen features planned for the Wii U were removed during the joint development.</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">2025</span></div><div class="v-main"><p class="v-name">Nintendo Switch 2 Edition</p><p class="v-where">Nintendo Switch 2</p><p class="v-text">Released Jun 5, 2025 with higher resolution, a higher frame rate and HDR, plus Zelda Notes in the Nintendo Switch Online app. It costs $9.99 as an upgrade and is free with a Switch Online + Expansion Pack membership.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Nintendo confirmed that the Switch 2 Edition does not include the Breath of the Wild Expansion Pass DLC, which is a separate purchase (Nintendo Life, quoting Nintendo’s statement to IGN).</li><li>Zelda Notes adds a full overworld map and real-time voiced navigation to collectibles and secrets, narrated by Zelda (Wikipedia).</li><li>A standalone price for the Switch 2 Edition was not in the sources I read.</li></ul></details></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> Same game, smoother. The Switch 2 Edition changes performance and adds a companion map, not the content.</p>
+  </section>
+  
+</article>
+<article class="entry" id="totk" data-tags="polish" aria-labelledby="totk-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2023<small>May · No. 19</small></p>
+    <div class="title-block">
+      <h2 id="totk-t">Tears of the Kingdom</h2>
+      <p class="where">First released: Nintendo Switch</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Tears of the Kingdom"><li><span class="s-k">Metacritic</span> <b>96 Switch</b></li><li><span class="s-k">Sold</span> <b>22.40M by Dec 2025</b></li></ul>
+  </header>
+  <p class="about">A sequel to Breath of the Wild, set years later. It keeps that game’s open world and Hyrule map and adds floating sky islands and a large underground area called the Depths. Link searches for Princess Zelda and works to stop Ganondorf from destroying Hyrule.</p>
+  <ul class="facts"><li>Five new powers replace the Sheikah Slate’s abilities: Ultrahand, Fuse, Ascend, Recall and Autobuild.</li><li>Zonai devices let you build vehicles and tools.</li><li>Sky islands hold puzzles, treasure, enemies and bosses.</li><li>The Depths need light sources and contain hazards like lava and gloom.</li><li>Shrines and Korok seeds are scattered across the world.</li></ul>
+  <section class="pt" aria-label="Play time for Tears of the Kingdom"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>59½ h</b></li><li><span class="s-k">Main + extras</span> <b>117½ h</b></li><li><span class="s-k">Everything</span> <b>247½ h</b></li></ul><p class="pt-src">Source: <a href="https://www.dekudeals.com/items/the-legend-of-zelda-tears-of-the-kingdom">HowLongToBeat, via Deku Deals</a></p></div><p class="pt-note">Game Rant’s 2023 table had 54–55 for the main story and 188–189 for completionists, so the averages move over time. Nintendo Life’s own estimate is 50–60 hours to reach the credits.</p></section>
+  <section class="versions" aria-label="Versions of Tears of the Kingdom">
+    <h3 class="v-h">Versions (1 re-release)</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2023</span></div><div class="v-main"><p class="v-name">Nintendo Switch</p><p class="v-text">Released on May 12, 2023.</p></div></li><li class="ver lv2"><div class="v-side"><span class="lvb lv2"><span class="pips" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>Same game, polished</span><span class="v-when">2025</span></div><div class="v-main"><p class="v-name">Nintendo Switch 2 Edition</p><p class="v-where">Nintendo Switch 2</p><p class="v-text">Released Jun 5, 2025. Nintendo’s support page describes smoother frame rates, faster load times and enhanced resolution and textures. The upgrade costs $9.99, free with a Switch Online + Expansion Pack membership.</p><details class="more"><summary>What changed</summary><ul class="more-body"><li>Wikipedia also lists HDR support and added functionality with the Nintendo Switch app.</li><li>Metacritic: 96 for the Switch version and 95 for the Switch 2 version (Wikipedia).</li></ul></details></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> Same game, smoother, with the Switch 2 Edition.</p>
+  </section>
+  <p class="related"><b>Not a version:</b> Tears of the Kingdom is a new game that reuses Breath of the Wild’s world, not a remake of it.</p>
+</article>
+<article class="entry" id="eow" data-tags="none" aria-labelledby="eow-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2024<small>Sep · No. 20</small></p>
+    <div class="title-block">
+      <h2 id="eow-t">Echoes of Wisdom</h2>
+      <p class="where">First released: Nintendo Switch</p>
+    </div>
+    <ul class="stats" aria-label="Scores and sales for Echoes of Wisdom"><li><span class="s-k">Metacritic</span> <b>85</b></li><li><span class="s-k">Sold</span> <b>4.09M by Mar 2025</b></li></ul>
+  </header>
+  <p class="about">Wikipedia calls it the first mainline Zelda game with Princess Zelda as the playable lead. She uses the Tri Rod, given to her by a fairy named Tri, on a quest to save Link and Hyrule. It is a 2D top-down game that looks like the 2019 Link’s Awakening remake.</p>
+  <ul class="facts"><li>Echoes are copies of objects and monsters that Zelda creates with the Tri Rod. Each costs something, shown by triangles behind Tri.</li><li>Bind lets Zelda move objects, or move with them.</li><li>A sword turns her into a Link-like Swordfighter for a limited time, refilled by energy orbs.</li><li>Rifts lead to the Still World, where people, objects and terrain are frozen in time.</li><li>Travel is by echoes, Waypoints (fast travel), on foot or on horseback.</li></ul>
+  <section class="pt" aria-label="Play time for Echoes of Wisdom"><h3 class="pt-h">Play time <span class="pt-u">approximate hours</span></h3><div class="pt-row"><ul class="pt-vals"><li><span class="s-k">Main story</span> <b>21 h</b></li><li><span class="s-k">Main + extras</span> <b>26½ h</b></li><li><span class="s-k">Everything</span> <b>34½ h</b></li></ul><p class="pt-src">Source: <a href="https://www.dekudeals.com/items/the-legend-of-zelda-echoes-of-wisdom">HowLongToBeat, via Deku Deals</a></p></div><p class="pt-note">Nintendo Life’s own estimate is lower: 15–17 hours for the story and about 30 for everything.</p></section>
+  <section class="versions" aria-label="Versions of Echoes of Wisdom">
+    <h3 class="v-h">Versions</h3>
+    <ol class="vlist"><li class="ver lv0"><div class="v-side"><span class="lvb lv0"><span class="pips o" aria-hidden="true"><i></i></span>Original</span><span class="v-when">2024</span></div><div class="v-main"><p class="v-name">Nintendo Switch</p><p class="v-text">Released Sep 26, 2024, developed by Nintendo and Grezzo.</p></div></li></ol>
+    <p class="verdict"><b>Short answer:</b> No later versions found in the sources I read.</p>
+  </section>
+  <p class="related"><b>Not a version:</b> It shares the 2019 remake’s look and began as an expansion of that game’s dungeon editor before becoming an original game, per Wikipedia.</p>
+</article>
+  </div>
+
+  <section class="after" aria-labelledby="look-h">
+    <h2 id="look-h">Looks similar, but it is a new game</h2>
+    <p class="after-sub">Sequels that reuse an older game’s world, engine or style. These are not versions of the games they resemble.</p>
+    <dl class="patterns"><div><dt><a href="#mm">Majora’s Mask</a></dt><dd>Majora’s Mask is built on an upgraded Ocarina of Time engine and reuses its assets and character models. It is set in a new world with a new structure, so it is a sequel, not a version.</dd></div><div><dt><a href="#albw">A Link Between Worlds</a></dt><dd>A Link Between Worlds is set in the same world as A Link to the Past, with many areas reworked and a second kingdom, Lorule, that mirrors Hyrule’s layout. Its dungeons, mechanics and story are new.</dd></div><div><dt><a href="#fsa">Four Swords Adventures</a></dt><dd>Four Swords Adventures is similar to Four Swords in gameplay and presentation, according to Wikipedia, but with fixed maps and a more continuous story.</dd></div><div><dt><a href="#mc">The Minish Cap</a></dt><dd>The Minish Cap borrows the idea of making copies of Link from the Four Swords games but is a single-player game.</dd></div><div><dt><a href="#ph">Phantom Hourglass</a></dt><dd>Phantom Hourglass is the direct sequel to The Wind Waker and keeps its cel-shaded look, but it is built for the DS and its touch screen.</dd></div><div><dt><a href="#st">Spirit Tracks</a></dt><dd>Spirit Tracks is set a century after Phantom Hourglass and continues its stylus-driven style.</dd></div><div><dt><a href="#tfh">Tri Force Heroes</a></dt><dd>Tri Force Heroes is “strongly based on” the look of A Link Between Worlds, per Zelda Wiki, and also mixes in The Wind Waker’s style.</dd></div><div><dt><a href="#totk">Tears of the Kingdom</a></dt><dd>Tears of the Kingdom keeps Breath of the Wild’s Hyrule map and adds floating sky islands and a large underground area, the Depths, with new powers.</dd></div><div><dt><a href="#eow">Echoes of Wisdom</a></dt><dd>Echoes of Wisdom shares the 2019 Link’s Awakening remake’s look and began as an expansion of that game’s dungeon editor before becoming an original game.</dd></div></dl>
+  </section>
+
+  <section class="after" aria-labelledby="cover-h">
+    <h2 id="cover-h">Not covered</h2>
+    <p class="cover">You asked for the main games only. Left out: Hyrule Warriors and Age of Calamity, Cadence of Hyrule, the Philips CD-i games, Link’s Crossbow Training, the Tingle games, and mini-games. The Game &amp; Watch handheld appears only where it carries a main game. BS Zelda no Densetsu appears only as a version of the first game, and BS Zelda: Ancient Stone Tablets is not covered. As you asked, Oracle of Seasons and Ages, Four Swords, Four Swords Adventures, Tri Force Heroes and Echoes of Wisdom all count as main-line here. Fan projects such as Ship of Harkinian are not official releases and are left out.</p>
+  </section>
+
+  <section class="after" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <div class="src-grid"><div class="src"><h3>Switch Online dates, all games</h3><ul><li><a href="https://en.wikipedia.org/wiki/Nintendo_Classics">Wikipedia: Nintendo Classics</a></li><li><a href="https://gameinformer.com/feature/2025/12/10/nintendo-switch-online-every-nes-snes-game-boy-n64-sega-genesis-gba-and-gamecube">Game Informer: every Switch Online game (Dec 2025)</a></li></ul></div><div class="src"><h3>Play times, many games</h3><ul><li><a href="https://gamerant.com/how-long-to-beat-legend-of-zelda-series/">Game Rant, 2023: how long it takes to beat every Legend of Zelda game (updated May 2023)</a></li><li><a href="https://www.watchmojo.com/en-gb/articles/the-10-longest-zelda-games-to-beat">WatchMojo: the 10 longest Zelda games to beat</a></li><li><a href="https://progameguides.com/legend-of-zelda/shortest-zelda-games-all-zelda-games-ordered-by-lengths/">ProGameGuides: shortest Zelda games, ordered by length (May 2023)</a></li></ul></div><div class="src"><h3>The Legend of Zelda</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)">Wikipedia: The Legend of Zelda (video game)</a></li></ul></div><div class="src"><h3>Zelda II: The Adventure of Link</h3><ul><li><a href="https://en.wikipedia.org/wiki/Zelda_II:_The_Adventure_of_Link">Wikipedia: Zelda II: The Adventure of Link</a></li></ul></div><div class="src"><h3>A Link to the Past</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_A_Link_to_the_Past">Wikipedia: A Link to the Past</a></li></ul></div><div class="src"><h3>Link’s Awakening</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Link%27s_Awakening">Wikipedia: Link’s Awakening</a></li><li><a href="https://www.engadget.com/2019/09/19/legend-of-zelda-links-awakening-review/">Engadget: Link’s Awakening review (2019)</a></li><li><a href="https://dekudeals.com/items/the-legend-of-zelda-links-awakening">HowLongToBeat, via Deku Deals: play time</a></li></ul></div><div class="src"><h3>Ocarina of Time</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Ocarina_of_Time">Wikipedia: Ocarina of Time</a></li><li><a href="https://www.nintendolife.com/reviews/2011/06/legend_of_zelda_ocarina_of_time_3d_3ds?page=2">Nintendo Life: Ocarina of Time 3D review</a></li><li><a href="https://www.gematsu.com/2026/09/the-legend-of-zelda-ocarina-of-time-remake-launches-november-5">Gematsu: Ocarina of Time remake launches November 5</a></li><li><a href="https://gameinformer.com/nintendo-direct/2026/09/08/everything-annnounced-at-the-zelda-40th-anniversary-nintendo-direct">Game Informer: everything announced at the Zelda 40th Anniversary Direct</a></li><li><a href="https://zeldauniverse.net/2026/09/08/nintendo-reveals-ocarina-of-time-remake-trailer-and-release-date-for-the-switch-2/">Zelda Universe: remake trailer and release date</a></li><li><a href="https://videogameschronicle.com/news/zelda-ocarina-of-time-remake-officially-announced-for-nintendo-switch-2/">VGC: remake officially announced (June 2026)</a></li></ul></div><div class="src"><h3>Majora’s Mask</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask">Wikipedia: Majora’s Mask</a></li><li><a href="https://zeldauniverse.net/features/majoras-mask-3d-review/">Zelda Universe: Majora’s Mask 3D review</a></li></ul></div><div class="src"><h3>Oracle of Seasons and Oracle of Ages</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Oracle_of_Seasons_and_Oracle_of_Ages">Wikipedia: Oracle of Seasons and Oracle of Ages</a></li></ul></div><div class="src"><h3>Four Swords</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Four_Swords">Wikipedia: Four Swords</a></li><li><a href="https://www.cubed3.com/games/reviews/game-boy-advance/the-legend-of-zelda-a-link-to-the-past-four-swords">Cubed3: A Link to the Past / Four Swords review</a></li><li><a href="https://www.nintendolife.com/reviews/2011/10/legend_of_zelda_four_swords_anniversary_edition_dsiware">Nintendo Life: play time</a></li></ul></div><div class="src"><h3>The Wind Waker</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_The_Wind_Waker">Wikipedia: The Wind Waker</a></li><li><a href="https://zeldauniverse.net/2013/10/06/the-wind-waker-hd-changes-list/">Zelda Universe: Wind Waker HD changes list (fan-compiled)</a></li></ul></div><div class="src"><h3>Four Swords Adventures</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Four_Swords_Adventures">Wikipedia: Four Swords Adventures</a></li></ul></div><div class="src"><h3>The Minish Cap</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_The_Minish_Cap">Wikipedia: The Minish Cap</a></li></ul></div><div class="src"><h3>Twilight Princess</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Twilight_Princess">Wikipedia: Twilight Princess</a></li><li><a href="https://www.rpgsite.net/news/4722-heres-whats-new-in-the-legend-of-zelda-twilight-princess-hd">RPG Site: what’s new in Twilight Princess HD</a></li></ul></div><div class="src"><h3>Phantom Hourglass</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Phantom_Hourglass">Wikipedia: Phantom Hourglass</a></li></ul></div><div class="src"><h3>Spirit Tracks</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Spirit_Tracks">Wikipedia: Spirit Tracks</a></li><li><a href="https://nintendowire.com/news/2016/10/19/legend-zelda-spirit-tracks-chugs-onto-north-american-wii-u-virtual-consoles-tomorrow">Nintendo Wire: Spirit Tracks on North American Wii U Virtual Console</a></li></ul></div><div class="src"><h3>Skyward Sword</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Skyward_Sword">Wikipedia: Skyward Sword</a></li><li><a href="https://tech.yahoo.com/gaming/article/2016-09-01-legend-of-zelda-skyward-sword-wii-u.html">Yahoo Tech: Skyward Sword on Wii U (Sep 1, 2016)</a></li><li><a href="https://www.svg.com/461865/how-long-does-it-take-to-beat-the-legend-of-zelda-skyward-sword-hd/">SVG, citing HowLongToBeat: play time</a></li><li><a href="https://www.dekudeals.com/items/the-legend-of-zelda-skyward-sword-hd">HowLongToBeat, via Deku Deals: play time</a></li></ul></div><div class="src"><h3>A Link Between Worlds</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_A_Link_Between_Worlds">Wikipedia: A Link Between Worlds</a></li></ul></div><div class="src"><h3>Tri Force Heroes</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Tri_Force_Heroes">Wikipedia: Tri Force Heroes</a></li><li><a href="https://zeldawiki.wiki/wiki/Tri_Force_Heroes">Zelda Wiki: Tri Force Heroes</a></li><li><a href="https://en-americas-support.nintendo.com/app/answers/detail/a_id/63227">Nintendo: discontinuation of online services for 3DS and Wii U software</a></li></ul></div><div class="src"><h3>Breath of the Wild</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Breath_of_the_Wild">Wikipedia: Breath of the Wild</a></li><li><a href="https://www.nintendolife.com/news/2025/04/upgrade-pack-price-for-zelda-botw-and-totk-has-been-confirmed">Nintendo Life: Switch 2 upgrade pack price</a></li><li><a href="https://nintendolife.com/news/2025/04/zelda-botw-switch-2-edition-wont-include-the-dlc-nintendo-confirms">Nintendo Life: the Switch 2 Edition does not include the DLC</a></li><li><a href="https://www.dekudeals.com/items/the-legend-of-zelda-breath-of-the-wild">HowLongToBeat, via Deku Deals: play time</a></li></ul></div><div class="src"><h3>Tears of the Kingdom</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Tears_of_the_Kingdom">Wikipedia: Tears of the Kingdom</a></li><li><a href="https://en-americas-support.nintendo.com/app/answers/detail/a_id/68604">Nintendo Support: Tears of the Kingdom Switch 2 Edition upgrade</a></li><li><a href="https://www.techradar.com/gaming/some-nintendo-switch-2-edition-upgrade-packs-will-be-cheaper-than-others-official-prices-reveal">TechRadar: Switch 2 Edition upgrade pack prices</a></li><li><a href="https://www.dekudeals.com/items/the-legend-of-zelda-tears-of-the-kingdom">HowLongToBeat, via Deku Deals: play time</a></li><li><a href="https://www.nintendolife.com/guides/zelda-tears-of-the-kingdom-how-long-does-it-take-to-beat">Nintendo Life: play time</a></li></ul></div><div class="src"><h3>Echoes of Wisdom</h3><ul><li><a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Echoes_of_Wisdom">Wikipedia: Echoes of Wisdom</a></li><li><a href="https://www.dekudeals.com/items/the-legend-of-zelda-echoes-of-wisdom">HowLongToBeat, via Deku Deals: play time</a></li><li><a href="https://www.nintendolife.com/guides/zelda-echoes-of-wisdom-how-long-does-it-take-to-beat">Nintendo Life: play time</a></li></ul></div></div>
+  </section>
+
+  <footer class="foot">
+    <p>The Legend of Zelda belongs to Nintendo. This is a fan reference and is not affiliated with Nintendo.</p>
+    <p>Typefaces: Marcellus and Alegreya, both under the SIL Open Font License.</p>
+  </footer>
+</main>
+
+<script type="application/json" id="filter-labels">{"all": "Everything", "remake": "Has a remake", "remix": "Has a remix", "polish": "Has an HD or polished version", "ports": "Only same-game re-releases", "none": "No re-release found", "multi": "Built for multiplayer"}</script>
+<script>
+(function () {
+  var bar = document.querySelector(".filters");
+  if (!bar) return;
+  bar.hidden = false;
+  var chips = [].slice.call(bar.querySelectorAll(".chip"));
+  var entries = [].slice.call(document.querySelectorAll(".entry"));
+  var rows = [].slice.call(document.querySelectorAll(".mtable tbody tr, .gl-list li"));
+  var status = document.getElementById("filter-status");
+  var labels = JSON.parse(document.getElementById("filter-labels").textContent);
+  var current = "all";
+
+  function has(el, f) { return f === "all" || (" " + el.getAttribute("data-tags") + " ").indexOf(" " + f + " ") > -1; }
+
+  function apply(f) {
+    current = f;
+    var shown = 0;
+    entries.forEach(function (en) {
+      var ok = has(en, f);
+      en.hidden = !ok;
+      if (ok) shown++;
+    });
+    rows.forEach(function (r) { r.classList.toggle("dim", !has(r, f)); });
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false");
+    });
+    status.textContent = f === "all" ? "" :
+      "Showing " + shown + " of " + entries.length + " games. Filter: " + labels[f] + ".";
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () { apply(c.getAttribute("data-filter")); });
+  });
+
+  // a link to a game that the filter has hidden clears the filter first
+  document.addEventListener("click", function (ev) {
+    var link = ev.target.closest && ev.target.closest('a[href^="#"]');
+    if (!link || current === "all") return;
+    var id = link.getAttribute("href").slice(1);
+    var target = id && document.getElementById(id);
+    if (target && target.hidden) {
+      apply("all");
+      target.scrollIntoView();
+    }
+  });
+  apply("all");
+})();
+</script>
+</body>
+</html>
