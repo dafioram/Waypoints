@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Harry Potter Games Guide — Waypoints</title>
+<meta name="description" content="Every English-language Harry Potter film game and Hogwarts Legacy, sorted by what kind of game each version is, how the PC, console and handheld versions differ, and what critics said." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/im-fell-english-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/alegreya-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Harry Potter Games Guide",
+  "description": "Every English-language Harry Potter film game and Hogwarts Legacy, sorted by what kind of game each version is, how the PC, console and handheld versions differ, and what critics said.",
+  "tags": [
+    "gaming",
+    "reference",
+    "harry-potter"
+  ],
+  "date": "2026-10-19"
+}
+</script>
+<style>
+@font-face{font-family:"IM Fell English";font-style:normal;font-weight:400;font-display:swap;src:url(media/im-fell-english-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"IM Fell English";font-style:italic;font-weight:400;font-display:swap;src:url(media/im-fell-english-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Alegreya Sans";font-style:normal;font-weight:400;font-display:swap;src:url(media/alegreya-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Alegreya Sans";font-style:normal;font-weight:700;font-display:swap;src:url(media/alegreya-sans-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Alegreya Sans";font-style:italic;font-weight:400;font-display:swap;src:url(media/alegreya-sans-latin-400-italic.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --hp-bg:#E6E8EE; --hp-surface:#F4F5F9; --hp-ink:#16182B; --hp-muted:#4A4D66;
+  --hp-rule:#BFC3D2; --hp-margin:#A3202F; --hp-gold:#7A5A0E; --hp-focus:#2B3FB5; --hp-on:#F4F5F9;
+  --hp-g-aa:#2a78d6;--hp-g-rpg:#eb6834;--hp-g-adv:#1baf7a;--hp-g-shoot:#eda100;--hp-g-arpg:#e87ba4;--hp-g-sport:#008300;--hp-g-motion:#6250d6;
+  --hp-display:"IM Fell English","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --hp-text:"Alegreya Sans","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --rail:2.6rem; --rail-x:.75rem;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --hp-bg:#0F1224; --hp-surface:#181B33; --hp-ink:#ECEDF6; --hp-muted:#B2B6CF;
+    --hp-rule:#333758; --hp-margin:#F07C8A; --hp-gold:#E2B955; --hp-focus:#FFD98A; --hp-on:#0F1224;
+    --hp-g-aa:#3987e5;--hp-g-rpg:#d95926;--hp-g-adv:#199e70;--hp-g-shoot:#c98500;--hp-g-arpg:#d55181;--hp-g-sport:#008300;--hp-g-motion:#9085e9;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;font-synthesis:none}
+body{margin:0;background:var(--hp-bg);color:var(--hp-ink);font-family:var(--hp-text);font-size:1.18rem;line-height:1.5;overflow-wrap:break-word}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--hp-focus);outline-offset:2px;border-radius:2px}
+.wrap{max-width:74rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+h1,h2,h3,h4{margin:0;font-weight:400}
+h1,h2{font-family:var(--hp-display)}
+.lf{font-family:var(--hp-text);font-style:normal}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* genre colours are marks only: every swatch sits beside its name */
+.g-aa{--g:var(--hp-g-aa)} .g-rpg{--g:var(--hp-g-rpg)} .g-adv{--g:var(--hp-g-adv)} .g-shoot{--g:var(--hp-g-shoot)}
+.g-arpg{--g:var(--hp-g-arpg)} .g-sport{--g:var(--hp-g-sport)} .g-motion{--g:var(--hp-g-motion)}
+.sw{display:inline-block;width:.8rem;height:.8rem;background:var(--g);border-radius:2px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--hp-ink) 38%,transparent);flex:none}
+.gtag{display:inline-flex;align-items:center;gap:.45rem;font-weight:700;font-size:.98rem;line-height:1.2}
+
+/* ------------------------------------------------------------ hero */
+.hero{position:relative;isolation:isolate;padding-top:2.4rem}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 1.85rem,var(--hp-rule) 1.85rem calc(1.85rem + 1px));
+  -webkit-mask-image:linear-gradient(to bottom,#000 0,#000 18%,transparent 70%);mask-image:linear-gradient(to bottom,#000 0,#000 18%,transparent 70%)}
+.hero-top{display:grid;gap:1.2rem 3rem;align-items:end}
+.hero h1{font-size:clamp(3.2rem,8vw,6.4rem);line-height:.95;letter-spacing:-.01em;text-wrap:balance}
+.h1-sub{display:block;margin-top:1rem;font:italic 400 clamp(1.3rem,3vw,1.8rem)/1.2 var(--hp-display);color:var(--hp-muted)}
+.dek{max-width:37rem;margin:0;font-size:1.32rem;line-height:1.42}
+.dek-2{max-width:37rem;margin:.6rem 0 0;color:var(--hp-muted)}
+@media (min-width:960px){.hero-top{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+
+/* timetable */
+.tt{margin:2.6rem 0 0}
+.tt figcaption{font:400 1.9rem/1.1 var(--hp-display)}
+.sub{display:block;margin-top:.35rem;font:400 1.04rem/1.38 var(--hp-text);color:var(--hp-muted);max-width:46rem}
+.gkey{list-style:none;margin:.8rem 0 .4rem;padding:0;display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;font-weight:700;font-size:.95rem}
+.gkey li{display:inline-flex;align-items:center;gap:.4rem}
+.tt-table{width:100%;border-collapse:collapse;margin-top:.4rem;table-layout:fixed}
+.tt-table thead th{text-align:left;font-weight:700;font-size:1rem;padding:.4rem .5rem .5rem;border-bottom:2px solid var(--hp-ink)}
+.tt-table thead th:first-child{width:11.2rem;padding:0}
+.tt-table tbody th,.tt-table tbody td{border-top:1px solid var(--hp-rule);vertical-align:top;padding:.45rem .5rem}
+.tt-table tbody th{text-align:left;font-weight:400;padding-left:0}
+.tt-table tbody th a{display:block;text-decoration:none}
+.tt-table tbody th a:hover .r-n{text-decoration:underline}
+.r-y{display:block;font-weight:700;font-size:.9rem;color:var(--hp-muted);line-height:1.2}
+.r-n{display:block;font:400 1.22rem/1.15 var(--hp-display)}
+.r-d{display:block;font-size:.9rem;color:var(--hp-muted)}
+.slots{list-style:none;margin:0;padding:0}
+.slot{margin:0 0 .35rem;padding:.3rem .55rem .35rem .65rem;background:var(--hp-surface);border:1px solid var(--hp-rule);border-left:6px solid var(--g);border-radius:0 3px 3px 0}
+.slot.unc{border-left-style:dashed}
+.slot-g{display:block;font-weight:700;font-size:.98rem;line-height:1.2}
+.slot-p{display:block;font-size:.9rem;line-height:1.25;color:var(--hp-muted);margin-top:.1rem}
+.slot-n{display:block;font:italic 400 .86rem/1.25 var(--hp-text);color:var(--hp-muted)}
+.none{color:var(--hp-muted);font-size:.9rem}
+.tt-table tr.dim{opacity:.25}
+@media (prefers-reduced-motion:no-preference){
+  .tt-table tbody tr{animation:write .5s ease-out both;animation-delay:calc(var(--i) * 70ms)}
+  @keyframes write{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+  .tt-table tbody tr.dim{animation:none}
+}
+.rubric{margin:1.6rem 0 0;max-width:46rem}
+.rubric>summary{cursor:pointer;font-weight:700;font-size:1rem}
+.rubric p{margin:.7rem 0 0;color:var(--hp-muted)}
+.rubric ul{margin:.6rem 0 0;padding-left:1.2rem;color:var(--hp-muted)}
+.rubric li{margin:.3rem 0}
+
+/* quick answers and chart */
+.chart,.qa{margin-top:3.2rem}
+.qa h2,.chart h2{font-size:clamp(1.9rem,3.6vw,2.4rem);line-height:1.1}
+.qa-list{margin:.8rem 0 0;columns:23rem;column-gap:3rem}
+.qa-i{padding:.8rem 0 .9rem;border-top:1px solid var(--hp-rule);break-inside:avoid}
+.qa-i dt{font:italic 400 1.38rem/1.2 var(--hp-display)}
+.qa-i dd{margin:.35rem 0 0;max-width:40rem}
+.qa-l{display:block;margin-top:.3rem;font-size:.98rem;color:var(--hp-muted)}
+.ch-sub{margin:.5rem 0 1rem;max-width:48rem;color:var(--hp-muted);font-size:1.04rem;line-height:1.4}
+.sc{background:var(--hp-surface);border:1px solid var(--hp-rule);padding:.8rem 1rem 1rem}
+.sc-head,.sc-row{display:grid;grid-template-columns:12rem minmax(0,1fr);column-gap:.9rem;align-items:center}
+.sc-head{padding-bottom:.4rem}
+.sc-axis{grid-column:2;position:relative}
+.bands{position:relative;height:1.3rem}
+.band{position:absolute;top:0;font-size:.8rem;font-weight:700;line-height:1.2;color:var(--hp-muted);padding-left:.25rem;overflow:hidden;white-space:nowrap}
+.ticks{position:relative;height:1.1rem;border-bottom:1px solid var(--hp-ink)}
+.tick{position:absolute;top:0;transform:translateX(-50%);font-size:.82rem;color:var(--hp-muted);line-height:1.2}
+.sc-list{list-style:none;margin:0;padding:0}
+.sc-row{border-top:1px solid var(--hp-rule);min-height:3rem}
+.sc-row:focus-visible{outline-offset:-2px}
+.sc-n{text-decoration:none;display:block;padding:.2rem 0}
+.sc-n:hover .r-n{text-decoration:underline}
+.sc-n .r-n{font-size:1.1rem}
+.sc-track{position:relative;display:block;height:3rem;
+  background:repeating-linear-gradient(to right,var(--hp-rule) 0 1px,transparent 1px calc(100% / 6))}
+.th{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--hp-muted);opacity:.55}
+.th50{left:33.333%} .th75{left:75%}
+.rng{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--hp-muted)}
+.dot{position:absolute;top:50%;width:.7rem;height:.7rem;border-radius:50%;background:var(--hp-ink);box-shadow:0 0 0 2px var(--hp-surface);transform:translate(-50%,-50%)}
+.end{position:absolute;top:50%;transform:translateY(-50%);font-weight:700;font-size:.82rem;line-height:1}
+.end.lo{margin-left:-1.5rem;width:1.1rem;text-align:right}
+.end.hi{margin-left:.55rem}
+.tbl{margin-top:.9rem}
+.tbl>summary{cursor:pointer;font-weight:700;font-size:1rem}
+.tbl table{border-collapse:collapse;margin-top:.5rem;font-size:.98rem;width:100%}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:.35rem .5rem .35rem 0;border-top:1px solid var(--hp-rule)}
+.tbl thead th{border-top:0;border-bottom:2px solid var(--hp-ink)}
+.tip{position:fixed;z-index:60;max-width:19rem;padding:.4rem .65rem;background:var(--hp-ink);color:var(--hp-bg);border-radius:4px;font-size:.95rem;line-height:1.3;pointer-events:none}
+
+/* ------------------------------------------------------------ filter bar */
+.filters{position:sticky;top:0;z-index:20;margin-top:2.6rem;background:var(--hp-bg);border-top:1px solid var(--hp-rule);border-bottom:1px solid var(--hp-rule)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .filters{background:color-mix(in srgb,var(--hp-bg) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+}
+.filters-in{padding-block:.6rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.5rem;font:700 .98rem/1 var(--hp-text);color:var(--hp-ink);background:transparent;
+  border:1.5px solid var(--hp-rule);border-radius:4px;padding:.55rem .8rem;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--hp-ink)}
+.chip[aria-pressed="true"]{background:var(--hp-ink);color:var(--hp-bg);border-color:var(--hp-ink)}
+.cnt{font-size:.82rem;opacity:.8}
+.status{margin:0;font-size:.98rem;line-height:1.3;color:var(--hp-muted)}
+.status:empty{display:none}
+.status:not(:empty){margin-top:.45rem}
+
+/* ------------------------------------------------------------ the margin trail */
+.trail{position:relative;padding-left:var(--rail);margin-top:1rem}
+.trail::before{content:"";position:absolute;left:var(--rail-x);top:0;bottom:0;width:7px;border-left:2px solid var(--hp-margin);border-right:2px solid var(--hp-margin)}
+.entry{position:relative;padding:2.5rem 0 2.8rem;scroll-margin-top:5.4rem}
+.entry+.entry{border-top:1px solid var(--hp-rule)}
+.pin{position:absolute;left:calc(var(--rail-x) - var(--rail) + 4.5px - .8rem);top:2.9rem;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--hp-bg);border:3px solid var(--hp-margin)}
+.entry-head{max-width:46rem}
+.year{margin:0;font:italic 400 clamp(3.4rem,8vw,5rem)/.9 var(--hp-display)}
+.year small{font:700 1rem/1 var(--hp-text);color:var(--hp-muted);margin-left:.9rem;font-style:normal}
+.entry-head h2{font-size:clamp(2rem,4.4vw,3rem);line-height:1.05;margin-top:.5rem;text-wrap:balance}
+.entry-head .sub{font-style:italic;font-size:1.1rem}
+.figs{list-style:none;margin:.9rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.3rem 1.6rem}
+.figs li{color:var(--hp-muted)}
+.figs b{color:var(--hp-ink);font-size:1.25em}
+.about{margin:1.1rem 0 0;max-width:44rem;font-size:1.3rem;line-height:1.42}
+.sec-h{font:400 1.45rem/1.2 var(--hp-display);padding-bottom:.4rem;border-bottom:2px solid var(--hp-ink)}
+.builds,.differ,.said{margin-top:1.7rem}
+@media (min-width:1000px){.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 3rem}}
+.blist{list-style:none;margin:0;padding:0}
+.bld{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:.3rem 1.3rem;padding:.9rem 0;border-bottom:1px solid var(--hp-rule)}
+.b-side{display:flex;flex-direction:column;gap:.3rem;align-items:flex-start}
+.unc-t{font:italic 400 .92rem/1.2 var(--hp-text);color:var(--hp-muted)}
+.b-name{font:700 1.2rem/1.2 var(--hp-text)}
+.b-dev{margin:.1rem 0 0;color:var(--hp-muted);font-style:italic;font-size:1.02rem}
+.b-plats{margin:.3rem 0 0;color:var(--hp-muted);font-size:.98rem}
+.pl{list-style:none;margin:.45rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.35rem}
+.pl li{padding:.2rem .6rem;border:1px solid var(--hp-rule);border-radius:3px;background:var(--hp-surface);font-size:.98rem;line-height:1.2;white-space:nowrap}
+.pl .pn{color:var(--hp-muted)}
+.pl b{font-size:1.05em}
+.pl .ns small{color:var(--hp-muted);font-size:.85em}
+.b-text{margin:.5rem 0 0;max-width:42rem}
+.b-rev{margin:.4rem 0 0;color:var(--hp-muted);font-size:1rem;max-width:42rem}
+.also{margin:.9rem 0 0;color:var(--hp-muted);max-width:42rem}
+.diffs{margin:.7rem 0 0;padding:0 0 0 1.1rem;max-width:44rem}
+.diffs li{margin:.4rem 0;padding-left:.2rem}
+.diffs li::marker{color:var(--hp-margin)}
+.said p{max-width:44rem;margin:.7rem 0 0}
+.verdict{font-size:1.22rem;line-height:1.4;font-family:var(--hp-display);font-style:italic}
+.verdict b{font-family:var(--hp-text);font-style:normal;font-size:.85em;margin-right:.35rem}
+
+/* ------------------------------------------------------------ closing sections */
+.after{padding-block:2.8rem 1rem}
+.after h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:.4rem;line-height:1.1}
+.after-sub{margin:0 0 1rem;max-width:42rem;color:var(--hp-muted)}
+.sp-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr));gap:0 2.4rem}
+.sp{padding:.9rem 0 1.1rem;border-top:1px solid var(--hp-rule)}
+.sp h3{font:400 1.45rem/1.15 var(--hp-display);margin-bottom:.35rem}
+.sp-y{font:italic 400 1rem/1 var(--hp-text);color:var(--hp-muted);margin-left:.3rem}
+.sp-m{margin:.4rem 0 0;color:var(--hp-muted);font-size:1rem}
+.sp p{margin:.3rem 0 0;max-width:36rem}
+.mob-h{font:400 1.45rem/1.15 var(--hp-display);margin-top:1.6rem}
+.mob{list-style:none;margin:.6rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr));gap:0 2.4rem}
+.mob li{padding:.7rem 0 .8rem;border-top:1px solid var(--hp-rule)}
+.mob p{margin:.3rem 0 0;max-width:36rem}
+.cover{max-width:46rem;margin:0}
+.gaps{max-width:46rem;margin:.6rem 0 0;padding-left:1.2rem}
+.gaps li{margin:.4rem 0}
+.src-grid{columns:19rem;column-gap:2.4rem}
+.src{break-inside:avoid;padding:.6rem 0 .8rem;border-top:1px solid var(--hp-rule)}
+.src h3{font:700 1.02rem/1.3 var(--hp-text)}
+.src ul{margin:.3rem 0 0;padding-left:1.1rem;font-size:.98rem;line-height:1.4}
+.src li{margin:.15rem 0;overflow-wrap:anywhere}
+.foot{padding-block:1.2rem 3rem;color:var(--hp-muted);font-size:1rem;max-width:46rem}
+.foot p{margin:.3rem 0}
+
+/* ------------------------------------------------------------ small screens */
+@media (max-width:980px){
+  .tt-table,.tt-table thead,.tt-table tbody,.tt-table tr,.tt-table th,.tt-table td{display:block}
+  .tt-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .tt-table tbody tr{border-top:1px solid var(--hp-rule);padding:.6rem 0 .4rem}
+  .tt-table tbody th,.tt-table tbody td{border-top:0;padding:.1rem 0}
+  .tt-table tbody th a{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .6rem}
+  .r-y,.r-n,.r-d{display:inline}
+  .tt-table td.empty{display:none}
+  .tt-table td{display:grid;grid-template-columns:6rem minmax(0,1fr);column-gap:.5rem;align-items:start}
+  .tt-table td::before{content:attr(data-col);margin:.4rem 0 0;font-weight:700;font-size:.9rem;line-height:1.25;color:var(--hp-muted)}
+  .slot{padding:.2rem .5rem .25rem .55rem;margin:.15rem 0}
+  .slot-g,.slot-p,.slot-n{display:inline}
+  .slot-p,.slot-n{margin-left:.45rem}
+}
+@media (max-width:640px){
+  :root{--rail:1.9rem;--rail-x:.6rem}
+  body{font-size:1.1rem}
+  .pin{top:2.8rem}
+  .about{font-size:1.2rem}
+  .bld{grid-template-columns:minmax(0,1fr)}
+  .b-side{flex-direction:row;flex-wrap:wrap;align-items:center;gap:.2rem .8rem}
+  .sc{padding:.6rem .7rem .8rem}
+  .sc-head,.sc-row{grid-template-columns:minmax(0,1fr);row-gap:0}
+  .sc-axis{grid-column:1}
+  .sc-n{padding-bottom:0}
+  .sc-n .r-y,.sc-n .r-n{display:inline}
+  .sc-n .r-y{margin-right:.5rem}
+  .sc-track{height:2.9rem}
+  .dot{width:.55rem;height:.55rem}
+  .year small{display:block;margin:.4rem 0 0}
+}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+ <div class="wrap">
+  <div class="hero-top">
+    <h1>Harry Potter games<span class="h1-sub">which kind of game each one is, and how the versions differ</span></h1>
+    <div class="hero-copy">
+      <p class="dek">Each of the eight films got a game, and most years are several different games sharing one title: 28 in all, from a Game Boy Color RPG in 2001 to the final film in 2011. Hogwarts Legacy, the PC action RPG on Steam, comes last.</p>
+      <p class="dek-2">English-language releases only. Below: the timetable of every year and platform, answers to the usual questions about PC versus console, the Metacritic scores year by year, then a page for each game.</p>
+    </div>
+  </div>
+  
+<figure class="tt" aria-labelledby="tt-cap">
+  <figcaption id="tt-cap">Your timetable
+    <span class="sub">What kind of game each year got, on each kind of platform. A block with a dashed bar names a genre that Wikipedia gives but whose play I could not confirm. Phone versions are not in the grid, so open a year to see them.</span></figcaption>
+  <ul class="gkey" aria-label="Game types"><li><i class="sw g-aa" aria-hidden="true"></i>Action-adventure</li><li><i class="sw g-rpg" aria-hidden="true"></i>RPG</li><li><i class="sw g-adv" aria-hidden="true"></i>Adventure and puzzle</li><li><i class="sw g-shoot" aria-hidden="true"></i>Shooter-style action</li><li><i class="sw g-arpg" aria-hidden="true"></i>Open-world action RPG</li></ul>
+  <table class="tt-table" role="table" aria-label="Game types by year and platform">
+    <thead><tr role="row"><th scope="col" role="columnheader" class="sr">Year</th><th scope="col" role="columnheader">PC and Mac</th><th scope="col" role="columnheader">Home consoles</th><th scope="col" role="columnheader">Game Boy</th><th scope="col" role="columnheader">DS and PSP</th></tr></thead>
+    <tbody><tr role="row" data-id="hp1" data-tags="many pcown rpg" style="--i:0"><th scope="row" role="rowheader"><a href="#hp1"><span class="r-y">Year 1</span><span class="r-n">Philosopher’s Stone</span><span class="r-d">2001</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PC, Mac</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PS1, PS2, GC, Xbox</span><span class="slot-n">2 separate games</span></li></ul></td><td role="cell" data-col="Game Boy"><ul class="slots"><li class="slot g-rpg"><span class="slot-g">RPG</span><span class="slot-p">GBC</span></li><li class="slot g-adv"><span class="slot-g">Adventure and puzzle</span><span class="slot-p">GBA</span></li></ul></td><td class="empty" role="cell" data-col="DS and PSP"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td></tr><tr role="row" data-id="hp2" data-tags="fav many pcown rpg" style="--i:1"><th scope="row" role="rowheader"><a href="#hp2"><span class="r-y">Year 2</span><span class="r-n">Chamber of Secrets</span><span class="r-d">2002</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PC, Mac</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PS1, PS2, GC, Xbox</span><span class="slot-n">3 separate games</span></li></ul></td><td role="cell" data-col="Game Boy"><ul class="slots"><li class="slot g-rpg"><span class="slot-g">RPG</span><span class="slot-p">GBC</span></li><li class="slot g-adv"><span class="slot-g">Adventure and puzzle</span><span class="slot-p">GBA</span></li></ul></td><td class="empty" role="cell" data-col="DS and PSP"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td></tr><tr role="row" data-id="hp3" data-tags="pcown rpg" style="--i:2"><th scope="row" role="rowheader"><a href="#hp3"><span class="r-y">Year 3</span><span class="r-n">Prisoner of Azkaban</span><span class="r-d">2004</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PC</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PS2, GC, Xbox</span></li></ul></td><td role="cell" data-col="Game Boy"><ul class="slots"><li class="slot g-rpg"><span class="slot-g">RPG</span><span class="slot-p">GBA</span></li></ul></td><td class="empty" role="cell" data-col="DS and PSP"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td></tr><tr role="row" data-id="hp4" data-tags="pcsame" style="--i:3"><th scope="row" role="rowheader"><a href="#hp4"><span class="r-y">Year 4</span><span class="r-n">Goblet of Fire</span><span class="r-d">2005</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PC, Mac</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PS2, GC, Xbox</span></li></ul></td><td role="cell" data-col="Game Boy"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">GBA</span></li></ul></td><td role="cell" data-col="DS and PSP"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PSP, DS</span><span class="slot-n">2 separate games</span></li></ul></td></tr><tr role="row" data-id="hp5" data-tags="many pcsame" style="--i:4"><th scope="row" role="rowheader"><a href="#hp5"><span class="r-y">Year 5</span><span class="r-n">Order of the Phoenix</span><span class="r-d">2007</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PC</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PS2, PS3, 360, Wii</span></li></ul></td><td role="cell" data-col="Game Boy"><ul class="slots"><li class="slot g-adv"><span class="slot-g">Adventure and puzzle</span><span class="slot-p">GBA</span></li></ul></td><td role="cell" data-col="DS and PSP"><ul class="slots"><li class="slot g-aa unc"><span class="slot-g">Action-adventure</span><span class="slot-p">PSP</span><span class="slot-n">play style not confirmed</span></li><li class="slot g-adv"><span class="slot-g">Adventure and puzzle</span><span class="slot-p">DS</span></li></ul></td></tr><tr role="row" data-id="hp6" data-tags="low pcsame" style="--i:5"><th scope="row" role="rowheader"><a href="#hp6"><span class="r-y">Year 6</span><span class="r-n">Half-Blood Prince</span><span class="r-d">2009</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PC, Mac</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PS2, PS3, 360, Wii</span></li></ul></td><td class="empty" role="cell" data-col="Game Boy"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td><td role="cell" data-col="DS and PSP"><ul class="slots"><li class="slot g-aa unc"><span class="slot-g">Action-adventure</span><span class="slot-p">PSP</span><span class="slot-n">play style not confirmed</span></li><li class="slot g-adv"><span class="slot-g">Adventure and puzzle</span><span class="slot-p">DS</span></li></ul></td></tr><tr role="row" data-id="dh1" data-tags="low pcsame" style="--i:6"><th scope="row" role="rowheader"><a href="#dh1"><span class="r-y">Year 7, part one</span><span class="r-n">Deathly Hallows, Part <span class="lf">1</span></span><span class="r-d">2010</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-shoot"><span class="slot-g">Shooter-style action</span><span class="slot-p">PC</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-shoot"><span class="slot-g">Shooter-style action</span><span class="slot-p">PS3, 360, Wii</span></li></ul></td><td class="empty" role="cell" data-col="Game Boy"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td><td role="cell" data-col="DS and PSP"><ul class="slots"><li class="slot g-adv"><span class="slot-g">Adventure and puzzle</span><span class="slot-p">DS</span></li></ul></td></tr><tr role="row" data-id="dh2" data-tags="low pcsame" style="--i:7"><th scope="row" role="rowheader"><a href="#dh2"><span class="r-y">Year 7, part two</span><span class="r-n">Deathly Hallows, Part <span class="lf">2</span></span><span class="r-d">2011</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PC</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-aa"><span class="slot-g">Action-adventure</span><span class="slot-p">PS3, 360, Wii</span></li></ul></td><td class="empty" role="cell" data-col="Game Boy"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td><td role="cell" data-col="DS and PSP"><ul class="slots"><li class="slot g-aa unc"><span class="slot-g">Action-adventure</span><span class="slot-p">DS</span><span class="slot-n">play style not confirmed</span></li></ul></td></tr><tr role="row" data-id="hl" data-tags="fav pcsame rpg" style="--i:8"><th scope="row" role="rowheader"><a href="#hl"><span class="r-y">Not a film</span><span class="r-n">Hogwarts Legacy</span><span class="r-d">2023</span></a></th><td role="cell" data-col="PC and Mac"><ul class="slots"><li class="slot g-arpg"><span class="slot-g">Open-world action RPG</span><span class="slot-p">PC</span></li></ul></td><td role="cell" data-col="Home consoles"><ul class="slots"><li class="slot g-arpg"><span class="slot-g">Open-world action RPG</span><span class="slot-p">PS5, Series X|S, Switch 2, PS4, Xbox One, Switch</span></li></ul></td><td class="empty" role="cell" data-col="Game Boy"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td><td class="empty" role="cell" data-col="DS and PSP"><span class="none" aria-hidden="true">None</span><span class="sr">No version</span></td></tr></tbody>
+  </table>
+</figure>
+  <details class="rubric">
+    <summary>How the labels work</summary>
+    <p>The game types are my own grouping, based on how Wikipedia and the reviews I read describe each version. They are not the publishers’ terms.</p>
+    <ul><li><b>Action-adventure.</b> Third-person games about exploring, solving puzzles and casting spells, with fighting as one part of the mix.</li><li><b>RPG.</b> Role-playing games with experience points, stats and menu-driven or turn-based fights.</li><li><b>Adventure and puzzle.</b> Top-down or quest-based games built on puzzles, fetch quests and mini-games.</li><li><b>Shooter-style action.</b> Cover-based, third-person combat that Wikipedia likens to a third-person shooter.</li><li><b>Open-world action RPG.</b> A large explorable world with real-time combat, levelling and gear.</li><li><b>Sports.</b> Quidditch as the whole game.</li><li><b>Motion and AR.</b> Played with a camera, a motion controller or a phone’s location and camera.</li></ul>
+    <p>A “separate game” is a version with its own design, usually its own developer. Platforms that share one design, such as the PS2, GameCube and Xbox versions of the 2003 first game, count as one. The details come from Wikipedia’s pages and the reviews named at the end, and where I could not confirm how a version plays, the block says so.</p>
+  </details>
+  
+<section class="chart" aria-labelledby="ch-h">
+  <h2 id="ch-h">Do the scores really fall off?</h2>
+  <p class="ch-sub">Each dot is one version’s Metacritic score, and the line runs from the lowest to the highest. Metacritic calls a score below 50 generally unfavorable, 50 to 74 mixed or average, and 75 and up generally favorable. Versions with no Metacritic score are left out: the Game Boy Color games, the Chamber of Secrets PlayStation game, the Mac ports, the phone games, and the PS4, Xbox One and Switch versions of Hogwarts Legacy.</p>
+  <div class="sc" data-chart>
+    <div class="sc-head" aria-hidden="true"><div class="sc-axis"><div class="bands"><span class="band" style="left:0;width:33.33%">Unfavorable</span><span class="band" style="left:33.33%;width:41.67%">Mixed or average</span><span class="band" style="left:75.00%;width:25.00%">Favorable</span></div><div class="ticks"><span class="tick" style="left:16.67%">40</span><span class="tick" style="left:33.33%">50</span><span class="tick" style="left:50.00%">60</span><span class="tick" style="left:66.67%">70</span><span class="tick" style="left:83.33%">80</span></div></div></div>
+    <ol class="sc-list"><li class="sc-row" tabindex="0" data-id="hp1" data-tags="many pcown rpg" data-all="PC 65, PS1 64, GBA 64, GC 62, Xbox 59, PS2 56" aria-label="Year 1, Philosopher’s Stone. Metacritic scores: PC 65, PS1 64, GBA 64, GC 62, Xbox 59, PS2 56"><a class="sc-n" href="#hp1"><span class="r-y">Year 1</span><span class="r-n">Philosopher’s Stone</span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:43.33%;width:15.00%"></span><span class="end lo" style="left:43.33%">56</span><span class="end hi" style="left:58.33%">65</span><span class="dot" style="left:43.33%;margin-top:0.0px" data-x="43.33" data-tip="PS2 56"></span><span class="dot" style="left:48.33%;margin-top:0.0px" data-x="48.33" data-tip="Xbox 59"></span><span class="dot" style="left:53.33%;margin-top:0.0px" data-x="53.33" data-tip="GC 62"></span><span class="dot" style="left:56.67%;margin-top:-3.0px" data-x="56.67" data-tip="PS1 64"></span><span class="dot" style="left:56.67%;margin-top:3.0px" data-x="56.67" data-tip="GBA 64"></span><span class="dot" style="left:58.33%;margin-top:0.0px" data-x="58.33" data-tip="PC 65"></span></span></li><li class="sc-row" tabindex="0" data-id="hp2" data-tags="fav many pcown rpg" data-all="GC 77, Xbox 77, PC 77, GBA 76, PS2 71" aria-label="Year 2, Chamber of Secrets. Metacritic scores: GC 77, Xbox 77, PC 77, GBA 76, PS2 71"><a class="sc-n" href="#hp2"><span class="r-y">Year 2</span><span class="r-n">Chamber of Secrets</span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:68.33%;width:10.00%"></span><span class="end lo" style="left:68.33%">71</span><span class="end hi" style="left:78.33%">77</span><span class="dot" style="left:68.33%;margin-top:0.0px" data-x="68.33" data-tip="PS2 71"></span><span class="dot" style="left:76.67%;margin-top:0.0px" data-x="76.67" data-tip="GBA 76"></span><span class="dot" style="left:78.33%;margin-top:-6.0px" data-x="78.33" data-tip="GC 77"></span><span class="dot" style="left:78.33%;margin-top:0.0px" data-x="78.33" data-tip="Xbox 77"></span><span class="dot" style="left:78.33%;margin-top:6.0px" data-x="78.33" data-tip="PC 77"></span></span></li><li class="sc-row" tabindex="0" data-id="hp3" data-tags="pcown rpg" data-all="PS2 70, GBA 69, PC 67, GC 67, Xbox 67" aria-label="Year 3, Prisoner of Azkaban. Metacritic scores: PS2 70, GBA 69, PC 67, GC 67, Xbox 67"><a class="sc-n" href="#hp3"><span class="r-y">Year 3</span><span class="r-n">Prisoner of Azkaban</span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:61.67%;width:5.00%"></span><span class="end lo" style="left:61.67%">67</span><span class="end hi" style="left:66.67%">70</span><span class="dot" style="left:61.67%;margin-top:-6.0px" data-x="61.67" data-tip="PC 67"></span><span class="dot" style="left:61.67%;margin-top:0.0px" data-x="61.67" data-tip="GC 67"></span><span class="dot" style="left:61.67%;margin-top:6.0px" data-x="61.67" data-tip="Xbox 67"></span><span class="dot" style="left:65.00%;margin-top:0.0px" data-x="65.00" data-tip="GBA 69"></span><span class="dot" style="left:66.67%;margin-top:0.0px" data-x="66.67" data-tip="PS2 70"></span></span></li><li class="sc-row" tabindex="0" data-id="hp4" data-tags="pcsame" data-all="GBA 71, PSP 70, GC 69, PS2 68, Xbox 68, DS 68, PC 66" aria-label="Year 4, Goblet of Fire. Metacritic scores: GBA 71, PSP 70, GC 69, PS2 68, Xbox 68, DS 68, PC 66"><a class="sc-n" href="#hp4"><span class="r-y">Year 4</span><span class="r-n">Goblet of Fire</span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:60.00%;width:8.33%"></span><span class="end lo" style="left:60.00%">66</span><span class="end hi" style="left:68.33%">71</span><span class="dot" style="left:60.00%;margin-top:0.0px" data-x="60.00" data-tip="PC 66"></span><span class="dot" style="left:63.33%;margin-top:-6.0px" data-x="63.33" data-tip="PS2 68"></span><span class="dot" style="left:63.33%;margin-top:0.0px" data-x="63.33" data-tip="Xbox 68"></span><span class="dot" style="left:63.33%;margin-top:6.0px" data-x="63.33" data-tip="DS 68"></span><span class="dot" style="left:65.00%;margin-top:0.0px" data-x="65.00" data-tip="GC 69"></span><span class="dot" style="left:66.67%;margin-top:0.0px" data-x="66.67" data-tip="PSP 70"></span><span class="dot" style="left:68.33%;margin-top:0.0px" data-x="68.33" data-tip="GBA 71"></span></span></li><li class="sc-row" tabindex="0" data-id="hp5" data-tags="many pcsame" data-all="Wii 69, 360 68, PS3 67, PC 63, PS2 61, PSP 52, DS 51, GBA 50" aria-label="Year 5, Order of the Phoenix. Metacritic scores: Wii 69, 360 68, PS3 67, PC 63, PS2 61, PSP 52, DS 51, GBA 50"><a class="sc-n" href="#hp5"><span class="r-y">Year 5</span><span class="r-n">Order of the Phoenix</span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:33.33%;width:31.67%"></span><span class="end lo" style="left:33.33%">50</span><span class="end hi" style="left:65.00%">69</span><span class="dot" style="left:33.33%;margin-top:0.0px" data-x="33.33" data-tip="GBA 50"></span><span class="dot" style="left:35.00%;margin-top:0.0px" data-x="35.00" data-tip="DS 51"></span><span class="dot" style="left:36.67%;margin-top:0.0px" data-x="36.67" data-tip="PSP 52"></span><span class="dot" style="left:51.67%;margin-top:0.0px" data-x="51.67" data-tip="PS2 61"></span><span class="dot" style="left:55.00%;margin-top:0.0px" data-x="55.00" data-tip="PC 63"></span><span class="dot" style="left:61.67%;margin-top:0.0px" data-x="61.67" data-tip="PS3 67"></span><span class="dot" style="left:63.33%;margin-top:0.0px" data-x="63.33" data-tip="360 68"></span><span class="dot" style="left:65.00%;margin-top:0.0px" data-x="65.00" data-tip="Wii 69"></span></span></li><li class="sc-row" tabindex="0" data-id="hp6" data-tags="low pcsame" data-all="PS3 66, PS2 65, 360 64, PC 64, Wii 60, PSP 51, DS 48" aria-label="Year 6, Half-Blood Prince. Metacritic scores: PS3 66, PS2 65, 360 64, PC 64, Wii 60, PSP 51, DS 48"><a class="sc-n" href="#hp6"><span class="r-y">Year 6</span><span class="r-n">Half-Blood Prince</span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:30.00%;width:30.00%"></span><span class="end lo" style="left:30.00%">48</span><span class="end hi" style="left:60.00%">66</span><span class="dot" style="left:30.00%;margin-top:0.0px" data-x="30.00" data-tip="DS 48"></span><span class="dot" style="left:35.00%;margin-top:0.0px" data-x="35.00" data-tip="PSP 51"></span><span class="dot" style="left:50.00%;margin-top:0.0px" data-x="50.00" data-tip="Wii 60"></span><span class="dot" style="left:56.67%;margin-top:-3.0px" data-x="56.67" data-tip="360 64"></span><span class="dot" style="left:56.67%;margin-top:3.0px" data-x="56.67" data-tip="PC 64"></span><span class="dot" style="left:58.33%;margin-top:0.0px" data-x="58.33" data-tip="PS2 65"></span><span class="dot" style="left:60.00%;margin-top:0.0px" data-x="60.00" data-tip="PS3 66"></span></span></li><li class="sc-row" tabindex="0" data-id="dh1" data-tags="low pcsame" data-all="DS 56, Wii 41, PS3 38, 360 38, PC 37" aria-label="Year 7, part one, Deathly Hallows, Part 1. Metacritic scores: DS 56, Wii 41, PS3 38, 360 38, PC 37"><a class="sc-n" href="#dh1"><span class="r-y">Year 7, part one</span><span class="r-n">Deathly Hallows, Part <span class="lf">1</span></span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:11.67%;width:31.67%"></span><span class="end lo" style="left:11.67%">37</span><span class="end hi" style="left:43.33%">56</span><span class="dot" style="left:11.67%;margin-top:0.0px" data-x="11.67" data-tip="PC 37"></span><span class="dot" style="left:13.33%;margin-top:-3.0px" data-x="13.33" data-tip="PS3 38"></span><span class="dot" style="left:13.33%;margin-top:3.0px" data-x="13.33" data-tip="360 38"></span><span class="dot" style="left:18.33%;margin-top:0.0px" data-x="18.33" data-tip="Wii 41"></span><span class="dot" style="left:43.33%;margin-top:0.0px" data-x="43.33" data-tip="DS 56"></span></span></li><li class="sc-row" tabindex="0" data-id="dh2" data-tags="low pcsame" data-all="DS 55, Wii 47, 360 44, PS3 43, PC 43" aria-label="Year 7, part two, Deathly Hallows, Part 2. Metacritic scores: DS 55, Wii 47, 360 44, PS3 43, PC 43"><a class="sc-n" href="#dh2"><span class="r-y">Year 7, part two</span><span class="r-n">Deathly Hallows, Part <span class="lf">2</span></span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:21.67%;width:20.00%"></span><span class="end lo" style="left:21.67%">43</span><span class="end hi" style="left:41.67%">55</span><span class="dot" style="left:21.67%;margin-top:-3.0px" data-x="21.67" data-tip="PS3 43"></span><span class="dot" style="left:21.67%;margin-top:3.0px" data-x="21.67" data-tip="PC 43"></span><span class="dot" style="left:23.33%;margin-top:0.0px" data-x="23.33" data-tip="360 44"></span><span class="dot" style="left:28.33%;margin-top:0.0px" data-x="28.33" data-tip="Wii 47"></span><span class="dot" style="left:41.67%;margin-top:0.0px" data-x="41.67" data-tip="DS 55"></span></span></li><li class="sc-row" tabindex="0" data-id="hl" data-tags="fav pcsame rpg" data-all="Series X|S 85, PS5 84, PC 83, Switch 2 82" aria-label="Not a film, Hogwarts Legacy. Metacritic scores: Series X|S 85, PS5 84, PC 83, Switch 2 82"><a class="sc-n" href="#hl"><span class="r-y">Not a film</span><span class="r-n">Hogwarts Legacy</span></a><span class="sc-track" aria-hidden="true"><span class="th th50"></span><span class="th th75"></span><span class="rng" style="left:86.67%;width:5.00%"></span><span class="end lo" style="left:86.67%">82</span><span class="end hi" style="left:91.67%">85</span><span class="dot" style="left:86.67%;margin-top:0.0px" data-x="86.67" data-tip="Switch 2 82"></span><span class="dot" style="left:88.33%;margin-top:0.0px" data-x="88.33" data-tip="PC 83"></span><span class="dot" style="left:90.00%;margin-top:0.0px" data-x="90.00" data-tip="PS5 84"></span><span class="dot" style="left:91.67%;margin-top:0.0px" data-x="91.67" data-tip="Series X|S 85"></span></span></li></ol>
+  </div>
+  <details class="tbl"><summary>Show the scores as a table</summary>
+    <table><thead><tr><th scope="col">Game</th><th scope="col">Metacritic, highest first</th></tr></thead><tbody><tr><th scope="row">Year 1, Philosopher’s Stone</th><td>PC 65, PS1 64, GBA 64, GC 62, Xbox 59, PS2 56</td></tr><tr><th scope="row">Year 2, Chamber of Secrets</th><td>GC 77, Xbox 77, PC 77, GBA 76, PS2 71</td></tr><tr><th scope="row">Year 3, Prisoner of Azkaban</th><td>PS2 70, GBA 69, PC 67, GC 67, Xbox 67</td></tr><tr><th scope="row">Year 4, Goblet of Fire</th><td>GBA 71, PSP 70, GC 69, PS2 68, Xbox 68, DS 68, PC 66</td></tr><tr><th scope="row">Year 5, Order of the Phoenix</th><td>Wii 69, 360 68, PS3 67, PC 63, PS2 61, PSP 52, DS 51, GBA 50</td></tr><tr><th scope="row">Year 6, Half-Blood Prince</th><td>PS3 66, PS2 65, 360 64, PC 64, Wii 60, PSP 51, DS 48</td></tr><tr><th scope="row">Year 7, part one, Deathly Hallows, Part 1</th><td>DS 56, Wii 41, PS3 38, 360 38, PC 37</td></tr><tr><th scope="row">Year 7, part two, Deathly Hallows, Part 2</th><td>DS 55, Wii 47, 360 44, PS3 43, PC 43</td></tr><tr><th scope="row">Not a film, Hogwarts Legacy</th><td>Series X|S 85, PS5 84, PC 83, Switch 2 82</td></tr></tbody></table>
+  </details>
+</section>
+  
+<section class="qa" aria-labelledby="qa-h">
+  <h2 id="qa-h">Your questions, answered</h2>
+  <dl class="qa-list"><div class="qa-i"><dt>Are the PC versions the same as the console ones?</dt><dd>It depends on the year. In Years 1 to 3 the PC game is a separate game by KnowWonder, built on Unreal Engine and designed differently from the console games. From Year 4 on the PC game is the console game: a port of it in Goblet of Fire, and from Order of the Phoenix on it is listed under the console developers, with the only difference I found being controls.<span class="qa-l">See <a href="#hp1">Year 1</a>, <a href="#hp2">Year 2</a>, <a href="#hp3">Year 3</a>, <a href="#hp4">Year 4</a>, <a href="#hp5">Year 5</a>.</span></dd></div><div class="qa-i"><dt>Was the first game different on PS2 and GameCube?</dt><dd>Not in design. The 2003 PS2, GameCube and Xbox versions of Philosopher’s Stone are one game by Warthog Games, and the differences I found are technical: progressive scan on GameCube and Xbox, the best audio on Xbox, and scores of 62 for GameCube, 59 for Xbox and 56 for PS2. The version people usually mean may be Chamber of Secrets, where the PS2 game is by EA UK and the GameCube and Xbox games are by Eurocom, and the broom lands anywhere on PS2 but only at set spots on the other two.<span class="qa-l">See <a href="#hp1">Year 1</a>, <a href="#hp2">Year 2</a>.</span></dd></div><div class="qa-i"><dt>Were the first game’s handhelds an RPG and another genre, by different companies?</dt><dd>Half right. The Game Boy Color game is an RPG and the Game Boy Advance game is a top-down adventure and puzzle game, but Wikipedia credits Griptonite Games for both. Different companies is true of Chamber of Secrets, where Griptonite made the Game Boy Color RPG and Eurocom made the Game Boy Advance game.<span class="qa-l">See <a href="#hp1">Year 1</a>, <a href="#hp2">Year 2</a>.</span></dd></div><div class="qa-i"><dt>Which ones are RPGs?</dt><dd>The Game Boy Color games for Years 1 and 2, the Game Boy Advance game for Year 3, and Hogwarts Legacy, which is an open-world action RPG. Everything else is an action-adventure variant, or on the DS an adventure built from quests and mini-games. Among the spin-offs, the phone game Hogwarts Mystery is an RPG.<span class="qa-l">See <a href="#hp1">Year 1</a>, <a href="#hp2">Year 2</a>, <a href="#hp3">Year 3</a>, <a href="#hl">Hogwarts Legacy</a>.</span></dd></div><div class="qa-i"><dt>Why are the later EA games so poorly regarded?</dt><dd>Scores fall from 71 to 77 for Chamber of Secrets to 37 to 56 for Deathly Hallows, Part 1. Reviews cite repetitive combat, duels that are too easy, a basic structure, and short games. The sources I read do not give a cause, so I will not guess one.<span class="qa-l">See <a href="#hp2">Year 2</a>, <a href="#hp5">Year 5</a>, <a href="#dh1">Year 7, part one</a>, <a href="#dh2">Year 7, part two</a>.</span></dd></div><div class="qa-i"><dt>Is any of it on Steam?</dt><dd>Hogwarts Legacy has been on Steam since Feb 10, 2023. The LEGO Harry Potter Collection, which bundles both LEGO games, came to Steam in October 2024, and Quidditch Champions has a Steam listing. None of the sources I read mention a Steam or GOG release of the EA film games.<span class="qa-l">See <a href="#hl">Hogwarts Legacy</a>.</span></dd></div></dl>
+</section>
+ </div>
+</header>
+
+
+<section class="filters" hidden aria-label="Filter the games">
+  <div class="wrap filters-in">
+    <div class="chips" role="group" aria-label="Show only games that"><button type="button" class="chip" data-filter="all" aria-pressed="true">Everything<span class="cnt">9</span></button><button type="button" class="chip" data-filter="rpg" aria-pressed="false">Has an RPG version<span class="cnt">4</span></button><button type="button" class="chip" data-filter="many" aria-pressed="false">Four or more separate games<span class="cnt">3</span></button><button type="button" class="chip" data-filter="pcown" aria-pressed="false">PC is its own game<span class="cnt">3</span></button><button type="button" class="chip" data-filter="pcsame" aria-pressed="false">PC matches the console game<span class="cnt">6</span></button><button type="button" class="chip" data-filter="fav" aria-pressed="false">Scored 75 or more on Metacritic<span class="cnt">2</span></button><button type="button" class="chip" data-filter="low" aria-pressed="false">Scored under 50 on Metacritic<span class="cnt">3</span></button></div>
+    <p class="status" id="filter-status" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="trail">
+<article class="entry" id="hp1" data-tags="many pcown rpg" aria-labelledby="hp1-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2001<small>Year 1</small></p>
+    <h2 id="hp1-t">Harry Potter and the Philosopher’s Stone</h2>
+    <p class="sub">Sorcerer’s Stone in the US. First released Nov 16, 2001.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>5</b> separate games</li><li><b>56–65</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">The first tie-in came out in November 2001, with the film. Five different games share the name: a PlayStation adventure, a PC adventure, a Game Boy Color RPG, a Game Boy Advance puzzle adventure, and in 2003 a console game rebuilt from scratch.</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Philosopher’s Stone">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PlayStation</h4><p class="b-dev">By Argonaut Games. Released Nov 16, 2001.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS1</span> <b>64</b></li></ul><p class="b-text">An action-adventure with platformer elements. There is no jump button, because Harry leaps at ledges by himself. Spells are cast by repeating a Simon-style button sequence. Quidditch has three phases: flying through rings, racing the rival Seeker, then catching the Snitch.</p><p class="b-rev">Other scores: EGM 4.5, 6.5 and 6 out of 10 from three reviewers, GameSpot 4, IGN 8.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PC and Mac</h4><p class="b-dev">By KnowWonder, with the Mac port by Westlake Interactive. Released Windows Nov 16, 2001. Mac Feb 20, 2002.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PC</span> <b>65</b></li><li class="ns"><span class="pn">Mac</span> <small>no score</small></li></ul><p class="b-text">A third-person action-adventure on Unreal Engine 1. You learn a spell by tracing its shape against a timer, then cast it by holding the left mouse button and releasing over a target. Challenge areas mix platforming and puzzles. Chocolate frogs restore your stamina bar, and beans buy Famous Witches and Wizards cards.</p><p class="b-rev">Other scores: GameSpot 5.5, IGN 6.4, GameSpy 68%, PC Gamer US 59%.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-rpg"><i class="sw" aria-hidden="true"></i>RPG</span></div><div class="b-main"><h4 class="b-name">Game Boy Color</h4><p class="b-dev">By Griptonite Games. Released Nov 16, 2001.</p><p class="b-text">A third-person RPG. Touching a spiral starts an encounter, and you fight with spells that cost Magical Points until the enemy’s stamina runs out and it flees. Combining Famous Witches and Wizards cards makes stronger spells, and cards can be traded over the Game Link Cable. There is no Quidditch match. Broom flying is a side-scrolling section instead.</p><p class="b-rev">No Metacritic score. GameRankings 73%, IGN 7, Nintendo Power 18.5 out of 25.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-adv"><i class="sw" aria-hidden="true"></i>Adventure and puzzle</span></div><div class="b-main"><h4 class="b-name">Game Boy Advance</h4><p class="b-dev">By Griptonite Games. Released NA Nov 16, 2001. Europe Nov 23, 2001.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">GBA</span> <b>64</b></li></ul><p class="b-text">A top-down adventure and puzzle game, not an RPG. You learn spells with D-pad sequences, fend off creatures and solve puzzles. Health is a row of lightning bolts, and the save points are floating books. A few Quidditch matches are played by flying through rings to the Snitch.</p><p class="b-rev">Other scores: GameSpot 5.4, IGN 6, GamePro 3.5 out of 5.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">The 2003 console rebuild</h4><p class="b-dev">By Warthog Games. Released late 2003.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS2</span> <b>56</b></li><li><span class="pn">GC</span> <b>62</b></li><li><span class="pn">Xbox</span> <b>59</b></li></ul><p class="b-text">A new game, not a port of the 2001 PlayStation one. It was built on the console engine from Chamber of Secrets and follows the film more closely. Wikipedia says it reuses many of Chamber of Secrets’ assets. Reviewers praised the voice acting.</p><p class="b-rev">Other scores: GameSpot 6.1 and IGN 6.4 on all three, GameSpy 2 out of 5, Game Revolution D+.</p></div></li></ol>
+    
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>The 2001 PlayStation and PC games are not the same game. The PC version aims spells with the mouse. The PlayStation version uses button sequences and has no jump. Wikipedia’s PlayStation page also calls its music sparse next to the PC score.</li><li>On the PC side, the Mac release is a port made by a different studio, Westlake Interactive, and published by Aspyr.</li><li>The two handheld games are different genres, an RPG on Game Boy Color and a top-down adventure on Game Boy Advance. Wikipedia credits Griptonite for both.</li><li>PS2, GameCube and Xbox in 2003 are the same game. The differences I found are technical. GameCube and Xbox support progressive scan, which GameSpot said made no dramatic difference, and GameSpot called the Xbox audio the best of the three. Scores run GameCube 62, Xbox 59 and PS2 56.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Mixed on every platform, 56 to 65. Reviews call the 2001 games simple and repetitive but faithful to the books and fine for younger players. The 2003 console game scored below the 2001 PlayStation and PC games. CVG called Hogwarts there a “curiously flat experience”, and X-Play named the camera the worst offender. Frame rates were inconsistent.</p>
+    <p class="verdict"><b>Short answer:</b> Five separate games. The big split is 2001 versus 2003, not PS2 versus GameCube. The Game Boy Color game is the only RPG in the set.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="hp2" data-tags="fav many pcown rpg" aria-labelledby="hp2-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2002<small>Year 2</small></p>
+    <h2 id="hp2-t">Harry Potter and the Chamber of Secrets</h2>
+    <p class="sub">First released Nov 15, 2002.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>6</b> separate games</li><li><b>71–77</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">The console and handheld versions launched on the same day in November 2002. Wikipedia says they “differ substantially” in design, and this is the year with the most separate games, six.</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Chamber of Secrets">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PlayStation</h4><p class="b-dev">By Argonaut Games. Released Nov 15, 2002.</p><p class="b-text">A sequel to Argonaut’s own PlayStation game. It keeps many of that game’s elements and graphics, changes some Hogwarts areas and adds new mini-games. Most new spells are upgrades of earlier ones.</p><p class="b-rev">No Metacritic score.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PlayStation 2</h4><p class="b-dev">By EA UK. Released Nov 15, 2002.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS2</span> <b>71</b></li></ul><p class="b-text">Has a free-flight broom mode where you can land anywhere. Class challenges are timed.</p><p class="b-rev">Other scores: IGN 8.4, GameSpot 7.3.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">GameCube and Xbox</h4><p class="b-dev">By Eurocom. Released Nov 15, 2002.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">GC</span> <b>77</b></li><li><span class="pn">Xbox</span> <b>77</b></li></ul><p class="b-text">Also has a free-flight broom, but with limited landing zones. On GameCube, connecting the Game Boy Advance game opens a secret room.</p><p class="b-rev">Other scores: IGN 8.9 (GameCube) and 8.7 (Xbox), GameSpot 7.3 (both).</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-adv"><i class="sw" aria-hidden="true"></i>Adventure and puzzle</span></div><div class="b-main"><h4 class="b-name">Game Boy Advance</h4><p class="b-dev">By Eurocom. Released Nov 15, 2002.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">GBA</span> <b>76</b></li></ul><p class="b-text">Has the fewest spells of any version and is mostly mini-quests.</p><p class="b-rev">Other scores: IGN 7.8, GameSpot 7.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-rpg"><i class="sw" aria-hidden="true"></i>RPG</span></div><div class="b-main"><h4 class="b-name">Game Boy Color</h4><p class="b-dev">By Griptonite Games. Released Nov 15, 2002.</p><p class="b-text">An RPG. Harry, Ron, Hermione and Gilderoy Lockhart are each playable at points.</p><p class="b-rev">No Metacritic score.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PC and Mac</h4><p class="b-dev">By KnowWonder, with the Mac port by Westlake Interactive. Released Windows 2002. Mac Apr 16, 2003.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PC</span> <b>77</b></li><li class="ns"><span class="pn">Mac</span> <small>no score</small></li></ul><p class="b-text">Built on Unreal Engine 1 with the same graphics and character design as the PC game from the year before. It keeps some of that game’s spells, and new ones are learned by attending classes. Wikipedia’s series page describes the PC version as puzzle-oriented, unlike the Eurocom console versions. Windows and Mac share a design.</p><p class="b-rev">Other scores: IGN 8, GameSpy 3 out of 5, PC Gamer US 75%.</p></div></li></ol>
+    
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>This is the year the PS2 version really is different from the GameCube and Xbox ones. The PS2 game is by EA UK, and the other two are by Eurocom. On the PS2 you can land the broom anywhere, and on GameCube and Xbox only at set landing zones.</li><li>The PC game is built on the previous PC game’s engine, and Wikipedia’s series page says it kept more of that game’s assets and a puzzle-oriented style than the Eurocom console versions did.</li><li>A Gameluster retrospective, which is one writer’s opinion, says the GameCube game uses teleports instead of making you walk everywhere, and that the game “looks and plays better on the Gamecube.”</li><li>The two handhelds are again different genres, a Griptonite RPG and a Eurocom mini-quest game, and this time by different companies.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>The best-reviewed film game on Metacritic, with 71 to 77 across platforms. Reviewers were warmer than for the first game, with IGN giving 8.9 to the GameCube version. It won a BAFTA for best score (Jeremy Soule) and, per Wikipedia, sold nine million copies by 2003.</p>
+    <p class="verdict"><b>Short answer:</b> Six separate games. If you want to pick one, GameCube, Xbox and PC all hold a 77. The PS2 is the lowest of the set at 71.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="hp3" data-tags="pcown rpg" aria-labelledby="hp3-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2004<small>Year 3</small></p>
+    <h2 id="hp3-t">Harry Potter and the Prisoner of Azkaban</h2>
+    <p class="sub">First released May 25, 2004.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>3</b> separate games</li><li><b>67–70</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">PC and Game Boy Advance came out first, in late May 2004, and the consoles followed within days. Three different games: Wikipedia says plainly that “the game differs between platforms.”</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Prisoner of Azkaban">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PC</h4><p class="b-dev">By KnowWonder. Released May 25, 2004.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PC</span> <b>67</b></li></ul><p class="b-text">Puzzle-solving missions in the style of the earlier PC games, built on Unreal Engine 2. GameSpot’s Brad Shoemaker found the puzzles and combat very easy, and most players finish in five or six hours.</p><p class="b-rev">Other scores: IGN 6, GameSpot 7.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PlayStation 2, Xbox and GameCube</h4><p class="b-dev">By EA UK. Released PS2, Xbox and GameCube Jun 2, 2004 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS2</span> <b>70</b></li><li><span class="pn">GC</span> <b>67</b></li><li><span class="pn">Xbox</span> <b>67</b></li></ul><p class="b-text">A 3D action-adventure with an over-the-shoulder camera, boss fights and detective sections. Wikipedia lists EyeToy-compatible mini-games and multi-character puzzles as PS2 additions. IGN criticised the PS2 frame rate and called that version “sloppy.”</p><p class="b-rev">Other scores: IGN 6.2 (PS2), 6 (GameCube), 6.1 (Xbox). GameSpot 7.2 (PS2), 7 (Xbox). Famitsu 30 out of 40 (PS2, GameCube).</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-rpg"><i class="sw" aria-hidden="true"></i>RPG</span></div><div class="b-main"><h4 class="b-name">Game Boy Advance</h4><p class="b-dev">By Griptonite Games. Released May 25, 2004.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">GBA</span> <b>69</b></li></ul><p class="b-text">A traditional RPG that Wikipedia compares to Dragon Quest, with dozens of quests that branch from situations in the film. IGN praised that it has no random battles and called the implementation sloppy.</p><p class="b-rev">Other scores: IGN 6.5, GameSpot 7.5, Famitsu 27 out of 40.</p></div></li></ol>
+    
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>Apart from the two Game Boy Color games, this Game Boy Advance game is the only film RPG.</li><li>The PC and console games are separate again. The PC game keeps the puzzle-mission design, and the console game moves to boss fights and a camera over Harry’s shoulder.</li><li>You play all three of Harry, Ron and Hermione in every version, and some sections have you fly Buckbeak or control Hedwig.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Mixed to average, 67 to 70 on Metacritic. The reviews called it easy and short, and IGN went as low as 6 on the PC, GameCube and Xbox versions. A Gameluster retrospective, which is one writer’s opinion, says it “presents the best version of this style of gameplay.”</p>
+    <p class="verdict"><b>Short answer:</b> Three separate games. The Game Boy Advance one is an RPG.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="hp4" data-tags="pcsame" aria-labelledby="hp4-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2005<small>Year 4</small></p>
+    <h2 id="hp4-t">Harry Potter and the Goblet of Fire</h2>
+    <p class="sub">First released Nov 8, 2005.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>2</b> separate games</li><li><b>66–71</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">The series changed direction here. The PC and Mac versions stop being separate games, and the design becomes level-based and action-heavy. There are Two games: a 3D one and a 2D one.</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Goblet of Fire">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">The 3D game</h4><p class="b-dev">By EA UK. Released Nov 8, 2005 in North America. PSP Nov 15, 2005.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS2</span> <b>68</b></li><li><span class="pn">GC</span> <b>69</b></li><li><span class="pn">Xbox</span> <b>68</b></li><li><span class="pn">PC</span> <b>66</b></li><li class="ns"><span class="pn">Mac</span> <small>no score</small></li><li><span class="pn">PSP</span> <b>70</b></li></ul><p class="b-text">Split into levels instead of a free-roaming Hogwarts, with broom flying, underwater swimming and group spellcasting. It is the first game in the series with multiplayer. Wikipedia says the PC and Mac releases were ports of the console game, and Cubed3 says the PSP got a port of the 3D version.</p><p class="b-rev">Other scores: IGN 7.2 on most platforms and 7.5 on PSP, GameSpot 7.3, Eurogamer 6 out of 10 (PC).</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">The 2D game</h4><p class="b-dev">By Magic Pockets. Released Nov 8, 2005 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">GBA</span> <b>71</b></li><li><span class="pn">DS</span> <b>68</b></li></ul><p class="b-text">A linear, top-down isometric action-adventure with very large levels. You choose Harry, Ron or Hermione, and the choice barely changes how you play. Spells are cast with the A and B buttons. Cubed3 calls the Game Boy Advance and DS versions essentially the same game, with no graphical improvement on the DS.</p><p class="b-rev">Other scores: IGN 7.4 (GBA) and 7.8 (DS), GameSpot 6.6 (GBA) and 6.5 (DS), Cubed3 5 out of 10 (DS).</p></div></li></ol>
+    
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>The PC and Mac versions are ports of the console game, a change from the first three years.</li><li>Wikipedia calls the multiplayer a series first and does not break it down by platform.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Mixed, 66 to 71. Reviewers enjoyed the range of spells, and were less taken with the lack of free roaming and the short length. Cubed3 gave the DS version 5 out of 10 and recommended the console versions instead.</p>
+    <p class="verdict"><b>Short answer:</b> Two games. This is the first year where the PC version is just the console game.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="hp5" data-tags="many pcsame" aria-labelledby="hp5-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2007<small>Year 5</small></p>
+    <h2 id="hp5-t">Harry Potter and the Order of the Phoenix</h2>
+    <p class="sub">First released Jun 25, 2007.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>4</b> separate games</li><li><b>50–69</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">The big consoles get an open, sandbox-style Hogwarts built from the film’s sets, while the handhelds are a completely different kind of game. That makes four games, counting the mobile one.</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Order of the Phoenix">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PlayStation 2, PlayStation 3, Xbox 360, Wii and PC</h4><p class="b-dev">By EA UK. Released Jun 25, 2007 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS2</span> <b>61</b></li><li><span class="pn">PS3</span> <b>67</b></li><li><span class="pn">360</span> <b>68</b></li><li><span class="pn">Wii</span> <b>69</b></li><li><span class="pn">PC</span> <b>63</b></li></ul><p class="b-text">A sandbox-style Hogwarts modelled on the film sets, with spells, Discovery points, duels, mini-games and a Room of Rewards. The Wii Remote works as the wand and the Wii version looks worse than the PS3 and Xbox 360 ones. Wikipedia does not describe the PS2 and PC games as different designs, and I could not find any detail on how they differ.</p><p class="b-rev">Other scores: IGN 7.6 (PS3 and Xbox 360), 7.8 (Wii), 7 (PS2), 7.3 (PC). GameSpot 5 on every platform. PC Gamer US 59%.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-adv"><i class="sw" aria-hidden="true"></i>Adventure and puzzle</span></div><div class="b-main"><h4 class="b-name">Nintendo DS and Game Boy Advance</h4><p class="b-dev">By Visual Impact. Released DS Jun 25, 2007. Game Boy Advance Jul 10, 2007, both in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">DS</span> <b>51</b></li><li><span class="pn">GBA</span> <b>50</b></li></ul><p class="b-text">A loop of fetch quests and lesson-themed mini-games with the Gryffindor common room as the hub, and duels that are a simplified turn-based system. GameSpot, reviewing both together, called them virtually identical in content. On the DS, potions use the stylus and the microphone and spells are traced on the screen, and the camera cuts when you change rooms. The Game Boy Advance game casts spells by pressing a button sequence before time runs out and has plainer graphics. Cubed3 gave the DS game 5 out of 10, and Nintendo Life gave it 3 and called it “low-quality shovelware.”</p><p class="b-rev">Other scores: IGN 6 (DS), GameSpot 5 (DS and GBA).</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span><span class="unc-t">Play style not confirmed</span></div><div class="b-main"><h4 class="b-name">PSP</h4><p class="b-dev">By Rebellion Developments. Released Jun 25, 2007 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PSP</span> <b>52</b></li></ul><p class="b-text">Wikipedia lists the genre as action-adventure like the rest. I found no description of how this version plays, so the label comes from that list.</p><p class="b-rev">Other scores: IGN 5.5.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">Mobile phones</h4><p class="b-dev">By EA Romania. Released Jun 15, 2007 in North America.</p><p class="b-text">PocketGamer’s review of the Java version describes an isometric action-adventure in which you sneak through Hogwarts, staying in shadows and putting out lights with your wand. Duelling and potion mini-games use a spinning wand.</p><p class="b-rev">Other scores: PocketGamer 3.5 out of 5.</p></div></li></ol>
+    <p class="also">A Mac OS X version followed on Aug 21, 2007. Its developer is not stated in my sources.</p>
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>Seventh-generation consoles scored best, Wii 69, Xbox 360 68 and PS3 67. The PS2 and PC games scored 61 and 63, and the handhelds 50 to 52.</li><li>Nintendo Life gave the Wii version 8 out of 10, praising the Wii Remote wand and the Marauder’s Map as a way to navigate.</li><li>The DS and Game Boy Advance games drop the open Hogwarts for a structure built on fetch quests and mini-games.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Mixed on every platform, 50 to 69. Game Revolution wrote that “one-on-one duels are dreadfully easy”, and the New York Times said it “has an unfinished feel.” The music was praised.</p>
+    <p class="verdict"><b>Short answer:</b> Pick the Wii or Xbox 360 for the closest to the open-Hogwarts idea. The handheld games are quest-and-mini-game collections.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="hp6" data-tags="low pcsame" aria-labelledby="hp6-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2009<small>Year 6</small></p>
+    <h2 id="hp6-t">Harry Potter and the Half-Blood Prince</h2>
+    <p class="sub">First released Jun 30, 2009.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>3</b> separate games</li><li><b>48–66</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">EA Bright Light takes over from EA UK. The home games keep the open Hogwarts of the year before, and the DS again goes its own way. Three games, plus a mobile version I found no details on.</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Half-Blood Prince">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PlayStation 2, PlayStation 3, Xbox 360, Wii, PC and Mac</h4><p class="b-dev">By EA Bright Light. Released Jun 30, 2009 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS2</span> <b>65</b></li><li><span class="pn">PS3</span> <b>66</b></li><li><span class="pn">360</span> <b>64</b></li><li><span class="pn">Wii</span> <b>60</b></li><li><span class="pn">PC</span> <b>64</b></li><li class="ns"><span class="pn">Mac</span> <small>no score</small></li></ul><p class="b-text">You explore Hogwarts and cast spells, with Quidditch, wizard duels, potion making and the Marauder’s Map. Nearly Headless Nick acts as your guide, there are 150 crests to find, and Ron and Ginny each get a level. The Wii Remote controls potions, duels and Quidditch, and the PS3 version uses DualShock 3 vibration. The PS2, PC and Xbox 360 versions use the same controls as the previous game.</p><p class="b-rev">Other scores: IGN 7.7 (PS3, Xbox 360, Wii), 7.5 (PC). GameSpot 5 on PS3 and Wii.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-adv"><i class="sw" aria-hidden="true"></i>Adventure and puzzle</span></div><div class="b-main"><h4 class="b-name">Nintendo DS</h4><p class="b-dev">Developer not stated in my sources. Released Jun 30, 2009 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">DS</span> <b>48</b></li></ul><p class="b-text">WorthPlaying describes a game that is almost entirely fetch quests, with paintings as shortcuts to a hub room. Duels play out in 2D on the top screen. The Remembrall replaces Nearly Headless Nick as the guide, spells and duels are simplified, and the outdoor areas of the Xbox 360 version are missing. The stylus adds the mini-games Gobstones and Exploding Snap.</p><p class="b-rev">Other scores: WorthPlaying 5.5.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span><span class="unc-t">Play style not confirmed</span></div><div class="b-main"><h4 class="b-name">PSP</h4><p class="b-dev">Developer not stated in my sources. Released Jun 30, 2009 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PSP</span> <b>51</b></li></ul><p class="b-text">Wikipedia lists the genre as action-adventure like the rest. I found no description of how this version plays.</p></div></li></ol>
+    <p class="also">A mobile version by EA Romania also exists. I did not find a description of it.</p>
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>Wii scored 60, below the PS2, PS3, PC and Xbox 360 games, which broke the pattern of the year before.</li><li>The DS game scored 48, which Metacritic classes as generally unfavorable. It is the only version below 50 this year.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Mixed, 48 to 66. IGN gave 7.7 and said it “improves on the stuff I liked in its predecessor.” GameSpot gave 5 out of 10 and called it “a forgettable experience.” IT Reviews criticised the repetition and the short length.</p>
+    <p class="verdict"><b>Short answer:</b> Two kinds of game: the open-Hogwarts console game, and a DS fetch-quest game. The PC version matches the console one.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="dh1" data-tags="low pcsame" aria-labelledby="dh1-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2010<small>Year 7, part one</small></p>
+    <h2 id="dh1-t">Harry Potter and the Deathly Hallows, Part <span class="lf">1</span></h2>
+    <p class="sub">First released Nov 16, 2010.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>2</b> separate games</li><li><b>37–56</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">The home games turn into a cover-based shooter-style game, and critics turned on them. This is the lowest-rated film tie-in on Metacritic. Two games, plus mobile.</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Deathly Hallows, Part 1">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-shoot"><i class="sw" aria-hidden="true"></i>Shooter-style action</span></div><div class="b-main"><h4 class="b-name">PlayStation 3, Xbox 360, Wii and PC</h4><p class="b-dev">By EA Bright Light. Released Nov 16, 2010 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS3</span> <b>38</b></li><li><span class="pn">360</span> <b>38</b></li><li><span class="pn">Wii</span> <b>41</b></li><li><span class="pn">PC</span> <b>37</b></li></ul><p class="b-text">Wikipedia says the console and PC games are played in the style of a third-person shooter, with a spell wheel and a cover system. Stealth missions use Polyjuice Potion, Peruvian Instant Darkness Powder and the Invisibility Cloak. On the Wii the graphics are downgraded and, per IGN and Official Nintendo Magazine, the controls are awkward.</p><p class="b-rev">Other scores: IGN 2 (PS3, Wii) and 2.5 (Xbox 360). Edge 3, Eurogamer 3, Game Informer 5.5, GameSpot 5.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-adv"><i class="sw" aria-hidden="true"></i>Adventure and puzzle</span></div><div class="b-main"><h4 class="b-name">Nintendo DS</h4><p class="b-dev">By Full Fat. Released Nov 16, 2010 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">DS</span> <b>56</b></li></ul><p class="b-text">A puzzle-based game with a map on the top screen and a 3D top-down view on the touch screen. You use the stylus, Ron and Hermione assist, and there is a Wi-Fi two-player mode in which Harry faces three Dementors.</p></div></li></ol>
+    <p class="also">A mobile version by EA Romania also exists. I did not find a description of it.</p>
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>The DS game is the best-scoring version at 56, and the only one above 41.</li><li>Of the four main platforms, the Wii scored highest at 41, ahead of Xbox 360 and PS3 at 38 and PC at 37.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Generally negative. Reviewers praised the tone and criticised repetitive combat and an overly basic structure. Game Informer said it “loses all forward momentum”, and IGN gave 2 out of 10 on PS3 and Wii.</p>
+    <p class="verdict"><b>Short answer:</b> A shooter-style game on the big platforms and a puzzle game on the DS. Both are skippable for most people.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="dh2" data-tags="low pcsame" aria-labelledby="dh2-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2011<small>Year 7, part two</small></p>
+    <h2 id="dh2-t">Harry Potter and the Deathly Hallows, Part <span class="lf">2</span></h2>
+    <p class="sub">First released Jul 12, 2011.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>3</b> separate games</li><li><b>43–55</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">The last film game was rebuilt to answer complaints about Part 1: it is linear and cutscene-driven, and the side missions are gone. Three games, counting a mobile game from a different studio.</p>
+  <section class="builds" aria-label="Games under Harry Potter and the Deathly Hallows, Part 2">
+    <h3 class="sec-h">The games under this title</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span></div><div class="b-main"><h4 class="b-name">PlayStation 3, Xbox 360, Wii and PC</h4><p class="b-dev">By EA Bright Light. Released Jul 12, 2011 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PS3</span> <b>43</b></li><li><span class="pn">360</span> <b>44</b></li><li><span class="pn">Wii</span> <b>47</b></li><li><span class="pn">PC</span> <b>43</b></li></ul><p class="b-text">A third-person, over-the-shoulder spell-combat game that Wikipedia lists as action-adventure. A Digital Spy critic called it “a weak imitation of a third-person shooter.” Spells are cast with the face buttons, Harry alone can Apparate, you control several characters, and the final battle has you steer a beam with the d-pad. On Windows, six buttons pick the spell. The PS3 game is the first in the series to support PlayStation Move, though Wikipedia does not say which versions use it.</p><p class="b-rev">Other scores: Eurogamer 4, GameSpot 4, IGN 5.5, Game Informer 6.5.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span><span class="unc-t">Play style not confirmed</span></div><div class="b-main"><h4 class="b-name">Nintendo DS</h4><p class="b-dev">By Full Fat. Released Jul 12, 2011 in North America.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">DS</span> <b>55</b></li></ul><p class="b-text">Wikipedia lists the genre as action-adventure. I found no description of how this version plays. Its music is by Allister Brimble, where the other versions have James Hannigan.</p></div></li><li class="bld"><div class="b-side"><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span><span class="unc-t">Play style not confirmed</span></div><div class="b-main"><h4 class="b-name">Mobile phones</h4><p class="b-dev">By Gameloft Chengdu. Released Jul 11, 2011.</p><p class="b-text">Developed and published by Gameloft, a different studio from EA’s. I found no description of how it plays.</p></div></li></ol>
+    
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>The Windows version differs from the console ones in its controls only, as far as Wikipedia says: six buttons choose a spell.</li><li>The DS game again outscores the home versions, 55 against 43 to 47.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Mixed to negative, 43 to 55. Eurogamer and GameSpot gave 4 out of 10. GamesRadar gave 0.5 out of 5 and called it “the absolute nadir of the series.”</p>
+    <p class="verdict"><b>Short answer:</b> One cutscene-led home game, a DS game I could not describe, and a mobile one by Gameloft.</p>
+  </div>
+  </div>
+</article>
+<article class="entry" id="hl" data-tags="fav pcsame rpg" aria-labelledby="hl-t">
+  <span class="pin" aria-hidden="true"></span>
+  <header class="entry-head">
+    <p class="year">2023<small>Not a film tie-in</small></p>
+    <h2 id="hl-t">Hogwarts Legacy</h2>
+    <p class="sub">Not a film tie-in. First released Feb 10, 2023.</p>
+    <ul class="figs" aria-label="At a glance"><li><b>82–85</b> on Metacritic</li></ul>
+  </header>
+  <p class="about">An open-world action RPG set in the 1890s, about a century before the books, largely without franchise characters. Made by Avalanche Software for Portkey Games. It is one game on every platform, and it is the one on Steam.</p>
+  <section class="builds" aria-label="Games under Hogwarts Legacy">
+    <h3 class="sec-h">The game</h3>
+    <ol class="blist"><li class="bld"><div class="b-side"><span class="gtag g-arpg"><i class="sw" aria-hidden="true"></i>Open-world action RPG</span></div><div class="b-main"><h4 class="b-name">PS5, Xbox Series X|S, PC, PS4, Xbox One, Switch and Switch 2</h4><p class="b-dev">By Avalanche Software. Switch port by Shiver Entertainment. Released PS5, Xbox Series and PC Feb 10, 2023. PS4 and Xbox One May 5, 2023. Switch Nov 14, 2023. Switch 2 Jun 5, 2025.</p><ul class="pl" aria-label="Metacritic scores"><li><span class="pn">PC</span> <b>83</b></li><li><span class="pn">PS5</span> <b>84</b></li><li><span class="pn">Series X|S</span> <b>85</b></li><li><span class="pn">Switch 2</span> <b>82</b></li><li class="ns"><span class="pn">PS4</span> <small>no score</small></li><li class="ns"><span class="pn">Xbox One</span> <small>no score</small></li><li class="ns"><span class="pn">Switch</span> <small>no score</small></li></ul><p class="b-text">Single-player on Unreal Engine 4, with the same core game on every platform. The PS4 and Xbox One versions added an arachnophobia mode, there is a PS5 Pro enhancement, and the Switch 2 version has enhanced graphics and shorter loads. PC has Creator Kit mod support since January 2025. On Steam it is app 990080 and carries a Very Positive rating.</p><p class="b-rev">Other scores: OpenCritic: 88% of critics recommend.</p></div></li></ol>
+    
+  </section>
+  <div class="cols2">
+  <div class="differ">
+    <h3 class="sec-h">What differs</h3>
+    <ul class="diffs"><li>No separate design per platform: the PS4, Xbox One and Switch versions are the same game on older hardware. I did not find a comparison of how they run.</li></ul>
+  </div>
+  <div class="said">
+    <h3 class="sec-h">What critics said</h3>
+    <p>Generally favorable, 82 to 85. Critics praised combat, the world and the variety of things to do, and criticised launch technical problems and little innovation. Opinion on the story was divided. On Steam it was 89% positive from about 277,000 reviews when I checked. Wikipedia reports 40 million units sold by December 2025.</p>
+    <p class="verdict"><b>Short answer:</b> One game everywhere. Warner Bros. Games confirmed a sequel on Aug 12, 2026 and gave no developer, platforms or date.</p>
+  </div>
+  </div>
+</article>
+  </div>
+
+  
+<section class="after" aria-labelledby="sp-h">
+  <h2 id="sp-h">Beyond the films</h2>
+  <p class="after-sub">Spin-offs in short, with the same type labels. They are not filtered by the bar above.</p>
+  <ul class="sp-grid"><li class="sp"><h3>Quidditch World Cup <span class="sp-y">2003</span></h3><span class="gtag g-sport"><i class="sw" aria-hidden="true"></i>Sports</span><p class="sp-m">By EA UK. Magic Pockets on Game Boy Advance. PC, PS2, Xbox, GameCube, Game Boy Advance. Oct 28, 2003 in North America.</p><p>A Quidditch game. Metacritic was 69 on PC and Xbox, 68 on PS2 and GameCube, and 53 on Game Boy Advance. Controls were called sluggish, and IGN said it was “fun, but not compelling.”</p></li><li class="sp"><h3>LEGO Harry Potter: Years <span class="lf">1</span>–<span class="lf">4</span> <span class="sp-y">2010</span></h3><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span><p class="sp-m">By Traveller’s Tales. TT Fusion on handhelds. PC, PS3, Wii, Xbox 360, DS, PSP. Jun 29, 2010 in North America.</p><p>A LEGO action-adventure with collecting, puzzles, spells and potions, for one or more players. Metacritic was 79 on PC, PS3 and Xbox 360, and 87 on iOS. The DS, PSP and phone games have a single hub, the Room of Requirement, and simpler boss fights and spells. The DS game is a downscaled copy of the PSP one.</p></li><li class="sp"><h3>LEGO Harry Potter: Years <span class="lf">5</span>–<span class="lf">7</span> <span class="sp-y">2011</span></h3><span class="gtag g-aa"><i class="sw" aria-hidden="true"></i>Action-adventure</span><p class="sp-m">By Traveller’s Tales. PC, PS3, Wii, Xbox 360, DS, 3DS and more. Nov 11, 2011 in North America.</p><p>Similar to the first LEGO game, with an overhauled open world that includes London and Platform 9¾. Metacritic was 80 on PC, 77 on Xbox 360 and 76 on PS3 and Wii, and 64 to 71 on handhelds. Both LEGO games are in the LEGO Harry Potter Collection, which reached PS4 in 2016, Switch and Xbox One in 2018, PS5, Xbox Series and Steam in October 2024, and, per Gematsu, Switch 2 on Oct 16, 2026.</p></li><li class="sp"><h3>Harry Potter for Kinect <span class="sp-y">2012</span></h3><span class="gtag g-motion"><i class="sw" aria-hidden="true"></i>Motion and AR</span><p class="sp-m">By Eurocom. Xbox 360 with Kinect. Oct 9, 2012 in North America.</p><p>Each Hogwarts year is a set of 31 mini-games such as potions, broom flying and casting, graded with stars. Metacritic was 54, and reviewers called the mini-games boring and rigid and disliked the gesture system.</p></li><li class="sp"><h3>Wonderbook: Book of Spells <span class="sp-y">2012</span></h3><span class="gtag g-motion"><i class="sw" aria-hidden="true"></i>Motion and AR</span><p class="sp-m">By London Studio. PS3 with a Wonderbook, PlayStation Eye and a Move controller. Nov 13, 2012 in North America.</p><p>An augmented-reality game in which the Move controller is your wand and the book on screen teaches you spells chapter by chapter. J.K. Rowling worked on it. Metacritic was 72, and reviewers liked the Move and AR use but not the replay value. A second book, Book of Potions, followed in 2013, and I did not check its details.</p></li><li class="sp"><h3>Quidditch Champions <span class="sp-y">2024</span></h3><span class="gtag g-sport"><i class="sw" aria-hidden="true"></i>Sports</span><p class="sp-m">By Unbroken Studios. PS4, PS5, Xbox One, Xbox Series, PC. Sep 3, 2024. Switch Nov 8, 2024.</p><p>A Quidditch game with a career mode and multiplayer, in which you pick Chaser, Seeker, Beater or Keeper. Metacritic was 66 on PS5, 64 on Xbox Series X and 63 on PC. IGN gave 6, GamesRadar+ gave 4 out of 5, and OpenCritic had 25% of critics recommending it. A Steam listing exists.</p></li></ul>
+  <h3 class="mob-h">On phones</h3>
+  <ul class="mob"><li><span class="gtag g-rpg"><i class="sw" aria-hidden="true"></i>RPG</span><p><b>Hogwarts Mystery</b> Jam City, 2018, Android and iOS. You create a student and attend classes. I did not check whether it is still running.</p></li><li><span class="gtag g-motion"><i class="sw" aria-hidden="true"></i>Motion and AR</span><p><b>Wizards Unite</b> Niantic, 2019, Android and iOS. A location-based AR game, Metacritic 64 on iOS. The service ended on Jan 31, 2022.</p></li><li><span class="gtag g-rpg"><i class="sw" aria-hidden="true"></i>RPG</span><p><b>Magic Awakened</b> Collectible-card RPG. Launched in Asia in 2021 and worldwide in June 2023. It left Western app stores on Aug 26, 2024 and the Western servers closed on Oct 29, 2024.</p></li><li><span class="gtag g-adv"><i class="sw" aria-hidden="true"></i>Adventure and puzzle</span><p><b>Puzzles and Spells</b> Zynga, 2019 or 2020 (Wikipedia’s own pages disagree). I did not check how it plays.</p></li></ul>
+</section>
+
+  <section class="after" aria-labelledby="cover-h">
+    <h2 id="cover-h">Not covered</h2>
+    <p class="cover">You asked for English releases only, so the Japan-only ports that Wikipedia lists (for example Goblet of Fire on GameCube and DS in Japan) are left out. Also left out: the two LEGO Creator: Harry Potter building games from 2001 and 2002, the older phone games such as Find Scabbers and Mastering Magic, the Defenders of Hogwarts board game (it is not a video game), and fan mods. The spin-offs listed above are summaries, not full entries.</p>
+  </section>
+
+  <section class="after" aria-labelledby="gap-h">
+    <h2 id="gap-h">What I could not confirm</h2>
+    <p class="after-sub">I read most of this through Wikipedia’s pages, so details are as Wikipedia states them.</p>
+    <ul class="gaps"><li>How the PSP versions of Order of the Phoenix and Half-Blood Prince play. Their chips are dashed on the timetable.</li><li>How the DS version of Deathly Hallows, Part 2 plays, and the phone versions of Half-Blood Prince, Deathly Hallows, Part 1 and Part 2.</li><li>The exact date of the 2003 console release of Philosopher’s Stone. Wikipedia’s page gave one, and I read it through a summarizer, so I show only “late 2003.”</li><li>Whether the PS2 and PC versions of Order of the Phoenix differ from the PS3 and Xbox 360 ones beyond graphics and controls.</li><li>Whether any film game is sold on Steam or GOG. None of my sources mention one, and Steam’s own store page would not open for my tools.</li><li>Details of Book of Potions, Hogwarts Mystery’s current status and Puzzles and Spells.</li></ul>
+  </section>
+
+  <section class="after" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <div class="src-grid"><div class="src"><h3>The whole series</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_video_games">Wikipedia: Harry Potter video games</a></li></ul></div><div class="src"><h3>Harry Potter and the Philosopher’s Stone</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(PC_video_game)">Wikipedia: Philosopher’s Stone (PC video game)</a></li><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(PlayStation_video_game)">Wikipedia: Philosopher’s Stone (PlayStation video game)</a></li><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(Game_Boy_Color_video_game)">Wikipedia: Philosopher’s Stone (Game Boy Color video game)</a></li><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(Game_Boy_Advance_video_game)">Wikipedia: Philosopher’s Stone (Game Boy Advance video game)</a></li><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(2003_video_game)">Wikipedia: Philosopher’s Stone (2003 video game)</a></li><li><a href="https://www.gamespot.com/reviews/harry-potter-and-the-sorcerers-stone-review/1900-6086012/">GameSpot: Harry Potter and the Sorcerer’s Stone review (GameCube, PS2, Xbox)</a></li><li><a href="https://gameluster.com/harry-potter-video-game-retrospective-part-ii/">Gameluster: Harry Potter video game retrospective, part II (opinion)</a></li></ul></div><div class="src"><h3>Harry Potter and the Chamber of Secrets</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Chamber_of_Secrets_(video_game)">Wikipedia: Chamber of Secrets (video game)</a></li><li><a href="https://gameluster.com/harry-potter-video-game-retrospective-part-ii/">Gameluster: Harry Potter video game retrospective, part II (opinion)</a></li></ul></div><div class="src"><h3>Harry Potter and the Prisoner of Azkaban</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Prisoner_of_Azkaban_(video_game)">Wikipedia: Prisoner of Azkaban (video game)</a></li><li><a href="https://gameluster.com/harry-potter-video-game-retrospective-part-ii/">Gameluster: Harry Potter video game retrospective, part II (opinion)</a></li></ul></div><div class="src"><h3>Harry Potter and the Goblet of Fire</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Goblet_of_Fire_(video_game)">Wikipedia: Goblet of Fire (video game)</a></li><li><a href="https://www.cubed3.com/games/reviews/nintendo-ds/harry-potter-and-the-golbet-of-fire">Cubed3: Goblet of Fire (DS) review</a></li></ul></div><div class="src"><h3>Harry Potter and the Order of the Phoenix</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Order_of_the_Phoenix_(video_game)">Wikipedia: Order of the Phoenix (video game)</a></li><li><a href="https://www.nintendolife.com/games/ds/harry_potter_and_the_order_of_the_phoenix/review">Nintendo Life: Order of the Phoenix (DS) review</a></li><li><a href="https://www.cubed3.com/games/reviews/nintendo-ds/harry-potter-and-the-order-of-the-phoenix">Cubed3: Order of the Phoenix (DS) review</a></li><li><a href="https://www.gamespot.com/reviews/harry-potter-and-the-order-of-the-phoenix-review/1900-6175316/">GameSpot: Order of the Phoenix review (DS and GBA)</a></li><li><a href="https://www.nintendolife.com/games/wii/harry_potter_and_the_order_of_the_phoenix/review">Nintendo Life: Order of the Phoenix (Wii) review</a></li><li><a href="https://www.pocketgamer.com/harry-potter-and-the-order-of-the-phoenix/review/">PocketGamer: Order of the Phoenix (mobile) review</a></li></ul></div><div class="src"><h3>Harry Potter and the Half-Blood Prince</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Half-Blood_Prince_(video_game)">Wikipedia: Half-Blood Prince (video game)</a></li><li><a href="https://worthplaying.com/article/2009/8/4/reviews/63985-nds-review-harry-potter-and-the-half-blood-prince/">WorthPlaying: Half-Blood Prince (DS) review</a></li></ul></div><div class="src"><h3>Harry Potter and the Deathly Hallows, Part 1</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Deathly_Hallows_%E2%80%93_Part_1_(video_game)">Wikipedia: Deathly Hallows, Part 1 (video game)</a></li></ul></div><div class="src"><h3>Harry Potter and the Deathly Hallows, Part 2</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_and_the_Deathly_Hallows_%E2%80%93_Part_2_(video_game)">Wikipedia: Deathly Hallows, Part 2 (video game)</a></li><li><a href="https://strategywiki.org/wiki/Harry_Potter_and_the_Deathly_Hallows_%E2%80%93_Part_2_(Nintendo_DS)">StrategyWiki: Deathly Hallows, Part 2 (Nintendo DS)</a></li></ul></div><div class="src"><h3>Hogwarts Legacy</h3><ul><li><a href="https://en.wikipedia.org/wiki/Hogwarts_Legacy">Wikipedia: Hogwarts Legacy</a></li><li><a href="https://gg.deals/steam/app/990080">gg.deals: Hogwarts Legacy on Steam (app 990080)</a></li><li><a href="https://www.nme.com/news/gaming-news/hogwarts-legacy-2-sequel-announced-harry-potter-release-date-3962324">NME: Hogwarts Legacy 2 confirmed</a></li></ul></div><div class="src"><h3>Spin-offs</h3><ul><li><a href="https://en.wikipedia.org/wiki/Harry_Potter:_Quidditch_World_Cup">Wikipedia: Quidditch World Cup</a></li><li><a href="https://en.wikipedia.org/wiki/Lego_Harry_Potter:_Years_1%E2%80%934">Wikipedia: LEGO Harry Potter: Years 1–4</a></li><li><a href="https://en.wikipedia.org/wiki/Lego_Harry_Potter:_Years_5%E2%80%937">Wikipedia: LEGO Harry Potter: Years 5–7</a></li><li><a href="https://www.gematsu.com/2026/09/lego-harry-potter-collection-coming-to-switch-2-on-october-16">Gematsu: LEGO Harry Potter Collection coming to Switch 2</a></li><li><a href="https://en.wikipedia.org/wiki/Harry_Potter_for_Kinect">Wikipedia: Harry Potter for Kinect</a></li><li><a href="https://en.wikipedia.org/wiki/Book_of_Spells">Wikipedia: Book of Spells</a></li><li><a href="https://en.wikipedia.org/wiki/Harry_Potter:_Wizards_Unite">Wikipedia: Harry Potter: Wizards Unite</a></li><li><a href="https://mugglenet.com/?p=1397086">MuggleNet: Magic Awakened servers shut down</a></li><li><a href="https://mobilesyrup.com/2017/12/12/harry-potter-hogwarts-mystery/">MobileSyrup: Hogwarts Mystery announced</a></li><li><a href="https://en.wikipedia.org/wiki/Harry_Potter:_Quidditch_Champions">Wikipedia: Quidditch Champions</a></li><li><a href="https://steampulse.org/game/2878600">SteamPulse: Quidditch Champions</a></li></ul></div></div>
+  </section>
+
+  <footer class="foot">
+    <p>Harry Potter is a trademark of Warner Bros. Entertainment. This is a fan reference and is not affiliated with Warner Bros. or Electronic Arts.</p>
+    <p>Typefaces: IM Fell English and Alegreya Sans, both under the SIL Open Font License.</p>
+  </footer>
+</main>
+
+<script type="application/json" id="filter-labels">{"all": "Everything", "rpg": "Has an RPG version", "many": "Four or more separate games", "pcown": "PC is its own game", "pcsame": "PC matches the console game", "fav": "Scored 75 or more on Metacritic", "low": "Scored under 50 on Metacritic"}</script>
+<script>
+(function () {
+  var bar = document.querySelector(".filters");
+  var tip = document.createElement("div");
+  tip.className = "tip"; tip.setAttribute("role", "tooltip"); tip.hidden = true;
+  document.body.appendChild(tip);
+
+  function showTip(text, rect) {
+    tip.textContent = text; tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var x = Math.min(Math.max(8, rect.left + rect.width / 2 - w / 2), window.innerWidth - w - 8);
+    var y = rect.top - h - 8;
+    if (y < 8) y = rect.bottom + 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { tip.hidden = true; }
+
+  var chart = document.querySelector("[data-chart]");
+  if (chart) {
+    chart.addEventListener("mouseover", function (ev) {
+      var d = ev.target.closest && ev.target.closest(".dot");
+      if (d) showTip(d.getAttribute("data-tip"), d.getBoundingClientRect());
+    });
+    chart.addEventListener("mouseout", function (ev) {
+      if (ev.target.closest && ev.target.closest(".dot")) hideTip();
+    });
+    chart.addEventListener("click", function (ev) {
+      var d = ev.target.closest && ev.target.closest(".dot");
+      if (d) showTip(d.getAttribute("data-tip"), d.getBoundingClientRect());
+      else if (!(ev.target.closest && ev.target.closest(".sc-n"))) hideTip();
+    });
+    [].forEach.call(chart.querySelectorAll(".sc-row"), function (r) {
+      r.addEventListener("focus", function () { showTip(r.getAttribute("data-all"), r.getBoundingClientRect()); });
+      r.addEventListener("blur", hideTip);
+    });
+  }
+  function swarm() {
+    [].forEach.call(document.querySelectorAll(".sc-track"), function (tr) {
+      var W = tr.clientWidth; if (!W) return;
+      var dots = [].slice.call(tr.querySelectorAll(".dot"));
+      if (!dots.length) return;
+      var d = dots[0].offsetWidth + 1, placed = [];
+      dots.sort(function (a, b) { return parseFloat(a.getAttribute("data-x")) - parseFloat(b.getAttribute("data-x")); });
+      dots.forEach(function (el) {
+        var x = parseFloat(el.getAttribute("data-x")) / 100 * W;
+        var lim = tr.clientHeight / 2 - d / 2 - 1, pick = 0;
+        var offs = [0, 0.85 * d, -0.85 * d, 1.7 * d, -1.7 * d].filter(function (o) { return Math.abs(o) <= lim; });
+        for (var i = 0; i < offs.length; i++) {
+          var ok = placed.every(function (p) { var dx = p.x - x, dy = p.y - offs[i]; return dx * dx + dy * dy >= d * d * 0.9; });
+          if (ok) { pick = offs[i]; break; }
+        }
+        placed.push({ x: x, y: pick });
+        el.style.marginTop = pick + "px";
+      });
+    });
+  }
+  swarm();
+  if (window.ResizeObserver && chart) new ResizeObserver(swarm).observe(chart); else window.addEventListener("resize", swarm);
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") hideTip(); });
+  window.addEventListener("scroll", hideTip, { passive: true });
+
+  if (!bar) return;
+  bar.hidden = false;
+  var chips = [].slice.call(bar.querySelectorAll(".chip"));
+  var entries = [].slice.call(document.querySelectorAll(".entry"));
+  var rows = [].slice.call(document.querySelectorAll(".tt-table tbody tr, .sc-list li"));
+  var status = document.getElementById("filter-status");
+  var labels = JSON.parse(document.getElementById("filter-labels").textContent);
+  var current = "all";
+
+  function has(el, f) { return f === "all" || (" " + el.getAttribute("data-tags") + " ").indexOf(" " + f + " ") > -1; }
+
+  function apply(f) {
+    current = f;
+    var shown = 0;
+    entries.forEach(function (en) {
+      var ok = has(en, f);
+      en.hidden = !ok;
+      if (ok) shown++;
+    });
+    rows.forEach(function (r) { r.classList.toggle("dim", !has(r, f)); });
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false");
+    });
+    status.textContent = f === "all" ? "" :
+      "Showing " + shown + " of " + entries.length + " games. Filter: " + labels[f] + ".";
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () { apply(c.getAttribute("data-filter")); });
+  });
+
+  // a link to a game that the filter has hidden clears the filter first
+  document.addEventListener("click", function (ev) {
+    var link = ev.target.closest && ev.target.closest('a[href^="#"]');
+    if (!link || current === "all") return;
+    var id = link.getAttribute("href").slice(1);
+    var target = id && document.getElementById(id);
+    if (target && target.hidden) {
+      apply("all");
+      target.scrollIntoView();
+    }
+  });
+  apply("all");
+})();
+</script>
+</body>
+</html>
