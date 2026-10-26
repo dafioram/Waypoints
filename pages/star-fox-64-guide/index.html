@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Star Fox 64 Route Guide — Waypoints</title>
+<meta name="description" content="Every fork in Star Fox 64: the challenge in each level that opens a harder route, all 25 routes to the two endings, and each level’s boss, pickups and medal target." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/barlow-condensed-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/b612-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Star Fox 64 Route Guide",
+  "description": "Every fork in Star Fox 64: the challenge in each level that opens a harder route, all 25 routes to the two endings, and each level’s boss, pickups and medal target.",
+  "tags": [
+    "gaming",
+    "walkthrough",
+    "reference",
+    "star-fox"
+  ],
+  "date": "2026-10-26"
+}
+</script>
+<style>
+@font-face{font-family:"B612";font-style:normal;font-weight:400;font-display:swap;src:url(media/b612-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"B612";font-style:normal;font-weight:700;font-display:swap;src:url(media/b612-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:italic;font-weight:700;font-display:swap;src:url(media/barlow-condensed-latin-700-italic.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-style:italic;font-weight:800;font-display:swap;src:url(media/barlow-condensed-latin-800-italic.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --sf-bg:#E8EDF4; --sf-card:#F7F9FC; --sf-ink:#101B33; --sf-muted:#43516C; --sf-rule:#BAC5D8;
+  --sf-lane:#5B6B8A; --sf-hot:#C23B00; --sf-onhot:#FFFFFF; --sf-blue:#1D55C8; --sf-focus:#1D55C8;
+  --sf-display:"Barlow Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --sf-text:"B612","Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --sf-bg:#0A1224; --sf-card:#131D35; --sf-ink:#E5ECFA; --sf-muted:#A3B2CF; --sf-rule:#2A3858;
+    --sf-lane:#7E92B8; --sf-hot:#FF8B3D; --sf-onhot:#0A1224; --sf-blue:#6B9EFF; --sf-focus:#A9C3FF;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;font-synthesis:none}
+body{margin:0;background:var(--sf-bg);color:var(--sf-ink);font:400 1.0625rem/1.55 var(--sf-text);overflow-wrap:break-word}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--sf-focus);outline-offset:2px;border-radius:2px}
+.wrap{max-width:76rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure{margin:0}
+h1,h2,h3{font-family:var(--sf-display);font-style:italic;font-weight:800;line-height:1}
+ul,ol{padding:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* the two line types and the difficulty pips are used in the chart, the legend and the text */
+.to{display:inline-block;flex:none;width:1.1rem;height:2px;border-radius:2px;background:var(--sf-lane);vertical-align:middle;margin-inline:.3rem}
+.to.hot{height:4px;background:var(--sf-hot)}
+.pips{display:inline-flex;gap:.2rem;vertical-align:middle}
+.pp{display:block;width:.5rem;height:.5rem;border-radius:50%;border:1.5px solid currentColor}
+.pp.on{background:currentColor}
+
+/* ------------------------------------------------------------ hero */
+.hero{padding-top:2.2rem}
+.hero h1{font-size:clamp(4.2rem,13vw,9rem);line-height:.84;letter-spacing:-.01em}
+.h1-sub{display:block;margin-top:.8rem;font:700 italic clamp(1.5rem,3.6vw,2.3rem)/1.1 var(--sf-display);color:var(--sf-muted)}
+.dek{max-width:44rem;margin-top:1.2rem;font-size:1.2rem;line-height:1.5}
+.dek-2{max-width:44rem;margin-top:.6rem;color:var(--sf-muted);font-size:.98rem}
+
+/* ------------------------------------------------------------ route map */
+.map{margin-top:2rem;background:var(--sf-card);border:1px solid var(--sf-rule);padding:1rem}
+.map-grid{display:grid;gap:1rem 2rem}
+.mp{display:block;width:100%;height:auto;overflow:visible}
+.mp-h{display:none}
+.mp-v{max-width:21rem}
+.col{stroke:var(--sf-rule);stroke-width:1;stroke-dasharray:2 6}
+.ml{fill:var(--sf-muted);font:700 italic 15px var(--sf-display)}
+.ml.mlv{font:800 italic 24px var(--sf-display)}
+.ed{fill:none;stroke:var(--sf-lane);stroke-width:2;stroke-linecap:round;transition:opacity .15s}
+.ed.hot{stroke:var(--sf-hot);stroke-width:4}
+.lg-ed{fill:none;stroke:var(--sf-lane);stroke-width:2;stroke-linecap:round}
+.lg-ed.hot{stroke:var(--sf-hot);stroke-width:4}
+.nd{color:var(--sf-ink);cursor:pointer;outline:none;transition:opacity .15s}
+.pill{fill:var(--sf-card);stroke:var(--sf-ink);stroke-width:1.6}
+.ring{fill:none;stroke:var(--sf-hot);stroke-width:2.5}
+.nm{fill:currentColor;font-family:var(--sf-display);font-style:italic;font-weight:700}
+.pip{fill:none;stroke:currentColor;stroke-width:1.2}
+.pip.on{fill:currentColor}
+.nd.end{color:var(--sf-bg)}
+.nd.end .pill{fill:var(--sf-ink)}
+.nd:hover .pill{stroke-width:3}
+.nd:focus-visible .pill{stroke:var(--sf-focus);stroke-width:4}
+.nd.sel{color:var(--sf-onhot)}
+.nd.sel .pill{fill:var(--sf-hot)}
+.map.has-sel .nd:not(.on){opacity:.28}
+.map.has-sel .ed:not(.on){opacity:.12}
+.map-side{display:grid;gap:1rem 2rem;align-content:start}
+.legend{list-style:none;display:grid;gap:.55rem;font-size:.95rem;line-height:1.3;color:var(--sf-muted)}
+.legend li{display:flex;align-items:center;gap:.7rem}
+.legend svg{flex:none;overflow:visible}
+.legend .pill{stroke-width:1.4}
+.legend .pips{width:2.75rem;color:var(--sf-ink);justify-content:center;flex:none}
+.panel{border-left:4px solid var(--sf-hot);padding:.1rem 0 .1rem .9rem;min-height:4.4rem}
+.panel p{max-width:34rem}
+.panel .p-h{font:800 italic 1.6rem/1.05 var(--sf-display)}
+.panel .p-t{margin-top:.3rem;font-size:.98rem}
+.panel .p-a{margin-top:.5rem;display:flex;gap:1rem;flex-wrap:wrap;font-size:.95rem}
+.btn{font:700 .95rem/1 var(--sf-text);color:var(--sf-ink);background:transparent;border:1.5px solid var(--sf-ink);border-radius:2px;padding:.45rem .7rem;cursor:pointer}
+.btn:hover{background:var(--sf-ink);color:var(--sf-bg)}
+.routes-box{margin-top:1.2rem}
+.routes-box>summary{cursor:pointer;font-weight:700}
+.routes-note{margin-top:.5rem;color:var(--sf-muted);font-size:.95rem;max-width:44rem}
+.routes{list-style:none;margin-top:.6rem}
+.routes li{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-top:1px solid var(--sf-rule);line-height:1.35}
+.routes .steps{min-width:0}
+.routes .st{font-weight:700}
+.hop{white-space:nowrap}
+.routes .cnt{flex:none;color:var(--sf-muted);font-size:.9rem;white-space:nowrap}
+
+@media (min-width:700px){
+  .map-grid{grid-template-columns:minmax(0,21rem) minmax(0,1fr)}
+}
+@media (min-width:980px){
+  .mp-v{display:none}
+  .mp-h{display:block}
+  .map-grid{grid-template-columns:minmax(0,1fr)}
+  .map-side{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .routes{columns:2;column-gap:2.5rem}
+  .routes li{break-inside:avoid}
+}
+@media (prefers-reduced-motion:no-preference){
+  .ed{stroke-dasharray:1;stroke-dashoffset:1;animation:sf-draw .8s ease-out forwards;animation-delay:calc(var(--m) * 140ms)}
+  @keyframes sf-draw{to{stroke-dashoffset:0}}
+  .nd{animation:sf-in .45s ease-out backwards;animation-delay:calc((var(--m) - 1) * 140ms)}
+  @keyframes sf-in{from{opacity:0}}
+}
+
+/* ------------------------------------------------------------ overview sections */
+.sec{margin-top:3.4rem}
+.sec>h2{font-size:clamp(2rem,4.2vw,2.8rem)}
+.sec-sub{margin-top:.5rem;max-width:46rem;color:var(--sf-muted)}
+.tb{width:100%;border-collapse:collapse;margin-top:1rem}
+.tb thead th{text-align:left;font-weight:700;font-size:.95rem;padding:.4rem .8rem .5rem 0;border-bottom:2px solid var(--sf-ink);line-height:1.2}
+.tb tbody th,.tb tbody td{text-align:left;vertical-align:top;padding:.7rem .8rem .7rem 0;border-top:1px solid var(--sf-rule)}
+.tb tbody th a{text-decoration:none;display:block}
+.tb tbody th a:hover .t-n{text-decoration:underline}
+.t-n{display:block;font:800 italic 1.5rem/1 var(--sf-display)}
+.t-m{display:block;font-size:.85rem;color:var(--sf-muted);margin-top:.2rem}
+.tb td{max-width:22rem}
+.tb.cast td:nth-child(2){max-width:16rem}
+.tb.cast td:nth-child(3){max-width:34rem}
+.note{margin-top:.9rem;max-width:46rem;color:var(--sf-muted);font-size:.98rem}
+
+.mc{background:var(--sf-card);border:1px solid var(--sf-rule);padding:.8rem 1rem 1rem;margin-top:1rem}
+.mc-head,.mc-row{display:grid;grid-template-columns:8.5rem minmax(0,1fr);column-gap:.9rem;align-items:center}
+.mc-lab{font-size:.85rem;color:var(--sf-muted)}
+.mc-ax{position:relative;display:block;height:1.2rem;border-bottom:1px solid var(--sf-ink)}
+.tk{position:absolute;top:0;transform:translateX(-50%);font-size:.82rem;color:var(--sf-muted);line-height:1.2}
+.tk:first-child{transform:none}
+.mc-list{list-style:none}
+.mc-row{min-height:2.1rem;border-top:1px solid var(--sf-rule)}
+.mc-n{font-weight:700;font-size:.95rem;text-decoration:none;line-height:1.15}
+.mc-n:hover{text-decoration:underline}
+.mc-track{position:relative;display:block;height:2.1rem;background:repeating-linear-gradient(to right,var(--sf-rule) 0 1px,transparent 1px calc(100% / 3.3))}
+.mc-bar{position:absolute;left:0;top:50%;height:.8rem;margin-top:-.4rem;background:var(--sf-blue);border-radius:0 4px 4px 0;box-shadow:inset 0 0 0 1.5px var(--sf-ink)}
+.mc-v{position:absolute;top:50%;transform:translateY(-50%);margin-left:.5rem;font-size:.9rem;line-height:1}
+.tbl{margin-top:.9rem}
+.tbl>summary{cursor:pointer;font-weight:700;font-size:.98rem}
+.tbl-w{overflow-x:auto;max-width:100%}
+.tbl table{border-collapse:collapse;margin-top:.5rem;font-size:.95rem}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:.35rem 1.2rem .35rem 0;border-top:1px solid var(--sf-rule)}
+.tbl thead th{border-top:0;border-bottom:2px solid var(--sf-ink)}
+
+.endings{display:grid;gap:1.4rem 2.4rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));margin-top:1.1rem}
+.end-card{border-top:5px solid var(--sf-lane);padding-top:.7rem}
+.end-card.hard{border-top-color:var(--sf-hot)}
+.end-card h3{font-size:2.4rem}
+.end-card h3 a{text-decoration:none}
+.end-card h3 a:hover{text-decoration:underline}
+.end-via{margin-top:.3rem;color:var(--sf-muted);font-size:.95rem}
+.end-card p{max-width:34rem}
+.end-card p+p{margin-top:.6rem}
+.facts{display:grid;gap:.5rem 1.6rem;grid-template-columns:repeat(auto-fit,minmax(8rem,1fr));margin-top:.9rem}
+.facts dt{font-size:.85rem;color:var(--sf-muted);line-height:1.2}
+.facts dd{margin-top:.1rem;font-size:.98rem;line-height:1.3}
+
+.qa-list{margin-top:.8rem;columns:24rem;column-gap:3rem}
+.qa-i{padding:.8rem 0 1rem;border-top:1px solid var(--sf-rule);break-inside:avoid}
+.qa-i dt{font:800 italic 1.55rem/1.05 var(--sf-display)}
+.qa-i dd{margin-top:.4rem;max-width:36rem}
+
+/* ------------------------------------------------------------ filter bar */
+.filters{position:sticky;top:0;z-index:20;margin-top:1.4rem;background:var(--sf-bg);border-top:1px solid var(--sf-rule);border-bottom:1px solid var(--sf-rule)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .filters{background:color-mix(in srgb,var(--sf-bg) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+}
+.filters-in{padding-block:.6rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem}
+@media (min-width:760px){.chips{flex-wrap:wrap;overflow-x:visible}}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.5rem;font:700 .92rem/1 var(--sf-text);color:var(--sf-ink);background:transparent;border:1.5px solid var(--sf-rule);border-radius:2px;padding:.55rem .75rem;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--sf-ink)}
+.chip[aria-pressed="true"]{background:var(--sf-ink);color:var(--sf-bg);border-color:var(--sf-ink)}
+.cn{font-size:.82rem;opacity:.85}
+.status{font-size:.95rem;line-height:1.3;color:var(--sf-muted)}
+.status:empty{display:none}
+.status:not(:empty){margin-top:.45rem}
+
+/* ------------------------------------------------------------ level entries on a flight line */
+.spine{position:relative;margin-top:1rem;padding-left:2.6rem}
+.spine::before{content:"";position:absolute;left:.55rem;top:.4rem;bottom:0;width:2px;background:var(--sf-lane)}
+.entry{position:relative;padding:1.2rem 0 2.6rem;scroll-margin-top:5rem;max-width:58rem}
+.entry::before{content:"";position:absolute;left:-2.6rem;top:1.9rem;width:1.15rem;height:1.15rem;border-radius:50%;background:var(--sf-bg);border:3px solid var(--sf-ink)}
+.entry[data-tags~="decides"]::before{border-color:var(--sf-hot);box-shadow:0 0 0 3px var(--sf-bg),0 0 0 5px var(--sf-hot)}
+.e-mission{font-size:.9rem;color:var(--sf-muted)}
+.e-head h3{font-size:clamp(3rem,7vw,4.8rem);line-height:.9;margin-top:.1rem}
+.e-title{margin-top:.35rem;font:700 italic clamp(1.25rem,2.6vw,1.65rem)/1.1 var(--sf-display);color:var(--sf-muted)}
+.specs{display:flex;flex-wrap:wrap;gap:.6rem 2rem;margin-top:1rem;padding:.7rem 0;border-block:1px solid var(--sf-rule)}
+.specs dt{font-size:.82rem;color:var(--sf-muted);line-height:1.2}
+.specs dd{margin-top:.1rem;font-size:.98rem;line-height:1.3}
+.specs dd b{font-size:1.2em}
+.specs dd .pips{margin-right:.3rem}
+.specs .sub{display:block;color:var(--sf-muted);font-size:.88rem}
+.about{margin-top:1rem;max-width:44rem;font-size:1.12rem;line-height:1.5}
+.e-note{margin-top:.6rem;max-width:44rem;color:var(--sf-muted);font-size:.98rem;padding-left:.8rem;border-left:3px solid var(--sf-rule)}
+.e-cols{display:grid;gap:1.2rem 2.4rem;margin-top:1.3rem}
+@media (min-width:900px){.e-cols{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
+.blk h4,.e-route>h4{font:800 italic 1.5rem/1.1 var(--sf-display);padding-bottom:.35rem;border-bottom:2px solid var(--sf-ink);margin-bottom:.6rem}
+.blk p{margin-top:.6rem;max-width:40rem}
+.blk p:first-of-type{margin-top:0}
+.blk ul{list-style:none}
+.blk li{position:relative;padding-left:1.1rem;margin-top:.5rem}
+.blk li:first-child{margin-top:0}
+.blk li::before{content:"";position:absolute;left:0;top:.62em;width:.5rem;height:.5rem;border-radius:50%;background:var(--sf-lane)}
+.e-route{margin-top:1.5rem}
+.in{max-width:44rem}
+.chal{margin-top:.9rem;padding:.7rem .9rem;background:var(--sf-card);border:1px solid var(--sf-rule);border-left:5px solid var(--sf-hot);max-width:44rem}
+.chal h4,.twist h4{font:700 1rem/1.2 var(--sf-text);margin-bottom:.35rem}
+.chal ul,.twist ul{list-style:none}
+.chal li+li,.twist li+li{margin-top:.5rem}
+.outs{list-style:none;margin-top:.9rem;max-width:44rem}
+.out{display:flex;align-items:baseline;gap:.5rem;padding:.4rem 0;border-top:1px solid var(--sf-rule)}
+.out .to{margin:0;transform:translateY(-.2em)}
+.twist{margin-top:1.1rem;padding:.7rem .9rem;border:1px dashed var(--sf-lane);max-width:44rem}
+.entry[hidden]{display:none}
+
+/* ------------------------------------------------------------ closing sections */
+.after{padding-block:2.8rem 1rem}
+.after h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:.5rem}
+.cover{max-width:46rem}
+.gaps{max-width:46rem;padding-left:1.2rem}
+.gaps li{margin:.5rem 0}
+.src-grid{columns:19rem;column-gap:2.4rem;margin-top:.6rem}
+.src{break-inside:avoid;padding:.6rem 0 .8rem;border-top:1px solid var(--sf-rule)}
+.src h3{font:700 1rem/1.3 var(--sf-text);font-style:normal}
+.src ul{margin-top:.3rem;padding-left:1.1rem;font-size:.95rem;line-height:1.4}
+.src li{margin:.2rem 0;overflow-wrap:anywhere}
+.foot{padding-block:1.2rem 3rem;color:var(--sf-muted);font-size:.95rem;max-width:46rem}
+.foot p+p{margin-top:.3rem}
+
+/* ------------------------------------------------------------ small screens */
+@media (max-width:1100px){
+  .tb,.tb thead,.tb tbody,.tb tr,.tb th,.tb td{display:block}
+  .tb thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .tb tbody tr{border-top:1px solid var(--sf-rule);padding:.8rem 0 .6rem}
+  .tb tbody th,.tb tbody td{border-top:0;padding:.1rem 0}
+  .tb tbody th{padding-bottom:.4rem}
+  .tb td,.tb.cast td:nth-child(2),.tb.cast td:nth-child(3){max-width:none;display:grid;grid-template-columns:7.4rem minmax(0,1fr);column-gap:.7rem;align-items:start}
+  .tb .v{min-width:0}
+  .tb td::before{content:attr(data-col);font-weight:700;font-size:.88rem;line-height:1.5;color:var(--sf-muted)}
+}
+@media (max-width:640px){
+  body{font-size:1rem}
+  .about{font-size:1.06rem}
+  .map{padding:.7rem}
+  .mc{padding:.6rem .7rem .8rem}
+  .mc-head,.mc-row{grid-template-columns:6.2rem minmax(0,1fr);column-gap:.6rem}
+  .tb td,.tb.cast td:nth-child(2),.tb.cast td:nth-child(3){grid-template-columns:6.2rem minmax(0,1fr)}
+  .spine{padding-left:1.7rem}
+  .spine::before{left:.3rem}
+  .entry::before{left:-1.7rem;width:.95rem;height:.95rem;top:1.8rem}
+  .routes li{flex-direction:column;gap:.1rem}
+}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Star Fox 64 <span class="h1-sub">Routes, challenges and endings</span></h1>
+    <p class="dek">16 stages, 25 routes and two endings. Nine of the levels are forks. Clear the challenge in one and a harder branch opens. Miss it and you take the easy branch. Pick a level on the chart to see every route that passes through it.</p>
+    <p class="dek-2">Nintendo 64, released in Japan on 27 April 1997 and in North America on 23 June 1997.</p>
+
+    <figure class="map" aria-labelledby="map-h">
+      <h2 id="map-h" class="sr">Route chart</h2>
+      <div class="map-grid">
+        <div class="map-art"><svg class="mp mp-h" viewBox="0 0 1080 318" role="group" aria-label="Route chart, wide layout"><line class="col" x1="62" y1="40" x2="62" y2="304"/><text class="ml" x="62" y="22" text-anchor="middle" aria-hidden="true">Mission 1</text><line class="col" x1="221" y1="40" x2="221" y2="304"/><text class="ml" x="221" y="22" text-anchor="middle" aria-hidden="true">Mission 2</text><line class="col" x1="380" y1="40" x2="380" y2="304"/><text class="ml" x="380" y="22" text-anchor="middle" aria-hidden="true">Mission 3</text><line class="col" x1="539" y1="40" x2="539" y2="304"/><text class="ml" x="539" y="22" text-anchor="middle" aria-hidden="true">Mission 4</text><line class="col" x1="698" y1="40" x2="698" y2="304"/><text class="ml" x="698" y="22" text-anchor="middle" aria-hidden="true">Mission 5</text><line class="col" x1="857" y1="40" x2="857" y2="304"/><text class="ml" x="857" y="22" text-anchor="middle" aria-hidden="true">Mission 6</text><line class="col" x1="1016" y1="40" x2="1016" y2="304"/><text class="ml" x="1016" y="22" text-anchor="middle" aria-hidden="true">Mission 7</text><path class="ed plain" data-from="corneria" data-to="meteo" style="--m:1" pathLength="1" d="M106.0,176 C141.5,176 141.5,86 177.0,86"/><path class="ed hot" data-from="corneria" data-to="sector-y" style="--m:1" pathLength="1" d="M106.0,176 C141.5,176 141.5,266 177.0,266"/><path class="ed plain" data-from="meteo" data-to="fichina" style="--m:2" pathLength="1" d="M265.0,86 C300.5,86 300.5,86 336.0,86"/><path class="ed hot" data-from="meteo" data-to="katina" style="--m:2" pathLength="1" d="M265.0,86 C300.5,86 300.5,176 336.0,176"/><path class="ed plain" data-from="sector-y" data-to="katina" style="--m:2" pathLength="1" d="M265.0,266 C300.5,266 300.5,176 336.0,176"/><path class="ed hot" data-from="sector-y" data-to="aquas" style="--m:2" pathLength="1" d="M265.0,266 C300.5,266 300.5,266 336.0,266"/><path class="ed plain" data-from="fichina" data-to="sector-x" style="--m:3" pathLength="1" d="M424.0,86 C459.5,86 459.5,86 495.0,86"/><path class="ed hot" data-from="fichina" data-to="solar" style="--m:3" pathLength="1" d="M424.0,86 C459.5,86 459.5,176 495.0,176"/><path class="ed plain" data-from="katina" data-to="sector-x" style="--m:3" pathLength="1" d="M424.0,176 C459.5,176 459.5,86 495.0,86"/><path class="ed hot" data-from="katina" data-to="solar" style="--m:3" pathLength="1" d="M424.0,176 C459.5,176 459.5,176 495.0,176"/><path class="ed plain" data-from="aquas" data-to="zoness" style="--m:3" pathLength="1" d="M424.0,266 C459.5,266 459.5,266 495.0,266"/><path class="ed plain" data-from="solar" data-to="macbeth" style="--m:4" pathLength="1" d="M583.0,176 C618.5,176 618.5,176 654.0,176"/><path class="ed plain" data-from="sector-x" data-to="titania" style="--m:4" pathLength="1" d="M583.0,86 C618.5,86 618.5,86 654.0,86"/><path class="ed hot" data-from="sector-x" data-to="macbeth" style="--m:4" pathLength="1" d="M583.0,86 C618.5,86 618.5,176 654.0,176"/><path class="ed hot" data-from="sector-x" data-to="sector-z" style="--m:4" pathLength="1" d="M583.0,86 C618.5,86 618.5,266 654.0,266"/><path class="ed plain" data-from="zoness" data-to="macbeth" style="--m:4" pathLength="1" d="M583.0,266 C618.5,266 618.5,176 654.0,176"/><path class="ed hot" data-from="zoness" data-to="sector-z" style="--m:4" pathLength="1" d="M583.0,266 C618.5,266 618.5,266 654.0,266"/><path class="ed plain" data-from="titania" data-to="bolse" style="--m:5" pathLength="1" d="M742.0,86 C777.5,86 777.5,86 813.0,86"/><path class="ed plain" data-from="macbeth" data-to="bolse" style="--m:5" pathLength="1" d="M742.0,176 C777.5,176 777.5,86 813.0,86"/><path class="ed hot" data-from="macbeth" data-to="area-6" style="--m:5" pathLength="1" d="M742.0,176 C777.5,176 777.5,266 813.0,266"/><path class="ed plain" data-from="sector-z" data-to="bolse" style="--m:5" pathLength="1" d="M742.0,266 C777.5,266 777.5,86 813.0,86"/><path class="ed hot" data-from="sector-z" data-to="area-6" style="--m:5" pathLength="1" d="M742.0,266 C777.5,266 777.5,266 813.0,266"/><path class="ed plain" data-from="bolse" data-to="venom-1" style="--m:6" pathLength="1" d="M901.0,86 C936.5,86 936.5,86 972.0,86"/><path class="ed plain" data-from="area-6" data-to="venom-2" style="--m:6" pathLength="1" d="M901.0,266 C936.5,266 936.5,266 972.0,266"/><g class="nd gate" data-id="corneria" data-name="Corneria" style="--m:1" tabindex="0" role="button" aria-pressed="false" aria-label="Corneria, mission 1. It has a challenge. On 25 of 25 routes. Difficulty 1 of 5. Press to show its routes."><rect class="ring" x="14.5" y="149.5" width="95" height="53" rx="12"/><rect class="pill" x="18.0" y="153.0" width="88" height="46" rx="9"/><text class="nm" x="62" y="173" text-anchor="middle" style="font-size:17px">Corneria</text><circle class="pip on" cx="45.0" cy="189" r="2.7"/><circle class="pip" cx="53.5" cy="189" r="2.7"/><circle class="pip" cx="62.0" cy="189" r="2.7"/><circle class="pip" cx="70.5" cy="189" r="2.7"/><circle class="pip" cx="79.0" cy="189" r="2.7"/></g><g class="nd gate" data-id="meteo" data-name="Meteo" style="--m:2" tabindex="0" role="button" aria-pressed="false" aria-label="Meteo, mission 2. It has a challenge. On 14 of 25 routes. Difficulty 1 of 5. Press to show its routes."><rect class="ring" x="173.5" y="59.5" width="95" height="53" rx="12"/><rect class="pill" x="177.0" y="63.0" width="88" height="46" rx="9"/><text class="nm" x="221" y="83" text-anchor="middle" style="font-size:17px">Meteo</text><circle class="pip on" cx="204.0" cy="99" r="2.7"/><circle class="pip" cx="212.5" cy="99" r="2.7"/><circle class="pip" cx="221.0" cy="99" r="2.7"/><circle class="pip" cx="229.5" cy="99" r="2.7"/><circle class="pip" cx="238.0" cy="99" r="2.7"/></g><g class="nd gate" data-id="sector-y" data-name="Sector Y" style="--m:2" tabindex="0" role="button" aria-pressed="false" aria-label="Sector Y, mission 2. It has a challenge. On 11 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="ring" x="173.5" y="239.5" width="95" height="53" rx="12"/><rect class="pill" x="177.0" y="243.0" width="88" height="46" rx="9"/><text class="nm" x="221" y="263" text-anchor="middle" style="font-size:17px">Sector Y</text><circle class="pip on" cx="204.0" cy="279" r="2.7"/><circle class="pip on" cx="212.5" cy="279" r="2.7"/><circle class="pip on" cx="221.0" cy="279" r="2.7"/><circle class="pip on" cx="229.5" cy="279" r="2.7"/><circle class="pip" cx="238.0" cy="279" r="2.7"/></g><g class="nd gate" data-id="fichina" data-name="Fichina" style="--m:3" tabindex="0" role="button" aria-pressed="false" aria-label="Fichina, mission 3. It has a challenge. On 7 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="332.5" y="59.5" width="95" height="53" rx="12"/><rect class="pill" x="336.0" y="63.0" width="88" height="46" rx="9"/><text class="nm" x="380" y="83" text-anchor="middle" style="font-size:17px">Fichina</text><circle class="pip on" cx="363.0" cy="99" r="2.7"/><circle class="pip on" cx="371.5" cy="99" r="2.7"/><circle class="pip on" cx="380.0" cy="99" r="2.7"/><circle class="pip" cx="388.5" cy="99" r="2.7"/><circle class="pip" cx="397.0" cy="99" r="2.7"/></g><g class="nd gate" data-id="katina" data-name="Katina" style="--m:3" tabindex="0" role="button" aria-pressed="false" aria-label="Katina, mission 3. It has a challenge. On 14 of 25 routes. Difficulty 2 of 5. Press to show its routes."><rect class="ring" x="332.5" y="149.5" width="95" height="53" rx="12"/><rect class="pill" x="336.0" y="153.0" width="88" height="46" rx="9"/><text class="nm" x="380" y="173" text-anchor="middle" style="font-size:17px">Katina</text><circle class="pip on" cx="363.0" cy="189" r="2.7"/><circle class="pip on" cx="371.5" cy="189" r="2.7"/><circle class="pip" cx="380.0" cy="189" r="2.7"/><circle class="pip" cx="388.5" cy="189" r="2.7"/><circle class="pip" cx="397.0" cy="189" r="2.7"/></g><g class="nd" data-id="aquas" data-name="Aquas" style="--m:3" tabindex="0" role="button" aria-pressed="false" aria-label="Aquas, mission 3. On 4 of 25 routes. Difficulty 2 of 5. Press to show its routes."><rect class="pill" x="336.0" y="243.0" width="88" height="46" rx="9"/><text class="nm" x="380" y="263" text-anchor="middle" style="font-size:17px">Aquas</text><circle class="pip on" cx="363.0" cy="279" r="2.7"/><circle class="pip on" cx="371.5" cy="279" r="2.7"/><circle class="pip" cx="380.0" cy="279" r="2.7"/><circle class="pip" cx="388.5" cy="279" r="2.7"/><circle class="pip" cx="397.0" cy="279" r="2.7"/></g><g class="nd gate" data-id="sector-x" data-name="Sector X" style="--m:4" tabindex="0" role="button" aria-pressed="false" aria-label="Sector X, mission 4. It has a challenge. On 15 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="491.5" y="59.5" width="95" height="53" rx="12"/><rect class="pill" x="495.0" y="63.0" width="88" height="46" rx="9"/><text class="nm" x="539" y="83" text-anchor="middle" style="font-size:17px">Sector X</text><circle class="pip on" cx="522.0" cy="99" r="2.7"/><circle class="pip on" cx="530.5" cy="99" r="2.7"/><circle class="pip on" cx="539.0" cy="99" r="2.7"/><circle class="pip" cx="547.5" cy="99" r="2.7"/><circle class="pip" cx="556.0" cy="99" r="2.7"/></g><g class="nd" data-id="solar" data-name="Solar" style="--m:4" tabindex="0" role="button" aria-pressed="false" aria-label="Solar, mission 4. On 6 of 25 routes. Difficulty 2 of 5. Press to show its routes."><rect class="pill" x="495.0" y="153.0" width="88" height="46" rx="9"/><text class="nm" x="539" y="173" text-anchor="middle" style="font-size:17px">Solar</text><circle class="pip on" cx="522.0" cy="189" r="2.7"/><circle class="pip on" cx="530.5" cy="189" r="2.7"/><circle class="pip" cx="539.0" cy="189" r="2.7"/><circle class="pip" cx="547.5" cy="189" r="2.7"/><circle class="pip" cx="556.0" cy="189" r="2.7"/></g><g class="nd gate" data-id="zoness" data-name="Zoness" style="--m:4" tabindex="0" role="button" aria-pressed="false" aria-label="Zoness, mission 4. It has a challenge. On 4 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="491.5" y="239.5" width="95" height="53" rx="12"/><rect class="pill" x="495.0" y="243.0" width="88" height="46" rx="9"/><text class="nm" x="539" y="263" text-anchor="middle" style="font-size:17px">Zoness</text><circle class="pip on" cx="522.0" cy="279" r="2.7"/><circle class="pip on" cx="530.5" cy="279" r="2.7"/><circle class="pip on" cx="539.0" cy="279" r="2.7"/><circle class="pip" cx="547.5" cy="279" r="2.7"/><circle class="pip" cx="556.0" cy="279" r="2.7"/></g><g class="nd" data-id="titania" data-name="Titania" style="--m:5" tabindex="0" role="button" aria-pressed="false" aria-label="Titania, mission 5. On 3 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="pill" x="654.0" y="63.0" width="88" height="46" rx="9"/><text class="nm" x="698" y="83" text-anchor="middle" style="font-size:17px">Titania</text><circle class="pip on" cx="681.0" cy="99" r="2.7"/><circle class="pip on" cx="689.5" cy="99" r="2.7"/><circle class="pip on" cx="698.0" cy="99" r="2.7"/><circle class="pip" cx="706.5" cy="99" r="2.7"/><circle class="pip" cx="715.0" cy="99" r="2.7"/></g><g class="nd gate" data-id="macbeth" data-name="Macbeth" style="--m:5" tabindex="0" role="button" aria-pressed="false" aria-label="Macbeth, mission 5. It has a challenge. On 14 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="650.5" y="149.5" width="95" height="53" rx="12"/><rect class="pill" x="654.0" y="153.0" width="88" height="46" rx="9"/><text class="nm" x="698" y="173" text-anchor="middle" style="font-size:17px">Macbeth</text><circle class="pip on" cx="681.0" cy="189" r="2.7"/><circle class="pip on" cx="689.5" cy="189" r="2.7"/><circle class="pip on" cx="698.0" cy="189" r="2.7"/><circle class="pip" cx="706.5" cy="189" r="2.7"/><circle class="pip" cx="715.0" cy="189" r="2.7"/></g><g class="nd gate" data-id="sector-z" data-name="Sector Z" style="--m:5" tabindex="0" role="button" aria-pressed="false" aria-label="Sector Z, mission 5. It has a challenge. On 8 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="ring" x="650.5" y="239.5" width="95" height="53" rx="12"/><rect class="pill" x="654.0" y="243.0" width="88" height="46" rx="9"/><text class="nm" x="698" y="263" text-anchor="middle" style="font-size:17px">Sector Z</text><circle class="pip on" cx="681.0" cy="279" r="2.7"/><circle class="pip on" cx="689.5" cy="279" r="2.7"/><circle class="pip on" cx="698.0" cy="279" r="2.7"/><circle class="pip on" cx="706.5" cy="279" r="2.7"/><circle class="pip" cx="715.0" cy="279" r="2.7"/></g><g class="nd" data-id="bolse" data-name="Bolse" style="--m:6" tabindex="0" role="button" aria-pressed="false" aria-label="Bolse, mission 6. On 14 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="pill" x="813.0" y="63.0" width="88" height="46" rx="9"/><text class="nm" x="857" y="83" text-anchor="middle" style="font-size:17px">Bolse</text><circle class="pip on" cx="840.0" cy="99" r="2.7"/><circle class="pip on" cx="848.5" cy="99" r="2.7"/><circle class="pip on" cx="857.0" cy="99" r="2.7"/><circle class="pip" cx="865.5" cy="99" r="2.7"/><circle class="pip" cx="874.0" cy="99" r="2.7"/></g><g class="nd" data-id="area-6" data-name="Area 6" style="--m:6" tabindex="0" role="button" aria-pressed="false" aria-label="Area 6, mission 6. On 11 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="pill" x="813.0" y="243.0" width="88" height="46" rx="9"/><text class="nm" x="857" y="263" text-anchor="middle" style="font-size:17px">Area 6</text><circle class="pip on" cx="840.0" cy="279" r="2.7"/><circle class="pip on" cx="848.5" cy="279" r="2.7"/><circle class="pip on" cx="857.0" cy="279" r="2.7"/><circle class="pip on" cx="865.5" cy="279" r="2.7"/><circle class="pip" cx="874.0" cy="279" r="2.7"/></g><g class="nd end" data-id="venom-1" data-name="Venom 1" style="--m:7" tabindex="0" role="button" aria-pressed="false" aria-label="Venom 1, mission 7. On 14 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="pill" x="972.0" y="63.0" width="88" height="46" rx="9"/><text class="nm" x="1016" y="83" text-anchor="middle" style="font-size:17px">Venom 1</text><circle class="pip on" cx="999.0" cy="99" r="2.7"/><circle class="pip on" cx="1007.5" cy="99" r="2.7"/><circle class="pip on" cx="1016.0" cy="99" r="2.7"/><circle class="pip on" cx="1024.5" cy="99" r="2.7"/><circle class="pip" cx="1033.0" cy="99" r="2.7"/></g><g class="nd end" data-id="venom-2" data-name="Venom 2" style="--m:7" tabindex="0" role="button" aria-pressed="false" aria-label="Venom 2, mission 7. On 11 of 25 routes. Difficulty 5 of 5. Press to show its routes."><rect class="pill" x="972.0" y="243.0" width="88" height="46" rx="9"/><text class="nm" x="1016" y="263" text-anchor="middle" style="font-size:17px">Venom 2</text><circle class="pip on" cx="999.0" cy="279" r="2.7"/><circle class="pip on" cx="1007.5" cy="279" r="2.7"/><circle class="pip on" cx="1016.0" cy="279" r="2.7"/><circle class="pip on" cx="1024.5" cy="279" r="2.7"/><circle class="pip on" cx="1033.0" cy="279" r="2.7"/></g></svg><svg class="mp mp-v" viewBox="0 0 300 632" role="group" aria-label="Route chart, tall layout"><line class="col" x1="34" y1="34" x2="294" y2="34"/><text class="ml mlv" x="14" y="41" text-anchor="middle" aria-hidden="true">1</text><line class="col" x1="34" y1="128" x2="294" y2="128"/><text class="ml mlv" x="14" y="135" text-anchor="middle" aria-hidden="true">2</text><line class="col" x1="34" y1="222" x2="294" y2="222"/><text class="ml mlv" x="14" y="229" text-anchor="middle" aria-hidden="true">3</text><line class="col" x1="34" y1="316" x2="294" y2="316"/><text class="ml mlv" x="14" y="323" text-anchor="middle" aria-hidden="true">4</text><line class="col" x1="34" y1="410" x2="294" y2="410"/><text class="ml mlv" x="14" y="417" text-anchor="middle" aria-hidden="true">5</text><line class="col" x1="34" y1="504" x2="294" y2="504"/><text class="ml mlv" x="14" y="511" text-anchor="middle" aria-hidden="true">6</text><line class="col" x1="34" y1="598" x2="294" y2="598"/><text class="ml mlv" x="14" y="605" text-anchor="middle" aria-hidden="true">7</text><path class="ed plain" data-from="corneria" data-to="meteo" style="--m:1" pathLength="1" d="M160,57.0 C160,81.0 72,81.0 72,105.0"/><path class="ed hot" data-from="corneria" data-to="sector-y" style="--m:1" pathLength="1" d="M160,57.0 C160,81.0 248,81.0 248,105.0"/><path class="ed plain" data-from="meteo" data-to="fichina" style="--m:2" pathLength="1" d="M72,151.0 C72,175.0 72,175.0 72,199.0"/><path class="ed hot" data-from="meteo" data-to="katina" style="--m:2" pathLength="1" d="M72,151.0 C72,175.0 160,175.0 160,199.0"/><path class="ed plain" data-from="sector-y" data-to="katina" style="--m:2" pathLength="1" d="M248,151.0 C248,175.0 160,175.0 160,199.0"/><path class="ed hot" data-from="sector-y" data-to="aquas" style="--m:2" pathLength="1" d="M248,151.0 C248,175.0 248,175.0 248,199.0"/><path class="ed plain" data-from="fichina" data-to="sector-x" style="--m:3" pathLength="1" d="M72,245.0 C72,269.0 72,269.0 72,293.0"/><path class="ed hot" data-from="fichina" data-to="solar" style="--m:3" pathLength="1" d="M72,245.0 C72,269.0 160,269.0 160,293.0"/><path class="ed plain" data-from="katina" data-to="sector-x" style="--m:3" pathLength="1" d="M160,245.0 C160,269.0 72,269.0 72,293.0"/><path class="ed hot" data-from="katina" data-to="solar" style="--m:3" pathLength="1" d="M160,245.0 C160,269.0 160,269.0 160,293.0"/><path class="ed plain" data-from="aquas" data-to="zoness" style="--m:3" pathLength="1" d="M248,245.0 C248,269.0 248,269.0 248,293.0"/><path class="ed plain" data-from="solar" data-to="macbeth" style="--m:4" pathLength="1" d="M160,339.0 C160,363.0 160,363.0 160,387.0"/><path class="ed plain" data-from="sector-x" data-to="titania" style="--m:4" pathLength="1" d="M72,339.0 C72,363.0 72,363.0 72,387.0"/><path class="ed hot" data-from="sector-x" data-to="macbeth" style="--m:4" pathLength="1" d="M72,339.0 C72,363.0 160,363.0 160,387.0"/><path class="ed hot" data-from="sector-x" data-to="sector-z" style="--m:4" pathLength="1" d="M72,339.0 C72,363.0 248,363.0 248,387.0"/><path class="ed plain" data-from="zoness" data-to="macbeth" style="--m:4" pathLength="1" d="M248,339.0 C248,363.0 160,363.0 160,387.0"/><path class="ed hot" data-from="zoness" data-to="sector-z" style="--m:4" pathLength="1" d="M248,339.0 C248,363.0 248,363.0 248,387.0"/><path class="ed plain" data-from="titania" data-to="bolse" style="--m:5" pathLength="1" d="M72,433.0 C72,457.0 72,457.0 72,481.0"/><path class="ed plain" data-from="macbeth" data-to="bolse" style="--m:5" pathLength="1" d="M160,433.0 C160,457.0 72,457.0 72,481.0"/><path class="ed hot" data-from="macbeth" data-to="area-6" style="--m:5" pathLength="1" d="M160,433.0 C160,457.0 248,457.0 248,481.0"/><path class="ed plain" data-from="sector-z" data-to="bolse" style="--m:5" pathLength="1" d="M248,433.0 C248,457.0 72,457.0 72,481.0"/><path class="ed hot" data-from="sector-z" data-to="area-6" style="--m:5" pathLength="1" d="M248,433.0 C248,457.0 248,457.0 248,481.0"/><path class="ed plain" data-from="bolse" data-to="venom-1" style="--m:6" pathLength="1" d="M72,527.0 C72,551.0 72,551.0 72,575.0"/><path class="ed plain" data-from="area-6" data-to="venom-2" style="--m:6" pathLength="1" d="M248,527.0 C248,551.0 248,551.0 248,575.0"/><g class="nd gate" data-id="corneria" data-name="Corneria" style="--m:1" tabindex="0" role="button" aria-pressed="false" aria-label="Corneria, mission 1. It has a challenge. On 25 of 25 routes. Difficulty 1 of 5. Press to show its routes."><rect class="ring" x="118.5" y="7.5" width="83" height="53" rx="12"/><rect class="pill" x="122.0" y="11.0" width="76" height="46" rx="9"/><text class="nm" x="160" y="31" text-anchor="middle" style="font-size:16px">Corneria</text><circle class="pip on" cx="144.0" cy="47" r="2.7"/><circle class="pip" cx="152.0" cy="47" r="2.7"/><circle class="pip" cx="160.0" cy="47" r="2.7"/><circle class="pip" cx="168.0" cy="47" r="2.7"/><circle class="pip" cx="176.0" cy="47" r="2.7"/></g><g class="nd gate" data-id="meteo" data-name="Meteo" style="--m:2" tabindex="0" role="button" aria-pressed="false" aria-label="Meteo, mission 2. It has a challenge. On 14 of 25 routes. Difficulty 1 of 5. Press to show its routes."><rect class="ring" x="30.5" y="101.5" width="83" height="53" rx="12"/><rect class="pill" x="34.0" y="105.0" width="76" height="46" rx="9"/><text class="nm" x="72" y="125" text-anchor="middle" style="font-size:16px">Meteo</text><circle class="pip on" cx="56.0" cy="141" r="2.7"/><circle class="pip" cx="64.0" cy="141" r="2.7"/><circle class="pip" cx="72.0" cy="141" r="2.7"/><circle class="pip" cx="80.0" cy="141" r="2.7"/><circle class="pip" cx="88.0" cy="141" r="2.7"/></g><g class="nd gate" data-id="sector-y" data-name="Sector Y" style="--m:2" tabindex="0" role="button" aria-pressed="false" aria-label="Sector Y, mission 2. It has a challenge. On 11 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="ring" x="206.5" y="101.5" width="83" height="53" rx="12"/><rect class="pill" x="210.0" y="105.0" width="76" height="46" rx="9"/><text class="nm" x="248" y="125" text-anchor="middle" style="font-size:16px">Sector Y</text><circle class="pip on" cx="232.0" cy="141" r="2.7"/><circle class="pip on" cx="240.0" cy="141" r="2.7"/><circle class="pip on" cx="248.0" cy="141" r="2.7"/><circle class="pip on" cx="256.0" cy="141" r="2.7"/><circle class="pip" cx="264.0" cy="141" r="2.7"/></g><g class="nd gate" data-id="fichina" data-name="Fichina" style="--m:3" tabindex="0" role="button" aria-pressed="false" aria-label="Fichina, mission 3. It has a challenge. On 7 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="30.5" y="195.5" width="83" height="53" rx="12"/><rect class="pill" x="34.0" y="199.0" width="76" height="46" rx="9"/><text class="nm" x="72" y="219" text-anchor="middle" style="font-size:16px">Fichina</text><circle class="pip on" cx="56.0" cy="235" r="2.7"/><circle class="pip on" cx="64.0" cy="235" r="2.7"/><circle class="pip on" cx="72.0" cy="235" r="2.7"/><circle class="pip" cx="80.0" cy="235" r="2.7"/><circle class="pip" cx="88.0" cy="235" r="2.7"/></g><g class="nd gate" data-id="katina" data-name="Katina" style="--m:3" tabindex="0" role="button" aria-pressed="false" aria-label="Katina, mission 3. It has a challenge. On 14 of 25 routes. Difficulty 2 of 5. Press to show its routes."><rect class="ring" x="118.5" y="195.5" width="83" height="53" rx="12"/><rect class="pill" x="122.0" y="199.0" width="76" height="46" rx="9"/><text class="nm" x="160" y="219" text-anchor="middle" style="font-size:16px">Katina</text><circle class="pip on" cx="144.0" cy="235" r="2.7"/><circle class="pip on" cx="152.0" cy="235" r="2.7"/><circle class="pip" cx="160.0" cy="235" r="2.7"/><circle class="pip" cx="168.0" cy="235" r="2.7"/><circle class="pip" cx="176.0" cy="235" r="2.7"/></g><g class="nd" data-id="aquas" data-name="Aquas" style="--m:3" tabindex="0" role="button" aria-pressed="false" aria-label="Aquas, mission 3. On 4 of 25 routes. Difficulty 2 of 5. Press to show its routes."><rect class="pill" x="210.0" y="199.0" width="76" height="46" rx="9"/><text class="nm" x="248" y="219" text-anchor="middle" style="font-size:16px">Aquas</text><circle class="pip on" cx="232.0" cy="235" r="2.7"/><circle class="pip on" cx="240.0" cy="235" r="2.7"/><circle class="pip" cx="248.0" cy="235" r="2.7"/><circle class="pip" cx="256.0" cy="235" r="2.7"/><circle class="pip" cx="264.0" cy="235" r="2.7"/></g><g class="nd gate" data-id="sector-x" data-name="Sector X" style="--m:4" tabindex="0" role="button" aria-pressed="false" aria-label="Sector X, mission 4. It has a challenge. On 15 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="30.5" y="289.5" width="83" height="53" rx="12"/><rect class="pill" x="34.0" y="293.0" width="76" height="46" rx="9"/><text class="nm" x="72" y="313" text-anchor="middle" style="font-size:16px">Sector X</text><circle class="pip on" cx="56.0" cy="329" r="2.7"/><circle class="pip on" cx="64.0" cy="329" r="2.7"/><circle class="pip on" cx="72.0" cy="329" r="2.7"/><circle class="pip" cx="80.0" cy="329" r="2.7"/><circle class="pip" cx="88.0" cy="329" r="2.7"/></g><g class="nd" data-id="solar" data-name="Solar" style="--m:4" tabindex="0" role="button" aria-pressed="false" aria-label="Solar, mission 4. On 6 of 25 routes. Difficulty 2 of 5. Press to show its routes."><rect class="pill" x="122.0" y="293.0" width="76" height="46" rx="9"/><text class="nm" x="160" y="313" text-anchor="middle" style="font-size:16px">Solar</text><circle class="pip on" cx="144.0" cy="329" r="2.7"/><circle class="pip on" cx="152.0" cy="329" r="2.7"/><circle class="pip" cx="160.0" cy="329" r="2.7"/><circle class="pip" cx="168.0" cy="329" r="2.7"/><circle class="pip" cx="176.0" cy="329" r="2.7"/></g><g class="nd gate" data-id="zoness" data-name="Zoness" style="--m:4" tabindex="0" role="button" aria-pressed="false" aria-label="Zoness, mission 4. It has a challenge. On 4 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="206.5" y="289.5" width="83" height="53" rx="12"/><rect class="pill" x="210.0" y="293.0" width="76" height="46" rx="9"/><text class="nm" x="248" y="313" text-anchor="middle" style="font-size:16px">Zoness</text><circle class="pip on" cx="232.0" cy="329" r="2.7"/><circle class="pip on" cx="240.0" cy="329" r="2.7"/><circle class="pip on" cx="248.0" cy="329" r="2.7"/><circle class="pip" cx="256.0" cy="329" r="2.7"/><circle class="pip" cx="264.0" cy="329" r="2.7"/></g><g class="nd" data-id="titania" data-name="Titania" style="--m:5" tabindex="0" role="button" aria-pressed="false" aria-label="Titania, mission 5. On 3 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="pill" x="34.0" y="387.0" width="76" height="46" rx="9"/><text class="nm" x="72" y="407" text-anchor="middle" style="font-size:16px">Titania</text><circle class="pip on" cx="56.0" cy="423" r="2.7"/><circle class="pip on" cx="64.0" cy="423" r="2.7"/><circle class="pip on" cx="72.0" cy="423" r="2.7"/><circle class="pip" cx="80.0" cy="423" r="2.7"/><circle class="pip" cx="88.0" cy="423" r="2.7"/></g><g class="nd gate" data-id="macbeth" data-name="Macbeth" style="--m:5" tabindex="0" role="button" aria-pressed="false" aria-label="Macbeth, mission 5. It has a challenge. On 14 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="ring" x="118.5" y="383.5" width="83" height="53" rx="12"/><rect class="pill" x="122.0" y="387.0" width="76" height="46" rx="9"/><text class="nm" x="160" y="407" text-anchor="middle" style="font-size:16px">Macbeth</text><circle class="pip on" cx="144.0" cy="423" r="2.7"/><circle class="pip on" cx="152.0" cy="423" r="2.7"/><circle class="pip on" cx="160.0" cy="423" r="2.7"/><circle class="pip" cx="168.0" cy="423" r="2.7"/><circle class="pip" cx="176.0" cy="423" r="2.7"/></g><g class="nd gate" data-id="sector-z" data-name="Sector Z" style="--m:5" tabindex="0" role="button" aria-pressed="false" aria-label="Sector Z, mission 5. It has a challenge. On 8 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="ring" x="206.5" y="383.5" width="83" height="53" rx="12"/><rect class="pill" x="210.0" y="387.0" width="76" height="46" rx="9"/><text class="nm" x="248" y="407" text-anchor="middle" style="font-size:16px">Sector Z</text><circle class="pip on" cx="232.0" cy="423" r="2.7"/><circle class="pip on" cx="240.0" cy="423" r="2.7"/><circle class="pip on" cx="248.0" cy="423" r="2.7"/><circle class="pip on" cx="256.0" cy="423" r="2.7"/><circle class="pip" cx="264.0" cy="423" r="2.7"/></g><g class="nd" data-id="bolse" data-name="Bolse" style="--m:6" tabindex="0" role="button" aria-pressed="false" aria-label="Bolse, mission 6. On 14 of 25 routes. Difficulty 3 of 5. Press to show its routes."><rect class="pill" x="34.0" y="481.0" width="76" height="46" rx="9"/><text class="nm" x="72" y="501" text-anchor="middle" style="font-size:16px">Bolse</text><circle class="pip on" cx="56.0" cy="517" r="2.7"/><circle class="pip on" cx="64.0" cy="517" r="2.7"/><circle class="pip on" cx="72.0" cy="517" r="2.7"/><circle class="pip" cx="80.0" cy="517" r="2.7"/><circle class="pip" cx="88.0" cy="517" r="2.7"/></g><g class="nd" data-id="area-6" data-name="Area 6" style="--m:6" tabindex="0" role="button" aria-pressed="false" aria-label="Area 6, mission 6. On 11 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="pill" x="210.0" y="481.0" width="76" height="46" rx="9"/><text class="nm" x="248" y="501" text-anchor="middle" style="font-size:16px">Area 6</text><circle class="pip on" cx="232.0" cy="517" r="2.7"/><circle class="pip on" cx="240.0" cy="517" r="2.7"/><circle class="pip on" cx="248.0" cy="517" r="2.7"/><circle class="pip on" cx="256.0" cy="517" r="2.7"/><circle class="pip" cx="264.0" cy="517" r="2.7"/></g><g class="nd end" data-id="venom-1" data-name="Venom 1" style="--m:7" tabindex="0" role="button" aria-pressed="false" aria-label="Venom 1, mission 7. On 14 of 25 routes. Difficulty 4 of 5. Press to show its routes."><rect class="pill" x="34.0" y="575.0" width="76" height="46" rx="9"/><text class="nm" x="72" y="595" text-anchor="middle" style="font-size:16px">Venom 1</text><circle class="pip on" cx="56.0" cy="611" r="2.7"/><circle class="pip on" cx="64.0" cy="611" r="2.7"/><circle class="pip on" cx="72.0" cy="611" r="2.7"/><circle class="pip on" cx="80.0" cy="611" r="2.7"/><circle class="pip" cx="88.0" cy="611" r="2.7"/></g><g class="nd end" data-id="venom-2" data-name="Venom 2" style="--m:7" tabindex="0" role="button" aria-pressed="false" aria-label="Venom 2, mission 7. On 11 of 25 routes. Difficulty 5 of 5. Press to show its routes."><rect class="pill" x="210.0" y="575.0" width="76" height="46" rx="9"/><text class="nm" x="248" y="595" text-anchor="middle" style="font-size:16px">Venom 2</text><circle class="pip on" cx="232.0" cy="611" r="2.7"/><circle class="pip on" cx="240.0" cy="611" r="2.7"/><circle class="pip on" cx="248.0" cy="611" r="2.7"/><circle class="pip on" cx="256.0" cy="611" r="2.7"/><circle class="pip on" cx="264.0" cy="611" r="2.7"/></g></svg></div>
+        <div class="map-side">
+          <ul class="legend">
+  <li><svg viewBox="0 0 44 14" width="44" height="14" aria-hidden="true"><path class="lg-ed" d="M2,7 H42"/></svg><span>Always open</span></li>
+  <li><svg viewBox="0 0 44 14" width="44" height="14" aria-hidden="true"><path class="lg-ed hot" d="M2,7 H42"/></svg><span>Opens only when you clear the level’s challenge</span></li>
+  <li><svg viewBox="0 0 44 30" width="44" height="30" aria-hidden="true"><rect class="ring" x="2" y="2" width="40" height="26" rx="8"/><rect class="pill" x="6" y="6" width="32" height="18" rx="5"/></svg><span>This level has a challenge</span></li>
+  <li><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i></span><span>Difficulty from 1 to 5, rated by one player</span></li>
+</ul>
+          <div class="panel" aria-live="polite">
+            <p class="p-h" id="sel-head">Pick a level</p>
+            <p class="p-t" id="sel-text">The chart will show every route that passes through it, and the list below will narrow to match.</p>
+            <p class="p-a" id="sel-acts" hidden><button type="button" class="btn" id="sel-clear">Clear</button><a id="sel-go" href="#corneria">Read the notes</a></p>
+          </div>
+        </div>
+      </div>
+    </figure>
+
+    <details class="routes-box">
+      <summary>All 25 routes, fewest challenges first</summary>
+      <p class="routes-note" id="routes-count">25 routes. Pick a level on the chart to narrow them.</p>
+      <p class="routes-note">A short grey line means the next level was always open. A thick orange line means you had to clear the challenge in the level before it. Counts add up the orange lines. 14 routes end at Venom 1 and 11 at Venom 2, which matches the count on the StarFox Wiki.</p>
+      <ol class="routes"><li data-r=" corneria meteo fichina sector-x titania bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Fichina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Titania</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">no challenges</span></li><li data-r=" corneria meteo fichina sector-x macbeth bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Fichina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">1 challenge</span></li><li data-r=" corneria meteo fichina sector-x sector-z bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Fichina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">1 challenge</span></li><li data-r=" corneria meteo fichina solar macbeth bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Fichina</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Solar</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">1 challenge</span></li><li data-r=" corneria meteo katina sector-x titania bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Titania</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">1 challenge</span></li><li data-r=" corneria sector-y katina sector-x titania bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Titania</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">1 challenge</span></li><li data-r=" corneria meteo katina sector-x macbeth bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria meteo katina sector-x sector-z bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria meteo katina solar macbeth bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Katina</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Solar</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria sector-y katina sector-x macbeth bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria sector-y katina sector-x sector-z bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria sector-y katina solar macbeth bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Katina</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Solar</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria sector-y aquas zoness macbeth bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Aquas</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Zoness</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria meteo fichina sector-x macbeth area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Fichina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria meteo fichina sector-x sector-z area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Fichina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria meteo fichina solar macbeth area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Fichina</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Solar</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">2 challenges</span></li><li data-r=" corneria sector-y aquas zoness sector-z bolse venom-1 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Aquas</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Zoness</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Bolse</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 1</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria meteo katina sector-x macbeth area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria meteo katina sector-x sector-z area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria meteo katina solar macbeth area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Meteo</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Katina</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Solar</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria sector-y katina sector-x macbeth area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria sector-y katina sector-x sector-z area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Katina</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Sector X</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria sector-y katina solar macbeth area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Katina</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Solar</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria sector-y aquas zoness macbeth area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Aquas</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Zoness</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Macbeth</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">3 challenges</span></li><li data-r=" corneria sector-y aquas zoness sector-z area-6 venom-2 "><span class="steps"><span class="hop"><span class="st">Corneria</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Y</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Aquas</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Zoness</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Sector Z</span><span class="to hot" aria-hidden="true"></span><span class="sr">, after clearing the challenge, </span></span> <span class="hop"><span class="st">Area 6</span><span class="to" aria-hidden="true"></span><span class="sr">, then </span></span> <span class="hop"><span class="st">Venom 2</span></span> </span><span class="cnt">4 challenges</span></li></ol>
+    </details>
+  </div>
+</header>
+
+<main>
+  <section class="sec wrap" aria-labelledby="chal-h">
+    <h2 id="chal-h">The challenges that open a route</h2>
+    <p class="sec-sub">Nine levels have a challenge, and Sector X has two. Meet the condition and the harder branch appears on the map next to the easy one. Miss it and the easy one is picked for you.</p>
+    <table class="tb"><thead><tr><th scope="col">Level</th><th scope="col">Your challenge</th><th scope="col">What it opens</th><th scope="col">If you miss it</th></tr></thead><tbody><tr><th scope="row"><a href="#corneria"><span class="t-n">Corneria</span><span class="t-m">Mission 1</span></a></th><td data-col="Your challenge"><span class="v">Save Falco, fly through all seven arches over the water, then follow Falco through the waterfall.</span></td><td data-col="What it opens"><span class="v">Sector Y, with the Attack Carrier as the boss.</span></td><td data-col="If you miss it"><span class="v">You fight Granga and go to Meteo.</span></td></tr><tr><th scope="row"><a href="#meteo"><span class="t-n">Meteo</span><span class="t-m">Mission 2</span></a></th><td data-col="Your challenge"><span class="v">Fly through the blue warp rings near the end, then the warp zone.</span></td><td data-col="What it opens"><span class="v">Katina, through a warp that skips the boss.</span></td><td data-col="If you miss it"><span class="v">You fight Meteo Crusher and go to Fichina.</span></td></tr><tr><th scope="row"><a href="#sector-y"><span class="t-n">Sector Y</span><span class="t-m">Mission 2</span></a></th><td data-col="Your challenge"><span class="v">Finish with 100 hits or more.</span></td><td data-col="What it opens"><span class="v">Aquas.</span></td><td data-col="If you miss it"><span class="v">With 99 or fewer you go to Katina.</span></td></tr><tr><th scope="row"><a href="#fichina"><span class="t-n">Fichina</span><span class="t-m">Mission 3</span></a></th><td data-col="Your challenge"><span class="v">Shoot down all four Wolfen before the base’s bomb goes off.</span></td><td data-col="What it opens"><span class="v">Solar.</span></td><td data-col="If you miss it"><span class="v">You go to Sector X, and Star Wolf comes back at Bolse.</span></td></tr><tr><th scope="row"><a href="#katina"><span class="t-n">Katina</span><span class="t-m">Mission 3</span></a></th><td data-col="Your challenge"><span class="v">Destroy the mothership’s core before its timer runs out.</span></td><td data-col="What it opens"><span class="v">Solar.</span></td><td data-col="If you miss it"><span class="v">The base is destroyed and you go to Sector X.</span></td></tr><tr><th scope="row"><a href="#sector-x"><span class="t-n">Sector X</span><span class="t-m">Mission 4</span></a></th><td data-col="Your challenge"><span class="v">Take the left fork and shoot and fly through all four gates.</span></td><td data-col="What it opens"><span class="v">Sector Z, with no Spyborg fight.</span></td><td data-col="If you miss it"><span class="v">You fight Spyborg instead.</span></td></tr><tr><th scope="row"><a href="#sector-x"><span class="t-n">Sector X</span><span class="t-m">Mission 4</span></a></th><td data-col="Your challenge"><span class="v">Beat Spyborg quickly, before it knocks Slippy into space.</span></td><td data-col="What it opens"><span class="v">Macbeth.</span></td><td data-col="If you miss it"><span class="v">You go to Titania, where Slippy has to be rescued.</span></td></tr><tr><th scope="row"><a href="#zoness"><span class="t-n">Zoness</span><span class="t-m">Mission 4</span></a></th><td data-col="Your challenge"><span class="v">Destroy every searchlight without being spotted.</span></td><td data-col="What it opens"><span class="v">Sector Z.</span></td><td data-col="If you miss it"><span class="v">You go to Macbeth.</span></td></tr><tr><th scope="row"><a href="#macbeth"><span class="t-n">Macbeth</span><span class="t-m">Mission 5</span></a></th><td data-col="Your challenge"><span class="v">Shoot all eight switches, then the switchboard lever near the end.</span></td><td data-col="What it opens"><span class="v">Area 6, after the train derails.</span></td><td data-col="If you miss it"><span class="v">You fight Mechbeth and go to Bolse.</span></td></tr><tr><th scope="row"><a href="#sector-z"><span class="t-n">Sector Z</span><span class="t-m">Mission 5</span></a></th><td data-col="Your challenge"><span class="v">Shoot down all six Copperhead missiles before one hits the Great Fox.</span></td><td data-col="What it opens"><span class="v">Area 6.</span></td><td data-col="If you miss it"><span class="v">You go to Bolse.</span></td></tr></tbody></table>
+    <p class="note">Four levels have one exit and no challenge. Aquas leads only to Zoness, Solar only to Macbeth and Titania only to Bolse. Bolse leads to Venom 1, and Area 6 to Venom 2.</p>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="cast-h">
+    <h2 id="cast-h">Who turns up depends on your route</h2>
+    <p class="sec-sub">Some allies and rivals only appear if you passed through a particular level.</p>
+    <table class="tb cast"><thead><tr><th scope="col">Character</th><th scope="col">Who</th><th scope="col">Where they matter</th></tr></thead><tbody><tr><th scope="row"><span class="t-n">Falco</span></th><td data-col="Who"><span class="v">Wingman. Has the most health of the three.</span></td><td data-col="Where they matter"><span class="v">He finds the Attack Carrier on <a href="#corneria">Corneria</a> and the warp in <a href="#sector-x">Sector X</a>, so you need him alive for both. If he is alive at <a href="#macbeth">Macbeth</a>, he usually shoots the fourth switch.</span></td></tr><tr><th scope="row"><span class="t-n">Bill Grey</span></th><td data-col="Who"><span class="v">Fox’s academy classmate, who leads Husky Squadron.</span></td><td data-col="Where they matter"><span class="v">Calls for help at <a href="#katina">Katina</a>. If you went through Katina, he repays you at <a href="#solar">Solar</a> with supply rings and a laser upgrade, or at <a href="#sector-x">Sector X</a>.</span></td></tr><tr><th scope="row"><span class="t-n">Katt Monroe</span></th><td data-col="Who"><span class="v">A pilot who joins you at Zoness.</span></td><td data-col="Where they matter"><span class="v">If you came through <a href="#zoness">Zoness</a>, she helps at <a href="#macbeth">Macbeth</a> by shooting some switches, and joins the third missile wave at <a href="#sector-z">Sector Z</a>.</span></td></tr><tr><th scope="row"><span class="t-n">Star Wolf</span></th><td data-col="Who"><span class="v">The rival team: Wolf O’Donnell, Leon Powalski, Pigma Dengar and Andrew Oikonny.</span></td><td data-col="Where they matter"><span class="v">Fought at <a href="#fichina">Fichina</a>. If you did not beat them there, they join the fight at <a href="#bolse">Bolse</a>. They return in upgraded Wolfen II ships at <a href="#venom-2">Venom 2</a>.</span></td></tr></tbody></table>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="medal-h">
+    <h2 id="medal-h">Hits needed for a medal</h2>
+    <p class="sec-sub">You also need Falco, Peppy and Slippy all alive when the level ends. A medal from every level unlocks Expert Mode. The 100 hits that Sector Y asks for to reach Aquas is a different number from its 150-hit medal.</p>
+    <div class="mc" data-chart>
+  <div class="mc-head"><span class="mc-lab">Hits</span><span class="mc-ax" aria-hidden="true"><span class="tk" style="left:0.00%">0</span><span class="tk" style="left:30.30%">100</span><span class="tk" style="left:60.61%">200</span><span class="tk" style="left:90.91%">300</span></span></div>
+  <ol class="mc-list"><li class="mc-row"><a class="mc-n" href="#corneria">Corneria</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#meteo">Meteo</a><span class="mc-track"><i class="mc-bar" style="width:60.61%"></i><b class="mc-v" style="left:60.61%">200</b></span></li><li class="mc-row"><a class="mc-n" href="#sector-y">Sector Y</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#fichina">Fichina</a><span class="mc-track"><i class="mc-bar" style="width:15.15%"></i><b class="mc-v" style="left:15.15%">50</b></span></li><li class="mc-row"><a class="mc-n" href="#katina">Katina</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#aquas">Aquas</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#sector-x">Sector X</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#solar">Solar</a><span class="mc-track"><i class="mc-bar" style="width:30.30%"></i><b class="mc-v" style="left:30.30%">100</b></span></li><li class="mc-row"><a class="mc-n" href="#zoness">Zoness</a><span class="mc-track"><i class="mc-bar" style="width:75.76%"></i><b class="mc-v" style="left:75.76%">250</b></span></li><li class="mc-row"><a class="mc-n" href="#titania">Titania</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#macbeth">Macbeth</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#sector-z">Sector Z</a><span class="mc-track"><i class="mc-bar" style="width:30.30%"></i><b class="mc-v" style="left:30.30%">100</b></span></li><li class="mc-row"><a class="mc-n" href="#bolse">Bolse</a><span class="mc-track"><i class="mc-bar" style="width:45.45%"></i><b class="mc-v" style="left:45.45%">150</b></span></li><li class="mc-row"><a class="mc-n" href="#area-6">Area 6</a><span class="mc-track"><i class="mc-bar" style="width:90.91%"></i><b class="mc-v" style="left:90.91%">300</b></span></li><li class="mc-row"><a class="mc-n" href="#venom-1">Venom 1 or 2</a><span class="mc-track"><i class="mc-bar" style="width:60.61%"></i><b class="mc-v" style="left:60.61%">200</b></span></li></ol>
+</div>
+<details class="tbl"><summary>Show as a table</summary><div class="tbl-w"><table><thead><tr><th scope="col">Level</th><th scope="col">Hits for a medal</th></tr></thead><tbody><tr><th scope="row">Corneria</th><td>150</td></tr><tr><th scope="row">Meteo</th><td>200</td></tr><tr><th scope="row">Sector Y</th><td>150</td></tr><tr><th scope="row">Fichina</th><td>50</td></tr><tr><th scope="row">Katina</th><td>150</td></tr><tr><th scope="row">Aquas</th><td>150</td></tr><tr><th scope="row">Sector X</th><td>150</td></tr><tr><th scope="row">Solar</th><td>100</td></tr><tr><th scope="row">Zoness</th><td>250</td></tr><tr><th scope="row">Titania</th><td>150</td></tr><tr><th scope="row">Macbeth</th><td>150</td></tr><tr><th scope="row">Sector Z</th><td>100</td></tr><tr><th scope="row">Bolse</th><td>150</td></tr><tr><th scope="row">Area 6</th><td>300</td></tr><tr><th scope="row">Venom 1 or 2</th><td>200</td></tr></tbody></table></div></details>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="end-h">
+    <h2 id="end-h">The two endings</h2>
+    <p class="sec-sub">Bolse leads to Venom 1 and Area 6 leads to Venom 2. Nothing else decides the ending.</p>
+    <div class="endings"><article class="end-card easy">
+  <h3><a href="#venom-1">Venom 1</a></h3>
+  <p class="end-via">Reached from Bolse. 14 of the 25 routes end here.</p>
+  <p>Fox flies the temple alone and destroys the android Andross, then escapes. The credits show Andross laughing, still alive. It is the ending for the easy lane.</p>
+  <dl class="facts"><div><dt>Final fights</dt><dd>Golemech, then a robot Andross</dd></div><div><dt>Difficulty</dt><dd>4 of 5</dd></div><div><dt>Medal</dt><dd>200 hits</dd></div></dl>
+</article><article class="end-card hard">
+  <h3><a href="#venom-2">Venom 2</a></h3>
+  <p class="end-via">Reached from Area 6. 11 of the 25 routes end here.</p>
+  <p>After Andross’s brain falls, you follow James McCloud, Fox’s father, out of the collapsing lair. After the credits, THE END appears. The wiki calls this the canonical ending.</p>
+  <dl class="facts"><div><dt>Final fights</dt><dd>Star Wolf’s Wolfen II ships, then Andross in his true form</dd></div><div><dt>Difficulty</dt><dd>5 of 5</dd></div><div><dt>Medal</dt><dd>200 hits</dd></div></dl>
+</article></div>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="qa-h">
+    <h2 id="qa-h">Quick answers</h2>
+    <dl class="qa-list"><div class="qa-i"><dt>How do I get the real ending?</dt><dd>Get to Area 6. It opens from <a href="#macbeth">Macbeth</a> when you derail the train, or from <a href="#sector-z">Sector Z</a> when you stop all six missiles. Area 6 leads only to Venom 2, which the wiki calls the canonical ending.</dd></div><div class="qa-i"><dt>What is the least I have to do?</dt><dd>Venom 1 needs no challenge at all: <a href="#corneria">Corneria</a>, <a href="#meteo">Meteo</a>, <a href="#fichina">Fichina</a>, <a href="#sector-x">Sector X</a>, <a href="#titania">Titania</a> and <a href="#bolse">Bolse</a> with every optional goal left alone. For Venom 2 the fewest is 2 challenges, for example beat Star Wolf at <a href="#fichina">Fichina</a> and derail the train at <a href="#macbeth">Macbeth</a>, or take the warp at <a href="#sector-x">Sector X</a> and shoot down the missiles at <a href="#sector-z">Sector Z</a>, or beat Spyborg quickly at <a href="#sector-x">Sector X</a> and derail the train at <a href="#macbeth">Macbeth</a>.</dd></div><div class="qa-i"><dt>Which levels do the most routes pass through?</dt><dd><a href="#sector-x">Sector X</a> is on 15 of the 25 routes, more than any level after the start. <a href="#meteo">Meteo</a>, <a href="#katina">Katina</a>, <a href="#macbeth">Macbeth</a> and <a href="#bolse">Bolse</a> are each on 14. <a href="#titania">Titania</a> is on only 3, the fewest, then <a href="#aquas">Aquas</a> and <a href="#zoness">Zoness</a> with 4 each.</dd></div><div class="qa-i"><dt>Do I have to take the harder branch once it opens?</dt><dd>No. The wiki gives 25 routes in all, and that count only works if clearing a challenge adds an option rather than forcing it. Its pages for Zoness, Macbeth, Katina and Sector Y spell out the choice.</dd></div><div class="qa-i"><dt>What do I need for a medal?</dt><dd>A hit total for the level, from 50 at <a href="#fichina">Fichina</a> to 300 at <a href="#area-6">Area 6</a>, and Falco, Peppy and Slippy all alive when you finish. Medals from every level unlock Expert Mode, which has more enemies that fire more often and breaks your wings on any crash.</dd></div></dl>
+  </section>
+
+  <section class="sec wrap" aria-labelledby="lv-h">
+    <h2 id="lv-h">Level by level</h2>
+    <p class="sec-sub">In mission order. A level with an orange ring on the line has a challenge.</p>
+  </section>
+
+  <div class="filters" hidden>
+  <div class="wrap filters-in">
+    <div class="chips" role="group" aria-label="Filter levels"><button type="button" class="chip" data-filter="all" aria-pressed="true">Every level <span class="cn">16</span></button><button type="button" class="chip" data-filter="decides" aria-pressed="false">Decides your route <span class="cn">9</span></button><button type="button" class="chip" data-filter="vehicle" aria-pressed="false">Landmaster or Blue Marine <span class="cn">3</span></button><button type="button" class="chip" data-filter="starwolf" aria-pressed="false">Star Wolf appears <span class="cn">3</span></button></div>
+    <p class="status" id="filter-status" role="status"></p>
+  </div>
+</div>
+
+  <div class="wrap">
+    <div class="spine">
+      <section class="entry" id="corneria" aria-labelledby="corneria-h" data-tags="decides">
+  <header class="e-head">
+    <p class="e-mission">Mission 1</p>
+    <h3 id="corneria-h">Corneria</h3>
+    <p class="e-title">Enter Star Fox</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Former army base</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor, with an all-range boss</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp"></i><i class="pp"></i><i class="pp"></i><i class="pp"></i></span> <span>1 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>25</b> of 25</dd></div>
+  </dl>
+  <p class="about">A run over the sea and through the capital city, then a boss fight. Every route starts here, and it holds the first fork.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Granga.</b> The default boss, in an all-range fight. Shoot a leg so it falls over, then hit the power pack on its back.</p><p><b>Attack Carrier.</b> The boss on the hard path. Destroy its three launchers, then the main ship.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Gold rings under the arches over the water. Three raise your shield limit.</li><li>Silver rings from downed fighters.</li><li>A laser upgrade in the city, from the cluster of enemies you can lock onto with a charged shot.</li><li>A smart bomb behind one of the arches.</li><li>An extra Arwing. StrategyWiki lists Corneria, Sector Y and Venom as the levels that have one.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> The start of the game.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Save Falco from the three fighters on his tail, then fly through all seven arches over the water. Follow Falco through the waterfall.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#meteo">Meteo</a>, with Granga as the boss.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#sector-y">Sector Y</a>, with the Attack Carrier as the boss.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Falco has to be with you, because he is the one who finds the Attack Carrier.</li></ul></aside>
+</section><section class="entry" id="meteo" aria-labelledby="meteo-h" data-tags="decides">
+  <header class="e-head">
+    <p class="e-mission">Mission 2</p>
+    <h3 id="meteo-h">Meteo</h3>
+    <p class="e-title">Into the Asteroid Field</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Asteroid field</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>200</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp"></i><i class="pp"></i><i class="pp"></i><i class="pp"></i></span> <span>1 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>14</b> of 25</dd></div>
+  </dl>
+  <p class="about">A corridor through a dense asteroid field. Peppy calls out when to brake and boost, and ROB 64 sends supplies partway.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Meteo Crusher.</b> A big shield on its front reflects your shots, so go for the yellow weak points as they open. It fakes a surrender, so keep firing at the rest of it afterwards.</p><p><b>The warp route.</b> There is no boss. The warp skips the fight.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>A supply container from ROB 64. Press C-right when ROB calls.</li><li>Laser upgrades in rings of asteroids.</li><li>Gold rings from the snake enemies and from asteroids that split.</li><li>Bombs, for flying through the “64” formation (Magna’s guide).</li><li>A shield star.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#corneria">Corneria</a>, by default.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Fly through the blue warp rings near the end, then through the warp zone. The wiki counts seven rings, and one older guide says six.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#fichina">Fichina</a>, after you beat Meteo Crusher.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#katina">Katina</a>, through the warp. The warp zone also lets you pick Fichina.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>The warp area is full of power-ups. Magna’s medal guide calls the warp the easier way to the 200-hit medal.</li></ul></aside>
+</section><section class="entry" id="sector-y" aria-labelledby="sector-y-h" data-tags="decides">
+  <header class="e-head">
+    <p class="e-mission">Mission 2</p>
+    <h3 id="sector-y-h">Sector Y</h3>
+    <p class="e-title">Fierce Melee</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Combat zone</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor, with an all-range boss</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i></span> <span>4 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>11</b> of 25</dd></div>
+  </dl>
+  <p class="about">A battle among burnt-out warships and giant humanoid robots, which General Pepper asks Star Fox to win. It is the first hard level, and it starts the hard lane.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Two Shogun robots.</b> They share one shield bar. Shoot each until it explodes. A direct bomb hit on any Shogun takes off half the bar.</p><p><b>The piloted Shogun.</b> A larger, faster robot that flies around the arena and docks on its ship. Wait for it to land, then shoot it.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>A gold ring on top of a battleship’s control tower, and another in the last arch.</li><li>A shield star near the top left.</li><li>Laser upgrades from the two blue robots.</li><li>An extra Arwing (see Corneria).</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#corneria">Corneria</a>, after the Attack Carrier.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Finish with 100 hits or more. Near the end Falco complains if you have under 90, and Peppy praises you if you have more.</li><li>Taking the upper path at both forks gives you more enemies to shoot.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#katina">Katina</a>, if you finish with 99 hits or fewer.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#aquas">Aquas</a>, with 100 hits or more. You can still pick Katina.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>The route needs 100 hits. The medal needs 150.</li></ul></aside>
+</section><section class="entry" id="fichina" aria-labelledby="fichina-h" data-tags="decides starwolf">
+  <header class="e-head">
+    <p class="e-mission">Mission 3</p>
+    <h3 id="fichina-h">Fichina</h3>
+    <p class="e-title">Enter Star Wolf</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Former defense post</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">All-range</span></dd></div>
+    <div><dt>Medal</dt><dd><b>50</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i></span> <span>3 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>7</b> of 25</dd></div>
+  </dl>
+  <p class="about">An all-range dogfight against Star Wolf, the rival team, while a bomb on the base counts down.</p>
+  <p class="e-note">The English Nintendo 64 release calls this planet Fortuna. Later games and the 3DS version call it Fichina.</p>
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Star Wolf.</b> Four Wolfen, one for each pilot. Fly straight to draw one onto your tail, then somersault behind it and fire. Each is worth 10 hits. When all four are down, Fox defuses the bomb.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Silver rings from the transmitters, if you get in trouble. The guides I read list no other pickups here.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#meteo">Meteo</a>, if you skip the warp.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Shoot down all four Wolfen before the bomb goes off.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#sector-x">Sector X</a>, if the bomb goes off.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#solar">Solar</a>, if you beat Star Wolf.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>If Star Wolf beats your wingmen in the dogfight, you go straight to Sector X.</li><li>If you do not beat Star Wolf here, they join the fight at <a href="#bolse">Bolse</a>.</li></ul></aside>
+</section><section class="entry" id="katina" aria-labelledby="katina-h" data-tags="decides">
+  <header class="e-head">
+    <p class="e-mission">Mission 3</p>
+    <h3 id="katina-h">Katina</h3>
+    <p class="e-title">Reunion</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Frontline base</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">All-range</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i><i class="pp"></i></span> <span>2 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>14</b> of 25</dd></div>
+  </dl>
+  <p class="about">Bill Grey, Fox’s academy classmate, calls for help at one of Corneria’s front-line bases. Andross’s fighters are swarming it and a huge mothership hangs overhead.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Saucerer.</b> Shoot enemies until the mothership appears, then shoot its hatches as they open. The core then appears as an upside-down cone. Destroy it within about a minute, or the mothership destroys the base.</p><p><b>Medal tip.</b> Take out the hatches but leave the core until the last possible second, so you can keep shooting the swarm.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>The guides I read list no pickups here. Points come from the swarm and from the hatches, which release about two dozen enemies between them.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#meteo">Meteo</a> through the warp, or <a href="#sector-y">Sector Y</a> with fewer than 100 hits.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Destroy the core before the timer runs out.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#sector-x">Sector X</a>, if the base is destroyed.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#solar">Solar</a>, if you win. You can still pick Sector X.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Bill repays you at <a href="#solar">Solar</a> or <a href="#sector-x">Sector X</a>, whichever you pick.</li><li>Cornerian fighters have pink dots on their backs. Shooting them carries no medal penalty, but each one you down leaves one fewer ship following you at the end. Destroy the core without shooting any and Bill’s farewell changes.</li></ul></aside>
+</section><section class="entry" id="aquas" aria-labelledby="aquas-h" data-tags="vehicle">
+  <header class="e-head">
+    <p class="e-mission">Mission 3</p>
+    <h3 id="aquas-h">Aquas</h3>
+    <p class="e-title">Terror of the Deep</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Ocean</dd></div>
+    <div><dt>Vehicle</dt><dd>Blue Marine<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i><i class="pp"></i></span> <span>2 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>4</b> of 25</dd></div>
+  </dl>
+  <p class="about">The only level flown in the Blue Marine submarine. Lasers can’t be charged, but torpedoes are unlimited. Clams, squids, anglers and jellyfish guard an underwater bio-weapon.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Bacoon.</b> A giant clam. Hit one of its membrane supports until it glows white, then fire a torpedo at it. Do the same to the second one, then torpedo the eye. The four parasites on top are worth 4 hits each.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Silver rings from clams and rocks.</li><li>Gold rings from pillars and from an angler.</li><li>A shield star from a squid.</li><li>A laser upgrade from the last arch.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#sector-y">Sector Y</a>, with 100 hits or more.</p>
+    
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#zoness">Zoness</a>. It is the only exit.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Zoness can only be reached through Aquas. To get there you have to clear Sector Y with 100 hits first.</li></ul></aside>
+</section><section class="entry" id="sector-x" aria-labelledby="sector-x-h" data-tags="decides">
+  <header class="e-head">
+    <p class="e-mission">Mission 4</p>
+    <h3 id="sector-x-h">Sector X</h3>
+    <p class="e-title">Mystery of the Space Base</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Combat zone</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i></span> <span>3 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>15</b> of 25</dd></div>
+  </dl>
+  <p class="about">A half-built space station with big swarms, spiky and insect-like enemies, and laser cannons. The track splits at a fork, and the left side hides a warp.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Spyborg.</b> Shoot its head when its eyes light up. Dodge the slams, which knock out your wings. When it fakes its death, finish the head before Slippy is knocked out. It is not fought on the warp route.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>A laser upgrade from the last of three drones near the fork.</li><li>A gold ring inside the energy rings of a moth enemy.</li><li>A gold ring in a crack in the wall on the way to Sector Z.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#fichina">Fichina</a> or <a href="#katina">Katina</a>.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>The warp: take the left fork, then shoot and fly through all four gates. Falco helps you find it.</li><li>The quick kill: beat Spyborg quickly, before it knocks Slippy into space.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#titania">Titania</a>, if Spyborg takes too long and Slippy is lost.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#macbeth">Macbeth</a>, after a quick kill. You can still pick Titania.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#sector-z">Sector Z</a>, through the warp.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Bill Grey appears here only if you came through <a href="#katina">Katina</a>. One GameFAQs walkthrough says he helps open the four gates.</li></ul></aside>
+</section><section class="entry" id="solar" aria-labelledby="solar-h" data-tags="">
+  <header class="e-head">
+    <p class="e-mission">Mission 4</p>
+    <h3 id="solar-h">Solar</h3>
+    <p class="e-title">Out of the Frying Pan…</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Lava surface</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>100</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i><i class="pp"></i></span> <span>2 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>6</b> of 25</dd></div>
+  </dl>
+  <p class="about">A flight over lava waves, hills and rock. Fly too low and the heat damages your Arwing.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Vulcain.</b> A lava hill rises to show it. Destroy both arms, then the head. It throws rocks that you can shoot for silver rings. Hyper lasers make it much easier.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Silver and gold rings from shooting the rocks. Some rocks give a shield star.</li><li>Bombs from the flocks of lava birds.</li><li>If you came through Katina, Bill drops supply rings and a laser upgrade.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#fichina">Fichina</a> or <a href="#katina">Katina</a>, after a win.</p>
+    
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#macbeth">Macbeth</a>. It is the only exit.</span></li></ul>
+  </div>
+  
+</section><section class="entry" id="zoness" aria-labelledby="zoness-h" data-tags="decides">
+  <header class="e-head">
+    <p class="e-mission">Mission 4</p>
+    <h3 id="zoness-h">Zoness</h3>
+    <p class="e-title">Invasion Aftermath</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Toxic waste area</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>250</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i></span> <span>3 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>4</b> of 25</dd></div>
+  </dl>
+  <p class="about">A polluted coast with water below and debris in the air. Searchlights and radar buoys sweep the area, cargo ships carry crates, and Katt Monroe flies in to help.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Sarumarine.</b> A pirate submarine with heavy armour, so use bombs. Destroy the exhaust pipes first, then bomb the two sides. When one side falls the submarine lowers a crane: destroy that quickly or it rebuilds the side. Shoot its cannonballs to get bombs. Finish the hull with lasers and bombs.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Gold or silver rings, and sometimes a bomb, from the crates on the cargo ships.</li><li>Bombs from the submarine’s cannonballs.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#aquas">Aquas</a>. It is the only way in.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Destroy every searchlight without being spotted. Magna’s guide counts 30 to 40 of them, and Katt helps with some. If the lights turn red and Fox asks whether you have been spotted, the Sector Z branch is gone.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#macbeth">Macbeth</a>, if a searchlight or radar buoy spots you.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#sector-z">Sector Z</a>, if none do. You can still pick Macbeth.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Katt repays you at <a href="#macbeth">Macbeth</a> and <a href="#sector-z">Sector Z</a>, but only if you came through Zoness.</li></ul></aside>
+</section><section class="entry" id="titania" aria-labelledby="titania-h" data-tags="vehicle">
+  <header class="e-head">
+    <p class="e-mission">Mission 5</p>
+    <h3 id="titania-h">Titania</h3>
+    <p class="e-title">The Search for Slippy</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Arid desert</dd></div>
+    <div><dt>Vehicle</dt><dd>Landmaster<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i></span> <span>3 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>3</b> of 25</dd></div>
+  </dl>
+  <p class="about">Canyons, ruins and falling pillars, driven in the Landmaster tank. Slippy’s Arwing is caught by the boss and you have to free him. Some players find this harder than Macbeth, because of the swarms and armoured enemies.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Goras.</b> A huge walking beast. One arm holds Slippy’s Arwing, so bomb that arm to free him, and bomb the other arms and the head too. When its energy bar appears, shoot the red jewel in its chest. Dodge its laser with L or R.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Nova bombs. Collect them for the boss.</li><li>Silver rings from skull hovercraft and yellow trees.</li><li>A gold ring on the third bridge.</li><li>A bomb in the central area.</li><li>There are no laser upgrades in Landmaster levels.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#sector-x">Sector X</a>, and nowhere else.</p>
+    
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#bolse">Bolse</a>. It is the only exit.</span></li></ul>
+  </div>
+  
+</section><section class="entry" id="macbeth" aria-labelledby="macbeth-h" data-tags="decides vehicle">
+  <header class="e-head">
+    <p class="e-mission">Mission 5</p>
+    <h3 id="macbeth-h">Macbeth</h3>
+    <p class="e-title">The Forever Train</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Venom army supply base</dd></div>
+    <div><dt>Vehicle</dt><dd>Landmaster<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i></span> <span>3 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>14</b> of 25</dd></div>
+  </dl>
+  <p class="about">A long supply train carries ore and weapons to Andross’s main base, and you chase it in the Landmaster. There is a ten-minute limit: after that, Mechbeth rams you and the run ends.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Mechbeth.</b> The easy-path boss. You destroy the whole train by fighting Mechbeth. If you missed any switches, some parts of the fight are randomised.</p><p><b>The derailed train.</b> The hard-path ending. The train goes off the rails and crashes into the fuel bunker, which is worth 50 hits. Mechbeth never appears.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Silver rings from turrets.</li><li>A gold ring you hover over.</li><li>Rings in a building, after the crate from ROB 64.</li><li>Bombs from elevated guns.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#sector-x">Sector X</a> after a quick kill, <a href="#solar">Solar</a>, or <a href="#zoness">Zoness</a>.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Shoot all eight switches along the track, then the switchboard lever near the end. The sixth switch sits behind a gate and is easy to miss. If Falco is alive he usually takes the fourth, and if you came from Zoness, Katt shoots some of them.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#bolse">Bolse</a>, after you destroy the train and fight Mechbeth.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#area-6">Area 6</a>, if you derail the train. You can still pick Bolse.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Katt appears only if you came from <a href="#zoness">Zoness</a>.</li></ul></aside>
+</section><section class="entry" id="sector-z" aria-labelledby="sector-z-h" data-tags="decides">
+  <header class="e-head">
+    <p class="e-mission">Mission 5</p>
+    <h3 id="sector-z-h">Sector Z</h3>
+    <p class="e-title">The Ambush of Great Fox</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Combat zone</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">All-range</span></dd></div>
+    <div><dt>Medal</dt><dd><b>100</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i></span> <span>4 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>8</b> of 25</dd></div>
+  </dl>
+  <p class="about">A graveyard of wrecked warships, where Andross’s Copperhead missiles are closing on the Great Fox. The Great Fox fights alongside you, and your wingmen shoot at the missiles too unless something is chasing them.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Copperhead missiles.</b> Six missiles arrive in three waves of one, two and three. Each is worth 10 hits. Your wingmen can steal them, so bomb them at the last second. Ten asteroids are worth 2 hits each. If a missile hits the Great Fox, the level ends.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Laser upgrades and rings from enemy kills before the missiles arrive.</li><li>Fly into the Great Fox’s rear bay to restore your wings and shield completely. Lost laser upgrades stay lost.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#zoness">Zoness</a> unseen, or <a href="#sector-x">Sector X</a> through the warp.</p>
+    <div class="chal"><h4>Your challenge</h4><ul><li>Shoot down all six missiles before one hits the Great Fox.</li></ul></div>
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#bolse">Bolse</a>, if a missile hits the Great Fox.</span></li><li class="out"><span class="to hot" aria-hidden="true"></span><span><span class="sr">After the challenge: </span><a href="#area-6">Area 6</a>, if you stop all six.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Katt joins the third wave if you came from <a href="#zoness">Zoness</a>. She does not appear if you came through the <a href="#sector-x">Sector X</a> warp, and that keeps her from stealing missile kills. Experts rank this among the hardest medals to earn.</li></ul></aside>
+</section><section class="entry" id="bolse" aria-labelledby="bolse-h" data-tags="starwolf">
+  <header class="e-head">
+    <p class="e-mission">Mission 6</p>
+    <h3 id="bolse-h">Bolse</h3>
+    <p class="e-title">The Last Hurrah</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Defense outpost</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">All-range</span></dd></div>
+    <div><dt>Medal</dt><dd><b>150</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i><i class="pp"></i></span> <span>3 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>14</b> of 25</dd></div>
+  </dl>
+  <p class="about">A fortress satellite ringed by six energy towers that guard its core. It is the last level of the easy lane.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Bolse’s core.</b> Destroy the six energy towers, worth 4 hits each, to drop the force field. Then destroy the core.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>The guides I read list no pickups here.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#titania">Titania</a>, <a href="#macbeth">Macbeth</a> or <a href="#sector-z">Sector Z</a>.</p>
+    
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#venom-1">Venom 1</a>. It is the only exit.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>Star Wolf joins the fight here if you did not beat them at <a href="#fichina">Fichina</a>.</li></ul></aside>
+</section><section class="entry" id="area-6" aria-labelledby="area-6-h" data-tags="">
+  <header class="e-head">
+    <p class="e-mission">Mission 6</p>
+    <h3 id="area-6-h">Area 6</h3>
+    <p class="e-title">Through the Middle</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Defense station</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>300</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i></span> <span>4 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>11</b> of 25</dd></div>
+  </dl>
+  <p class="about">The most heavily defended stretch of space around Venom: minefields, warship fleets and satellites, one after another. The wiki says it leads straight to Andross’s lair and skips many planetside defences. Its 300-hit medal is the highest in the game.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Gorgon.</b> Shoot its arms to open it, then the pink shield generators, then the centre, and repeat. Dodge the missile salvos. Before its rainbow laser Falco warns you: move to the upper right of the screen, or sit exactly in the centre, where the beam is hollow.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>Bombs are your best tool here, on the minefield and on the linked ships. Save them.</li><li>A gold ring below one of the pinwheel stations, with a laser upgrade above it.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#macbeth">Macbeth</a> or <a href="#sector-z">Sector Z</a>, after clearing their challenge.</p>
+    
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span><a href="#venom-2">Venom 2</a>. It is the only exit.</span></li></ul>
+  </div>
+  
+</section><section class="entry" id="venom-1" aria-labelledby="venom-1-h" data-tags="">
+  <header class="e-head">
+    <p class="e-mission">Mission 7</p>
+    <h3 id="venom-1-h">Venom 1</h3>
+    <p class="e-title">Andross’s homeworld</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Temple</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">Corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>200</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp"></i></span> <span>4 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>14</b> of 25</dd></div>
+  </dl>
+  <p class="about">A temple on Andross’s homeworld, reached from Bolse. It opens with a huge swarm, then trenches with rock pillars and falling pillars.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Golemech.</b> A stone golem. Destroy its legs, arms, torso and head. Once the stone is gone, shoot the red spot on its back.</p><p><b>The robot Andross.</b> Fox goes on alone through a corridor. Shoot Andross’s eyes, then his hands, as in Venom 2, and bomb the mouth when it sucks you in. A mechanical monkey head follows. With hyper lasers you can destroy it before it attacks. Without them, keep shooting until it blows up.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>In the early rock section, a laser upgrade or a gold ring, depending on whether you already have hyper lasers.</li><li>In the volcano: three gold rings, both laser upgrades and a bomb. Avoid the purple laser bars.</li><li>An extra Arwing (see Corneria).</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#bolse">Bolse</a>.</p>
+    
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span>The game ends. The credits show Andross laughing, still alive.</span></li></ul>
+  </div>
+  
+</section><section class="entry" id="venom-2" aria-labelledby="venom-2-h" data-tags="starwolf">
+  <header class="e-head">
+    <p class="e-mission">Mission 7</p>
+    <h3 id="venom-2-h">Venom 2</h3>
+    <p class="e-title">The Final Battle</p>
+  </header>
+  <dl class="specs">
+    <div><dt>Setting</dt><dd>Andross’s base</dd></div>
+    <div><dt>Vehicle</dt><dd>Arwing<span class="sub">All-range, then corridor</span></dd></div>
+    <div><dt>Medal</dt><dd><b>200</b> hits</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="pips" aria-hidden="true"><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i><i class="pp on"></i></span> <span>5 of 5</span></dd></div>
+    <div><dt>Routes</dt><dd><b>11</b> of 25</dd></div>
+  </dl>
+  <p class="about">The harder way into Andross’s base, reached from Area 6. There are two fights: Star Wolf again, then Andross himself.</p>
+  
+  <div class="e-cols">
+    <div class="blk"><h4>Boss</h4><p><b>Star Wolf, again.</b> Upgraded Wolfen II ships that ignore bombs and lock-on lasers. Kill them quickly. StrategyWiki notes a 50-hit combo for a fast kill, and Magna’s guide puts the whole fight at 204 hits.</p><p><b>Andross.</b> Shoot his eyes until he rubs one, shoot the hands while he does, and repeat until both hands are gone. If you take too long he sucks in rocks: bomb or barrel-roll in a corner until he spits them out. Then his brain, in all-range mode. Destroy the eyes first, then hit the green back. It teleports, so U-turn to find it.</p></div>
+    <div class="blk"><h4>Pickups</h4><ul><li>At the volcano entrance, take the tunnels left, right, left, left, right, right for two laser upgrades, a smart bomb and three gold rings. A wrong turn is fatal.</li><li>StrategyWiki lists an extra Arwing on Venom.</li></ul></div>
+  </div>
+  <div class="e-route">
+    <h4>Where it leads</h4>
+    <p class="in"><b>Comes from:</b> <a href="#area-6">Area 6</a>.</p>
+    
+    <ul class="outs"><li class="out"><span class="to" aria-hidden="true"></span><span>The game ends. Follow James McCloud out and THE END appears after the credits.</span></li></ul>
+  </div>
+  <aside class="twist"><h4>What changes with your route</h4><ul><li>After Andross falls you follow James McCloud out of the lair. He flies slightly faster than you, so boost often. A wrong turn is fatal, but the game saves a checkpoint after Andross falls, so you do not fight him again.</li></ul></aside>
+</section>
+    </div>
+  </div>
+
+  <section class="after wrap" aria-labelledby="cover-h">
+    <h2 id="cover-h">Not covered</h2>
+    <p class="cover">Left out: Star Fox 64 3D’s new modes and score-attack tiers, the versus mode, the training course, the full character dialogue and any speedrun glitches. Expert Mode is covered only as far as its unlock. The other Star Fox games are not covered.</p>
+  </section>
+
+  <section class="after wrap" aria-labelledby="gap-h">
+    <h2 id="gap-h">What I could not confirm</h2>
+    <ul class="gaps"><li>Whether every unlocked branch is a free choice. The sources word the map differently. I draw each as an extra option because that reproduces the wiki’s count of 25 routes. The wiki’s pages spell the choice out for Meteo, Sector Y, Katina, Sector X, Zoness and Macbeth, and I did not find it stated for Corneria, Fichina or Sector Z.</li><li>How many warp rings Meteo has. The wiki and the 3DS guide say seven. One older GameFAQs walkthrough says six.</li><li>The Venom medal. Four sources give 200 hits for Venom. The 3DS guide lists 150 for the first version, with a footnote saying players report 300.</li><li>Searchlight numbers at Zoness. The wiki says each is worth 2 hits while unseen. Magna’s guide counts 30 to 40 lights and gives 3 points each.</li><li>Where every pickup sits. The guides give rough places only. StrategyWiki lists extra Arwings on Corneria, Sector Y and Venom, but I found no placement for them.</li><li>Timers. The five minutes at Fichina and the one minute at Katina come from guides, not from the game’s code.</li><li>Titania’s boss order. One guide says to free Slippy first, another says to start with the other claws, so the page says only that you free him.</li><li>Wingman events by level, such as who gets shot down where. The sources I could open covered only a few.</li><li>Difficulty ratings. They are one player’s opinion, from the guide to the 3DS remake. Every route condition I used is also on an N64 source.</li><li>Pages I could not open: StrategyWiki’s pages for Corneria, Meteo, Fortuna, Katina and Aquas, and the wiki’s Meteo page.</li></ul>
+  </section>
+
+  <section class="after wrap" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <div class="src-grid"><div class="src"><h3>Routes and endings</h3><ul><li><a href="https://starfox.fandom.com/wiki/Star_Fox_64/Missions">StarFox Wiki: Star Fox 64 missions</a></li><li><a href="https://gamefaqs.gamespot.com/boards/997834-star-fox-64-3d/60324292">GameFAQs: routes thread for Star Fox 64 3D</a></li><li><a href="https://strategywiki.org/wiki/Star_Fox_64/Venom">StrategyWiki: Venom</a></li><li><a href="https://en.wikipedia.org/wiki/Star_Fox_64">Wikipedia: Star Fox 64</a></li></ul></div><div class="src"><h3>Level notes</h3><ul><li><a href="https://gamefaqs.gamespot.com/n64/198759-star-fox-64/faqs/47586">GameFAQs: walkthrough by wayne_steed</a></li><li><a href="https://gamefaqs.gamespot.com/n64/198759-star-fox-64/faqs/80825">GameFAQs: beginner’s guide by we_game</a></li><li><a href="https://gamefaqs.gamespot.com/3ds/997834-star-fox-64-3d/faqs/63175">GameFAQs: 3DS guide by KeyBlade999</a></li><li><a href="https://starfox.fandom.com/wiki/Katina/Games">StarFox Wiki: Katina</a></li><li><a href="https://starfox.fandom.com/wiki/Sector_Y/Games">StarFox Wiki: Sector Y</a></li><li><a href="https://starfox.fandom.com/wiki/Macbeth/Games">StarFox Wiki: Macbeth</a></li><li><a href="https://starfox.fandom.com/wiki/Sector_Z/Games">StarFox Wiki: Sector Z</a></li><li><a href="https://starfox.fandom.com/wiki/Area_6/Games">StarFox Wiki: Area 6</a></li><li><a href="https://strategywiki.org/wiki/Star_Fox_64/Zoness">StrategyWiki: Zoness</a></li><li><a href="https://strategywiki.org/wiki/Star_Fox_64/Macbeth">StrategyWiki: Macbeth</a></li><li><a href="https://strategywiki.org/wiki/Star_Fox_64/Sector_Y">StrategyWiki: Sector Y</a></li><li><a href="https://strategywiki.org/wiki/Star_Fox_64/Area_6">StrategyWiki: Area 6</a></li></ul></div><div class="src"><h3>Medals, items and characters</h3><ul><li><a href="https://starfox.fandom.com/wiki/Medal">StarFox Wiki: Medal</a></li><li><a href="https://gamefaqs.gamespot.com/n64/198759-star-fox-64/faqs/54820">GameFAQs: medals guide by Magna</a></li><li><a href="https://starfox.fandom.com/wiki/Supply_ring">StarFox Wiki: Supply ring</a></li><li><a href="https://starfox.fandom.com/wiki/Container">StarFox Wiki: Container</a></li><li><a href="https://strategywiki.org/wiki/Star_Fox_64/Gameplay">StrategyWiki: Gameplay</a></li><li><a href="https://strategywiki.org/wiki/Star_Fox_64/Wingmen">StrategyWiki: Wingmen</a></li></ul></div></div>
+  </section>
+
+</main>
+
+<footer class="foot wrap">
+  <p>Star Fox is a trademark of Nintendo. This is a fan reference and is not affiliated with Nintendo.</p>
+  <p>Typefaces: B612, from Airbus, and Barlow Condensed, both under the SIL Open Font License.</p>
+</footer>
+
+<script type="application/json" id="routes-data">[["corneria", "meteo", "fichina", "sector-x", "titania", "bolse", "venom-1"], ["corneria", "meteo", "fichina", "sector-x", "macbeth", "bolse", "venom-1"], ["corneria", "meteo", "fichina", "sector-x", "sector-z", "bolse", "venom-1"], ["corneria", "meteo", "fichina", "solar", "macbeth", "bolse", "venom-1"], ["corneria", "meteo", "katina", "sector-x", "titania", "bolse", "venom-1"], ["corneria", "sector-y", "katina", "sector-x", "titania", "bolse", "venom-1"], ["corneria", "meteo", "katina", "sector-x", "macbeth", "bolse", "venom-1"], ["corneria", "meteo", "katina", "sector-x", "sector-z", "bolse", "venom-1"], ["corneria", "meteo", "katina", "solar", "macbeth", "bolse", "venom-1"], ["corneria", "sector-y", "katina", "sector-x", "macbeth", "bolse", "venom-1"], ["corneria", "sector-y", "katina", "sector-x", "sector-z", "bolse", "venom-1"], ["corneria", "sector-y", "katina", "solar", "macbeth", "bolse", "venom-1"], ["corneria", "sector-y", "aquas", "zoness", "macbeth", "bolse", "venom-1"], ["corneria", "meteo", "fichina", "sector-x", "macbeth", "area-6", "venom-2"], ["corneria", "meteo", "fichina", "sector-x", "sector-z", "area-6", "venom-2"], ["corneria", "meteo", "fichina", "solar", "macbeth", "area-6", "venom-2"], ["corneria", "sector-y", "aquas", "zoness", "sector-z", "bolse", "venom-1"], ["corneria", "meteo", "katina", "sector-x", "macbeth", "area-6", "venom-2"], ["corneria", "meteo", "katina", "sector-x", "sector-z", "area-6", "venom-2"], ["corneria", "meteo", "katina", "solar", "macbeth", "area-6", "venom-2"], ["corneria", "sector-y", "katina", "sector-x", "macbeth", "area-6", "venom-2"], ["corneria", "sector-y", "katina", "sector-x", "sector-z", "area-6", "venom-2"], ["corneria", "sector-y", "katina", "solar", "macbeth", "area-6", "venom-2"], ["corneria", "sector-y", "aquas", "zoness", "macbeth", "area-6", "venom-2"], ["corneria", "sector-y", "aquas", "zoness", "sector-z", "area-6", "venom-2"]]</script>
+<script type="application/json" id="filter-labels">{"all": "Every level", "decides": "Decides your route", "vehicle": "Landmaster or Blue Marine", "starwolf": "Star Wolf appears"}</script>
+<script>
+(function () {
+  var map = document.querySelector(".map");
+  var routes = JSON.parse(document.getElementById("routes-data").textContent);
+  var nodes = [].slice.call(document.querySelectorAll(".nd"));
+  var edges = [].slice.call(document.querySelectorAll(".ed[data-from]"));
+  var items = [].slice.call(document.querySelectorAll(".routes li"));
+  var box = document.querySelector(".routes-box");
+  var count = document.getElementById("routes-count");
+  var head = document.getElementById("sel-head");
+  var text = document.getElementById("sel-text");
+  var acts = document.getElementById("sel-acts");
+  var go = document.getElementById("sel-go");
+  var pinned = null;
+  var total = routes.length;
+
+  function reach(id) {
+    var ns = {}, es = {}, n = 0, v1 = 0;
+    routes.forEach(function (r) {
+      if (r.indexOf(id) < 0) return;
+      n++; if (r[r.length - 1] === "venom-1") v1++;
+      r.forEach(function (x, i) { ns[x] = 1; if (i) es[r[i - 1] + ">" + x] = 1; });
+    });
+    return { ns: ns, es: es, n: n, v1: v1 };
+  }
+  function paint(id, pin) {
+    var r = id ? reach(id) : null;
+    map.classList.toggle("has-sel", !!id);
+    nodes.forEach(function (nd) {
+      var k = nd.getAttribute("data-id");
+      nd.classList.toggle("on", !!(r && r.ns[k]));
+      nd.classList.toggle("sel", !!(pin && k === id));
+      nd.setAttribute("aria-pressed", pin && k === id ? "true" : "false");
+    });
+    edges.forEach(function (ed) {
+      ed.classList.toggle("on", !!(r && r.es[ed.getAttribute("data-from") + ">" + ed.getAttribute("data-to")]));
+    });
+    return r;
+  }
+  function select(id) {
+    pinned = id;
+    var r = paint(id, true);
+    if (!id) {
+      head.textContent = "Pick a level";
+      text.textContent = "The chart will show every route that passes through it, and the list below will narrow to match.";
+      acts.hidden = true;
+      items.forEach(function (li) { li.hidden = false; });
+      count.textContent = total + " routes. Pick a level on the chart to narrow them.";
+      return;
+    }
+    var nm = document.querySelector('.nd[data-id="' + id + '"]').getAttribute("data-name");
+    head.textContent = nm;
+    text.textContent = "On " + r.n + " of " + total + " routes: " + r.v1 + " end at Venom 1 and " + (r.n - r.v1) + " at Venom 2.";
+    go.setAttribute("href", "#" + id);
+    go.textContent = "Read the " + nm + " notes";
+    acts.hidden = false;
+    items.forEach(function (li) { li.hidden = li.getAttribute("data-r").indexOf(" " + id + " ") < 0; });
+    count.textContent = r.n + " of " + total + " routes pass through " + nm + ".";
+    box.open = true;
+  }
+  nodes.forEach(function (nd) {
+    var id = nd.getAttribute("data-id");
+    nd.addEventListener("click", function () { select(pinned === id ? null : id); });
+    nd.addEventListener("keydown", function (ev) {
+      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(pinned === id ? null : id); }
+    });
+    nd.addEventListener("mouseenter", function () { if (!pinned) paint(id, false); });
+    nd.addEventListener("mouseleave", function () { if (!pinned) paint(null, false); });
+  });
+  document.getElementById("sel-clear").addEventListener("click", function () { select(null); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && pinned) select(null); });
+
+  // ---- level filter
+  var bar = document.querySelector(".filters");
+  if (!bar) return;
+  bar.hidden = false;
+  var chips = [].slice.call(bar.querySelectorAll(".chip"));
+  var entries = [].slice.call(document.querySelectorAll(".entry"));
+  var status = document.getElementById("filter-status");
+  var labels = JSON.parse(document.getElementById("filter-labels").textContent);
+  var current = "all";
+  function has(el, f) { return f === "all" || (" " + el.getAttribute("data-tags") + " ").indexOf(" " + f + " ") > -1; }
+  function apply(f) {
+    current = f;
+    var shown = 0;
+    entries.forEach(function (en) { var ok = has(en, f); en.hidden = !ok; if (ok) shown++; });
+    chips.forEach(function (c) { c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false"); });
+    status.textContent = f === "all" ? "" : "Showing " + shown + " of " + entries.length + " levels. Filter: " + labels[f] + ".";
+  }
+  chips.forEach(function (c) { c.addEventListener("click", function () { apply(c.getAttribute("data-filter")); }); });
+  document.addEventListener("click", function (ev) {
+    var link = ev.target.closest && ev.target.closest('a[href^="#"]');
+    if (!link || current === "all") return;
+    var id = link.getAttribute("href").slice(1);
+    var target = id && document.getElementById(id);
+    var host = target && (target.closest ? target.closest(".entry") : null);
+    if (host && host.hidden) { apply("all"); target.scrollIntoView(); }
+  });
+  select(null);
+})();
+</script>
+</body>
+</html>
