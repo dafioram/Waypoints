@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Pokémon Main Games Guide — Waypoints</title>
+<meta name="description" content="Every main-series Pokémon game by region, with how close each remake, extended version and sequel is to the original, Metacritic scores, play times and what differs between paired versions." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/sofia-sans-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/sofia-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Pokémon Main Games Guide",
+  "description": "Every main-series Pokémon game by region, with how close each remake, extended version and sequel is to the original, Metacritic scores, play times and what differs between paired versions.",
+  "tags": [
+    "gaming",
+    "reference",
+    "pokemon"
+  ],
+  "date": "2026-10-23"
+}
+</script>
+<style>
+@font-face{font-family:"Sofia Sans";font-style:normal;font-weight:400;font-display:swap;src:url(media/sofia-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans";font-style:italic;font-weight:400;font-display:swap;src:url(media/sofia-sans-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans";font-style:normal;font-weight:700;font-display:swap;src:url(media/sofia-sans-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(media/sofia-sans-condensed-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans Condensed";font-style:normal;font-weight:800;font-display:swap;src:url(media/sofia-sans-condensed-latin-800-normal.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --pk-bg:#EAF0EE; --pk-card:#F8FAF9; --pk-ink:#11202B; --pk-muted:#465964; --pk-rule:#C2CFCC;
+  --pk-ball:#B3261E; --pk-focus:#1D4FD8; --pk-on:#EAF0EE;
+  --pk-lv1:#2a78d6;--pk-lv2:#eb6834;--pk-lv3:#1baf7a;--pk-lv4:#eda100;--pk-lv5:#e87ba4;
+  --pk-lv0:var(--pk-ink);
+  --pk-display:"Sofia Sans Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --pk-text:"Sofia Sans","Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --pk-bg:#0E161C; --pk-card:#19212A; --pk-ink:#E9F0F2; --pk-muted:#A9BAC2; --pk-rule:#2F3E47;
+    --pk-ball:#F27A70; --pk-focus:#9DB8FF; --pk-on:#0E161C;
+    --pk-lv1:#3987e5;--pk-lv2:#d95926;--pk-lv3:#199e70;--pk-lv4:#c98500;--pk-lv5:#d55181;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;font-synthesis:none}
+body{margin:0;background:var(--pk-bg);color:var(--pk-ink);font-family:var(--pk-text);font-size:1.15rem;line-height:1.5;overflow-wrap:break-word}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--pk-focus);outline-offset:2px;border-radius:2px}
+.wrap{max-width:76rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+h1,h2,h3,h4{margin:0;font-weight:400}
+h1,h2{font-family:var(--pk-display);font-weight:800}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* level marks: colour is never alone; every swatch sits beside its name */
+.lv0{--c:var(--pk-lv0)} .lv1{--c:var(--pk-lv1)} .lv2{--c:var(--pk-lv2)} .lv3{--c:var(--pk-lv3)} .lv4{--c:var(--pk-lv4)} .lv5{--c:var(--pk-lv5)}
+.sw{display:inline-block;width:.85rem;height:.85rem;background:var(--c);border-radius:2px;box-shadow:inset 0 0 0 1.5px var(--pk-ink);flex:none}
+.sw.addon{background:transparent;box-shadow:inset 0 0 0 1.5px var(--pk-ink);border-style:dashed}
+.key{list-style:none;margin:.8rem 0 .4rem;padding:0;display:flex;flex-wrap:wrap;gap:.3rem 1.3rem;font-weight:700;font-size:.98rem}
+.key li{display:inline-flex;align-items:center;gap:.45rem}
+
+/* the equator rule: a Poké Ball's band, with its button */
+.eq{position:relative;height:1.5rem;margin-top:.6rem}
+.eq::before{content:"";position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;background:linear-gradient(to bottom,var(--pk-ball) 0 50%,var(--pk-ink) 50% 100%)}
+.ball{position:absolute;left:0;top:0;width:1.5rem;height:1.5rem;border-radius:50%;border:3px solid var(--pk-ink);
+  background:radial-gradient(circle,var(--pk-bg) 0 32%,var(--pk-ink) 34% 48%,var(--pk-bg) 50%)}
+
+/* ------------------------------------------------------------ hero */
+.hero{padding-top:2.4rem}
+.hero h1{font-size:clamp(3.4rem,10vw,7.2rem);line-height:.88;letter-spacing:-.012em;text-wrap:balance}
+.h1-sub{display:block;margin-top:.9rem;font:700 clamp(1.4rem,3.2vw,2.1rem)/1.1 var(--pk-display);color:var(--pk-muted)}
+.hero-copy{max-width:44rem;margin-top:1.1rem}
+.dek{margin:0;font-size:1.3rem;line-height:1.4}
+.nb{white-space:nowrap}
+.dek-2{margin:.6rem 0 0;color:var(--pk-muted)}
+.dek-2 a{color:var(--pk-ink);font-weight:700}
+
+/* family tree */
+.tree{margin:2.2rem 0 0}
+.tree figcaption{font:800 clamp(1.8rem,3.4vw,2.3rem)/1.05 var(--pk-display)}
+.sub{display:block;margin-top:.35rem;font:400 1.04rem/1.38 var(--pk-text);color:var(--pk-muted);max-width:46rem}
+.tree-table{width:100%;border-collapse:collapse;margin-top:.5rem;table-layout:fixed}
+.tree-table thead th{text-align:left;font-weight:700;font-size:1rem;padding:.4rem .6rem .5rem;border-bottom:2px solid var(--pk-ink);line-height:1.2}
+.tree-table thead th:first-child{width:8.6rem;padding:0}
+.tree-table tbody th,.tree-table tbody td{border-top:1px solid var(--pk-rule);vertical-align:top;padding:.5rem .6rem}
+.tree-table tbody th{text-align:left;font-weight:400;padding-left:0}
+.tree-table tbody th a{display:flex;align-items:baseline;gap:.5rem;text-decoration:none}
+.tree-table tbody th a:hover .r-n{text-decoration:underline}
+.r-g{font:800 2.4rem/.9 var(--pk-display);color:var(--pk-muted);min-width:1.5rem}
+.r-b{display:block}
+.r-n{display:block;font:800 1.45rem/1.05 var(--pk-display)}
+.r-d{display:block;font-size:.9rem;color:var(--pk-muted);line-height:1.2}
+.cgs{list-style:none;margin:0;padding:0}
+.cg{display:flex;align-items:flex-start;gap:.5rem;margin:0 0 .45rem;padding:.35rem .5rem .4rem;background:var(--pk-card);border:1px solid var(--pk-rule);border-left:6px solid var(--c)}
+.cg .sw{margin-top:.28rem}
+.cg-n{display:block;font-weight:700;font-size:1.02rem;line-height:1.2}
+.cg-y{display:block;font-size:.9rem;line-height:1.2;color:var(--pk-muted)}
+.cg-t{font-style:italic}
+.cg.also{display:block;border:0;border-left:0;background:transparent;padding:0;color:var(--pk-muted);font-size:.95rem;line-height:1.3}
+.none{color:var(--pk-muted);font-size:.9rem}
+.tree-table tr.dim{opacity:.25}
+@media (prefers-reduced-motion:no-preference){
+  .tree-table tbody tr{animation:draw .5s ease-out both;animation-delay:calc(var(--i) * 70ms)}
+  @keyframes draw{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+  .tree-table tbody tr.dim{animation:none}
+}
+.rubric{margin:1.4rem 0 0;max-width:46rem}
+.rubric>summary{cursor:pointer;font-weight:700;font-size:1rem}
+.rubric p{margin:.7rem 0 0;color:var(--pk-muted)}
+.rubric ul{margin:.6rem 0 0;padding-left:1.2rem;color:var(--pk-muted)}
+.rubric li{margin:.3rem 0}
+
+/* quick answers and charts */
+.chart,.qa{margin-top:3.2rem}
+.qa h2,.chart h2{font-size:clamp(1.9rem,3.6vw,2.5rem);line-height:1.05}
+.qa-list{margin:.8rem 0 0;columns:24rem;column-gap:3rem}
+.qa-i{padding:.8rem 0 .95rem;border-top:1px solid var(--pk-rule);break-inside:avoid}
+.qa-i dt{font:700 1.5rem/1.1 var(--pk-display)}
+.qa-i dd{margin:.35rem 0 0;max-width:40rem}
+.qa-l{display:block;margin-top:.3rem;font-size:.98rem;color:var(--pk-muted)}
+.ch-sub{margin:.5rem 0 .4rem;max-width:50rem;color:var(--pk-muted);font-size:1.04rem;line-height:1.4}
+.sc{background:var(--pk-card);border:1px solid var(--pk-rule);padding:.8rem 1rem 1rem;margin-top:.5rem}
+.sc-head,.sc-row{display:grid;grid-template-columns:13rem minmax(0,1fr);column-gap:.9rem;align-items:center}
+.sc-head{padding-bottom:.4rem}
+.sc-axis{grid-column:2;position:relative}
+.bands{position:relative;height:1.3rem}
+.band{position:absolute;top:0;font-size:.8rem;font-weight:700;line-height:1.2;color:var(--pk-muted);padding-left:.25rem;overflow:hidden;white-space:nowrap}
+.ticks{position:relative;height:1.1rem;border-bottom:1px solid var(--pk-ink)}
+.tick{position:absolute;top:0;transform:translateX(-50%);font-size:.82rem;color:var(--pk-muted);line-height:1.2}
+.sc-list{list-style:none;margin:0;padding:0}
+.sc-row{border-top:1px solid var(--pk-rule);min-height:2.7rem}
+.sc-row:focus-visible{outline-offset:-2px}
+.sc-n{text-decoration:none;display:block;padding:.2rem 0;line-height:1.15}
+.sc-n:hover .r-nm{text-decoration:underline}
+.r-nm{display:block;font-weight:700;font-size:1rem}
+.r-yr{display:block;font-size:.85rem;color:var(--pk-muted)}
+.sc-track{position:relative;display:block;height:2.7rem;
+  background:repeating-linear-gradient(to right,var(--pk-rule) 0 1px,transparent 1px calc(100% / 6))}
+.th{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--pk-muted);opacity:.6}
+.th75{left:33.333%}
+.rng{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--pk-ink)}
+.dot{position:absolute;top:50%;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);border:2px solid var(--pk-ink);transform:translate(-50%,-50%)}
+.dot.gr{background:var(--pk-card);border:3px solid var(--c);box-shadow:0 0 0 1.5px var(--pk-ink)}
+.dot.sample{position:static;display:inline-block;transform:none;flex:none}
+.val{position:absolute;top:50%;transform:translateY(-50%);margin-left:.75rem;font-weight:700;font-size:.85rem;line-height:1;white-space:nowrap;background:var(--pk-card);padding:.15rem .25rem}
+.val.l{transform:translate(-100%,-50%);margin-left:-.5rem}
+.ln-axis .ticks{margin-top:0}
+.ln-track{position:relative;display:block;height:1.1rem;background:repeating-linear-gradient(to right,var(--pk-rule) 0 1px,transparent 1px calc(100% / 5))}
+.ln-main,.ln-ex{position:absolute;left:0;top:50%;height:.8rem;margin-top:-.4rem}
+.ln-main{background:var(--c);box-shadow:inset 0 0 0 1.5px var(--pk-ink)}
+.ln-ex{background:color-mix(in srgb,var(--c) 38%,var(--pk-card));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--pk-ink) 45%,transparent)}
+.ln-row{grid-template-columns:13rem minmax(0,1fr);row-gap:0;min-height:3.4rem}
+.ln-row .ln-t{grid-column:2;font-size:.88rem;line-height:1.25;color:var(--pk-muted);padding-bottom:.35rem}
+.ln-row .ln-t b{color:var(--pk-ink)}
+.ln-row .sc-n{grid-row:1 / span 2}
+.tbl{margin-top:.9rem}
+.tbl>summary{cursor:pointer;font-weight:700;font-size:1rem}
+.tbl-w{overflow-x:auto;max-width:100%}
+.tbl table{border-collapse:collapse;margin-top:.5rem;font-size:.98rem;width:100%}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:.35rem .6rem .35rem 0;border-top:1px solid var(--pk-rule)}
+.tbl thead th{border-top:0;border-bottom:2px solid var(--pk-ink)}
+.tip{position:fixed;z-index:60;max-width:21rem;padding:.4rem .65rem;background:var(--pk-ink);color:var(--pk-bg);border-radius:4px;font-size:.95rem;line-height:1.3;pointer-events:none}
+
+/* ------------------------------------------------------------ filter bar */
+.filters{position:sticky;top:0;z-index:20;margin-top:2.6rem;background:var(--pk-bg);border-top:1px solid var(--pk-rule);border-bottom:1px solid var(--pk-rule)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .filters{background:color-mix(in srgb,var(--pk-bg) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+}
+.filters-in{padding-block:.6rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem}
+@media (min-width:760px){.chips{flex-wrap:wrap;overflow-x:visible}}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.5rem;font:700 .98rem/1 var(--pk-text);color:var(--pk-ink);background:transparent;
+  border:1.5px solid var(--pk-rule);border-radius:2px;padding:.55rem .8rem;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--pk-ink)}
+.chip[aria-pressed="true"]{background:var(--pk-ink);color:var(--pk-bg);border-color:var(--pk-ink)}
+.cnt{font-size:.82rem;opacity:.8}
+.status{margin:0;font-size:.98rem;line-height:1.3;color:var(--pk-muted)}
+.status:empty{display:none}
+.status:not(:empty){margin-top:.45rem}
+
+/* ------------------------------------------------------------ entries */
+main>.eq:first-child{margin-top:1.4rem}
+.entry{padding:1.8rem 0 2.6rem;scroll-margin-top:5rem}
+.entry-head{display:flex;gap:1.4rem;align-items:flex-start;max-width:56rem}
+.gen{margin:0;display:flex;flex-direction:column;align-items:flex-start;min-width:5.2rem}
+.gen-n{font:800 clamp(5rem,12vw,8rem)/.82 var(--pk-display);color:var(--pk-ink)}
+.gen-l{font:700 .95rem/1 var(--pk-text);color:var(--pk-muted);margin-top:.35rem}
+.head-main{padding-top:.2rem}
+.entry-head h2{font-size:clamp(2.4rem,5.4vw,3.6rem);line-height:.95}
+.entry-head .sub{margin-top:.25rem;font:700 clamp(1.2rem,2.6vw,1.6rem)/1.15 var(--pk-display);color:var(--pk-muted)}
+.pairline{margin:.8rem 0 0;display:flex;align-items:center;gap:.6rem;color:var(--pk-muted);font-size:1.02rem}
+.disc{flex:none;width:1.5rem;height:1.5rem;border-radius:50%;border:2px solid var(--pk-ink);
+  background:linear-gradient(to right,var(--a) 0 50%,var(--b) 50% 100%)}
+.figs{list-style:none;margin:.8rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.3rem 1.6rem}
+.figs li{color:var(--pk-muted)}
+.figs b{color:var(--pk-ink);font-size:1.25em}
+.about{margin:1.1rem 0 0;max-width:46rem;font-size:1.28rem;line-height:1.42}
+.sec-h{font:800 1.5rem/1.1 var(--pk-display);padding-bottom:.4rem;border-bottom:2px solid var(--pk-ink)}
+.games,.differ,.said{margin-top:1.7rem}
+@media (min-width:1000px){.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 3rem}}
+.glist{list-style:none;margin:0;padding:0}
+.gm{display:grid;grid-template-columns:11.5rem minmax(0,1fr);gap:.3rem 1.3rem;padding:1rem 0;border-bottom:1px solid var(--pk-rule);scroll-margin-top:5rem}
+.gm.small{padding:.7rem 0}
+.g-side{display:flex;flex-direction:column;gap:.3rem;align-items:flex-start}
+.lvtag{display:inline-flex;align-items:center;gap:.45rem;font-weight:700;font-size:.98rem;line-height:1.2}
+.g-name{font:800 1.5rem/1.1 var(--pk-display)}
+.gm.small .g-name{font:700 1.2rem/1.15 var(--pk-text)}
+.g-when{margin:.15rem 0 0;color:var(--pk-muted);font-size:1rem}
+.g-text{margin:.5rem 0 0;max-width:44rem}
+.g-pair{margin:.6rem 0 0;max-width:44rem;padding:.5rem .8rem;background:var(--pk-card);border-left:3px solid var(--pk-ink);font-size:1.02rem}
+.g-pair b{font-weight:700}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;margin:.8rem 0 0}
+.facts div{min-width:5.5rem}
+.facts dt{font-size:.88rem;color:var(--pk-muted);line-height:1.2}
+.facts dd{margin:.1rem 0 0;font-size:1rem;line-height:1.25}
+.facts dd b{font-size:1.3em}
+.facts .na{color:var(--pk-muted);font-style:italic}
+.g-alt{margin:.4rem 0 0;color:var(--pk-muted);font-size:.95rem;max-width:44rem}
+.g-crit{margin:.6rem 0 0;color:var(--pk-muted);font-size:1.02rem;max-width:44rem}
+.diffs{margin:.7rem 0 0;padding:0 0 0 1.1rem;max-width:44rem}
+.diffs li{margin:.4rem 0;padding-left:.2rem}
+.diffs li::marker{color:var(--pk-ball)}
+.said p{max-width:44rem;margin:.7rem 0 0}
+.verdict{font-size:1.15rem;line-height:1.4}
+.verdict b{font-family:var(--pk-display);font-weight:800;font-size:1.15em;margin-right:.3rem}
+
+/* ------------------------------------------------------------ closing sections */
+.after{padding-block:2.8rem 1rem}
+.after h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:.4rem;line-height:1.05}
+.after-sub{margin:0 0 1rem;max-width:42rem;color:var(--pk-muted)}
+.next-t{font:700 1.5rem/1.15 var(--pk-display);margin-top:.4rem}
+.cover{max-width:46rem;margin:.6rem 0 0}
+.gaps{max-width:46rem;margin:.6rem 0 0;padding-left:1.2rem}
+.gaps li{margin:.4rem 0}
+.src-grid{columns:19rem;column-gap:2.4rem}
+.src{break-inside:avoid;padding:.6rem 0 .8rem;border-top:1px solid var(--pk-rule)}
+.src h3{font:700 1.02rem/1.3 var(--pk-text)}
+.src ul{margin:.3rem 0 0;padding-left:1.1rem;font-size:.98rem;line-height:1.4}
+.src li{margin:.15rem 0;overflow-wrap:anywhere}
+.foot{padding-block:1.2rem 3rem;color:var(--pk-muted);font-size:1rem;max-width:46rem}
+.foot p{margin:.3rem 0}
+
+/* ------------------------------------------------------------ small screens */
+@media (max-width:1100px){
+  .tree-table,.tree-table thead,.tree-table tbody,.tree-table tr,.tree-table th,.tree-table td{display:block}
+  .tree-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .tree-table tbody tr{border-top:1px solid var(--pk-rule);padding:.6rem 0 .4rem}
+  .tree-table tbody th,.tree-table tbody td{border-top:0;padding:.1rem 0}
+  .tree-table tbody th{padding-bottom:.3rem}
+  .tree-table td.empty{display:none}
+  .tree-table td{display:grid;grid-template-columns:8rem minmax(0,1fr);column-gap:.6rem;align-items:start}
+  .tree-table td::before{content:attr(data-col);margin:.45rem 0 0;font-weight:700;font-size:.9rem;line-height:1.25;color:var(--pk-muted)}
+  .cg{margin:.15rem 0}
+}
+@media (max-width:640px){
+  body{font-size:1.08rem}
+  .about{font-size:1.18rem}
+  .entry-head{gap:.9rem}
+  .gen{min-width:3.6rem}
+  .gm{grid-template-columns:minmax(0,1fr)}
+  .g-side{flex-direction:row;flex-wrap:wrap;align-items:center;gap:.2rem .8rem}
+  .sc{padding:.6rem .7rem .8rem}
+  .sc-head,.sc-row,.ln-row{grid-template-columns:minmax(0,1fr);row-gap:0}
+  .sc-axis{grid-column:1}
+  .sc-n{padding-bottom:0}
+  .sc-n .r-nm,.sc-n .r-yr{display:inline}
+  .sc-n .r-yr{margin-left:.5rem}
+  .ln-row .sc-n{grid-row:auto}
+  .ln-row .ln-t{grid-column:1}
+  .dot{width:.7rem;height:.7rem}
+  .tree-table td{grid-template-columns:6.4rem minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+ <div class="wrap">
+    <h1>Pokémon main games<span class="h1-sub">How close each remake, extended version and sequel is to the original</span></h1>
+    <div class="hero-copy">
+      <p class="dek">22 games and pairs across 9 regions, from Red and Blue in 1998 to <span class="nb">Legends: Z-A</span> in 2025, grouped by region so you can see what grew out of what. Each has its critic score, how long it takes, and what differs between the two versions of a pair.</p>
+      <p class="dek-2">English releases only. The spin-offs, such as Mystery Dungeon and Pokémon Snap, are on <a href="../pokemon-spin-offs-guide/index.html">their own page</a>.</p>
+    </div>
+  
+<figure class="tree" aria-labelledby="tr-cap">
+  <figcaption id="tr-cap">The family tree
+    <span class="sub">One row per region. Read across to see how each later game relates to the original. Years are English release years. Open a row for the games, scores and lengths.</span></figcaption>
+  <ul class="key" aria-label="Game types"><li><i class="sw lv0" aria-hidden="true"></i>Original</li><li><i class="sw lv2" aria-hidden="true"></i>Extended version</li><li><i class="sw lv3" aria-hidden="true"></i>Remake</li><li><i class="sw lv4" aria-hidden="true"></i>Reworked remake</li><li><i class="sw lv5" aria-hidden="true"></i>New game, same world</li></ul>
+  <table class="tree-table" role="table" aria-label="How each main game relates to its region’s original">
+    <thead><tr role="row"><th scope="col" role="columnheader" class="sr">Region</th><th scope="col" role="columnheader">Original</th><th scope="col" role="columnheader">Extended version</th><th scope="col" role="columnheader">Remake</th><th scope="col" role="columnheader">New game, same world</th><th scope="col" role="columnheader">Also</th></tr></thead>
+    <tbody><tr role="row" data-id="kanto" data-tags="ext remake switch top" style="--i:0"><th scope="row" role="rowheader"><a href="#kanto"><span class="r-g">1</span><span class="r-b"><span class="r-n">Kanto</span><span class="r-d">1998 to 2018</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Red and Blue</span><span class="cg-y">1998</span></span></li></ul></td><td role="cell" data-col="Extended version"><ul class="cgs"><li class="cg lv2"><i class="sw lv2" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Yellow</span><span class="cg-y">1999</span></span></li></ul></td><td role="cell" data-col="Remake"><ul class="cgs"><li class="cg lv3"><i class="sw lv3" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">FireRed and LeafGreen</span><span class="cg-y">2004</span></span></li><li class="cg lv4"><i class="sw lv4" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Let’s Go, Pikachu! and Let’s Go, Eevee!</span><span class="cg-y">2018 <span class="cg-t">Reworked</span></span></span></li></ul></td><td class="empty" role="cell" data-col="New game, same world"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td role="cell" data-col="Also"><ul class="cgs"><li class="cg also">On 3DS in 2016. FireRed and LeafGreen on Switch in 2026.</li></ul></td></tr><tr role="row" data-id="johto" data-tags="ext remake top" style="--i:1"><th scope="row" role="rowheader"><a href="#johto"><span class="r-g">2</span><span class="r-b"><span class="r-n">Johto</span><span class="r-d">2000 to 2010</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Gold and Silver</span><span class="cg-y">2000</span></span></li></ul></td><td role="cell" data-col="Extended version"><ul class="cgs"><li class="cg lv2"><i class="sw lv2" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Crystal</span><span class="cg-y">2001</span></span></li></ul></td><td role="cell" data-col="Remake"><ul class="cgs"><li class="cg lv3"><i class="sw lv3" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">HeartGold and SoulSilver</span><span class="cg-y">2010</span></span></li></ul></td><td class="empty" role="cell" data-col="New game, same world"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td role="cell" data-col="Also"><ul class="cgs"><li class="cg also">On 3DS in 2017 and 2018.</li></ul></td></tr><tr role="row" data-id="hoenn" data-tags="ext remake" style="--i:2"><th scope="row" role="rowheader"><a href="#hoenn"><span class="r-g">3</span><span class="r-b"><span class="r-n">Hoenn</span><span class="r-d">2003 to 2014</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Ruby and Sapphire</span><span class="cg-y">2003</span></span></li></ul></td><td role="cell" data-col="Extended version"><ul class="cgs"><li class="cg lv2"><i class="sw lv2" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Emerald</span><span class="cg-y">2005</span></span></li></ul></td><td role="cell" data-col="Remake"><ul class="cgs"><li class="cg lv3"><i class="sw lv3" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Omega Ruby and Alpha Sapphire</span><span class="cg-y">2014</span></span></li></ul></td><td class="empty" role="cell" data-col="New game, same world"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="Also"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td></tr><tr role="row" data-id="sinnoh" data-tags="ext low newgame remake switch top" style="--i:3"><th scope="row" role="rowheader"><a href="#sinnoh"><span class="r-g">4</span><span class="r-b"><span class="r-n">Sinnoh</span><span class="r-d">2007 to 2022</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Diamond and Pearl</span><span class="cg-y">2007</span></span></li></ul></td><td role="cell" data-col="Extended version"><ul class="cgs"><li class="cg lv2"><i class="sw lv2" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Platinum</span><span class="cg-y">2009</span></span></li></ul></td><td role="cell" data-col="Remake"><ul class="cgs"><li class="cg lv3"><i class="sw lv3" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Brilliant Diamond and Shining Pearl</span><span class="cg-y">2021</span></span></li></ul></td><td role="cell" data-col="New game, same world"><ul class="cgs"><li class="cg lv5"><i class="sw lv5" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Legends: Arceus</span><span class="cg-y">2022</span></span></li></ul></td><td class="empty" role="cell" data-col="Also"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td></tr><tr role="row" data-id="unova" data-tags="newgame top" style="--i:4"><th scope="row" role="rowheader"><a href="#unova"><span class="r-g">5</span><span class="r-b"><span class="r-n">Unova</span><span class="r-d">2011 to 2012</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Black and White</span><span class="cg-y">2011</span></span></li></ul></td><td class="empty" role="cell" data-col="Extended version"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="Remake"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td role="cell" data-col="New game, same world"><ul class="cgs"><li class="cg lv5"><i class="sw lv5" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Black 2 and White 2</span><span class="cg-y">2012</span></span></li></ul></td><td class="empty" role="cell" data-col="Also"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td></tr><tr role="row" data-id="kalos" data-tags="low newgame switch top" style="--i:5"><th scope="row" role="rowheader"><a href="#kalos"><span class="r-g">6</span><span class="r-b"><span class="r-n">Kalos</span><span class="r-d">2013 to 2025</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">X and Y</span><span class="cg-y">2013</span></span></li></ul></td><td class="empty" role="cell" data-col="Extended version"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="Remake"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td role="cell" data-col="New game, same world"><ul class="cgs"><li class="cg lv5"><i class="sw lv5" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Legends: Z-A</span><span class="cg-y">2025</span></span></li></ul></td><td role="cell" data-col="Also"><ul class="cgs"><li class="cg also">Mega Dimension add-on, Dec 2025.</li></ul></td></tr><tr role="row" data-id="alola" data-tags="ext top" style="--i:6"><th scope="row" role="rowheader"><a href="#alola"><span class="r-g">7</span><span class="r-b"><span class="r-n">Alola</span><span class="r-d">2016 to 2017</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Sun and Moon</span><span class="cg-y">2016</span></span></li></ul></td><td role="cell" data-col="Extended version"><ul class="cgs"><li class="cg lv2"><i class="sw lv2" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Ultra Sun and Ultra Moon</span><span class="cg-y">2017</span></span></li></ul></td><td class="empty" role="cell" data-col="Remake"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="New game, same world"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="Also"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td></tr><tr role="row" data-id="galar" data-tags="switch" style="--i:7"><th scope="row" role="rowheader"><a href="#galar"><span class="r-g">8</span><span class="r-b"><span class="r-n">Galar</span><span class="r-d">2019</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Sword and Shield</span><span class="cg-y">2019</span></span></li></ul></td><td class="empty" role="cell" data-col="Extended version"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="Remake"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="New game, same world"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td role="cell" data-col="Also"><ul class="cgs"><li class="cg also">Expansion Pass add-ons, 2020.</li></ul></td></tr><tr role="row" data-id="paldea" data-tags="low switch" style="--i:8"><th scope="row" role="rowheader"><a href="#paldea"><span class="r-g">9</span><span class="r-b"><span class="r-n">Paldea</span><span class="r-d">2022</span></span></a></th><td role="cell" data-col="Original"><ul class="cgs"><li class="cg lv0"><i class="sw lv0" aria-hidden="true"></i><span class="cg-b"><span class="cg-n">Scarlet and Violet</span><span class="cg-y">2022</span></span></li></ul></td><td class="empty" role="cell" data-col="Extended version"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="Remake"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td class="empty" role="cell" data-col="New game, same world"><span class="none" aria-hidden="true">None</span><span class="sr">None</span></td><td role="cell" data-col="Also"><ul class="cgs"><li class="cg also">Area Zero add-ons, 2023 and 2024.</li></ul></td></tr></tbody>
+  </table>
+</figure>
+  <details class="rubric">
+    <summary>How the labels work</summary>
+    <p>The labels are my own grouping, based on how Wikipedia, Bulbapedia and the reviews I read describe each game. They are not Nintendo’s terms.</p>
+    <ul><li><b>Original.</b> The first game of its region, and the one everything else in the row is measured against.</li><li><b>Same game.</b> A port or re-release of a game that already exists. Small fixes at most.</li><li><b>Extended version.</b> The same region and core story with new content added, often called a third version. Yellow, Crystal, Emerald, Platinum and Ultra Sun and Ultra Moon.</li><li><b>Remake.</b> Rebuilt for newer hardware with the same map and story, plus features from later games.</li><li><b>Reworked remake.</b> The same region and story, but a changed way of playing. Only Let’s Go is in this group.</li><li><b>New game, same world.</b> A different story set in the same region or time: a sequel or a prequel, not a version of the original.</li></ul>
+    <p>Re-releases such as the 3DS Virtual Console versions are the “Same game” label and appear inside the region’s page, not in the tree. Paid add-ons are marked “Add-on”.</p>
+  </details>
+  
+<section class="chart" aria-labelledby="ch-h">
+  <h2 id="ch-h">How each game scored</h2>
+  <p class="ch-sub">One dot per Metacritic score, coloured by how the game relates to its original. The line joins the two scores when a pair has two. Metacritic calls 75 and up generally favorable and 50 to 74 mixed or average. The first six games predate Metacritic’s game coverage, so their dots are GameRankings percentages from Wikipedia. Games with no score at all are left out.</p>
+  <ul class="key" aria-label="Colours"><li><i class="sw lv0" aria-hidden="true"></i>Original</li><li><i class="sw lv2" aria-hidden="true"></i>Extended version</li><li><i class="sw lv3" aria-hidden="true"></i>Remake</li><li><i class="sw lv4" aria-hidden="true"></i>Reworked remake</li><li><i class="sw lv5" aria-hidden="true"></i>New game, same world</li><li><i class="dot gr lv0 sample" aria-hidden="true"></i>Hollow circle: GameRankings, for games with no Metacritic score</li></ul>
+  <div class="sc" data-chart>
+    <div class="sc-head" aria-hidden="true"><div class="sc-axis"><div class="bands"><span class="band" style="left:0;width:33.33%">Mixed or average</span><span class="band" style="left:33.33%;width:66.67%">Favorable</span></div><div class="ticks"><span class="tick" style="left:16.67%">70</span><span class="tick" style="left:33.33%">75</span><span class="tick" style="left:50.00%">80</span><span class="tick" style="left:66.67%">85</span><span class="tick" style="left:83.33%">90</span></div></div></div>
+    <ol class="sc-list"><li class="sc-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="Red and Blue: Red 88% on GameRankings, Blue 88% on GameRankings" aria-label="Red and Blue. Red 88% on GameRankings, Blue 88% on GameRankings"><a class="sc-n" href="#kanto"><span class="r-nm">Red and Blue</span><span class="r-yr">1998</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot gr lv0" style="left:76.67%" data-tip="Red and Blue: Red 88% on GameRankings"></span><span class="dot gr lv0" style="left:76.67%" data-tip="Red and Blue: Blue 88% on GameRankings"></span><span class="val" style="left:76.67%">88</span></span></li><li class="sc-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="Yellow: Yellow 85% on GameRankings" aria-label="Yellow. Yellow 85% on GameRankings"><a class="sc-n" href="#kanto"><span class="r-nm">Yellow</span><span class="r-yr">1999</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot gr lv2" style="left:66.67%" data-tip="Yellow: Yellow 85% on GameRankings"></span><span class="val" style="left:66.67%">85</span></span></li><li class="sc-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="FireRed and LeafGreen: 81 on Metacritic" aria-label="FireRed and LeafGreen. 81 on Metacritic"><a class="sc-n" href="#kanto"><span class="r-nm">FireRed and LeafGreen</span><span class="r-yr">2004</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv3" style="left:53.33%" data-tip="FireRed and LeafGreen: 81 on Metacritic"></span><span class="val" style="left:53.33%">81</span></span></li><li class="sc-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="Let’s Go, Pikachu! and Let’s Go, Eevee!: Pikachu 79 on Metacritic, Eevee 80 on Metacritic" aria-label="Let’s Go, Pikachu! and Let’s Go, Eevee!. Pikachu 79 on Metacritic, Eevee 80 on Metacritic"><a class="sc-n" href="#kanto"><span class="r-nm">Let’s Go, Pikachu! and Let’s Go, Eevee!</span><span class="r-yr">2018</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="rng" style="left:46.67%;width:3.33%"></span><span class="dot lv4" style="left:46.67%" data-tip="Let’s Go, Pikachu! and Let’s Go, Eevee!: Pikachu 79 on Metacritic"></span><span class="dot lv4" style="left:50.00%" data-tip="Let’s Go, Pikachu! and Let’s Go, Eevee!: Eevee 80 on Metacritic"></span><span class="val" style="left:50.00%">79 and 80</span></span></li><li class="sc-row" tabindex="0" data-id="johto" data-tags="ext remake top" data-all="Gold and Silver: Gold 89% on GameRankings, Silver 91% on GameRankings" aria-label="Gold and Silver. Gold 89% on GameRankings, Silver 91% on GameRankings"><a class="sc-n" href="#johto"><span class="r-nm">Gold and Silver</span><span class="r-yr">2000</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="rng" style="left:80.00%;width:6.67%"></span><span class="dot gr lv0" style="left:80.00%" data-tip="Gold and Silver: Gold 89% on GameRankings"></span><span class="dot gr lv0" style="left:86.67%" data-tip="Gold and Silver: Silver 91% on GameRankings"></span><span class="val l" style="left:80.00%">89 and 91</span></span></li><li class="sc-row" tabindex="0" data-id="johto" data-tags="ext remake top" data-all="Crystal: Crystal 80% on GameRankings" aria-label="Crystal. Crystal 80% on GameRankings"><a class="sc-n" href="#johto"><span class="r-nm">Crystal</span><span class="r-yr">2001</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot gr lv2" style="left:50.00%" data-tip="Crystal: Crystal 80% on GameRankings"></span><span class="val" style="left:50.00%">80</span></span></li><li class="sc-row" tabindex="0" data-id="johto" data-tags="ext remake top" data-all="HeartGold and SoulSilver: 87 on Metacritic" aria-label="HeartGold and SoulSilver. 87 on Metacritic"><a class="sc-n" href="#johto"><span class="r-nm">HeartGold and SoulSilver</span><span class="r-yr">2010</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv3" style="left:73.33%" data-tip="HeartGold and SoulSilver: 87 on Metacritic"></span><span class="val" style="left:73.33%">87</span></span></li><li class="sc-row" tabindex="0" data-id="hoenn" data-tags="ext remake" data-all="Ruby and Sapphire: 82 on Metacritic" aria-label="Ruby and Sapphire. 82 on Metacritic"><a class="sc-n" href="#hoenn"><span class="r-nm">Ruby and Sapphire</span><span class="r-yr">2003</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv0" style="left:56.67%" data-tip="Ruby and Sapphire: 82 on Metacritic"></span><span class="val" style="left:56.67%">82</span></span></li><li class="sc-row" tabindex="0" data-id="hoenn" data-tags="ext remake" data-all="Emerald: Emerald 76 on Metacritic" aria-label="Emerald. Emerald 76 on Metacritic"><a class="sc-n" href="#hoenn"><span class="r-nm">Emerald</span><span class="r-yr">2005</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv2" style="left:36.67%" data-tip="Emerald: Emerald 76 on Metacritic"></span><span class="val" style="left:36.67%">76</span></span></li><li class="sc-row" tabindex="0" data-id="hoenn" data-tags="ext remake" data-all="Omega Ruby and Alpha Sapphire: Omega Ruby 83 on Metacritic, Alpha Sapphire 82 on Metacritic" aria-label="Omega Ruby and Alpha Sapphire. Omega Ruby 83 on Metacritic, Alpha Sapphire 82 on Metacritic"><a class="sc-n" href="#hoenn"><span class="r-nm">Omega Ruby and Alpha Sapphire</span><span class="r-yr">2014</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="rng" style="left:56.67%;width:3.33%"></span><span class="dot lv3" style="left:60.00%" data-tip="Omega Ruby and Alpha Sapphire: Omega Ruby 83 on Metacritic"></span><span class="dot lv3" style="left:56.67%" data-tip="Omega Ruby and Alpha Sapphire: Alpha Sapphire 82 on Metacritic"></span><span class="val" style="left:60.00%">82 and 83</span></span></li><li class="sc-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Diamond and Pearl: 85 on Metacritic" aria-label="Diamond and Pearl. 85 on Metacritic"><a class="sc-n" href="#sinnoh"><span class="r-nm">Diamond and Pearl</span><span class="r-yr">2007</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv0" style="left:66.67%" data-tip="Diamond and Pearl: 85 on Metacritic"></span><span class="val" style="left:66.67%">85</span></span></li><li class="sc-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Platinum: Platinum 84 on Metacritic" aria-label="Platinum. Platinum 84 on Metacritic"><a class="sc-n" href="#sinnoh"><span class="r-nm">Platinum</span><span class="r-yr">2009</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv2" style="left:63.33%" data-tip="Platinum: Platinum 84 on Metacritic"></span><span class="val" style="left:63.33%">84</span></span></li><li class="sc-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Brilliant Diamond and Shining Pearl: 73 on Metacritic" aria-label="Brilliant Diamond and Shining Pearl. 73 on Metacritic"><a class="sc-n" href="#sinnoh"><span class="r-nm">Brilliant Diamond and Shining Pearl</span><span class="r-yr">2021</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv3" style="left:26.67%" data-tip="Brilliant Diamond and Shining Pearl: 73 on Metacritic"></span><span class="val" style="left:26.67%">73</span></span></li><li class="sc-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Legends: Arceus: Arceus 83 on Metacritic" aria-label="Legends: Arceus. Arceus 83 on Metacritic"><a class="sc-n" href="#sinnoh"><span class="r-nm">Legends: Arceus</span><span class="r-yr">2022</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv5" style="left:60.00%" data-tip="Legends: Arceus: Arceus 83 on Metacritic"></span><span class="val" style="left:60.00%">83</span></span></li><li class="sc-row" tabindex="0" data-id="unova" data-tags="newgame top" data-all="Black and White: 87 on Metacritic" aria-label="Black and White. 87 on Metacritic"><a class="sc-n" href="#unova"><span class="r-nm">Black and White</span><span class="r-yr">2011</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv0" style="left:73.33%" data-tip="Black and White: 87 on Metacritic"></span><span class="val" style="left:73.33%">87</span></span></li><li class="sc-row" tabindex="0" data-id="unova" data-tags="newgame top" data-all="Black 2 and White 2: 80 on Metacritic" aria-label="Black 2 and White 2. 80 on Metacritic"><a class="sc-n" href="#unova"><span class="r-nm">Black 2 and White 2</span><span class="r-yr">2012</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv5" style="left:50.00%" data-tip="Black 2 and White 2: 80 on Metacritic"></span><span class="val" style="left:50.00%">80</span></span></li><li class="sc-row" tabindex="0" data-id="kalos" data-tags="low newgame switch top" data-all="X and Y: X 87 on Metacritic, Y 88 on Metacritic" aria-label="X and Y. X 87 on Metacritic, Y 88 on Metacritic"><a class="sc-n" href="#kalos"><span class="r-nm">X and Y</span><span class="r-yr">2013</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="rng" style="left:73.33%;width:3.33%"></span><span class="dot lv0" style="left:73.33%" data-tip="X and Y: X 87 on Metacritic"></span><span class="dot lv0" style="left:76.67%" data-tip="X and Y: Y 88 on Metacritic"></span><span class="val" style="left:76.67%">87 and 88</span></span></li><li class="sc-row" tabindex="0" data-id="kalos" data-tags="low newgame switch top" data-all="Legends: Z-A: Switch 70 on Metacritic, Switch 2 78 on Metacritic" aria-label="Legends: Z-A. Switch 70 on Metacritic, Switch 2 78 on Metacritic"><a class="sc-n" href="#kalos"><span class="r-nm">Legends: Z-A</span><span class="r-yr">2025</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="rng" style="left:16.67%;width:26.67%"></span><span class="dot lv5" style="left:16.67%" data-tip="Legends: Z-A: Switch 70 on Metacritic"></span><span class="dot lv5" style="left:43.33%" data-tip="Legends: Z-A: Switch 2 78 on Metacritic"></span><span class="val" style="left:43.33%">70 and 78</span></span></li><li class="sc-row" tabindex="0" data-id="alola" data-tags="ext top" data-all="Sun and Moon: 87 on Metacritic" aria-label="Sun and Moon. 87 on Metacritic"><a class="sc-n" href="#alola"><span class="r-nm">Sun and Moon</span><span class="r-yr">2016</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv0" style="left:73.33%" data-tip="Sun and Moon: 87 on Metacritic"></span><span class="val" style="left:73.33%">87</span></span></li><li class="sc-row" tabindex="0" data-id="alola" data-tags="ext top" data-all="Ultra Sun and Ultra Moon: 84 on Metacritic" aria-label="Ultra Sun and Ultra Moon. 84 on Metacritic"><a class="sc-n" href="#alola"><span class="r-nm">Ultra Sun and Ultra Moon</span><span class="r-yr">2017</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv2" style="left:63.33%" data-tip="Ultra Sun and Ultra Moon: 84 on Metacritic"></span><span class="val" style="left:63.33%">84</span></span></li><li class="sc-row" tabindex="0" data-id="galar" data-tags="switch" data-all="Sword and Shield: Sword 80 on Metacritic" aria-label="Sword and Shield. Sword 80 on Metacritic"><a class="sc-n" href="#galar"><span class="r-nm">Sword and Shield</span><span class="r-yr">2019</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="dot lv0" style="left:50.00%" data-tip="Sword and Shield: Sword 80 on Metacritic"></span><span class="val" style="left:50.00%">80</span></span></li><li class="sc-row" tabindex="0" data-id="paldea" data-tags="low switch" data-all="Scarlet and Violet: Scarlet 72 on Metacritic, Violet 71 on Metacritic" aria-label="Scarlet and Violet. Scarlet 72 on Metacritic, Violet 71 on Metacritic"><a class="sc-n" href="#paldea"><span class="r-nm">Scarlet and Violet</span><span class="r-yr">2022</span></a><span class="sc-track" aria-hidden="true"><span class="th th75"></span><span class="rng" style="left:20.00%;width:3.33%"></span><span class="dot lv0" style="left:23.33%" data-tip="Scarlet and Violet: Scarlet 72 on Metacritic"></span><span class="dot lv0" style="left:20.00%" data-tip="Scarlet and Violet: Violet 71 on Metacritic"></span><span class="val" style="left:23.33%">71 and 72</span></span></li></ol>
+  </div>
+  <details class="tbl"><summary>Show the scores as a table</summary>
+    <div class="tbl-w" tabindex="0" role="region" aria-label="Scores table"><table><thead><tr><th scope="col">Game</th><th scope="col">Relation</th><th scope="col">Score</th></tr></thead><tbody><tr><th scope="row">Red and Blue</th><td>Original</td><td>Red 88% on GameRankings, Blue 88% on GameRankings</td></tr><tr><th scope="row">Yellow</th><td>Extended version</td><td>Yellow 85% on GameRankings</td></tr><tr><th scope="row">FireRed and LeafGreen</th><td>Remake</td><td>81 on Metacritic</td></tr><tr><th scope="row">Let’s Go, Pikachu! and Let’s Go, Eevee!</th><td>Reworked remake</td><td>Pikachu 79 on Metacritic, Eevee 80 on Metacritic</td></tr><tr><th scope="row">Gold and Silver</th><td>Original</td><td>Gold 89% on GameRankings, Silver 91% on GameRankings</td></tr><tr><th scope="row">Crystal</th><td>Extended version</td><td>Crystal 80% on GameRankings</td></tr><tr><th scope="row">HeartGold and SoulSilver</th><td>Remake</td><td>87 on Metacritic</td></tr><tr><th scope="row">Ruby and Sapphire</th><td>Original</td><td>82 on Metacritic</td></tr><tr><th scope="row">Emerald</th><td>Extended version</td><td>Emerald 76 on Metacritic</td></tr><tr><th scope="row">Omega Ruby and Alpha Sapphire</th><td>Remake</td><td>Omega Ruby 83 on Metacritic, Alpha Sapphire 82 on Metacritic</td></tr><tr><th scope="row">Diamond and Pearl</th><td>Original</td><td>85 on Metacritic</td></tr><tr><th scope="row">Platinum</th><td>Extended version</td><td>Platinum 84 on Metacritic</td></tr><tr><th scope="row">Brilliant Diamond and Shining Pearl</th><td>Remake</td><td>73 on Metacritic</td></tr><tr><th scope="row">Legends: Arceus</th><td>New game, same world</td><td>Arceus 83 on Metacritic</td></tr><tr><th scope="row">Black and White</th><td>Original</td><td>87 on Metacritic</td></tr><tr><th scope="row">Black 2 and White 2</th><td>New game, same world</td><td>80 on Metacritic</td></tr><tr><th scope="row">X and Y</th><td>Original</td><td>X 87 on Metacritic, Y 88 on Metacritic</td></tr><tr><th scope="row">Legends: Z-A</th><td>New game, same world</td><td>Switch 70 on Metacritic, Switch 2 78 on Metacritic</td></tr><tr><th scope="row">Sun and Moon</th><td>Original</td><td>87 on Metacritic</td></tr><tr><th scope="row">Ultra Sun and Ultra Moon</th><td>Extended version</td><td>84 on Metacritic</td></tr><tr><th scope="row">Sword and Shield</th><td>Original</td><td>Sword 80 on Metacritic</td></tr><tr><th scope="row">Scarlet and Violet</th><td>Original</td><td>Scarlet 72 on Metacritic, Violet 71 on Metacritic</td></tr></tbody></table></div>
+  </details>
+</section>
+  
+<section class="chart" aria-labelledby="ln-h">
+  <h2 id="ln-h">How long each one takes</h2>
+  <p class="ch-sub">The dark bar is the middle of the story-only range, in hours, and the pale bar extends to the middle of the range with side content. The words on the right give the full ranges, including the time to finish everything, which runs past the edge of this chart for most games. All figures come from ConsolePulse’s 2026 chart, which blends several sources, so treat them as rough. They cover the base game for Sword, Shield, Scarlet, Violet and Legends: Z-A, without add-ons.</p>
+  <div class="sc ln" data-chart>
+    <div class="sc-head" aria-hidden="true"><div class="sc-axis ln-axis"><div class="ticks"><span class="tick" style="left:0.00%">0</span><span class="tick" style="left:20.00%">20</span><span class="tick" style="left:40.00%">40</span><span class="tick" style="left:60.00%">60</span><span class="tick" style="left:80.00%">80</span><span class="tick" style="left:100.00%">100</span></div></div></div>
+    <ol class="sc-list"><li class="sc-row ln-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="Red and Blue: 25–30 hours for the story, 40–50 with extras, 90–110 for everything." aria-label="Red and Blue: 25–30 hours for the story, 40–50 with extras, 90–110 for everything."><a class="sc-n" href="#kanto"><span class="r-nm">Red and Blue</span><span class="r-yr">1998</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:45.00%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>40–50</b> with extras, <b>90–110</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="Yellow: 25–30 hours for the story, 40–50 with extras, 90–110 for everything." aria-label="Yellow: 25–30 hours for the story, 40–50 with extras, 90–110 for everything."><a class="sc-n" href="#kanto"><span class="r-nm">Yellow</span><span class="r-yr">1999</span></a><span class="ln-track lv2" aria-hidden="true"><span class="ln-ex" style="width:45.00%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>40–50</b> with extras, <b>90–110</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="FireRed and LeafGreen: 25–30 hours for the story, 45–55 with extras, 115–155 for everything." aria-label="FireRed and LeafGreen: 25–30 hours for the story, 45–55 with extras, 115–155 for everything."><a class="sc-n" href="#kanto"><span class="r-nm">FireRed and LeafGreen</span><span class="r-yr">2004</span></a><span class="ln-track lv3" aria-hidden="true"><span class="ln-ex" style="width:50.00%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>45–55</b> with extras, <b>115–155</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="kanto" data-tags="ext remake switch top" data-all="Let’s Go, Pikachu! and Let’s Go, Eevee!: 20–25 hours for the story, 35–45 with extras, 85–100 for everything. HowLongToBeat, via Deku Deals, says 25, 36 and 54½." aria-label="Let’s Go, Pikachu! and Let’s Go, Eevee!: 20–25 hours for the story, 35–45 with extras, 85–100 for everything. HowLongToBeat, via Deku Deals, says 25, 36 and 54½."><a class="sc-n" href="#kanto"><span class="r-nm">Let’s Go, Pikachu! and Let’s Go, Eevee!</span><span class="r-yr">2018</span></a><span class="ln-track lv4" aria-hidden="true"><span class="ln-ex" style="width:40.00%"></span><span class="ln-main" style="width:22.50%"></span></span><span class="ln-t"><b>20–25</b> story, <b>35–45</b> with extras, <b>85–100</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="johto" data-tags="ext remake top" data-all="Gold and Silver: 30–35 hours for the story, 60–70 with extras, 145–165 for everything." aria-label="Gold and Silver: 30–35 hours for the story, 60–70 with extras, 145–165 for everything."><a class="sc-n" href="#johto"><span class="r-nm">Gold and Silver</span><span class="r-yr">2000</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:65.00%"></span><span class="ln-main" style="width:32.50%"></span></span><span class="ln-t"><b>30–35</b> story, <b>60–70</b> with extras, <b>145–165</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="johto" data-tags="ext remake top" data-all="Crystal: 30–35 hours for the story, 50–60 with extras, 150–170 for everything." aria-label="Crystal: 30–35 hours for the story, 50–60 with extras, 150–170 for everything."><a class="sc-n" href="#johto"><span class="r-nm">Crystal</span><span class="r-yr">2001</span></a><span class="ln-track lv2" aria-hidden="true"><span class="ln-ex" style="width:55.00%"></span><span class="ln-main" style="width:32.50%"></span></span><span class="ln-t"><b>30–35</b> story, <b>50–60</b> with extras, <b>150–170</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="johto" data-tags="ext remake top" data-all="HeartGold and SoulSilver: 35–40 hours for the story, 70–85 with extras, 200–225 for everything." aria-label="HeartGold and SoulSilver: 35–40 hours for the story, 70–85 with extras, 200–225 for everything."><a class="sc-n" href="#johto"><span class="r-nm">HeartGold and SoulSilver</span><span class="r-yr">2010</span></a><span class="ln-track lv3" aria-hidden="true"><span class="ln-ex" style="width:77.50%"></span><span class="ln-main" style="width:37.50%"></span></span><span class="ln-t"><b>35–40</b> story, <b>70–85</b> with extras, <b>200–225</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="hoenn" data-tags="ext remake" data-all="Ruby and Sapphire: 30–35 hours for the story, 60–70 with extras, 190–215 for everything." aria-label="Ruby and Sapphire: 30–35 hours for the story, 60–70 with extras, 190–215 for everything."><a class="sc-n" href="#hoenn"><span class="r-nm">Ruby and Sapphire</span><span class="r-yr">2003</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:65.00%"></span><span class="ln-main" style="width:32.50%"></span></span><span class="ln-t"><b>30–35</b> story, <b>60–70</b> with extras, <b>190–215</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="hoenn" data-tags="ext remake" data-all="Emerald: 30–35 hours for the story, 60–70 with extras, 190–215 for everything." aria-label="Emerald: 30–35 hours for the story, 60–70 with extras, 190–215 for everything."><a class="sc-n" href="#hoenn"><span class="r-nm">Emerald</span><span class="r-yr">2005</span></a><span class="ln-track lv2" aria-hidden="true"><span class="ln-ex" style="width:65.00%"></span><span class="ln-main" style="width:32.50%"></span></span><span class="ln-t"><b>30–35</b> story, <b>60–70</b> with extras, <b>190–215</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="hoenn" data-tags="ext remake" data-all="Omega Ruby and Alpha Sapphire: 25–30 hours for the story, 45–55 with extras, 120–140 for everything." aria-label="Omega Ruby and Alpha Sapphire: 25–30 hours for the story, 45–55 with extras, 120–140 for everything."><a class="sc-n" href="#hoenn"><span class="r-nm">Omega Ruby and Alpha Sapphire</span><span class="r-yr">2014</span></a><span class="ln-track lv3" aria-hidden="true"><span class="ln-ex" style="width:50.00%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>45–55</b> with extras, <b>120–140</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Diamond and Pearl: 40–45 hours for the story, 85–100 with extras, 240–260 for everything." aria-label="Diamond and Pearl: 40–45 hours for the story, 85–100 with extras, 240–260 for everything."><a class="sc-n" href="#sinnoh"><span class="r-nm">Diamond and Pearl</span><span class="r-yr">2007</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:92.50%"></span><span class="ln-main" style="width:42.50%"></span></span><span class="ln-t"><b>40–45</b> story, <b>85–100</b> with extras, <b>240–260</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Platinum: 35–40 hours for the story, 75–90 with extras, 220–250 for everything." aria-label="Platinum: 35–40 hours for the story, 75–90 with extras, 220–250 for everything."><a class="sc-n" href="#sinnoh"><span class="r-nm">Platinum</span><span class="r-yr">2009</span></a><span class="ln-track lv2" aria-hidden="true"><span class="ln-ex" style="width:82.50%"></span><span class="ln-main" style="width:37.50%"></span></span><span class="ln-t"><b>35–40</b> story, <b>75–90</b> with extras, <b>220–250</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Brilliant Diamond and Shining Pearl: 25–30 hours for the story, 50–60 with extras, 130–150 for everything." aria-label="Brilliant Diamond and Shining Pearl: 25–30 hours for the story, 50–60 with extras, 130–150 for everything."><a class="sc-n" href="#sinnoh"><span class="r-nm">Brilliant Diamond and Shining Pearl</span><span class="r-yr">2021</span></a><span class="ln-track lv3" aria-hidden="true"><span class="ln-ex" style="width:55.00%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>50–60</b> with extras, <b>130–150</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="sinnoh" data-tags="ext low newgame remake switch top" data-all="Legends: Arceus: 25–30 hours for the story, 45–60 with extras, 70–90 for everything. HowLongToBeat, via Deku Deals, says 25½, 45½ and 80½." aria-label="Legends: Arceus: 25–30 hours for the story, 45–60 with extras, 70–90 for everything. HowLongToBeat, via Deku Deals, says 25½, 45½ and 80½."><a class="sc-n" href="#sinnoh"><span class="r-nm">Legends: Arceus</span><span class="r-yr">2022</span></a><span class="ln-track lv5" aria-hidden="true"><span class="ln-ex" style="width:52.50%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>45–60</b> with extras, <b>70–90</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="unova" data-tags="newgame top" data-all="Black and White: 30–35 hours for the story, 55–65 with extras, 160–180 for everything." aria-label="Black and White: 30–35 hours for the story, 55–65 with extras, 160–180 for everything."><a class="sc-n" href="#unova"><span class="r-nm">Black and White</span><span class="r-yr">2011</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:60.00%"></span><span class="ln-main" style="width:32.50%"></span></span><span class="ln-t"><b>30–35</b> story, <b>55–65</b> with extras, <b>160–180</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="unova" data-tags="newgame top" data-all="Black 2 and White 2: 35–40 hours for the story, 65–80 with extras, 185–215 for everything." aria-label="Black 2 and White 2: 35–40 hours for the story, 65–80 with extras, 185–215 for everything."><a class="sc-n" href="#unova"><span class="r-nm">Black 2 and White 2</span><span class="r-yr">2012</span></a><span class="ln-track lv5" aria-hidden="true"><span class="ln-ex" style="width:72.50%"></span><span class="ln-main" style="width:37.50%"></span></span><span class="ln-t"><b>35–40</b> story, <b>65–80</b> with extras, <b>185–215</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="kalos" data-tags="low newgame switch top" data-all="X and Y: 30–35 hours for the story, 50–60 with extras, 130–145 for everything." aria-label="X and Y: 30–35 hours for the story, 50–60 with extras, 130–145 for everything."><a class="sc-n" href="#kalos"><span class="r-nm">X and Y</span><span class="r-yr">2013</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:55.00%"></span><span class="ln-main" style="width:32.50%"></span></span><span class="ln-t"><b>30–35</b> story, <b>50–60</b> with extras, <b>130–145</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="kalos" data-tags="low newgame switch top" data-all="Legends: Z-A: 25–30 hours for the story, 30–40 with extras, 60–75 for everything. HowLongToBeat, via Deku Deals, says 28, 40½ and 66½." aria-label="Legends: Z-A: 25–30 hours for the story, 30–40 with extras, 60–75 for everything. HowLongToBeat, via Deku Deals, says 28, 40½ and 66½."><a class="sc-n" href="#kalos"><span class="r-nm">Legends: Z-A</span><span class="r-yr">2025</span></a><span class="ln-track lv5" aria-hidden="true"><span class="ln-ex" style="width:35.00%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>30–40</b> with extras, <b>60–75</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="alola" data-tags="ext top" data-all="Sun and Moon: 35–40 hours for the story, 60–70 with extras, 145–165 for everything." aria-label="Sun and Moon: 35–40 hours for the story, 60–70 with extras, 145–165 for everything."><a class="sc-n" href="#alola"><span class="r-nm">Sun and Moon</span><span class="r-yr">2016</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:65.00%"></span><span class="ln-main" style="width:37.50%"></span></span><span class="ln-t"><b>35–40</b> story, <b>60–70</b> with extras, <b>145–165</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="alola" data-tags="ext top" data-all="Ultra Sun and Ultra Moon: 35–40 hours for the story, 65–75 with extras, 155–175 for everything." aria-label="Ultra Sun and Ultra Moon: 35–40 hours for the story, 65–75 with extras, 155–175 for everything."><a class="sc-n" href="#alola"><span class="r-nm">Ultra Sun and Ultra Moon</span><span class="r-yr">2017</span></a><span class="ln-track lv2" aria-hidden="true"><span class="ln-ex" style="width:70.00%"></span><span class="ln-main" style="width:37.50%"></span></span><span class="ln-t"><b>35–40</b> story, <b>65–75</b> with extras, <b>155–175</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="galar" data-tags="switch" data-all="Sword and Shield: 25–30 hours for the story, 45–55 with extras, 100–120 for everything. HowLongToBeat, via Deku Deals, says 25½, 45 and 111 for the base game." aria-label="Sword and Shield: 25–30 hours for the story, 45–55 with extras, 100–120 for everything. HowLongToBeat, via Deku Deals, says 25½, 45 and 111 for the base game."><a class="sc-n" href="#galar"><span class="r-nm">Sword and Shield</span><span class="r-yr">2019</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:50.00%"></span><span class="ln-main" style="width:27.50%"></span></span><span class="ln-t"><b>25–30</b> story, <b>45–55</b> with extras, <b>100–120</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="paldea" data-tags="low switch" data-all="Scarlet and Violet: 30–35 hours for the story, 55–65 with extras, 110–135 for everything." aria-label="Scarlet and Violet: 30–35 hours for the story, 55–65 with extras, 110–135 for everything."><a class="sc-n" href="#paldea"><span class="r-nm">Scarlet and Violet</span><span class="r-yr">2022</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:60.00%"></span><span class="ln-main" style="width:32.50%"></span></span><span class="ln-t"><b>30–35</b> story, <b>55–65</b> with extras, <b>110–135</b> for everything</span></li></ol>
+  </div>
+  <details class="tbl"><summary>Show the lengths as a table</summary>
+    <div class="tbl-w" tabindex="0" role="region" aria-label="Lengths table"><table><thead><tr><th scope="col">Game</th><th scope="col">Story, hours</th><th scope="col">With extras</th><th scope="col">Everything</th></tr></thead><tbody><tr><th scope="row">Red and Blue</th><td>25–30</td><td>40–50</td><td>90–110</td></tr><tr><th scope="row">Yellow</th><td>25–30</td><td>40–50</td><td>90–110</td></tr><tr><th scope="row">FireRed and LeafGreen</th><td>25–30</td><td>45–55</td><td>115–155</td></tr><tr><th scope="row">Let’s Go, Pikachu! and Let’s Go, Eevee!</th><td>20–25</td><td>35–45</td><td>85–100</td></tr><tr><th scope="row">Gold and Silver</th><td>30–35</td><td>60–70</td><td>145–165</td></tr><tr><th scope="row">Crystal</th><td>30–35</td><td>50–60</td><td>150–170</td></tr><tr><th scope="row">HeartGold and SoulSilver</th><td>35–40</td><td>70–85</td><td>200–225</td></tr><tr><th scope="row">Ruby and Sapphire</th><td>30–35</td><td>60–70</td><td>190–215</td></tr><tr><th scope="row">Emerald</th><td>30–35</td><td>60–70</td><td>190–215</td></tr><tr><th scope="row">Omega Ruby and Alpha Sapphire</th><td>25–30</td><td>45–55</td><td>120–140</td></tr><tr><th scope="row">Diamond and Pearl</th><td>40–45</td><td>85–100</td><td>240–260</td></tr><tr><th scope="row">Platinum</th><td>35–40</td><td>75–90</td><td>220–250</td></tr><tr><th scope="row">Brilliant Diamond and Shining Pearl</th><td>25–30</td><td>50–60</td><td>130–150</td></tr><tr><th scope="row">Legends: Arceus</th><td>25–30</td><td>45–60</td><td>70–90</td></tr><tr><th scope="row">Black and White</th><td>30–35</td><td>55–65</td><td>160–180</td></tr><tr><th scope="row">Black 2 and White 2</th><td>35–40</td><td>65–80</td><td>185–215</td></tr><tr><th scope="row">X and Y</th><td>30–35</td><td>50–60</td><td>130–145</td></tr><tr><th scope="row">Legends: Z-A</th><td>25–30</td><td>30–40</td><td>60–75</td></tr><tr><th scope="row">Sun and Moon</th><td>35–40</td><td>60–70</td><td>145–165</td></tr><tr><th scope="row">Ultra Sun and Ultra Moon</th><td>35–40</td><td>65–75</td><td>155–175</td></tr><tr><th scope="row">Sword and Shield</th><td>25–30</td><td>45–55</td><td>100–120</td></tr><tr><th scope="row">Scarlet and Violet</th><td>30–35</td><td>55–65</td><td>110–135</td></tr></tbody></table></div>
+  </details>
+</section>
+  
+<section class="qa" aria-labelledby="qa-h">
+  <h2 id="qa-h">Quick answers</h2>
+  <dl class="qa-list"><div class="qa-i"><dt>How close is each remake to its original?</dt><dd>FireRed and LeafGreen, HeartGold and SoulSilver, Omega Ruby and Alpha Sapphire, and Brilliant Diamond and Shining Pearl all keep the map, the story and the gym order. What differs is the extras: HeartGold and SoulSilver add a following Pokémon and the Battle Frontier, Omega Ruby and Alpha Sapphire add a new episode and Mega Evolution, and the Switch remake leaves out the extended version’s additions. Let’s Go is the odd one. It keeps Kanto’s story and changes how you catch and battle.<span class="qa-l">See <a href="#kanto">Kanto</a>, <a href="#johto">Johto</a>, <a href="#hoenn">Hoenn</a>, <a href="#sinnoh">Sinnoh</a>.</span></dd></div><div class="qa-i"><dt>Which games look like remakes but are not?</dt><dd>Black 2 and White 2 are direct sequels set in Unova. Legends: Arceus is set in Sinnoh centuries before Diamond and Pearl and plays as an action RPG. Legends: Z-A returns to Kalos, to Lumiose City only, with real-time battles. All three are new games in the same world.<span class="qa-l">See <a href="#unova">Unova</a>, <a href="#sinnoh">Sinnoh</a>, <a href="#kalos">Kalos</a>.</span></dd></div><div class="qa-i"><dt>Is an extended version worth playing if I know the original?</dt><dd>Critics were lukewarm about most of them. Electronic Gaming Monthly said Crystal’s additions do not change the game at all, Eurogamer recommended Platinum to fans but not to traditional RPG players, and Polygon said Ultra Sun and Ultra Moon change mostly at the end. IGN was warmer about Emerald, naming it the best starting point for newcomers to Ruby and Sapphire.<span class="qa-l">See <a href="#kanto">Kanto</a>, <a href="#johto">Johto</a>, <a href="#hoenn">Hoenn</a>, <a href="#sinnoh">Sinnoh</a>, <a href="#alola">Alola</a>.</span></dd></div><div class="qa-i"><dt>Can I still play the originals?</dt><dd>Red, Blue and Yellow, and Gold, Silver and Crystal, were sold on the 3DS Virtual Console. That store closed to new purchases on Mar 27, 2023, and TheGamer says earlier purchases can still be redownloaded. FireRed and LeafGreen came to Switch and Switch 2 on Feb 27, 2026, as the 2004 games. I found no re-release of Ruby, Sapphire or Emerald, or of the Nintendo DS and 3DS originals.<span class="qa-l">See <a href="#kanto">Kanto</a>, <a href="#johto">Johto</a>, <a href="#hoenn">Hoenn</a>.</span></dd></div><div class="qa-i"><dt>Which main games scored best and worst?</dt><dd>Among those with a Metacritic score, the highest are Black and White, HeartGold and SoulSilver, Sun and Moon (all 87) and X and Y (87 and 88). The older games have only GameRankings scores, where Silver reached 91%. The lowest are Scarlet and Violet (72 and 71) and Legends: Z-A (70 on Switch).<span class="qa-l">See <a href="#paldea">Paldea</a>, <a href="#kalos">Kalos</a>, <a href="#unova">Unova</a>, <a href="#johto">Johto</a>.</span></dd></div><div class="qa-i"><dt>Do the paired versions really differ?</dt><dd>Always in which Pokémon you can catch, and in the version legendary. From Black and White on, more changes: the Black City and White Forest, the Opelucid gym leader, Sword and Shield’s gym leaders and rivals, and Scarlet and Violet’s professor and school. Each game’s box below has a short line on what its pair differs by.<span class="qa-l">See <a href="#unova">Unova</a>, <a href="#galar">Galar</a>, <a href="#paldea">Paldea</a>.</span></dd></div></dl>
+</section>
+ </div>
+</header>
+
+
+<section class="filters" hidden aria-label="Filter the regions">
+  <div class="wrap filters-in">
+    <div class="chips" role="group" aria-label="Show only regions that"><button type="button" class="chip" data-filter="all" aria-pressed="true">Everything<span class="cnt">9</span></button><button type="button" class="chip" data-filter="remake" aria-pressed="false">Has a remake<span class="cnt">4</span></button><button type="button" class="chip" data-filter="ext" aria-pressed="false">Has an extended version<span class="cnt">5</span></button><button type="button" class="chip" data-filter="newgame" aria-pressed="false">Has a sequel or prequel<span class="cnt">3</span></button><button type="button" class="chip" data-filter="switch" aria-pressed="false">Has a Switch game<span class="cnt">5</span></button><button type="button" class="chip" data-filter="low" aria-pressed="false">Under 75 on Metacritic<span class="cnt">3</span></button><button type="button" class="chip" data-filter="top" aria-pressed="false">Scored 85 or more<span class="cnt">6</span></button></div>
+    <p class="status" id="filter-status" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<main class="wrap">
+  
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="kanto" data-tags="ext remake switch top" aria-labelledby="kanto-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">1</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="kanto-t">Kanto</h2>
+      <p class="sub">Red, Blue and Yellow</p>
+      <p class="pairline"><span class="disc" style="--a:#D63A32;--b:#2F63C8" aria-hidden="true"></span>Red and Blue are the first pair. Feb 27, 1996 in Japan. Sep 28, 1998 in North America.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>4</b> games or pairs</li><li><b>79–81</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">You leave Pallet Town, win eight badges, beat the Elite Four and try to fill a Pokédex of 151. Every later game is a variation on this: catch, battle in turns, and trade between two versions to finish the set. It has the most re-releases of any line, and the most different ones.</p>
+  <section class="games" aria-label="Games in Kanto">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="rb"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Red and Blue</h4><p class="g-when">Game Boy. Sep 28, 1998 in North America. Oct 5, 1999 in Europe.</p><p class="g-text">The original. The English games are built on Japanese Blue, which upgraded the graphics and removed glitches. Japan’s Green was never released in English.</p><p class="g-pair"><b>How the pair differs.</b> Eleven Pokémon each. Red has Ekans, Oddish, Mankey, Growlithe, Scyther and Electabuzz. Blue has Sandshrew, Vulpix, Meowth, Bellsprout, Magmar and Pinsir. The box mascots are Charizard and Blastoise.</p><dl class="facts"><div><dt>GameRankings</dt><dd>Red <b>88%</b>, Blue <b>88%</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>40–50</b> hours</dd></div><div><dt>Everything</dt><dd><b>90–110</b> hours</dd></div></dl><p class="g-crit">IGN gave Red 10/10 and called the challenge of catching them all its biggest draw. GameSpot gave Blue 8.8.</p></div></li><li class="gm" id="y"><div class="g-side"><span class="lvtag"><i class="sw lv2" aria-hidden="true"></i>Extended version</span></div><div class="g-main"><h4 class="g-name">Yellow</h4><p class="g-when">Game Boy. Oct 18, 1999 in North America. Jun 16, 2000 in Europe.</p><p class="g-text">Same map, same 151 and the same story. Pikachu is your only starter and follows you, your rival starts with Eevee, Jessie and James appear, and the look is closer to the anime. There is a Pikachu’s Beach mini-game and Game Boy Printer support for Pokédex stickers.</p><dl class="facts"><div><dt>GameRankings</dt><dd>Yellow <b>85%</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>40–50</b> hours</dd></div><div><dt>Everything</dt><dd><b>90–110</b> hours</dd></div></dl><p class="g-crit">GameSpot called it a stopgap. RPGFan called the additions insulting, and the Daily Telegraph called it a marketing exercise. It sold a million copies in ten days in North America.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">Red, Blue and Yellow on 3DS</h4><p class="g-when">Nintendo 3DS Virtual Console. Feb 2016.</p><p class="g-text">The same three games, with simulated link-cable trading and battling added. The 3DS eShop closed to new purchases on Mar 27, 2023, and TheGamer says earlier purchases can still be redownloaded.</p></div></li><li class="gm" id="frlg"><div class="g-side"><span class="lvtag"><i class="sw lv3" aria-hidden="true"></i>Remake</span></div><div class="g-main"><h4 class="g-name">FireRed and LeafGreen</h4><p class="g-when">Game Boy Advance. Sep 9, 2004 in North America. Oct 1, 2004 in Europe.</p><p class="g-text">The same story and the same Kanto, redrawn for the Game Boy Advance. It brings in later features, such as abilities, the Steel and Dark types, friendship, weather and breeding, and adds the Sevii Islands, which hold Johto Pokémon.</p><p class="g-pair"><b>How the pair differs.</b> FireRed has Ekans, Growlithe, Scyther, Psyduck, Skarmory and Deoxys in its Attack Forme. LeafGreen has Sandshrew, Vulpix, Slowpoke, Staryu, Pinsir, Azurill and Deoxys in its Defense Forme. Little else differs.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>81</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>45–55</b> hours</dd></div><div><dt>Everything</dt><dd><b>115–155</b> hours</dd></div></dl><p class="g-crit">Wikipedia’s Red, Blue and Yellow page gives a Metacritic score of 81 for the pair. I found no individual review quotes for them.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">FireRed and LeafGreen on Switch</h4><p class="g-when">Nintendo Switch and Switch 2. Feb 27, 2026.</p><p class="g-text">The 2004 games as they were, sold one at a time for $19.99, not as part of Nintendo Switch Online. They support Pokémon HOME and local wireless battling and have no online play. Video Games Chronicle says most e-Reader features are in the Japanese original only.</p></div></li><li class="gm" id="lgpe"><div class="g-side"><span class="lvtag"><i class="sw lv4" aria-hidden="true"></i>Reworked remake</span></div><div class="g-main"><h4 class="g-name">Let’s Go, Pikachu! and Let’s Go, Eevee!</h4><p class="g-when">Nintendo Switch. Nov 16, 2018.</p><p class="g-text">Kanto again, with Yellow’s story. The big change is how you play: wild battles are replaced by catching in the style of Pokémon GO, your partner Pikachu or Eevee goes everywhere with you, the five HMs become Secret Techniques, and a second player can join for local co-op. Only the original 151 appear, plus Meltan, Melmetal and a few Alolan forms.</p><p class="g-pair"><b>How the pair differs.</b> Pikachu has Grimer and Sandshrew. Eevee has Meowth and Vulpix. Your partner cannot evolve.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Pikachu <b>79</b>, Eevee <b>80</b></dd></div><div><dt>Story</dt><dd><b>20–25</b> hours</dd></div><div><dt>With extras</dt><dd><b>35–45</b> hours</dd></div><div><dt>Everything</dt><dd><b>85–100</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 25, 36 and 54½.</p><p class="g-crit">IGN gave 8.3 and GameSpot 8, with praise for the catching system and the Kanto redesign. One review noted missing Pokémon and awkward Joy-Con catching. Players review-bombed it, giving a user score near 53 at launch.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>Yellow is the only extended version, and it changes the starter and the tone, not the map.</li><li>FireRed and LeafGreen keep the story and add later features such as abilities and the Steel and Dark types. They are the closest copy of the story.</li><li>Let’s Go keeps the story and replaces the battle-and-catch loop, so it plays unlike the other three.</li><li>Green, the Japanese original, is not in the English line-up.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>The originals scored 88% on GameRankings (Red and Blue) and Yellow 85%. Yellow took the harshest reviews for small additions. FireRed and LeafGreen sit at 81 on Metacritic. Let’s Go was praised as a fresh way into Kanto and a bridge from Pokémon GO, but some found it thinner than fans hoped.</p>
+      <p class="verdict"><b>Short answer:</b> The 2004 remake is the same game in new clothes. Yellow is Red and Blue with Pikachu. Let’s Go is the same trip with different rules.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="johto" data-tags="ext remake top" aria-labelledby="johto-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="johto-t">Johto</h2>
+      <p class="sub">Gold, Silver and Crystal</p>
+      <p class="pairline"><span class="disc" style="--a:#C9A227;--b:#B4BBC4" aria-hidden="true"></span>Gold and Silver are the first pair. Nov 21, 1999 in Japan. Oct 15, 2000 in North America.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>3</b> games or pairs</li><li><b>87</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Three years after Kanto, you cross into Johto and later return to Kanto itself. This is where the clock, held items, breeding, shiny Pokémon and two new types arrived.</p>
+  <section class="games" aria-label="Games in Johto">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="gs"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Gold and Silver</h4><p class="g-when">Game Boy Color. Oct 15, 2000 in North America. Apr 6, 2001 in Europe.</p><p class="g-text">The original. It adds a real-time clock, held items, the Pokégear, breeding, Steel and Dark types, the Special stat split in two, shiny Pokémon (about 1 in 8192) and 100 new species. It can trade with Generation 1, using a Move Deleter to remove moves the old games lack.</p><p class="g-pair"><b>How the pair differs.</b> Gold has Mankey, Growlithe, Spinarak, Gligar, Teddiursa and Mantine. Silver has Vulpix, Meowth, Ledyba, Delibird, Skarmory and Phanpy. Gold’s Rainbow Wing calls Ho-Oh and Silver’s Silver Wing calls Lugia.</p><dl class="facts"><div><dt>GameRankings</dt><dd>Gold <b>89%</b>, Silver <b>91%</b></dd></div><div><dt>Story</dt><dd><b>30–35</b> hours</dd></div><div><dt>With extras</dt><dd><b>60–70</b> hours</dd></div><div><dt>Everything</dt><dd><b>145–165</b> hours</dd></div></dl><p class="g-crit">IGN gave Gold 10/10 and called it masterful. GameSpot gave it 8.8. Reviewers praised the added length and the clock.</p></div></li><li class="gm" id="c"><div class="g-side"><span class="lvtag"><i class="sw lv2" aria-hidden="true"></i>Extended version</span></div><div class="g-main"><h4 class="g-name">Crystal</h4><p class="g-when">Game Boy Color. Jul 30, 2001 in North America. Nov 2, 2001 in Europe.</p><p class="g-text">Same Johto and same story. It adds animated Pokémon in battle, a female player (Kris), the Battle Tower, and a bigger role for Suicune with a new character, Eusine. Wikipedia calls it an enhanced edition of Gold and Silver, not a third version. Its Japan-only online features did not reach English.</p><dl class="facts"><div><dt>GameRankings</dt><dd>Crystal <b>80%</b></dd></div><div><dt>Story</dt><dd><b>30–35</b> hours</dd></div><div><dt>With extras</dt><dd><b>50–60</b> hours</dd></div><div><dt>Everything</dt><dd><b>150–170</b> hours</dd></div></dl><p class="g-crit">GameSpot gave 8.4 and IGN 9. Electronic Gaming Monthly said the additions do not alter the game-playing experience at all. It is the lowest-selling main game, at about 6.3 million.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">Gold, Silver and Crystal on 3DS</h4><p class="g-when">Nintendo 3DS Virtual Console. Gold and Silver Sep 22, 2017. Crystal Jan 28, 2018.</p><p class="g-text">The same games. Wikipedia’s page describes no changes for either release. The store that sold them closed to new purchases in 2023.</p></div></li><li class="gm" id="hgss"><div class="g-side"><span class="lvtag"><i class="sw lv3" aria-hidden="true"></i>Remake</span></div><div class="g-main"><h4 class="g-name">HeartGold and SoulSilver</h4><p class="g-when">Nintendo DS. Mar 14, 2010 in North America. Mar 26, 2010 in Europe.</p><p class="g-text">A remake of Gold and Silver that takes features from Crystal. The Johto-then-Kanto structure is kept, down to Red waiting on Mt. Silver. The lead Pokémon follows you, a Pokéwalker pedometer comes in the box, and it adds the Pokéathlon, Pal Park, the Battle Frontier and a new Safari Zone. Bulbapedia lists the physical and special move split too.</p><p class="g-pair"><b>How the pair differs.</b> Ho-Oh is the legendary in HeartGold and Lugia in SoulSilver, and the two appear on the boxes. Wikipedia names no other difference.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>87</b></dd></div><div><dt>Story</dt><dd><b>35–40</b> hours</dd></div><div><dt>With extras</dt><dd><b>70–85</b> hours</dd></div><div><dt>Everything</dt><dd><b>200–225</b> hours</dd></div></dl><p class="g-crit">Famitsu gave 37/40, and 1UP wrote that they are easily the best Pokémon game yet. GameSpot scored it lower for a lack of innovation. They won the 2010 Golden Joystick Award for Portable Game of the Year.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>Crystal changes the presentation and adds a tower and a new story thread, but the world is the same.</li><li>HeartGold and SoulSilver keep the whole two-region shape and add the Generation 4 rules plus a lot around the edges, such as a following Pokémon and the Pokéwalker.</li><li>The English Crystal has no online features, unlike the Japanese one.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Gold and Silver scored 89% and 91% on GameRankings. Crystal scored 80%, and reviewers called its changes small. HeartGold and SoulSilver reached 87 on Metacritic, the highest of the remakes.</p>
+      <p class="verdict"><b>Short answer:</b> Crystal is Gold and Silver with extras. HeartGold and SoulSilver are the same adventure with a lot added, and the best-reviewed of the Johto games on Metacritic.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="hoenn" data-tags="ext remake" aria-labelledby="hoenn-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">3</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="hoenn-t">Hoenn</h2>
+      <p class="sub">Ruby, Sapphire and Emerald</p>
+      <p class="pairline"><span class="disc" style="--a:#B3202D;--b:#1F4FB2" aria-hidden="true"></span>Ruby and Sapphire are the first pair. 2002 in Japan. Mar 19, 2003 in North America.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>3</b> games or pairs</li><li><b>76–83</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">In each version a villain team, Magma or Aqua, wakes an ancient Pokémon. This is where double battles, Abilities and Natures began. These games cannot trade with the first two generations.</p>
+  <section class="games" aria-label="Games in Hoenn">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="rs"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Ruby and Sapphire</h4><p class="g-when">Game Boy Advance. Mar 19, 2003 in North America. Jul 25, 2003 in Europe.</p><p class="g-text">The original. It adds double and multi battles, Abilities, Natures, Contests, secret bases, a four-player link and about 135 new Pokémon. Time still passes but there is no day and night split.</p><p class="g-pair"><b>How the pair differs.</b> Ruby has Team Magma and Groudon, and Sapphire has Team Aqua and Kyogre. Ruby has Seedot, Mawile, Zangoose, Solrock and Latios. Sapphire has Lotad, Sableye, Seviper, Lunatone and Latias.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>82</b></dd></div><div><dt>Story</dt><dd><b>30–35</b> hours</dd></div><div><dt>With extras</dt><dd><b>60–70</b> hours</dd></div><div><dt>Everything</dt><dd><b>190–215</b> hours</dd></div></dl><p class="g-crit">IGN gave 9.5 for its deep design. GameSpot gave 8.1 but called it a cakewalk from start to finish. The common criticism was that little changed from Johto.</p></div></li><li class="gm" id="e"><div class="g-side"><span class="lvtag"><i class="sw lv2" aria-hidden="true"></i>Extended version</span></div><div class="g-main"><h4 class="g-name">Emerald</h4><p class="g-when">Game Boy Advance. May 1, 2005 in North America. Oct 21, 2005 in Europe.</p><p class="g-text">Same Hoenn and story, with both Magma and Aqua in one game and Rayquaza called to settle Groudon and Kyogre. It adds the Battle Frontier, animated battle sprites, gym rematches and a stronger Steven. English copies dropped the e-Reader support.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Emerald <b>76</b></dd></div><div><dt>Story</dt><dd><b>30–35</b> hours</dd></div><div><dt>With extras</dt><dd><b>60–70</b> hours</dd></div><div><dt>Everything</dt><dd><b>190–215</b> hours</dd></div></dl><p class="g-crit">IGN’s Craig Harris called it the best starting point for newcomers to Hoenn. 1UP found it definitive and a rehash at once.</p></div></li><li class="gm" id="oras"><div class="g-side"><span class="lvtag"><i class="sw lv3" aria-hidden="true"></i>Remake</span></div><div class="g-main"><h4 class="g-name">Omega Ruby and Alpha Sapphire</h4><p class="g-when">Nintendo 3DS. Nov 21, 2014 in North America. Nov 28, 2014 in Europe.</p><p class="g-text">A remake of Ruby and Sapphire with some Emerald features. The region, story and eight gyms are kept. It brings in Mega Evolution, Pokémon-Amie, Super Training, the physical and special split and unlimited TMs, and adds Primal Reversion for Groudon and Kyogre, flying with Latios or Latias, 20 new Mega Evolutions and a new episode with Rayquaza and Deoxys called the Delta Episode.</p><p class="g-pair"><b>How the pair differs.</b> Omega Ruby has Team Magma and Primal Groudon. Alpha Sapphire has Team Aqua and Primal Kyogre.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Omega Ruby <b>83</b>, Alpha Sapphire <b>82</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>45–55</b> hours</dd></div><div><dt>Everything</dt><dd><b>120–140</b> hours</dd></div></dl><p class="g-crit">GameSpot gave 8. IGN gave 7.8 and disliked the number of HMs, the Water-type bias and the tedious Dive. It was the biggest UK launch in the series at the time.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>Emerald merges the two story versions, so it is the only Hoenn game with both villain teams.</li><li>The remake keeps the region, the story and the eight gyms, and adds systems from Generations 4 to 6.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Ruby and Sapphire scored 82 on Metacritic and Emerald 76. Reviewers liked the depth of Hoenn but said little changed from Johto. Omega Ruby and Alpha Sapphire scored 83 and 82, with praise for the 3D Hoenn and the online features.</p>
+      <p class="verdict"><b>Short answer:</b> IGN named Emerald the best starting point for a newcomer to the original pair. The remake keeps the story and the map and adds new systems around them.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="sinnoh" data-tags="ext low newgame remake switch top" aria-labelledby="sinnoh-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">4</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="sinnoh-t">Sinnoh</h2>
+      <p class="sub">Diamond, Pearl and Platinum</p>
+      <p class="pairline"><span class="disc" style="--a:#7FA8D9;--b:#E7B3C3" aria-hidden="true"></span>Diamond and Pearl are the first pair. 2006 in Japan. Apr 22, 2007 in North America.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>4</b> games or pairs</li><li><b>73–85</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A region built around Mt. Coronet, where the version legendaries wait at the summit. These games brought online trading and battling and the physical and special move split. The line has three follow-ups.</p>
+  <section class="games" aria-label="Games in Sinnoh">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="dp"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Diamond and Pearl</h4><p class="g-when">Nintendo DS. Apr 22, 2007 in North America. Jul 27, 2007 in Europe.</p><p class="g-text">The original. It adds Wi-Fi trading and battling with voice chat, the physical and special split, the Pokétch watch on the touch screen, the Underground, five times of day, 107 new Pokémon and transfer from Game Boy Advance cartridges through Pal Park.</p><p class="g-pair"><b>How the pair differs.</b> Diamond has Dialga, Seel, Scyther, Murkrow, Larvitar, Aron and Stunky. Pearl has Palkia, Slowpoke, Pinsir, Misdreavus, Houndour, Bagon and Glameow.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>85</b></dd></div><div><dt>Story</dt><dd><b>40–45</b> hours</dd></div><div><dt>With extras</dt><dd><b>85–100</b> hours</dd></div><div><dt>Everything</dt><dd><b>240–260</b> hours</dd></div></dl><p class="g-crit">GameSpot and IGN gave 8.5. Eurogamer gave 9. Critics liked the online features and said the play had changed little; the audio drew complaints.</p></div></li><li class="gm" id="pt"><div class="g-side"><span class="lvtag"><i class="sw lv2" aria-hidden="true"></i>Extended version</span></div><div class="g-main"><h4 class="g-name">Platinum</h4><p class="g-when">Nintendo DS. Mar 22, 2009 in North America. May 22, 2009 in Europe.</p><p class="g-text">Same Sinnoh and the same Team Galactic, with the characters Charon and Looker added, a new area called the Distortion World, a new Giratina form, the Battle Frontier, a Wi-Fi Plaza and an expanded Pokédex that lets you meet evolved Pokémon sooner. Wikipedia calls it an enhanced version, and reviewers often treated it as a third version.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Platinum <b>84</b></dd></div><div><dt>Story</dt><dd><b>35–40</b> hours</dd></div><div><dt>With extras</dt><dd><b>75–90</b> hours</dd></div><div><dt>Everything</dt><dd><b>220–250</b> hours</dd></div></dl><p class="g-crit">Nintendo Power gave 9 and IGN 8.8. Many reviewers said it was too similar to Diamond and Pearl, and GameZone called it merely good for those who had played them.</p></div></li><li class="gm" id="bdsp"><div class="g-side"><span class="lvtag"><i class="sw lv3" aria-hidden="true"></i>Remake</span></div><div class="g-main"><h4 class="g-name">Brilliant Diamond and Shining Pearl</h4><p class="g-when">Nintendo Switch. Nov 19, 2021.</p><p class="g-text">A faithful remake of Diamond and Pearl made by ILCA, the first main game not led by Game Freak. The story and map are kept. The art style is chibi, the Grand Underground replaces the Underground, and Exp. Share cannot be turned off. Platinum’s additions, such as the Battle Frontier, are not included.</p><p class="g-pair"><b>How the pair differs.</b> Dialga is in Brilliant Diamond and Palkia in Shining Pearl. Wikipedia names no other difference.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>73</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>50–60</b> hours</dd></div><div><dt>Everything</dt><dd><b>130–150</b> hours</dd></div></dl><p class="g-crit">IGN gave 8 for its faithfulness. Destructoid gave 6.5 and Nintendo Life 6, and the chibi style divided reviewers. IGN Japan gave 5 and said it mainly appeals to nostalgia.</p></div></li><li class="gm" id="pla"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>New game, same world</span></div><div class="g-main"><h4 class="g-name">Legends: Arceus</h4><p class="g-when">Nintendo Switch. Jan 28, 2022.</p><p class="g-text">Not a remake. It is set in Hisui, which is Sinnoh centuries before Diamond and Pearl, and is an action RPG: you catch Pokémon in the open without battling, wild Pokémon can attack you, and there are Alpha and Noble Pokémon. Nintendo’s own accounts called it a pre-remake of the Sinnoh games.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Arceus <b>83</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>45–60</b> hours</dd></div><div><dt>Everything</dt><dd><b>70–90</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 25½, 45½ and 80½.</p><p class="g-crit">The Verge called it the biggest overhaul to the formula since the series began. Critics faulted the graphics, the battle system and the performance.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>Platinum changes the story’s focus to Giratina and adds a new area, but it is Sinnoh as before.</li><li>The remake leaves out Platinum’s changes, so it matches Diamond and Pearl more than Platinum.</li><li>Legends: Arceus shares a map shape and a world with Sinnoh, but it is a different kind of game.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Diamond and Pearl scored 85 on Metacritic and Platinum 84. The remake’s 73 is the lowest of any remake, and its chibi look divided reviewers. Legends: Arceus scored 83 and was praised for changing the series’ formula, though some critics disliked the graphics.</p>
+      <p class="verdict"><b>Short answer:</b> Platinum is the fuller version of Diamond and Pearl. The remake is faithful but leaves out Platinum’s additions. Arceus is its own game.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="unova" data-tags="newgame top" aria-labelledby="unova-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">5</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="unova-t">Unova</h2>
+      <p class="sub">Black and White</p>
+      <p class="pairline"><span class="disc" style="--a:#262626;--b:#F4F4F2" aria-hidden="true"></span>Black and White are the first pair. 2010 in Japan. Mar 6, 2011 in North America.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games or pairs</li><li><b>80–87</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A region modelled on New York City, where the games begin with only new Pokémon. Its follow-up is a pair of real sequels, the first in the series, rather than a third version.</p>
+  <section class="games" aria-label="Games in Unova">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="bw"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Black and White</h4><p class="g-when">Nintendo DS. Mar 6, 2011 in North America. Mar 4, 2011 in Europe.</p><p class="g-text">The original. It has 156 new species and begins with only new Pokémon, seasons that change areas, triple and rotation battles, and fully animated battle sprites. The Dream World online site closed in January 2014.</p><p class="g-pair"><b>How the pair differs.</b> Reshiram is in Black and Zekrom in White. Black has Black City and White has White Forest. Opelucid City looks futuristic in Black and traditional in White, and its gym leader is Drayden in Black and Iris in White. Black has Weedle, Murkrow, Houndour and Gothita. White has Caterpie, Misdreavus, Poochyena and Solosis.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>87</b></dd></div><div><dt>Story</dt><dd><b>30–35</b> hours</dd></div><div><dt>With extras</dt><dd><b>55–65</b> hours</dd></div><div><dt>Everything</dt><dd><b>160–180</b> hours</dd></div></dl><p class="g-crit">Famitsu gave a perfect 40/40 and IGN gave 9. Reviewers were split on some designs and some felt it did not innovate enough.</p></div></li><li class="gm" id="b2w2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>New game, same world</span></div><div class="g-main"><h4 class="g-name">Black 2 and White 2</h4><p class="g-when">Nintendo DS. Oct 7, 2012 in North America. Oct 12, 2012 in Europe.</p><p class="g-text">Direct sequels, the first in the series, not remakes. They start in Aspertia City in the west of Unova instead of Nuvema Town, with a new Team Plasma led by Colress. They add the Pokémon World Tournament, Hidden Grottoes, PokéStar Studios, a Key System for difficulty and an expanded Pokédex.</p><p class="g-pair"><b>How the pair differs.</b> Black Kyurem is in Black 2 and White Kyurem in White 2. N’s companion is Zekrom in Black 2 and Reshiram in White 2. Black 2 has the Black Tower and Black City, and White 2 has the White Treehollow and White Forest.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>80</b></dd></div><div><dt>Story</dt><dd><b>35–40</b> hours</dd></div><div><dt>With extras</dt><dd><b>65–80</b> hours</dd></div><div><dt>Everything</dt><dd><b>185–215</b> hours</dd></div></dl><p class="g-crit">IGN gave Black 2 9.6 and Nintendo Life called it the best in the series to date. GameSpot gave Black 2 6.5 and Game Informer 7.5 for leaning on the originals.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>Black 2 and White 2 are set in Unova with new cities and a new story, so they are sequels in the same world.</li><li>This is the one line with no remake and no third version.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Black and White scored 87 on Metacritic and Black 2 and White 2 scored 80. Reviewers liked the sequels’ new features and said they leaned on the first pair.</p>
+      <p class="verdict"><b>Short answer:</b> Black 2 and White 2 are a new story in the same place, not a rework of Black and White.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="kalos" data-tags="low newgame switch top" aria-labelledby="kalos-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">6</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="kalos-t">Kalos</h2>
+      <p class="sub">X and Y</p>
+      <p class="pairline"><span class="disc" style="--a:#2E6DB4;--b:#D3382F" aria-hidden="true"></span>X and Y are the first pair. Oct 12, 2013 worldwide.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games or pairs</li><li><b>70–88</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">The first main games in 3D and the first released everywhere on one day. The region is modelled on France. Its only follow-up came twelve years later and stays in one city.</p>
+  <section class="games" aria-label="Games in Kalos">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="xy"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">X and Y</h4><p class="g-when">Nintendo 3DS. Oct 12, 2013 worldwide.</p><p class="g-text">The original. It adds the Fairy type, Mega Evolution, 72 new species, character customisation, Super Training, Pokémon-Amie, Wonder Trade and horde encounters.</p><p class="g-pair"><b>How the pair differs.</b> Xerneas is the legendary in X and Yveltal in Y, and each version has its own exclusive Pokémon. Wikipedia names none of them.</p><dl class="facts"><div><dt>Metacritic</dt><dd>X <b>87</b>, Y <b>88</b></dd></div><div><dt>Story</dt><dd><b>30–35</b> hours</dd></div><div><dt>With extras</dt><dd><b>50–60</b> hours</dd></div><div><dt>Everything</dt><dd><b>130–145</b> hours</dd></div></dl><p class="g-crit">Polygon gave 9.5 and IGN 9. The story and the linear structure drew criticism. It sold 4 million in its first weekend, the fastest for a 3DS game then.</p></div></li><li class="gm" id="za"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>New game, same world</span></div><div class="g-main"><h4 class="g-name">Legends: Z-A</h4><p class="g-when">Nintendo Switch and Switch 2. Oct 16, 2025.</p><p class="g-text">A sequel set five years after X and Y, in Lumiose City only. Battles are in real time instead of turns, Wild Zones hold Pokémon among the buildings, and Mega Evolution returns with new Mega forms. Switch 2 has an enhanced edition.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Switch <b>70</b>, Switch 2 <b>78</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>30–40</b> hours</dd></div><div><dt>Everything</dt><dd><b>60–75</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 28, 40½ and 66½.</p><p class="g-crit">Critics praised the battle system and the Switch 2 performance. They called the city setting restrictive. Nintendo Life described the Switch visuals as lifeless and flat.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw addon" aria-hidden="true"></i>Add-on</span></div><div class="g-main"><h4 class="g-name">Mega Dimension</h4><p class="g-when">Add-on for Z-A. Dec 10, 2025.</p><p class="g-text">A paid expansion centred on Hoopa, with two Mega forms for Raichu and other new Megas.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>Legends: Z-A is a different kind of game, with real-time battles, but it takes place in a part of X and Y’s map.</li><li>No remake or extended version exists for X and Y.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>X and Y scored 87 and 88 on Metacritic. Legends: Z-A scored 70 on Switch and 78 on Switch 2, and critics praised the Switch 2 performance.</p>
+      <p class="verdict"><b>Short answer:</b> Z-A is a spin on X and Y’s world with different rules. It is not a version of them.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="alola" data-tags="ext top" aria-labelledby="alola-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">7</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="alola-t">Alola</h2>
+      <p class="sub">Sun, Moon, Ultra Sun and Ultra Moon</p>
+      <p class="pairline"><span class="disc" style="--a:#E8872B;--b:#5B4B9A" aria-hidden="true"></span>Sun and Moon are the first pair. Nov 18, 2016 worldwide.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games or pairs</li><li><b>84–87</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A Hawaii-inspired archipelago with no gym challenge. You do island trials and meet kahunas instead. The sequel pair is an extended version of the same adventure.</p>
+  <section class="games" aria-label="Games in Alola">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="sm"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Sun and Moon</h4><p class="g-when">Nintendo 3DS. Nov 18, 2016 worldwide (Europe Nov 23).</p><p class="g-text">The original. It adds Z-Moves, Alolan forms of older Pokémon, Island Trials in place of gyms, the Rotom Pokédex and Festival Plaza, and removes the HMs in favour of summoned helper Pokémon.</p><p class="g-pair"><b>How the pair differs.</b> Solgaleo is in Sun and Lunala in Moon. Moon’s clock runs 12 hours ahead of Sun’s. Each has its own flute and altar. Sun has Buzzwole, Kartana and Alolan Vulpix. Moon has Pheromosa, Celesteela and Alolan Sandshrew.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>87</b></dd></div><div><dt>Story</dt><dd><b>35–40</b> hours</dd></div><div><dt>With extras</dt><dd><b>60–70</b> hours</dd></div><div><dt>Everything</dt><dd><b>145–165</b> hours</dd></div></dl><p class="g-crit">Nintendo Life gave 10/10 and IGN 9. Eurogamer called it the best generation in more than a decade. Polygon criticised the linearity.</p></div></li><li class="gm" id="usum"><div class="g-side"><span class="lvtag"><i class="sw lv2" aria-hidden="true"></i>Extended version</span></div><div class="g-main"><h4 class="g-name">Ultra Sun and Ultra Moon</h4><p class="g-when">Nintendo 3DS. Nov 17, 2017 worldwide.</p><p class="g-text">Enhanced versions with the same mechanics and graphics. The story is changed, with Necrozma replacing Lusamine as the main antagonist, Ultra Wormholes, four new Ultra Beasts, the Ultra Recon Squad and Team Rainbow Rocket in the post-game.</p><p class="g-pair"><b>How the pair differs.</b> In Ultra Sun, Nebby becomes Solgaleo and the Ultra Beast to catch is Blacephalon. In Ultra Moon, Nebby becomes Lunala and the Ultra Beast is Stakataka. The Ultra Recon Squad has different members in each.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>84</b></dd></div><div><dt>Story</dt><dd><b>35–40</b> hours</dd></div><div><dt>With extras</dt><dd><b>65–75</b> hours</dd></div><div><dt>Everything</dt><dd><b>155–175</b> hours</dd></div></dl><p class="g-crit">Critics liked the added features. Some said the story was too close to Sun and Moon for most of its length, and Polygon noted the changes come near the end.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>Ultra Sun and Ultra Moon keep the island, characters and look, and change the second half of the story.</li><li>They are the last main games on 3DS.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Sun and Moon scored 87 and the Ultra pair 84 on Metacritic. Reviewers praised Sun and Moon heavily and liked the Ultra games’ extras, but said the story was close to the first pair for most of its length.</p>
+      <p class="verdict"><b>Short answer:</b> Ultra Sun and Ultra Moon change the second half of the story and add content. If you have played Sun or Moon, most of it will feel familiar.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="galar" data-tags="switch" aria-labelledby="galar-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">8</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="galar-t">Galar</h2>
+      <p class="sub">Sword and Shield</p>
+      <p class="pairline"><span class="disc" style="--a:#2F83CC;--b:#CC2E4A" aria-hidden="true"></span>Sword and Shield are the first pair. Nov 15, 2019.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game or pair</li><li><b>80</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A region inspired by the United Kingdom. A large open Wild Area sits in the middle, and not every older Pokémon made it in.</p>
+  <section class="games" aria-label="Games in Galar">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="swsh"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Sword and Shield</h4><p class="g-when">Nintendo Switch. Nov 15, 2019.</p><p class="g-text">The original. It adds Dynamax and Gigantamax, the Wild Area, four-player Max Raid Battles and a camp for cooking curry. Many existing Pokémon were left out, which fans called Dexit.</p><p class="g-pair"><b>How the pair differs.</b> Zacian is in Sword and Zamazenta in Shield. Sword has the gym leaders Bea and Gordie and Shield has Allister and Melony. Sword has Galarian Farfetch’d and Gothita. Shield has Galarian Ponyta and Larvitar.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Sword <b>80</b></dd></div><div><dt>Story</dt><dd><b>25–30</b> hours</dd></div><div><dt>With extras</dt><dd><b>45–55</b> hours</dd></div><div><dt>Everything</dt><dd><b>100–120</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 25½, 45 and 111 for the base game.</p><p class="g-crit">IGN gave 9.3 and GameSpot 9. Eurogamer gave 3/5. Some reviewers felt they lacked depth and used the Switch hardware thinly.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw addon" aria-hidden="true"></i>Add-on</span></div><div class="g-main"><h4 class="g-name">The Isle of Armor</h4><p class="g-when">Expansion Pass. Jun 17, 2020.</p><p class="g-text">A paid add-on that starts a new area. Sword has Pinsir and Shield has Heracross there.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw addon" aria-hidden="true"></i>Add-on</span></div><div class="g-main"><h4 class="g-name">The Crown Tundra</h4><p class="g-when">Expansion Pass. Oct 22, 2020.</p><p class="g-text">The second add-on. Its version exclusives include Ho-Oh and Latios in Sword, and I did not get Shield’s list.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>No remake, extended version or sequel exists for Sword and Shield. The Expansion Pass is the only extension.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Sword and Shield scored 80 on Metacritic. Praise went to the exploration and the raid battles. Criticism went to the missing Pokémon and the lack of depth.</p>
+      <p class="verdict"><b>Short answer:</b> A single game with two add-ons, so the only choice is the version.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="paldea" data-tags="low switch" aria-labelledby="paldea-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">9</span><span class="gen-l">Generation</span></p>
+    <div class="head-main">
+      <h2 id="paldea-t">Paldea</h2>
+      <p class="sub">Scarlet and Violet</p>
+      <p class="pairline"><span class="disc" style="--a:#D6402D;--b:#6C45B5" aria-hidden="true"></span>Scarlet and Violet are the first pair. Nov 18, 2022.</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game or pair</li><li><b>71–72</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">An open world inspired by the Iberian Peninsula, with three stories you can do in any order. It is the second best-selling line, behind Red and Blue, and the lowest-rated main line on Metacritic.</p>
+  <section class="games" aria-label="Games in Paldea">
+    <h3 class="sec-h">The games, and how close each is to the original</h3>
+    <ol class="glist"><li class="gm" id="sv"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>Original</span></div><div class="g-main"><h4 class="g-name">Scarlet and Violet</h4><p class="g-when">Nintendo Switch. Nov 18, 2022.</p><p class="g-text">The original. It has a connected open world, Auto Battle, three storylines (Victory Road, Path of Legends and Starfall Street), Terastallization and online co-op for up to four players, including Tera Raids.</p><p class="g-pair"><b>How the pair differs.</b> Koraidon is in Scarlet and Miraidon in Violet. Professor Sada runs the lab in Scarlet and Professor Turo in Violet. The school is Naranja Academy in Scarlet and Uva Academy in Violet. Scarlet has the ancient-past Paradox Pokémon, such as Great Tusk, and Violet the future ones, such as Iron Treads.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Scarlet <b>72</b>, Violet <b>71</b></dd></div><div><dt>Story</dt><dd><b>30–35</b> hours</dd></div><div><dt>With extras</dt><dd><b>55–65</b> hours</dd></div><div><dt>Everything</dt><dd><b>110–135</b> hours</dd></div></dl><p class="g-crit">Eurogamer called them comprehensive technical failures against other Switch games, and IGN gave 6. GameSpot praised the non-linearity. Patches fixed many bugs.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw addon" aria-hidden="true"></i>Add-on</span></div><div class="g-main"><h4 class="g-name">The Teal Mask</h4><p class="g-when">Paid add-on. Sep 13, 2023.</p><p class="g-text">The first part of The Hidden Treasure of Area Zero, focused on Ogerpon.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw addon" aria-hidden="true"></i>Add-on</span></div><div class="g-main"><h4 class="g-name">The Indigo Disk</h4><p class="g-when">Paid add-on. Dec 14, 2023.</p><p class="g-text">The second part, focused on Terapagos, followed by the Mochi Mayhem epilogue on Jan 11, 2024.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this row</h3>
+      <ul class="diffs"><li>No remake, extended version or sequel exists yet. Two paid add-ons and an epilogue extended it.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Scarlet and Violet scored 72 and 71 on Metacritic, the lowest for a main game. They sold over 10 million in three days. Reviewers liked the freedom and disliked the glitches and low frame rate.</p>
+      <p class="verdict"><b>Short answer:</b> One game, two add-ons. Wikipedia says patches in 2022 and 2023 fixed bugs while performance problems persisted.</p>
+    </div>
+  </div>
+</article>
+  <div class="eq" aria-hidden="true"><i class="ball"></i></div>
+
+  
+<section class="after next" aria-labelledby="next-h">
+  <h2 id="next-h">Coming next</h2>
+  <h3 class="next-t">Pokémon Winds and Pokémon Waves</h3>
+  <p class="cover">Announced on Feb 27, 2026 as the 10th generation, for Nintendo Switch 2, with a worldwide release in 2027. Game Freak is the developer. The setting is a tropical archipelago that Wikipedia says resembles Southeast Asia, and the three starters are Browt (Grass), Pombon (Fire) and Gecqua (Water). The main character’s outfit differs by version. I found no release date or score yet.</p>
+</section>
+
+  <section class="after" aria-labelledby="cover-h">
+    <h2 id="cover-h">Not covered</h2>
+    <p class="cover">You asked for the main games here, with spin-offs on a separate page. Left out: Japan’s Green, which was never released in English, and Japan-only versions or features, such as Crystal’s mobile features. Mobile and free-to-play games are not covered, including Pokémon GO, Masters EX, Unite, TCG Pocket, Sleep and Pokémon Champions, which is a free-to-play battle game on Switch (Apr 2026) and phones (Jun 2026). Apps such as Pokémon HOME and Bank are not games, and fan projects are not official releases. Also left out: Pokémon Stadium, Colosseum and the other spin-offs, which are on the spin-offs page.</p>
+  </section>
+
+  <section class="after" aria-labelledby="gap-h">
+    <h2 id="gap-h">What I could not confirm</h2>
+    <p class="after-sub">I read most of this through Wikipedia’s pages and Bulbapedia, so details are as those pages state them.</p>
+    <ul class="gaps"><li>Which Pokémon are exclusive to X and Y, Omega Ruby and Alpha Sapphire, Brilliant Diamond and Shining Pearl, and Ultra Sun and Ultra Moon. Bulbapedia’s pages for those were down for maintenance when I tried, so those lines name only the legendary or the villain team.</li><li>Metacritic scores for Red, Blue, Yellow, Gold, Silver and Crystal. They were released before Metacritic’s game coverage, so the chart shows GameRankings scores from Wikipedia as hollow circles.</li><li>Let’s Go’s Metacritic score. Deku Deals shows 79 for Pikachu and 80 for Eevee, and a Nintendo wiki that copies Wikipedia says 81. I used Deku Deals, which mirrors the live page.</li><li>Sword and Shield’s second score. I found 80 for Sword only.</li><li>Play times for the older games come from one chart that blends several sources without naming which is which. For the newer Switch games I also give HowLongToBeat’s figures, read from Deku Deals. Treat all of them as rough.</li><li>Whether FireRed and LeafGreen on Switch differ by region in e-Reader features. Video Games Chronicle was not sure.</li><li>Whether Pokémon Winds and Waves have a firm date. Nothing I read gave one.</li></ul>
+  </section>
+
+  <section class="after" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <div class="src-grid"><div class="src"><h3>The whole series</h3><ul><li><a href="https://bulbapedia.bulbagarden.net/wiki/Remake">Bulbapedia: Remake</a></li><li><a href="https://consolepulse.com/nintendo/pokemon/guides/pokemon-mainline-games-playtime-guide">ConsolePulse: how long every mainline Pokémon game takes (2026)</a></li><li><a href="https://en.wikipedia.org/wiki/List_of_Pok%C3%A9mon_video_games">Wikipedia: List of Pokémon video games</a></li></ul></div><div class="src"><h3>Kanto</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Red,_Blue,_and_Yellow">Wikipedia: Pokémon Red, Blue, and Yellow</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Red_and_Blue_Versions">Bulbapedia: Red and Blue Versions</a></li><li><a href="https://insider-gaming.com/pokemon-fire-red-leaf-green-all-differences/">Insider Gaming: FireRed and LeafGreen differences</a></li><li><a href="https://www.videogameschronicle.com/news/pokemon-firered-and-leafgreen-coming-to-nintendo-switch-next-week-but-not-as-part-of-nso">Video Games Chronicle: FireRed and LeafGreen on Switch</a></li><li><a href="https://nintendo.fandom.com/wiki/Pok%C3%A9mon_Let%27s_Go,_Pikachu!_and_Let%27s_Go,_Eevee!">Nintendo Fandom: Let’s Go, Pikachu! and Let’s Go, Eevee!</a></li><li><a href="https://www.theouterhaven.net/2018/12/pokemon-lets-go-pikachu-and-eevee-review/">The Outer Haven: Let’s Go review</a></li><li><a href="https://www.gamespot.com/articles/pokemon-lets-go-pikachu-and-eevee-review-roundup/1100-6463205">GameSpot: Let’s Go review roundup</a></li><li><a href="https://www.dekudeals.com/items/pokemon-lets-go-pikachu">Deku Deals: Let’s Go, Pikachu!</a></li><li><a href="https://www.dekudeals.com/items/pokemon-lets-go-eevee">Deku Deals: Let’s Go, Eevee!</a></li><li><a href="https://www.thegamer.com/nintendo-closing-wii-u-3ds-eshops-march-27-2023/">TheGamer: 3DS and Wii U eShops close</a></li></ul></div><div class="src"><h3>Johto</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Gold_and_Silver">Wikipedia: Pokémon Gold and Silver</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Crystal">Wikipedia: Pokémon Crystal</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_HeartGold_and_SoulSilver">Wikipedia: Pokémon HeartGold and SoulSilver</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Gold_and_Silver_Versions">Bulbapedia: Gold and Silver Versions</a></li></ul></div><div class="src"><h3>Hoenn</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Ruby_and_Sapphire">Wikipedia: Pokémon Ruby and Sapphire</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Emerald">Wikipedia: Pokémon Emerald</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Omega_Ruby_and_Alpha_Sapphire">Wikipedia: Pokémon Omega Ruby and Alpha Sapphire</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Ruby_and_Sapphire_Versions">Bulbapedia: Ruby and Sapphire Versions</a></li></ul></div><div class="src"><h3>Sinnoh</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Diamond_and_Pearl">Wikipedia: Pokémon Diamond and Pearl</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Platinum">Wikipedia: Pokémon Platinum</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Brilliant_Diamond_and_Shining_Pearl">Wikipedia: Pokémon Brilliant Diamond and Shining Pearl</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Arceus">Wikipedia: Pokémon Legends: Arceus</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Diamond_and_Pearl_Versions">Bulbapedia: Diamond and Pearl Versions</a></li><li><a href="https://www.dekudeals.com/items/pokemon-brilliant-diamond">Deku Deals: Brilliant Diamond</a></li><li><a href="https://www.dekudeals.com/items/pokemon-legends-arceus">Deku Deals: Legends: Arceus</a></li></ul></div><div class="src"><h3>Unova</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Black_and_White">Wikipedia: Pokémon Black and White</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Black_2_and_White_2">Wikipedia: Pokémon Black 2 and White 2</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Black_and_White_Versions">Bulbapedia: Black and White Versions</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Black_and_White_Versions_2">Bulbapedia: Black and White Versions 2</a></li></ul></div><div class="src"><h3>Kalos</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_X_and_Y">Wikipedia: Pokémon X and Y</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Legends:_Z-A">Wikipedia: Pokémon Legends: Z-A</a></li><li><a href="https://www.dekudeals.com/items/pokemon-legends-z-a">Deku Deals: Legends: Z-A</a></li></ul></div><div class="src"><h3>Alola</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Sun_and_Moon">Wikipedia: Pokémon Sun and Moon</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Ultra_Sun_and_Ultra_Moon">Wikipedia: Pokémon Ultra Sun and Ultra Moon</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Sun_and_Moon">Bulbapedia: Sun and Moon</a></li></ul></div><div class="src"><h3>Galar</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Sword_and_Shield">Wikipedia: Pokémon Sword and Shield</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Sword_and_Shield">Bulbapedia: Sword and Shield</a></li><li><a href="https://www.dekudeals.com/items/pokemon-sword">Deku Deals: Sword</a></li></ul></div><div class="src"><h3>Paldea</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Scarlet_and_Violet">Wikipedia: Pokémon Scarlet and Violet</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Scarlet_and_Violet">Bulbapedia: Scarlet and Violet</a></li><li><a href="https://www.dekudeals.com/items/pokemon-violet">Deku Deals: Violet</a></li></ul></div><div class="src"><h3>Winds and Waves</h3><ul><li><a href="https://www.rpgsite.net/news/19737-pokemon-winds-waves-are-coming-to-nintendo-switch-2-worldwide-in-2027">RPG Site: Winds and Waves announced</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Winds_and_Waves">Wikipedia: Pokémon Winds and Waves</a></li><li><a href="https://gameinformer.com/pokemon-presents/2026/02/27/everything-announced-at-the-february-2026-pokemon-presents">Game Informer: February 2026 Pokémon Presents</a></li></ul></div></div>
+  </section>
+
+  <footer class="foot">
+    <p>Pokémon is a trademark of Nintendo, Creatures Inc. and Game Freak. This is a fan reference and is not affiliated with them.</p>
+    <p>Typefaces: Sofia Sans and Sofia Sans Condensed, both under the SIL Open Font License.</p>
+  </footer>
+</main>
+
+<script type="application/json" id="filter-labels">{"all": "Everything", "remake": "Has a remake", "ext": "Has an extended version", "newgame": "Has a sequel or prequel", "switch": "Has a Switch game", "low": "Under 75 on Metacritic", "top": "Scored 85 or more"}</script>
+<script>
+(function () {
+  var bar = document.querySelector(".filters");
+  var tip = document.createElement("div");
+  tip.className = "tip"; tip.setAttribute("role", "tooltip"); tip.hidden = true;
+  document.body.appendChild(tip);
+
+  function showTip(text, rect) {
+    tip.textContent = text; tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var x = Math.min(Math.max(8, rect.left + rect.width / 2 - w / 2), window.innerWidth - w - 8);
+    var y = rect.top - h - 8;
+    if (y < 8) y = rect.bottom + 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { tip.hidden = true; }
+
+  [].forEach.call(document.querySelectorAll("[data-chart]"), function (chart) {
+    chart.addEventListener("mouseover", function (ev) {
+      var d = ev.target.closest && ev.target.closest(".dot, .ln-track");
+      if (!d) return;
+      var row = d.closest(".sc-row");
+      showTip(d.getAttribute("data-tip") || row.getAttribute("data-all"), d.getBoundingClientRect());
+    });
+    chart.addEventListener("mouseout", function (ev) {
+      if (ev.target.closest && ev.target.closest(".dot, .ln-track")) hideTip();
+    });
+    chart.addEventListener("click", function (ev) {
+      var d = ev.target.closest && ev.target.closest(".dot, .ln-track");
+      if (d) {
+        var row = d.closest(".sc-row");
+        showTip(d.getAttribute("data-tip") || row.getAttribute("data-all"), d.getBoundingClientRect());
+      } else if (!(ev.target.closest && ev.target.closest(".sc-n"))) hideTip();
+    });
+    [].forEach.call(chart.querySelectorAll(".sc-row"), function (r) {
+      r.addEventListener("focus", function () { showTip(r.getAttribute("data-all"), r.getBoundingClientRect()); });
+      r.addEventListener("blur", hideTip);
+    });
+  });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") hideTip(); });
+  window.addEventListener("scroll", hideTip, { passive: true });
+
+  if (!bar) return;
+  bar.hidden = false;
+  var chips = [].slice.call(bar.querySelectorAll(".chip"));
+  var entries = [].slice.call(document.querySelectorAll(".entry"));
+  var eqs = [].slice.call(document.querySelectorAll("main .eq"));
+  var rows = [].slice.call(document.querySelectorAll(".tree-table tbody tr, .sc-list li"));
+  var status = document.getElementById("filter-status");
+  var labels = JSON.parse(document.getElementById("filter-labels").textContent);
+  var current = "all";
+
+  function has(el, f) { return f === "all" || (" " + el.getAttribute("data-tags") + " ").indexOf(" " + f + " ") > -1; }
+
+  function apply(f) {
+    current = f;
+    var shown = 0;
+    entries.forEach(function (en, i) {
+      var ok = has(en, f);
+      en.hidden = !ok;
+      if (eqs[i]) eqs[i].hidden = !ok;
+      if (ok) shown++;
+    });
+    rows.forEach(function (r) { r.classList.toggle("dim", !has(r, f)); });
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false");
+    });
+    status.textContent = f === "all" ? "" :
+      "Showing " + shown + " of " + entries.length + " regions. Filter: " + labels[f] + ".";
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () { apply(c.getAttribute("data-filter")); });
+  });
+
+  // a link to a region that the filter has hidden clears the filter first
+  document.addEventListener("click", function (ev) {
+    var link = ev.target.closest && ev.target.closest('a[href^="#"]');
+    if (!link || current === "all") return;
+    var id = link.getAttribute("href").slice(1);
+    var target = id && document.getElementById(id);
+    var host = target && (target.closest ? target.closest(".entry") : null);
+    if (host && host.hidden) {
+      apply("all");
+      target.scrollIntoView();
+    }
+  });
+  apply("all");
+})();
+</script>
+</body>
+</html>

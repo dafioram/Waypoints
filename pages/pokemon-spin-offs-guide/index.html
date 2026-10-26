@@ -1,0 +1,1043 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Pokémon Spin-offs Guide — Waypoints</title>
+<meta name="description" content="Every Pokémon spin-off series outside the main games, from Mystery Dungeon and Snap to Pokopia, with how each series’ games relate, Metacritic scores and play times where found." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/sofia-sans-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/sofia-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Pokémon Spin-offs Guide",
+  "description": "Every Pokémon spin-off series outside the main games, from Mystery Dungeon and Snap to Pokopia, with how each series’ games relate, Metacritic scores and play times where found.",
+  "tags": [
+    "gaming",
+    "reference",
+    "pokemon"
+  ],
+  "date": "2026-10-25"
+}
+</script>
+<style>
+@font-face{font-family:"Sofia Sans";font-style:normal;font-weight:400;font-display:swap;src:url(media/sofia-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans";font-style:italic;font-weight:400;font-display:swap;src:url(media/sofia-sans-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans";font-style:normal;font-weight:700;font-display:swap;src:url(media/sofia-sans-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans Condensed";font-style:normal;font-weight:700;font-display:swap;src:url(media/sofia-sans-condensed-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Sofia Sans Condensed";font-style:normal;font-weight:800;font-display:swap;src:url(media/sofia-sans-condensed-latin-800-normal.woff2) format("woff2")}
+
+:root{
+  color-scheme:light dark;
+  --pk-bg:#EAF0EE; --pk-card:#F8FAF9; --pk-ink:#11202B; --pk-muted:#465964; --pk-rule:#C2CFCC;
+  --pk-ball:#B3261E; --pk-focus:#1D4FD8; --pk-on:#EAF0EE;
+  --pk-lv1:#2a78d6;--pk-lv2:#eb6834;--pk-lv3:#1baf7a;--pk-lv4:#eda100;--pk-lv5:#e87ba4;
+  --pk-lv0:var(--pk-ink);
+  --pk-display:"Sofia Sans Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --pk-text:"Sofia Sans","Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --pk-bg:#0E161C; --pk-card:#19212A; --pk-ink:#E9F0F2; --pk-muted:#A9BAC2; --pk-rule:#2F3E47;
+    --pk-ball:#F27A70; --pk-focus:#9DB8FF; --pk-on:#0E161C;
+    --pk-lv1:#3987e5;--pk-lv2:#d95926;--pk-lv3:#199e70;--pk-lv4:#c98500;--pk-lv5:#d55181;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;font-synthesis:none}
+body{margin:0;background:var(--pk-bg);color:var(--pk-ink);font-family:var(--pk-text);font-size:1.15rem;line-height:1.5;overflow-wrap:break-word}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--pk-focus);outline-offset:2px;border-radius:2px}
+.wrap{max-width:76rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2rem)}
+h1,h2,h3,h4{margin:0;font-weight:400}
+h1,h2{font-family:var(--pk-display);font-weight:800}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+
+/* level marks: colour is never alone; every swatch sits beside its name */
+.lv0{--c:var(--pk-lv0)} .lv1{--c:var(--pk-lv1)} .lv2{--c:var(--pk-lv2)} .lv3{--c:var(--pk-lv3)} .lv4{--c:var(--pk-lv4)} .lv5{--c:var(--pk-lv5)}
+.sw{display:inline-block;width:.85rem;height:.85rem;background:var(--c);border-radius:2px;box-shadow:inset 0 0 0 1.5px var(--pk-ink);flex:none}
+.sw.addon{background:transparent;box-shadow:inset 0 0 0 1.5px var(--pk-ink);border-style:dashed}
+.key{list-style:none;margin:.8rem 0 .4rem;padding:0;display:flex;flex-wrap:wrap;gap:.3rem 1.3rem;font-weight:700;font-size:.98rem}
+.key li{display:inline-flex;align-items:center;gap:.45rem}
+
+/* the equator rule: a Poké Ball's band, with its button */
+.eq{position:relative;height:1.5rem;margin-top:.6rem}
+.eq::before{content:"";position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;background:linear-gradient(to bottom,var(--pk-ball) 0 50%,var(--pk-ink) 50% 100%)}
+.ball{position:absolute;left:0;top:0;width:1.5rem;height:1.5rem;border-radius:50%;border:3px solid var(--pk-ink);
+  background:radial-gradient(circle,var(--pk-bg) 0 32%,var(--pk-ink) 34% 48%,var(--pk-bg) 50%)}
+
+/* ------------------------------------------------------------ hero */
+.hero{padding-top:2.4rem}
+.hero h1{font-size:clamp(3.4rem,10vw,7.2rem);line-height:.88;letter-spacing:-.012em;text-wrap:balance}
+.h1-sub{display:block;margin-top:.9rem;font:700 clamp(1.4rem,3.2vw,2.1rem)/1.1 var(--pk-display);color:var(--pk-muted)}
+.hero-copy{max-width:44rem;margin-top:1.1rem}
+.dek{margin:0;font-size:1.3rem;line-height:1.4}
+.nb{white-space:nowrap}
+.dek-2{margin:.6rem 0 0;color:var(--pk-muted)}
+.dek-2 a{color:var(--pk-ink);font-weight:700}
+
+/* family tree */
+.tree{margin:2.2rem 0 0}
+.tree figcaption{font:800 clamp(1.8rem,3.4vw,2.3rem)/1.05 var(--pk-display)}
+.sub{display:block;margin-top:.35rem;font:400 1.04rem/1.38 var(--pk-text);color:var(--pk-muted);max-width:46rem}
+.tree-table{width:100%;border-collapse:collapse;margin-top:.5rem;table-layout:fixed}
+.tree-table thead th{text-align:left;font-weight:700;font-size:1rem;padding:.4rem .6rem .5rem;border-bottom:2px solid var(--pk-ink);line-height:1.2}
+.tree-table thead th:first-child{width:8.6rem;padding:0}
+.tree-table tbody th,.tree-table tbody td{border-top:1px solid var(--pk-rule);vertical-align:top;padding:.5rem .6rem}
+.tree-table tbody th{text-align:left;font-weight:400;padding-left:0}
+.tree-table tbody th a{display:flex;align-items:baseline;gap:.5rem;text-decoration:none}
+.tree-table tbody th a:hover .r-n{text-decoration:underline}
+.r-g{font:800 2.4rem/.9 var(--pk-display);color:var(--pk-muted);min-width:1.5rem}
+.r-b{display:block}
+.r-n{display:block;font:800 1.45rem/1.05 var(--pk-display)}
+.r-d{display:block;font-size:.9rem;color:var(--pk-muted);line-height:1.2}
+.cgs{list-style:none;margin:0;padding:0}
+.cg{display:flex;align-items:flex-start;gap:.5rem;margin:0 0 .45rem;padding:.35rem .5rem .4rem;background:var(--pk-card);border:1px solid var(--pk-rule);border-left:6px solid var(--c)}
+.cg .sw{margin-top:.28rem}
+.cg-n{display:block;font-weight:700;font-size:1.02rem;line-height:1.2}
+.cg-y{display:block;font-size:.9rem;line-height:1.2;color:var(--pk-muted)}
+.cg-t{font-style:italic}
+.cg.also{display:block;border:0;border-left:0;background:transparent;padding:0;color:var(--pk-muted);font-size:.95rem;line-height:1.3}
+.none{color:var(--pk-muted);font-size:.9rem}
+.tree-table tr.dim{opacity:.25}
+@media (prefers-reduced-motion:no-preference){
+  .tree-table tbody tr{animation:draw .5s ease-out both;animation-delay:calc(var(--i) * 70ms)}
+  @keyframes draw{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+  .tree-table tbody tr.dim{animation:none}
+}
+.rubric{margin:1.4rem 0 0;max-width:46rem}
+.rubric>summary{cursor:pointer;font-weight:700;font-size:1rem}
+.rubric p{margin:.7rem 0 0;color:var(--pk-muted)}
+.rubric ul{margin:.6rem 0 0;padding-left:1.2rem;color:var(--pk-muted)}
+.rubric li{margin:.3rem 0}
+
+/* quick answers and charts */
+.chart,.qa{margin-top:3.2rem}
+.qa h2,.chart h2{font-size:clamp(1.9rem,3.6vw,2.5rem);line-height:1.05}
+.qa-list{margin:.8rem 0 0;columns:24rem;column-gap:3rem}
+.qa-i{padding:.8rem 0 .95rem;border-top:1px solid var(--pk-rule);break-inside:avoid}
+.qa-i dt{font:700 1.5rem/1.1 var(--pk-display)}
+.qa-i dd{margin:.35rem 0 0;max-width:40rem}
+.qa-l{display:block;margin-top:.3rem;font-size:.98rem;color:var(--pk-muted)}
+.ch-sub{margin:.5rem 0 .4rem;max-width:50rem;color:var(--pk-muted);font-size:1.04rem;line-height:1.4}
+.sc{background:var(--pk-card);border:1px solid var(--pk-rule);padding:.8rem 1rem 1rem;margin-top:.5rem}
+.sc-head,.sc-row{display:grid;grid-template-columns:13rem minmax(0,1fr);column-gap:.9rem;align-items:center}
+.sc-head{padding-bottom:.4rem}
+.sc-axis{grid-column:2;position:relative}
+.bands{position:relative;height:1.3rem}
+.band{position:absolute;top:0;font-size:.8rem;font-weight:700;line-height:1.2;color:var(--pk-muted);padding-left:.25rem;overflow:hidden;white-space:nowrap}
+.ticks{position:relative;height:1.1rem;border-bottom:1px solid var(--pk-ink)}
+.tick{position:absolute;top:0;transform:translateX(-50%);font-size:.82rem;color:var(--pk-muted);line-height:1.2}
+.sc-list{list-style:none;margin:0;padding:0}
+.sc-row{border-top:1px solid var(--pk-rule);min-height:2.7rem}
+.sc-row:focus-visible{outline-offset:-2px}
+.sc-n{text-decoration:none;display:block;padding:.2rem 0;line-height:1.15}
+.sc-n:hover .r-nm{text-decoration:underline}
+.r-nm{display:block;font-weight:700;font-size:1rem}
+.r-yr{display:block;font-size:.85rem;color:var(--pk-muted)}
+.sc-track{position:relative;display:block;height:2.7rem;
+  background:repeating-linear-gradient(to right,var(--pk-rule) 0 1px,transparent 1px calc(100% / 6))}
+.th{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--pk-muted);opacity:.6}
+.th75{left:33.333%}
+.rng{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--pk-ink)}
+.dot{position:absolute;top:50%;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);border:2px solid var(--pk-ink);transform:translate(-50%,-50%)}
+.dot.gr{background:var(--pk-card);border:3px solid var(--c);box-shadow:0 0 0 1.5px var(--pk-ink)}
+.dot.sample{position:static;display:inline-block;transform:none;flex:none}
+.val{position:absolute;top:50%;transform:translateY(-50%);margin-left:.75rem;font-weight:700;font-size:.85rem;line-height:1;white-space:nowrap;background:var(--pk-card);padding:.15rem .25rem}
+.val.l{transform:translate(-100%,-50%);margin-left:-.5rem}
+.ln-axis .ticks{margin-top:0}
+.ln-track{position:relative;display:block;height:1.1rem;background:repeating-linear-gradient(to right,var(--pk-rule) 0 1px,transparent 1px calc(100% / 5))}
+.ln-main,.ln-ex{position:absolute;left:0;top:50%;height:.8rem;margin-top:-.4rem}
+.ln-main{background:var(--c);box-shadow:inset 0 0 0 1.5px var(--pk-ink)}
+.ln-ex{background:color-mix(in srgb,var(--c) 38%,var(--pk-card));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--pk-ink) 45%,transparent)}
+.ln-row{grid-template-columns:13rem minmax(0,1fr);row-gap:0;min-height:3.4rem}
+.ln-row .ln-t{grid-column:2;font-size:.88rem;line-height:1.25;color:var(--pk-muted);padding-bottom:.35rem}
+.ln-row .ln-t b{color:var(--pk-ink)}
+.ln-row .sc-n{grid-row:1 / span 2}
+.tbl{margin-top:.9rem}
+.tbl>summary{cursor:pointer;font-weight:700;font-size:1rem}
+.tbl-w{overflow-x:auto;max-width:100%}
+.tbl table{border-collapse:collapse;margin-top:.5rem;font-size:.98rem;width:100%}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:.35rem .6rem .35rem 0;border-top:1px solid var(--pk-rule)}
+.tbl thead th{border-top:0;border-bottom:2px solid var(--pk-ink)}
+.tip{position:fixed;z-index:60;max-width:21rem;padding:.4rem .65rem;background:var(--pk-ink);color:var(--pk-bg);border-radius:4px;font-size:.95rem;line-height:1.3;pointer-events:none}
+
+/* ------------------------------------------------------------ filter bar */
+.filters{position:sticky;top:0;z-index:20;margin-top:2.6rem;background:var(--pk-bg);border-top:1px solid var(--pk-rule);border-bottom:1px solid var(--pk-rule)}
+@supports (background:color-mix(in srgb,red,blue)){
+  .filters{background:color-mix(in srgb,var(--pk-bg) 92%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+}
+.filters-in{padding-block:.6rem}
+.chips{display:flex;gap:.45rem;overflow-x:auto;padding:.1rem}
+@media (min-width:760px){.chips{flex-wrap:wrap;overflow-x:visible}}
+.chip{flex:none;display:inline-flex;align-items:center;gap:.5rem;font:700 .98rem/1 var(--pk-text);color:var(--pk-ink);background:transparent;
+  border:1.5px solid var(--pk-rule);border-radius:2px;padding:.55rem .8rem;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--pk-ink)}
+.chip[aria-pressed="true"]{background:var(--pk-ink);color:var(--pk-bg);border-color:var(--pk-ink)}
+.cnt{font-size:.82rem;opacity:.8}
+.status{margin:0;font-size:.98rem;line-height:1.3;color:var(--pk-muted)}
+.status:empty{display:none}
+.status:not(:empty){margin-top:.45rem}
+
+/* ------------------------------------------------------------ entries */
+main>.eq:first-child{margin-top:1.4rem}
+.entry{padding:1.8rem 0 2.6rem;scroll-margin-top:5rem}
+.entry-head{display:flex;gap:1.4rem;align-items:flex-start;max-width:56rem}
+.gen{margin:0;display:flex;flex-direction:column;align-items:flex-start;min-width:5.2rem}
+.gen-n{font:800 clamp(5rem,12vw,8rem)/.82 var(--pk-display);color:var(--pk-ink)}
+.gen-l{font:700 .95rem/1 var(--pk-text);color:var(--pk-muted);margin-top:.35rem}
+.head-main{padding-top:.2rem}
+.entry-head h2{font-size:clamp(2.4rem,5.4vw,3.6rem);line-height:.95}
+.entry-head .sub{margin-top:.25rem;font:700 clamp(1.2rem,2.6vw,1.6rem)/1.15 var(--pk-display);color:var(--pk-muted)}
+.pairline{margin:.8rem 0 0;display:flex;align-items:center;gap:.6rem;color:var(--pk-muted);font-size:1.02rem}
+.disc{flex:none;width:1.5rem;height:1.5rem;border-radius:50%;border:2px solid var(--pk-ink);
+  background:linear-gradient(to right,var(--a) 0 50%,var(--b) 50% 100%)}
+.figs{list-style:none;margin:.8rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.3rem 1.6rem}
+.figs li{color:var(--pk-muted)}
+.figs b{color:var(--pk-ink);font-size:1.25em}
+.about{margin:1.1rem 0 0;max-width:46rem;font-size:1.28rem;line-height:1.42}
+.sec-h{font:800 1.5rem/1.1 var(--pk-display);padding-bottom:.4rem;border-bottom:2px solid var(--pk-ink)}
+.games,.differ,.said{margin-top:1.7rem}
+@media (min-width:1000px){.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 3rem}}
+.glist{list-style:none;margin:0;padding:0}
+.gm{display:grid;grid-template-columns:11.5rem minmax(0,1fr);gap:.3rem 1.3rem;padding:1rem 0;border-bottom:1px solid var(--pk-rule);scroll-margin-top:5rem}
+.gm.small{padding:.7rem 0}
+.g-side{display:flex;flex-direction:column;gap:.3rem;align-items:flex-start}
+.lvtag{display:inline-flex;align-items:center;gap:.45rem;font-weight:700;font-size:.98rem;line-height:1.2}
+.g-name{font:800 1.5rem/1.1 var(--pk-display)}
+.gm.small .g-name{font:700 1.2rem/1.15 var(--pk-text)}
+.g-when{margin:.15rem 0 0;color:var(--pk-muted);font-size:1rem}
+.g-text{margin:.5rem 0 0;max-width:44rem}
+.g-pair{margin:.6rem 0 0;max-width:44rem;padding:.5rem .8rem;background:var(--pk-card);border-left:3px solid var(--pk-ink);font-size:1.02rem}
+.g-pair b{font-weight:700}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;margin:.8rem 0 0}
+.facts div{min-width:5.5rem}
+.facts dt{font-size:.88rem;color:var(--pk-muted);line-height:1.2}
+.facts dd{margin:.1rem 0 0;font-size:1rem;line-height:1.25}
+.facts dd b{font-size:1.3em}
+.facts .na{color:var(--pk-muted);font-style:italic}
+.g-alt{margin:.4rem 0 0;color:var(--pk-muted);font-size:.95rem;max-width:44rem}
+.g-crit{margin:.6rem 0 0;color:var(--pk-muted);font-size:1.02rem;max-width:44rem}
+.diffs{margin:.7rem 0 0;padding:0 0 0 1.1rem;max-width:44rem}
+.diffs li{margin:.4rem 0;padding-left:.2rem}
+.diffs li::marker{color:var(--pk-ball)}
+.said p{max-width:44rem;margin:.7rem 0 0}
+.verdict{font-size:1.15rem;line-height:1.4}
+.verdict b{font-family:var(--pk-display);font-weight:800;font-size:1.15em;margin-right:.3rem}
+
+/* ------------------------------------------------------------ closing sections */
+.after{padding-block:2.8rem 1rem}
+.after h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:.4rem;line-height:1.05}
+.after-sub{margin:0 0 1rem;max-width:42rem;color:var(--pk-muted)}
+.next-t{font:700 1.5rem/1.15 var(--pk-display);margin-top:.4rem}
+.cover{max-width:46rem;margin:.6rem 0 0}
+.gaps{max-width:46rem;margin:.6rem 0 0;padding-left:1.2rem}
+.gaps li{margin:.4rem 0}
+.src-grid{columns:19rem;column-gap:2.4rem}
+.src{break-inside:avoid;padding:.6rem 0 .8rem;border-top:1px solid var(--pk-rule)}
+.src h3{font:700 1.02rem/1.3 var(--pk-text)}
+.src ul{margin:.3rem 0 0;padding-left:1.1rem;font-size:.98rem;line-height:1.4}
+.src li{margin:.15rem 0;overflow-wrap:anywhere}
+.foot{padding-block:1.2rem 3rem;color:var(--pk-muted);font-size:1rem;max-width:46rem}
+.foot p{margin:.3rem 0}
+
+/* ------------------------------------------------------------ small screens */
+@media (max-width:1100px){
+  .tree-table,.tree-table thead,.tree-table tbody,.tree-table tr,.tree-table th,.tree-table td{display:block}
+  .tree-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .tree-table tbody tr{border-top:1px solid var(--pk-rule);padding:.6rem 0 .4rem}
+  .tree-table tbody th,.tree-table tbody td{border-top:0;padding:.1rem 0}
+  .tree-table tbody th{padding-bottom:.3rem}
+  .tree-table td.empty{display:none}
+  .tree-table td{display:grid;grid-template-columns:8rem minmax(0,1fr);column-gap:.6rem;align-items:start}
+  .tree-table td::before{content:attr(data-col);margin:.45rem 0 0;font-weight:700;font-size:.9rem;line-height:1.25;color:var(--pk-muted)}
+  .cg{margin:.15rem 0}
+}
+@media (max-width:640px){
+  body{font-size:1.08rem}
+  .about{font-size:1.18rem}
+  .entry-head{gap:.9rem}
+  .gen{min-width:3.6rem}
+  .gm{grid-template-columns:minmax(0,1fr)}
+  .g-side{flex-direction:row;flex-wrap:wrap;align-items:center;gap:.2rem .8rem}
+  .sc{padding:.6rem .7rem .8rem}
+  .sc-head,.sc-row,.ln-row{grid-template-columns:minmax(0,1fr);row-gap:0}
+  .sc-axis{grid-column:1}
+  .sc-n{padding-bottom:0}
+  .sc-n .r-nm,.sc-n .r-yr{display:inline}
+  .sc-n .r-yr{margin-left:.5rem}
+  .ln-row .sc-n{grid-row:auto}
+  .ln-row .ln-t{grid-column:1}
+  .dot{width:.7rem;height:.7rem}
+  .tree-table td{grid-template-columns:6.4rem minmax(0,1fr)}
+}
+
+.sc-track{background:none}
+.gl{position:absolute;top:0;bottom:0;width:0;border-left:1px solid var(--pk-rule)}
+.dot{transform:translate(-50%,calc(-50% + var(--dy,0rem)))}
+.grp{display:block;padding:.9rem 0 .3rem;font:800 1.3rem/1.1 var(--pk-display);border-top:2px solid var(--pk-ink)}
+.sc-list>.grp:first-child{border-top:0;padding-top:.2rem}
+.tl-list .sc-row{min-height:2.3rem}
+.tl-list .sc-track{height:2.3rem}
+.tl{margin:2.4rem 0 0}
+.tl figcaption{font:800 clamp(1.8rem,3.4vw,2.3rem)/1.05 var(--pk-display)}
+.no-score{font-size:.9rem;color:var(--pk-muted)}
+.none-row{min-height:2.7rem}
+.ch-sub.more{margin-top:.9rem}
+.gen-n{font-size:clamp(3.4rem,8vw,5.4rem);line-height:.85}
+.gen{min-width:7.4rem;flex:none}
+.entry-head .sub{margin-bottom:0}
+.catline{margin:.45rem 0 0;color:var(--pk-muted);font-weight:700;font-size:1.02rem}
+.cols2.one{display:block}
+.band{font-size:.78rem}
+@media (max-width:640px){
+  .gen{min-width:0}
+  .gen-n{font-size:2.9rem}
+  .band{font-size:.72rem;padding-left:.15rem}
+  .tl-list .sc-row{min-height:0}
+}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+ <div class="wrap">
+    <h1>Pokémon spin-offs<span class="h1-sub">How each series’ games relate, from Mystery Dungeon to Pokopia</span></h1>
+    <div class="hero-copy">
+      <p class="dek">22 series and 39 games outside the main series, from 1999 to 2026. Each series has one entry: its games in order, how they relate, critic scores, play times where I found them, and what differs between paired versions.</p>
+      <p class="dek-2">English releases only. Picross and mobile or free-to-play games are left out. The main series is on <a href="../pokemon-mainline-guide/index.html">its own page</a>.</p>
+    </div>
+  
+<figure class="tl chart" aria-labelledby="tl-cap">
+  <figcaption id="tl-cap">Every series, by year
+    <span class="sub">One row per series, grouped by kind of game. Each dot is a game, placed at its first English release year, and its colour says how it relates to the series. Open a series for its games, scores and lengths.</span></figcaption>
+  <ul class="key" aria-label="Game types"><li><i class="sw lv0" aria-hidden="true"></i>First game</li><li><i class="sw lv2" aria-hidden="true"></i>Extended version</li><li><i class="sw lv3" aria-hidden="true"></i>Remake</li><li><i class="sw lv4" aria-hidden="true"></i>Companion game</li><li><i class="sw lv5" aria-hidden="true"></i>Follow-up game</li></ul>
+  <div class="sc tl-list-wrap" data-chart>
+    <div class="sc-head" aria-hidden="true"><div class="sc-axis"><div class="ticks"><span class="tick" style="left:5.36%">2000</span><span class="tick" style="left:23.21%">2005</span><span class="tick" style="left:41.07%">2010</span><span class="tick" style="left:58.93%">2015</span><span class="tick" style="left:76.79%">2020</span><span class="tick" style="left:94.64%">2025</span></div></div></div>
+    <ol class="sc-list tl-list"><li class="grp">Battle and fighting</li><li class="sc-row tl-row" tabindex="0" data-id="stadium" data-tags="battle switch" data-all="Stadium: Pokémon Stadium 2000, first game; Pokémon Stadium 2 2001, follow-up game" aria-label="Stadium. Pokémon Stadium 2000, first game; Pokémon Stadium 2 2001, follow-up game"><a class="sc-n" href="#stadium"><span class="r-nm">Stadium</span><span class="r-yr">2000 to 2001</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:5.36%;--dy:0.0rem" data-tip="Pokémon Stadium, 2000: first game"></span><span class="dot lv5" style="left:8.93%;--dy:0.0rem" data-tip="Pokémon Stadium 2, 2001: follow-up game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="colosseum" data-tags="battle switch" data-all="Colosseum and XD: Pokémon Colosseum 2004, first game; Pokémon XD: Gale of Darkness 2005, follow-up game" aria-label="Colosseum and XD. Pokémon Colosseum 2004, first game; Pokémon XD: Gale of Darkness 2005, follow-up game"><a class="sc-n" href="#colosseum"><span class="r-nm">Colosseum and XD</span><span class="r-yr">2004 to 2005</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:19.64%;--dy:0.0rem" data-tip="Pokémon Colosseum, 2004: first game"></span><span class="dot lv5" style="left:23.21%;--dy:0.0rem" data-tip="Pokémon XD: Gale of Darkness, 2005: follow-up game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="battle-revolution" data-tags="battle" data-all="Battle Revolution: Pokémon Battle Revolution 2007, first game" aria-label="Battle Revolution. Pokémon Battle Revolution 2007, first game"><a class="sc-n" href="#battle-revolution"><span class="r-nm">Battle Revolution</span><span class="r-yr">2007</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:30.36%;--dy:0.0rem" data-tip="Pokémon Battle Revolution, 2007: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="pokken" data-tags="battle switch" data-all="Pokkén Tournament: Pokkén Tournament 2016, first game; Pokkén Tournament DX 2017, extended version" aria-label="Pokkén Tournament. Pokkén Tournament 2016, first game; Pokkén Tournament DX 2017, extended version"><a class="sc-n" href="#pokken"><span class="r-nm">Pokkén Tournament</span><span class="r-yr">2016 to 2017</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:62.50%;--dy:0.0rem" data-tip="Pokkén Tournament, 2016: first game"></span><span class="dot lv2" style="left:66.07%;--dy:0.0rem" data-tip="Pokkén Tournament DX, 2017: extended version"></span></span></li><li class="grp">Dungeons and strategy</li><li class="sc-row tl-row" tabindex="0" data-id="mystery-dungeon" data-tags="dungeon switch" data-all="Mystery Dungeon: Red Rescue Team and Blue Rescue Team 2006, first game; Explorers of Time and Explorers of Darkness 2008, follow-up game; Explorers of Sky 2009, extended version; Gates to Infinity 2013, follow-up game; Super Mystery Dungeon 2015, follow-up game; Rescue Team DX 2020, remake" aria-label="Mystery Dungeon. Red Rescue Team and Blue Rescue Team 2006, first game; Explorers of Time and Explorers of Darkness 2008, follow-up game; Explorers of Sky 2009, extended version; Gates to Infinity 2013, follow-up game; Super Mystery Dungeon 2015, follow-up game; Rescue Team DX 2020, remake"><a class="sc-n" href="#mystery-dungeon"><span class="r-nm">Mystery Dungeon</span><span class="r-yr">2006 to 2020</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:26.79%;--dy:0.0rem" data-tip="Red Rescue Team and Blue Rescue Team, 2006: first game"></span><span class="dot lv5" style="left:33.93%;--dy:0.0rem" data-tip="Explorers of Time and Explorers of Darkness, 2008: follow-up game"></span><span class="dot lv2" style="left:37.50%;--dy:0.0rem" data-tip="Explorers of Sky, 2009: extended version"></span><span class="dot lv5" style="left:51.79%;--dy:0.0rem" data-tip="Gates to Infinity, 2013: follow-up game"></span><span class="dot lv5" style="left:58.93%;--dy:0.0rem" data-tip="Super Mystery Dungeon, 2015: follow-up game"></span><span class="dot lv3" style="left:76.79%;--dy:0.0rem" data-tip="Rescue Team DX, 2020: remake"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="conquest" data-tags="dungeon" data-all="Conquest: Pokémon Conquest 2012, first game" aria-label="Conquest. Pokémon Conquest 2012, first game"><a class="sc-n" href="#conquest"><span class="r-nm">Conquest</span><span class="r-yr">2012</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:48.21%;--dy:0.0rem" data-tip="Pokémon Conquest, 2012: first game"></span></span></li><li class="grp">Action and adventure</li><li class="sc-row tl-row" tabindex="0" data-id="dash" data-tags="action" data-all="Dash: Pokémon Dash 2005, first game" aria-label="Dash. Pokémon Dash 2005, first game"><a class="sc-n" href="#dash"><span class="r-nm">Dash</span><span class="r-yr">2005</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:23.21%;--dy:0.0rem" data-tip="Pokémon Dash, 2005: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="ranger" data-tags="action" data-all="Ranger: Pokémon Ranger 2006, first game; Pokémon Ranger: Shadows of Almia 2008, follow-up game; Pokémon Ranger: Guardian Signs 2010, follow-up game" aria-label="Ranger. Pokémon Ranger 2006, first game; Pokémon Ranger: Shadows of Almia 2008, follow-up game; Pokémon Ranger: Guardian Signs 2010, follow-up game"><a class="sc-n" href="#ranger"><span class="r-nm">Ranger</span><span class="r-yr">2006 to 2010</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:26.79%;--dy:0.0rem" data-tip="Pokémon Ranger, 2006: first game"></span><span class="dot lv5" style="left:33.93%;--dy:0.0rem" data-tip="Pokémon Ranger: Shadows of Almia, 2008: follow-up game"></span><span class="dot lv5" style="left:41.07%;--dy:0.0rem" data-tip="Pokémon Ranger: Guardian Signs, 2010: follow-up game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="rumble" data-tags="action" data-all="Rumble: Pokémon Rumble 2009, first game; Pokémon Rumble Blast 2011, follow-up game; Pokémon Rumble U 2013, follow-up game" aria-label="Rumble. Pokémon Rumble 2009, first game; Pokémon Rumble Blast 2011, follow-up game; Pokémon Rumble U 2013, follow-up game"><a class="sc-n" href="#rumble"><span class="r-nm">Rumble</span><span class="r-yr">2009 to 2013</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:37.50%;--dy:0.0rem" data-tip="Pokémon Rumble, 2009: first game"></span><span class="dot lv5" style="left:44.64%;--dy:0.0rem" data-tip="Pokémon Rumble Blast, 2011: follow-up game"></span><span class="dot lv5" style="left:51.79%;--dy:0.0rem" data-tip="Pokémon Rumble U, 2013: follow-up game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="pokepark" data-tags="action" data-all="PokéPark: PokéPark Wii: Pikachu’s Adventure 2010, first game; PokéPark 2: Wonders Beyond 2012, follow-up game" aria-label="PokéPark. PokéPark Wii: Pikachu’s Adventure 2010, first game; PokéPark 2: Wonders Beyond 2012, follow-up game"><a class="sc-n" href="#pokepark"><span class="r-nm">PokéPark</span><span class="r-yr">2010 to 2012</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:41.07%;--dy:0.0rem" data-tip="PokéPark Wii: Pikachu’s Adventure, 2010: first game"></span><span class="dot lv5" style="left:48.21%;--dy:0.0rem" data-tip="PokéPark 2: Wonders Beyond, 2012: follow-up game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="detective-pikachu" data-tags="action switch" data-all="Detective Pikachu: Detective Pikachu 2018, first game; Detective Pikachu Returns 2023, follow-up game" aria-label="Detective Pikachu. Detective Pikachu 2018, first game; Detective Pikachu Returns 2023, follow-up game"><a class="sc-n" href="#detective-pikachu"><span class="r-nm">Detective Pikachu</span><span class="r-yr">2018 to 2023</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:69.64%;--dy:0.0rem" data-tip="Detective Pikachu, 2018: first game"></span><span class="dot lv5" style="left:87.50%;--dy:0.0rem" data-tip="Detective Pikachu Returns, 2023: follow-up game"></span></span></li><li class="grp">Puzzle, pinball and cards</li><li class="sc-row tl-row" tabindex="0" data-id="pinball" data-tags="puzzle" data-all="Pinball: Pokémon Pinball 1999, first game; Pokémon Pinball: Ruby and Sapphire 2003, follow-up game" aria-label="Pinball. Pokémon Pinball 1999, first game; Pokémon Pinball: Ruby and Sapphire 2003, follow-up game"><a class="sc-n" href="#pinball"><span class="r-nm">Pinball</span><span class="r-yr">1999 to 2003</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:1.79%;--dy:0.0rem" data-tip="Pokémon Pinball, 1999: first game"></span><span class="dot lv5" style="left:16.07%;--dy:0.0rem" data-tip="Pokémon Pinball: Ruby and Sapphire, 2003: follow-up game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="tcg" data-tags="puzzle switch" data-all="Trading Card Game: Pokémon Trading Card Game 2000, first game" aria-label="Trading Card Game. Pokémon Trading Card Game 2000, first game"><a class="sc-n" href="#tcg"><span class="r-nm">Trading Card Game</span><span class="r-yr">2000</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:5.36%;--dy:0.0rem" data-tip="Pokémon Trading Card Game, 2000: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="puzzle-league" data-tags="puzzle" data-all="Puzzle League: Pokémon Puzzle League 2000, first game; Pokémon Puzzle Challenge 2000, companion game" aria-label="Puzzle League. Pokémon Puzzle League 2000, first game; Pokémon Puzzle Challenge 2000, companion game"><a class="sc-n" href="#puzzle-league"><span class="r-nm">Puzzle League</span><span class="r-yr">2000</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:5.36%;--dy:-0.4rem" data-tip="Pokémon Puzzle League, 2000: first game"></span><span class="dot lv4" style="left:5.36%;--dy:0.4rem" data-tip="Pokémon Puzzle Challenge, 2000: companion game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="trozei" data-tags="puzzle" data-all="Trozei: Pokémon Trozei! 2006, first game" aria-label="Trozei. Pokémon Trozei! 2006, first game"><a class="sc-n" href="#trozei"><span class="r-nm">Trozei</span><span class="r-yr">2006</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:26.79%;--dy:0.0rem" data-tip="Pokémon Trozei!, 2006: first game"></span></span></li><li class="grp">Sims, photos and learning</li><li class="sc-row tl-row" tabindex="0" data-id="snap" data-tags="life switch" data-all="Snap: Pokémon Snap 1999, first game; New Pokémon Snap 2021, follow-up game" aria-label="Snap. Pokémon Snap 1999, first game; New Pokémon Snap 2021, follow-up game"><a class="sc-n" href="#snap"><span class="r-nm">Snap</span><span class="r-yr">1999 to 2021</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:1.79%;--dy:0.0rem" data-tip="Pokémon Snap, 1999: first game"></span><span class="dot lv5" style="left:80.36%;--dy:0.0rem" data-tip="New Pokémon Snap, 2021: follow-up game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="hey-you-pikachu" data-tags="life" data-all="Hey You, Pikachu!: Hey You, Pikachu! 2000, first game" aria-label="Hey You, Pikachu!. Hey You, Pikachu! 2000, first game"><a class="sc-n" href="#hey-you-pikachu"><span class="r-nm">Hey You, Pikachu!</span><span class="r-yr">2000</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:5.36%;--dy:0.0rem" data-tip="Hey You, Pikachu!, 2000: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="channel" data-tags="life" data-all="Channel: Pokémon Channel 2003, first game" aria-label="Channel. Pokémon Channel 2003, first game"><a class="sc-n" href="#channel"><span class="r-nm">Channel</span><span class="r-yr">2003</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:16.07%;--dy:0.0rem" data-tip="Pokémon Channel, 2003: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="ranch" data-tags="life" data-all="My Pokémon Ranch: My Pokémon Ranch 2008, first game" aria-label="My Pokémon Ranch. My Pokémon Ranch 2008, first game"><a class="sc-n" href="#ranch"><span class="r-nm">My Pokémon Ranch</span><span class="r-yr">2008</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:33.93%;--dy:0.0rem" data-tip="My Pokémon Ranch, 2008: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="typing-adventure" data-tags="life" data-all="Typing Adventure: Learn with Pokémon: Typing Adventure 2012, first game" aria-label="Typing Adventure. Learn with Pokémon: Typing Adventure 2012, first game"><a class="sc-n" href="#typing-adventure"><span class="r-nm">Typing Adventure</span><span class="r-yr">2012</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:48.21%;--dy:0.0rem" data-tip="Learn with Pokémon: Typing Adventure, 2012: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="art-academy" data-tags="life" data-all="Art Academy: Pokémon Art Academy 2014, first game" aria-label="Art Academy. Pokémon Art Academy 2014, first game"><a class="sc-n" href="#art-academy"><span class="r-nm">Art Academy</span><span class="r-yr">2014</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:55.36%;--dy:0.0rem" data-tip="Pokémon Art Academy, 2014: first game"></span></span></li><li class="sc-row tl-row" tabindex="0" data-id="pokopia" data-tags="life switch" data-all="Pokopia: Pokémon Pokopia 2026, first game" aria-label="Pokopia. Pokémon Pokopia 2026, first game"><a class="sc-n" href="#pokopia"><span class="r-nm">Pokopia</span><span class="r-yr">2026</span></a><span class="sc-track" aria-hidden="true"><span class="gl" style="left:5.36%"></span><span class="gl" style="left:23.21%"></span><span class="gl" style="left:41.07%"></span><span class="gl" style="left:58.93%"></span><span class="gl" style="left:76.79%"></span><span class="gl" style="left:94.64%"></span><span class="dot lv0" style="left:98.21%;--dy:0.0rem" data-tip="Pokémon Pokopia, 2026: first game"></span></span></li></ol>
+  </div>
+  <details class="tbl"><summary>Show the timeline as a table</summary>
+    <div class="tbl-w" tabindex="0" role="region" aria-label="Timeline table"><table><thead><tr><th scope="col">Series</th><th scope="col">Game</th><th scope="col">English release</th><th scope="col">Relation</th></tr></thead><tbody><tr><th scope="row">Stadium</th><td>Pokémon Stadium</td><td>2000</td><td>First game</td></tr><tr><th scope="row">Stadium</th><td>Pokémon Stadium 2</td><td>2001</td><td>Follow-up game</td></tr><tr><th scope="row">Colosseum and XD</th><td>Pokémon Colosseum</td><td>2004</td><td>First game</td></tr><tr><th scope="row">Colosseum and XD</th><td>Pokémon XD: Gale of Darkness</td><td>2005</td><td>Follow-up game</td></tr><tr><th scope="row">Battle Revolution</th><td>Pokémon Battle Revolution</td><td>2007</td><td>First game</td></tr><tr><th scope="row">Pokkén Tournament</th><td>Pokkén Tournament</td><td>2016</td><td>First game</td></tr><tr><th scope="row">Pokkén Tournament</th><td>Pokkén Tournament DX</td><td>2017</td><td>Extended version</td></tr><tr><th scope="row">Mystery Dungeon</th><td>Red Rescue Team and Blue Rescue Team</td><td>2006</td><td>First game</td></tr><tr><th scope="row">Mystery Dungeon</th><td>Explorers of Time and Explorers of Darkness</td><td>2008</td><td>Follow-up game</td></tr><tr><th scope="row">Mystery Dungeon</th><td>Explorers of Sky</td><td>2009</td><td>Extended version</td></tr><tr><th scope="row">Mystery Dungeon</th><td>Gates to Infinity</td><td>2013</td><td>Follow-up game</td></tr><tr><th scope="row">Mystery Dungeon</th><td>Super Mystery Dungeon</td><td>2015</td><td>Follow-up game</td></tr><tr><th scope="row">Mystery Dungeon</th><td>Rescue Team DX</td><td>2020</td><td>Remake</td></tr><tr><th scope="row">Conquest</th><td>Pokémon Conquest</td><td>2012</td><td>First game</td></tr><tr><th scope="row">Dash</th><td>Pokémon Dash</td><td>2005</td><td>First game</td></tr><tr><th scope="row">Ranger</th><td>Pokémon Ranger</td><td>2006</td><td>First game</td></tr><tr><th scope="row">Ranger</th><td>Pokémon Ranger: Shadows of Almia</td><td>2008</td><td>Follow-up game</td></tr><tr><th scope="row">Ranger</th><td>Pokémon Ranger: Guardian Signs</td><td>2010</td><td>Follow-up game</td></tr><tr><th scope="row">Rumble</th><td>Pokémon Rumble</td><td>2009</td><td>First game</td></tr><tr><th scope="row">Rumble</th><td>Pokémon Rumble Blast</td><td>2011</td><td>Follow-up game</td></tr><tr><th scope="row">Rumble</th><td>Pokémon Rumble U</td><td>2013</td><td>Follow-up game</td></tr><tr><th scope="row">PokéPark</th><td>PokéPark Wii: Pikachu’s Adventure</td><td>2010</td><td>First game</td></tr><tr><th scope="row">PokéPark</th><td>PokéPark 2: Wonders Beyond</td><td>2012</td><td>Follow-up game</td></tr><tr><th scope="row">Detective Pikachu</th><td>Detective Pikachu</td><td>2018</td><td>First game</td></tr><tr><th scope="row">Detective Pikachu</th><td>Detective Pikachu Returns</td><td>2023</td><td>Follow-up game</td></tr><tr><th scope="row">Pinball</th><td>Pokémon Pinball</td><td>1999</td><td>First game</td></tr><tr><th scope="row">Pinball</th><td>Pokémon Pinball: Ruby and Sapphire</td><td>2003</td><td>Follow-up game</td></tr><tr><th scope="row">Trading Card Game</th><td>Pokémon Trading Card Game</td><td>2000</td><td>First game</td></tr><tr><th scope="row">Puzzle League</th><td>Pokémon Puzzle League</td><td>2000</td><td>First game</td></tr><tr><th scope="row">Puzzle League</th><td>Pokémon Puzzle Challenge</td><td>2000</td><td>Companion game</td></tr><tr><th scope="row">Trozei</th><td>Pokémon Trozei!</td><td>2006</td><td>First game</td></tr><tr><th scope="row">Snap</th><td>Pokémon Snap</td><td>1999</td><td>First game</td></tr><tr><th scope="row">Snap</th><td>New Pokémon Snap</td><td>2021</td><td>Follow-up game</td></tr><tr><th scope="row">Hey You, Pikachu!</th><td>Hey You, Pikachu!</td><td>2000</td><td>First game</td></tr><tr><th scope="row">Channel</th><td>Pokémon Channel</td><td>2003</td><td>First game</td></tr><tr><th scope="row">My Pokémon Ranch</th><td>My Pokémon Ranch</td><td>2008</td><td>First game</td></tr><tr><th scope="row">Typing Adventure</th><td>Learn with Pokémon: Typing Adventure</td><td>2012</td><td>First game</td></tr><tr><th scope="row">Art Academy</th><td>Pokémon Art Academy</td><td>2014</td><td>First game</td></tr><tr><th scope="row">Pokopia</th><td>Pokémon Pokopia</td><td>2026</td><td>First game</td></tr></tbody></table></div>
+  </details>
+</figure>
+  <details class="rubric">
+    <summary>How the labels work</summary>
+    <p>The labels are my own grouping, based on how Wikipedia and the reviews I read describe each game. They are not Nintendo’s terms, and the colours match the main-series page, though a few labels differ.</p>
+    <ul><li><b>First game.</b> The first game in the series. In a series with one game, that game.</li><li><b>Same game.</b> A port or re-release of a game that already exists.</li><li><b>Extended version.</b> The same game with more added, such as a third version or an enlarged re-release. Explorers of Sky and Pokkén Tournament DX.</li><li><b>Remake.</b> Rebuilt for newer hardware with the same core game. Only Rescue Team DX is in this group.</li><li><b>Companion game.</b> A different game on another system, released alongside. Only Puzzle Challenge is in this group.</li><li><b>Follow-up game.</b> A new game in the same series, with its own story or features. Most are sequels.</li></ul>
+    <p>Re-releases such as Virtual Console and Switch Online versions are the “Same game” label and appear inside each series’ entry, not on the timeline.</p>
+  </details>
+  
+<section class="chart" aria-labelledby="ch-h">
+  <h2 id="ch-h">How each series scored</h2>
+  <p class="ch-sub">One row per series, with a dot for each game that has a score, coloured by how it relates to the series. The line spans the lowest and highest score. Metacritic calls 75 and up generally favorable, 50 to 74 mixed or average and 20 to 49 generally unfavorable. Where a game has no Metacritic score the dot is a GameRankings percentage from Wikipedia, drawn as a hollow circle. Dots that would overlap are nudged up or down.</p>
+  <ul class="key" aria-label="Colours"><li><i class="sw lv0" aria-hidden="true"></i>First game</li><li><i class="sw lv2" aria-hidden="true"></i>Extended version</li><li><i class="sw lv3" aria-hidden="true"></i>Remake</li><li><i class="sw lv4" aria-hidden="true"></i>Companion game</li><li><i class="sw lv5" aria-hidden="true"></i>Follow-up game</li><li><i class="dot gr lv0 sample" aria-hidden="true"></i>Hollow circle: GameRankings, for games with no Metacritic score</li></ul>
+  <div class="sc" data-chart>
+    <div class="sc-head" aria-hidden="true"><div class="sc-axis"><div class="bands"><span class="band" style="left:0;width:18.18%">Under 50</span><span class="band" style="left:18.18%;width:45.45%">Mixed or average</span><span class="band" style="left:63.64%;width:36.36%">Favorable</span></div><div class="ticks"><span class="tick" style="left:18.18%">50</span><span class="tick" style="left:36.36%">60</span><span class="tick" style="left:54.55%">70</span><span class="tick" style="left:72.73%">80</span><span class="tick" style="left:90.91%">90</span></div></div></div>
+    <ol class="sc-list"><li class="grp">Battle and fighting</li><li class="sc-row" tabindex="0" data-id="stadium" data-tags="battle switch" data-all="Stadium. Pokémon Stadium: 78.6% on GameRankings, Pokémon Stadium 2: 78 on Metacritic" aria-label="Stadium. Pokémon Stadium: 78.6% on GameRankings, Pokémon Stadium 2: 78 on Metacritic"><a class="sc-n" href="#stadium"><span class="r-nm">Stadium</span><span class="r-yr">2000 to 2001</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="rng" style="left:69.09%;width:1.09%"></span><span class="dot gr lv0" style="left:70.18%;--dy:0.4rem" data-tip="Pokémon Stadium: 78.6% on GameRankings"></span><span class="dot lv5" style="left:69.09%;--dy:-0.4rem" data-tip="Pokémon Stadium 2: 78 on Metacritic"></span><span class="val" style="left:70.18%">78 to 78.6</span></span></li><li class="sc-row" tabindex="0" data-id="colosseum" data-tags="battle switch" data-all="Colosseum and XD. Pokémon Colosseum: 73 on Metacritic, Pokémon XD: Gale of Darkness: 64 on Metacritic" aria-label="Colosseum and XD. Pokémon Colosseum: 73 on Metacritic, Pokémon XD: Gale of Darkness: 64 on Metacritic"><a class="sc-n" href="#colosseum"><span class="r-nm">Colosseum and XD</span><span class="r-yr">2004 to 2005</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="rng" style="left:43.64%;width:16.36%"></span><span class="dot lv0" style="left:60.00%;--dy:0.0rem" data-tip="Pokémon Colosseum: 73 on Metacritic"></span><span class="dot lv5" style="left:43.64%;--dy:0.0rem" data-tip="Pokémon XD: Gale of Darkness: 64 on Metacritic"></span><span class="val" style="left:60.00%">64 to 73</span></span></li><li class="sc-row" tabindex="0" data-id="battle-revolution" data-tags="battle" data-all="Battle Revolution. Pokémon Battle Revolution: 53 on Metacritic" aria-label="Battle Revolution. Pokémon Battle Revolution: 53 on Metacritic"><a class="sc-n" href="#battle-revolution"><span class="r-nm">Battle Revolution</span><span class="r-yr">2007</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:23.64%;--dy:0.0rem" data-tip="Pokémon Battle Revolution: 53 on Metacritic"></span><span class="val" style="left:23.64%">53</span></span></li><li class="sc-row" tabindex="0" data-id="pokken" data-tags="battle switch" data-all="Pokkén Tournament. Pokkén Tournament: 76 on Metacritic, Pokkén Tournament DX: 79 on Metacritic" aria-label="Pokkén Tournament. Pokkén Tournament: 76 on Metacritic, Pokkén Tournament DX: 79 on Metacritic"><a class="sc-n" href="#pokken"><span class="r-nm">Pokkén Tournament</span><span class="r-yr">2016 to 2017</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="rng" style="left:65.45%;width:5.45%"></span><span class="dot lv0" style="left:65.45%;--dy:0.0rem" data-tip="Pokkén Tournament: 76 on Metacritic"></span><span class="dot lv2" style="left:70.91%;--dy:0.0rem" data-tip="Pokkén Tournament DX: 79 on Metacritic"></span><span class="val" style="left:70.91%">76 to 79</span></span></li><li class="grp">Dungeons and strategy</li><li class="sc-row" tabindex="0" data-id="mystery-dungeon" data-tags="dungeon switch" data-all="Mystery Dungeon. Red Rescue Team and Blue Rescue Team: Red 67 on Metacritic, Red Rescue Team and Blue Rescue Team: Blue 62 on Metacritic, Explorers of Time and Explorers of Darkness: Time 60 on Metacritic, Explorers of Time and Explorers of Darkness: Darkness 59 on Metacritic, Explorers of Sky: 54 on Metacritic, Gates to Infinity: 59 on Metacritic, Super Mystery Dungeon: 69 on Metacritic, Rescue Team DX: 69 on Metacritic" aria-label="Mystery Dungeon. Red Rescue Team and Blue Rescue Team: Red 67 on Metacritic, Red Rescue Team and Blue Rescue Team: Blue 62 on Metacritic, Explorers of Time and Explorers of Darkness: Time 60 on Metacritic, Explorers of Time and Explorers of Darkness: Darkness 59 on Metacritic, Explorers of Sky: 54 on Metacritic, Gates to Infinity: 59 on Metacritic, Super Mystery Dungeon: 69 on Metacritic, Rescue Team DX: 69 on Metacritic"><a class="sc-n" href="#mystery-dungeon"><span class="r-nm">Mystery Dungeon</span><span class="r-yr">2006 to 2020</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="rng" style="left:25.45%;width:27.27%"></span><span class="dot lv0" style="left:49.09%;--dy:0.0rem" data-tip="Red Rescue Team and Blue Rescue Team: Red 67 on Metacritic"></span><span class="dot lv0" style="left:40.00%;--dy:0.0rem" data-tip="Red Rescue Team and Blue Rescue Team: Blue 62 on Metacritic"></span><span class="dot lv5" style="left:36.36%;--dy:0.8rem" data-tip="Explorers of Time and Explorers of Darkness: Time 60 on Metacritic"></span><span class="dot lv5" style="left:34.55%;--dy:-0.8rem" data-tip="Explorers of Time and Explorers of Darkness: Darkness 59 on Metacritic"></span><span class="dot lv2" style="left:25.45%;--dy:0.0rem" data-tip="Explorers of Sky: 54 on Metacritic"></span><span class="dot lv5" style="left:34.55%;--dy:0.0rem" data-tip="Gates to Infinity: 59 on Metacritic"></span><span class="dot lv5" style="left:52.73%;--dy:-0.4rem" data-tip="Super Mystery Dungeon: 69 on Metacritic"></span><span class="dot lv3" style="left:52.73%;--dy:0.4rem" data-tip="Rescue Team DX: 69 on Metacritic"></span><span class="val" style="left:52.73%">54 to 69</span></span></li><li class="sc-row" tabindex="0" data-id="conquest" data-tags="dungeon" data-all="Conquest. Pokémon Conquest: 80 on Metacritic" aria-label="Conquest. Pokémon Conquest: 80 on Metacritic"><a class="sc-n" href="#conquest"><span class="r-nm">Conquest</span><span class="r-yr">2012</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:72.73%;--dy:0.0rem" data-tip="Pokémon Conquest: 80 on Metacritic"></span><span class="val" style="left:72.73%">80</span></span></li><li class="grp">Action and adventure</li><li class="sc-row" tabindex="0" data-id="dash" data-tags="action" data-all="Dash. Pokémon Dash: 46 on Metacritic" aria-label="Dash. Pokémon Dash: 46 on Metacritic"><a class="sc-n" href="#dash"><span class="r-nm">Dash</span><span class="r-yr">2005</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:10.91%;--dy:0.0rem" data-tip="Pokémon Dash: 46 on Metacritic"></span><span class="val" style="left:10.91%">46</span></span></li><li class="sc-row" tabindex="0" data-id="ranger" data-tags="action" data-all="Ranger. Pokémon Ranger: 69 on Metacritic, Pokémon Ranger: Shadows of Almia: 68 on Metacritic" aria-label="Ranger. Pokémon Ranger: 69 on Metacritic, Pokémon Ranger: Shadows of Almia: 68 on Metacritic"><a class="sc-n" href="#ranger"><span class="r-nm">Ranger</span><span class="r-yr">2006 to 2010</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="rng" style="left:50.91%;width:1.82%"></span><span class="dot lv0" style="left:52.73%;--dy:0.4rem" data-tip="Pokémon Ranger: 69 on Metacritic"></span><span class="dot lv5" style="left:50.91%;--dy:-0.4rem" data-tip="Pokémon Ranger: Shadows of Almia: 68 on Metacritic"></span><span class="val" style="left:52.73%">68 to 69</span></span></li><li class="sc-row" tabindex="0" data-id="rumble" data-tags="action" data-all="Rumble. Pokémon Rumble: 59 on Metacritic" aria-label="Rumble. Pokémon Rumble: 59 on Metacritic"><a class="sc-n" href="#rumble"><span class="r-nm">Rumble</span><span class="r-yr">2009 to 2013</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:34.55%;--dy:0.0rem" data-tip="Pokémon Rumble: 59 on Metacritic"></span><span class="val" style="left:34.55%">59</span></span></li><li class="sc-row" tabindex="0" data-id="pokepark" data-tags="action" data-all="PokéPark. PokéPark 2: Wonders Beyond: 60 on Metacritic" aria-label="PokéPark. PokéPark 2: Wonders Beyond: 60 on Metacritic"><a class="sc-n" href="#pokepark"><span class="r-nm">PokéPark</span><span class="r-yr">2010 to 2012</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv5" style="left:36.36%;--dy:0.0rem" data-tip="PokéPark 2: Wonders Beyond: 60 on Metacritic"></span><span class="val" style="left:36.36%">60</span></span></li><li class="sc-row" tabindex="0" data-id="detective-pikachu" data-tags="action switch" data-all="Detective Pikachu. Detective Pikachu: 71 on Metacritic, Detective Pikachu Returns: 66 on Metacritic" aria-label="Detective Pikachu. Detective Pikachu: 71 on Metacritic, Detective Pikachu Returns: 66 on Metacritic"><a class="sc-n" href="#detective-pikachu"><span class="r-nm">Detective Pikachu</span><span class="r-yr">2018 to 2023</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="rng" style="left:47.27%;width:9.09%"></span><span class="dot lv0" style="left:56.36%;--dy:0.0rem" data-tip="Detective Pikachu: 71 on Metacritic"></span><span class="dot lv5" style="left:47.27%;--dy:0.0rem" data-tip="Detective Pikachu Returns: 66 on Metacritic"></span><span class="val" style="left:56.36%">66 to 71</span></span></li><li class="grp">Puzzle, pinball and cards</li><li class="sc-row" tabindex="0" data-id="pinball" data-tags="puzzle" data-all="Pinball. Pokémon Pinball: 81.73% on GameRankings" aria-label="Pinball. Pokémon Pinball: 81.73% on GameRankings"><a class="sc-n" href="#pinball"><span class="r-nm">Pinball</span><span class="r-yr">1999 to 2003</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot gr lv0" style="left:75.87%;--dy:0.0rem" data-tip="Pokémon Pinball: 81.73% on GameRankings"></span><span class="val l" style="left:75.87%">81.73%</span></span></li><li class="sc-row" tabindex="0" data-id="tcg" data-tags="puzzle switch" data-all="Trading Card Game. Pokémon Trading Card Game: 81.25% on GameRankings" aria-label="Trading Card Game. Pokémon Trading Card Game: 81.25% on GameRankings"><a class="sc-n" href="#tcg"><span class="r-nm">Trading Card Game</span><span class="r-yr">2000</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot gr lv0" style="left:75.00%;--dy:0.0rem" data-tip="Pokémon Trading Card Game: 81.25% on GameRankings"></span><span class="val l" style="left:75.00%">81.25%</span></span></li><li class="sc-row" tabindex="0" data-id="puzzle-league" data-tags="puzzle" data-all="Puzzle League. Pokémon Puzzle League: 81 on Metacritic" aria-label="Puzzle League. Pokémon Puzzle League: 81 on Metacritic"><a class="sc-n" href="#puzzle-league"><span class="r-nm">Puzzle League</span><span class="r-yr">2000</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:74.55%;--dy:0.0rem" data-tip="Pokémon Puzzle League: 81 on Metacritic"></span><span class="val l" style="left:74.55%">81</span></span></li><li class="sc-row" tabindex="0" data-id="trozei" data-tags="puzzle" data-all="Trozei. Pokémon Trozei!: 74 on Metacritic" aria-label="Trozei. Pokémon Trozei!: 74 on Metacritic"><a class="sc-n" href="#trozei"><span class="r-nm">Trozei</span><span class="r-yr">2006</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:61.82%;--dy:0.0rem" data-tip="Pokémon Trozei!: 74 on Metacritic"></span><span class="val" style="left:61.82%">74</span></span></li><li class="grp">Sims, photos and learning</li><li class="sc-row" tabindex="0" data-id="snap" data-tags="life switch" data-all="Snap. Pokémon Snap: 77 on Metacritic, New Pokémon Snap: 79 on Metacritic" aria-label="Snap. Pokémon Snap: 77 on Metacritic, New Pokémon Snap: 79 on Metacritic"><a class="sc-n" href="#snap"><span class="r-nm">Snap</span><span class="r-yr">1999 to 2021</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="rng" style="left:67.27%;width:3.64%"></span><span class="dot lv0" style="left:67.27%;--dy:0.0rem" data-tip="Pokémon Snap: 77 on Metacritic"></span><span class="dot lv5" style="left:70.91%;--dy:0.0rem" data-tip="New Pokémon Snap: 79 on Metacritic"></span><span class="val" style="left:70.91%">77 to 79</span></span></li><li class="sc-row" tabindex="0" data-id="hey-you-pikachu" data-tags="life" data-all="Hey You, Pikachu!. Hey You, Pikachu!: 57 on Metacritic" aria-label="Hey You, Pikachu!. Hey You, Pikachu!: 57 on Metacritic"><a class="sc-n" href="#hey-you-pikachu"><span class="r-nm">Hey You, Pikachu!</span><span class="r-yr">2000</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:30.91%;--dy:0.0rem" data-tip="Hey You, Pikachu!: 57 on Metacritic"></span><span class="val" style="left:30.91%">57</span></span></li><li class="sc-row" tabindex="0" data-id="channel" data-tags="life" data-all="Channel. Pokémon Channel: 55 on Metacritic" aria-label="Channel. Pokémon Channel: 55 on Metacritic"><a class="sc-n" href="#channel"><span class="r-nm">Channel</span><span class="r-yr">2003</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:27.27%;--dy:0.0rem" data-tip="Pokémon Channel: 55 on Metacritic"></span><span class="val" style="left:27.27%">55</span></span></li><li class="sc-row" tabindex="0" data-id="ranch" data-tags="life" data-all="My Pokémon Ranch. My Pokémon Ranch: 47 on Metacritic" aria-label="My Pokémon Ranch. My Pokémon Ranch: 47 on Metacritic"><a class="sc-n" href="#ranch"><span class="r-nm">My Pokémon Ranch</span><span class="r-yr">2008</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:12.73%;--dy:0.0rem" data-tip="My Pokémon Ranch: 47 on Metacritic"></span><span class="val" style="left:12.73%">47</span></span></li><li class="sc-row" tabindex="0" data-id="typing-adventure" data-tags="life" data-all="Typing Adventure. Learn with Pokémon: Typing Adventure: 69.22% on GameRankings" aria-label="Typing Adventure. Learn with Pokémon: Typing Adventure: 69.22% on GameRankings"><a class="sc-n" href="#typing-adventure"><span class="r-nm">Typing Adventure</span><span class="r-yr">2012</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot gr lv0" style="left:53.13%;--dy:0.0rem" data-tip="Learn with Pokémon: Typing Adventure: 69.22% on GameRankings"></span><span class="val" style="left:53.13%">69.22%</span></span></li><li class="sc-row" tabindex="0" data-id="art-academy" data-tags="life" data-all="Art Academy. Pokémon Art Academy: 76 on Metacritic" aria-label="Art Academy. Pokémon Art Academy: 76 on Metacritic"><a class="sc-n" href="#art-academy"><span class="r-nm">Art Academy</span><span class="r-yr">2014</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:65.45%;--dy:0.0rem" data-tip="Pokémon Art Academy: 76 on Metacritic"></span><span class="val" style="left:65.45%">76</span></span></li><li class="sc-row" tabindex="0" data-id="pokopia" data-tags="life switch" data-all="Pokopia. Pokémon Pokopia: 89 on Metacritic" aria-label="Pokopia. Pokémon Pokopia: 89 on Metacritic"><a class="sc-n" href="#pokopia"><span class="r-nm">Pokopia</span><span class="r-yr">2026</span></a><span class="sc-track" aria-hidden="true"><span class=gl style=left:18.18%></span><span class=gl style=left:36.36%></span><span class=gl style=left:54.55%></span><span class=gl style=left:72.73%></span><span class=gl style=left:90.91%></span><span class="th" style="left:18.18%"></span><span class="th" style="left:63.64%"></span><span class="dot lv0" style="left:89.09%;--dy:0.0rem" data-tip="Pokémon Pokopia: 89 on Metacritic"></span><span class="val l" style="left:89.09%">89</span></span></li></ol>
+  </div>
+  <details class="tbl"><summary>Show the scores as a table</summary>
+    <div class="tbl-w" tabindex="0" role="region" aria-label="Scores table"><table><thead><tr><th scope="col">Game</th><th scope="col">Relation</th><th scope="col">Score</th><th scope="col">Source</th></tr></thead><tbody><tr><th scope="row">Pokémon Stadium</th><td>First game</td><td>78.6%</td><td>GameRankings</td></tr><tr><th scope="row">Pokémon Stadium 2</th><td>Follow-up game</td><td>78</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Colosseum</th><td>First game</td><td>73</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon XD: Gale of Darkness</th><td>Follow-up game</td><td>64</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Battle Revolution</th><td>First game</td><td>53</td><td>Metacritic</td></tr><tr><th scope="row">Pokkén Tournament</th><td>First game</td><td>76</td><td>Metacritic</td></tr><tr><th scope="row">Pokkén Tournament DX</th><td>Extended version</td><td>79</td><td>Metacritic</td></tr><tr><th scope="row">Red Rescue Team and Blue Rescue Team</th><td>First game</td><td>Red 67</td><td>Metacritic</td></tr><tr><th scope="row">Red Rescue Team and Blue Rescue Team</th><td>First game</td><td>Blue 62</td><td>Metacritic</td></tr><tr><th scope="row">Explorers of Time and Explorers of Darkness</th><td>Follow-up game</td><td>Time 60</td><td>Metacritic</td></tr><tr><th scope="row">Explorers of Time and Explorers of Darkness</th><td>Follow-up game</td><td>Darkness 59</td><td>Metacritic</td></tr><tr><th scope="row">Explorers of Sky</th><td>Extended version</td><td>54</td><td>Metacritic</td></tr><tr><th scope="row">Gates to Infinity</th><td>Follow-up game</td><td>59</td><td>Metacritic</td></tr><tr><th scope="row">Super Mystery Dungeon</th><td>Follow-up game</td><td>69</td><td>Metacritic</td></tr><tr><th scope="row">Rescue Team DX</th><td>Remake</td><td>69</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Conquest</th><td>First game</td><td>80</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Dash</th><td>First game</td><td>46</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Ranger</th><td>First game</td><td>69</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Ranger: Shadows of Almia</th><td>Follow-up game</td><td>68</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Rumble</th><td>First game</td><td>59</td><td>Metacritic</td></tr><tr><th scope="row">PokéPark 2: Wonders Beyond</th><td>Follow-up game</td><td>60</td><td>Metacritic</td></tr><tr><th scope="row">Detective Pikachu</th><td>First game</td><td>71</td><td>Metacritic</td></tr><tr><th scope="row">Detective Pikachu Returns</th><td>Follow-up game</td><td>66</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Pinball</th><td>First game</td><td>81.73%</td><td>GameRankings</td></tr><tr><th scope="row">Pokémon Trading Card Game</th><td>First game</td><td>81.25%</td><td>GameRankings</td></tr><tr><th scope="row">Pokémon Puzzle League</th><td>First game</td><td>81</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Trozei!</th><td>First game</td><td>74</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Snap</th><td>First game</td><td>77</td><td>Metacritic</td></tr><tr><th scope="row">New Pokémon Snap</th><td>Follow-up game</td><td>79</td><td>Metacritic</td></tr><tr><th scope="row">Hey You, Pikachu!</th><td>First game</td><td>57</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Channel</th><td>First game</td><td>55</td><td>Metacritic</td></tr><tr><th scope="row">My Pokémon Ranch</th><td>First game</td><td>47</td><td>Metacritic</td></tr><tr><th scope="row">Learn with Pokémon: Typing Adventure</th><td>First game</td><td>69.22%</td><td>GameRankings</td></tr><tr><th scope="row">Pokémon Art Academy</th><td>First game</td><td>76</td><td>Metacritic</td></tr><tr><th scope="row">Pokémon Pokopia</th><td>First game</td><td>89</td><td>Metacritic</td></tr></tbody></table></div>
+  </details>
+</section>
+  
+<section class="chart" aria-labelledby="ln-h">
+  <h2 id="ln-h">How long they take</h2>
+  <p class="ch-sub">Only five spin-offs have a length I could source: HowLongToBeat’s figures, read from Deku Deals, for these Switch games. The dark bar is the story in hours and the pale bar extends to the time with side content. The words give all three figures, and the time for everything runs past the edge of the chart for two of them. Treat them as rough.</p>
+  <div class="sc ln" data-chart>
+    <div class="sc-head" aria-hidden="true"><div class="sc-axis ln-axis"><div class="ticks"><span class="tick" style="left:0.00%">0</span><span class="tick" style="left:20.00%">20</span><span class="tick" style="left:40.00%">40</span><span class="tick" style="left:60.00%">60</span><span class="tick" style="left:80.00%">80</span><span class="tick" style="left:100.00%">100</span></div></div></div>
+    <ol class="sc-list"><li class="sc-row ln-row" tabindex="0" data-id="pokken" data-tags="battle switch" data-all="Pokkén Tournament DX: 8.5 hours for the story, 20 with extras, 65.5 for everything." aria-label="Pokkén Tournament DX: 8.5 hours for the story, 20 with extras, 65.5 for everything."><a class="sc-n" href="#pokken"><span class="r-nm">Pokkén Tournament DX</span><span class="r-yr">2017</span></a><span class="ln-track lv2" aria-hidden="true"><span class="ln-ex" style="width:20.00%"></span><span class="ln-main" style="width:8.50%"></span></span><span class="ln-t"><b>8.5</b> story, <b>20</b> with extras, <b>65.5</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="mystery-dungeon" data-tags="dungeon switch" data-all="Rescue Team DX: 17.5 hours for the story, 32.5 with extras, 124 for everything." aria-label="Rescue Team DX: 17.5 hours for the story, 32.5 with extras, 124 for everything."><a class="sc-n" href="#mystery-dungeon"><span class="r-nm">Rescue Team DX</span><span class="r-yr">2020</span></a><span class="ln-track lv3" aria-hidden="true"><span class="ln-ex" style="width:32.50%"></span><span class="ln-main" style="width:17.50%"></span></span><span class="ln-t"><b>17.5</b> story, <b>32.5</b> with extras, <b>124</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="detective-pikachu" data-tags="action switch" data-all="Detective Pikachu Returns: 12 hours for the story, 14.5 with extras, 14.5 for everything." aria-label="Detective Pikachu Returns: 12 hours for the story, 14.5 with extras, 14.5 for everything."><a class="sc-n" href="#detective-pikachu"><span class="r-nm">Detective Pikachu Returns</span><span class="r-yr">2023</span></a><span class="ln-track lv5" aria-hidden="true"><span class="ln-ex" style="width:14.50%"></span><span class="ln-main" style="width:12.00%"></span></span><span class="ln-t"><b>12</b> story, <b>14.5</b> with extras, <b>14.5</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="snap" data-tags="life switch" data-all="New Pokémon Snap: 10.5 hours for the story, 19 with extras, 66.5 for everything." aria-label="New Pokémon Snap: 10.5 hours for the story, 19 with extras, 66.5 for everything."><a class="sc-n" href="#snap"><span class="r-nm">New Pokémon Snap</span><span class="r-yr">2021</span></a><span class="ln-track lv5" aria-hidden="true"><span class="ln-ex" style="width:19.00%"></span><span class="ln-main" style="width:10.50%"></span></span><span class="ln-t"><b>10.5</b> story, <b>19</b> with extras, <b>66.5</b> for everything</span></li><li class="sc-row ln-row" tabindex="0" data-id="pokopia" data-tags="life switch" data-all="Pokémon Pokopia: 36.5 hours for the story, 54 with extras, 148.5 for everything." aria-label="Pokémon Pokopia: 36.5 hours for the story, 54 with extras, 148.5 for everything."><a class="sc-n" href="#pokopia"><span class="r-nm">Pokémon Pokopia</span><span class="r-yr">2026</span></a><span class="ln-track lv0" aria-hidden="true"><span class="ln-ex" style="width:54.00%"></span><span class="ln-main" style="width:36.50%"></span></span><span class="ln-t"><b>36.5</b> story, <b>54</b> with extras, <b>148.5</b> for everything</span></li></ol>
+  </div>
+  <p class="ch-sub more">Scattered mentions elsewhere: Nintendo World Report puts the main story of Pokémon Conquest at about 16 hours and the story of Super Mystery Dungeon at 20 or more, and Gfinity, citing an older HowLongToBeat figure it does not tie to a version, gives about 20 hours for the first Rescue Team and nearly 150 for everything. For the other games I found no length and show none.</p>
+  <details class="tbl"><summary>Show the lengths as a table</summary>
+    <div class="tbl-w" tabindex="0" role="region" aria-label="Lengths table"><table><thead><tr><th scope="col">Game</th><th scope="col">Story, hours</th><th scope="col">With extras</th><th scope="col">Everything</th></tr></thead><tbody><tr><th scope="row">Pokkén Tournament DX</th><td>8.5</td><td>20</td><td>65.5</td></tr><tr><th scope="row">Rescue Team DX</th><td>17.5</td><td>32.5</td><td>124</td></tr><tr><th scope="row">Detective Pikachu Returns</th><td>12</td><td>14.5</td><td>14.5</td></tr><tr><th scope="row">New Pokémon Snap</th><td>10.5</td><td>19</td><td>66.5</td></tr><tr><th scope="row">Pokémon Pokopia</th><td>36.5</td><td>54</td><td>148.5</td></tr></tbody></table></div>
+  </details>
+</section>
+  
+<section class="qa" aria-labelledby="qa-h">
+  <h2 id="qa-h">Quick answers</h2>
+  <dl class="qa-list"><div class="qa-i"><dt>Which spin-offs score best and worst?</dt><dd>On Metacritic, Pokopia leads with 89, then Puzzle League (81), Conquest (80), and Pokkén DX and New Pokémon Snap (79). The lowest are Pokémon Dash (46), My Pokémon Ranch (47) and Battle Revolution (53). A few games have only GameRankings scores: Pokémon Stadium (78.60%), Pinball (81.73%), the Trading Card Game (81.25%) and Typing Adventure (69.22%).<span class="qa-l">See <a href="#pokopia">Pokopia</a>, <a href="#puzzle-league">Puzzle League</a>, <a href="#conquest">Conquest</a>, <a href="#dash">Dash</a>.</span></dd></div><div class="qa-i"><dt>Which can I play on Switch now?</dt><dd>Five are Switch games: New Pokémon Snap, Detective Pikachu Returns, Pokkén Tournament DX and Rescue Team DX on Switch, and Pokopia on Switch 2. Nintendo Switch Online, with a membership, adds Pokémon Snap, Stadium and Stadium 2, Red Rescue Team, the Trading Card Game and XD.<span class="qa-l">See <a href="#snap">Snap</a>, <a href="#detective-pikachu">Detective Pikachu</a>, <a href="#pokken">Pokkén Tournament</a>, <a href="#mystery-dungeon">Mystery Dungeon</a>, <a href="#pokopia">Pokopia</a>, <a href="#stadium">Stadium</a>, <a href="#tcg">Trading Card Game</a>, <a href="#colosseum">Colosseum and XD</a>.</span></dd></div><div class="qa-i"><dt>Do any of these need a main-series game?</dt><dd>Several do. Battle Revolution needs Diamond or Pearl for most of what it offers, and My Pokémon Ranch takes Pokémon from Diamond and Pearl. The Stadium games read Game Boy cartridges through the Transfer Pak, and Colosseum trades with the Game Boy Advance games.<span class="qa-l">See <a href="#battle-revolution">Battle Revolution</a>, <a href="#ranch">My Pokémon Ranch</a>, <a href="#stadium">Stadium</a>, <a href="#colosseum">Colosseum and XD</a>.</span></dd></div><div class="qa-i"><dt>Where should I start with Mystery Dungeon?</dt><dd>Rescue Team DX remakes the first game and is on Switch. Nintendo World Report calls Super Mystery Dungeon, on 3DS, the easiest entry point, though it also calls its story the weakest in the series. IGN said Gates to Infinity fails as both a Pokémon game and a Mystery Dungeon game.<span class="qa-l">See <a href="#mystery-dungeon">Mystery Dungeon</a>.</span></dd></div><div class="qa-i"><dt>Which are remakes or enlarged versions?</dt><dd>Rescue Team DX remakes the first Mystery Dungeon games. Explorers of Sky is a third version of Explorers, and Pokkén DX is an enlarged version of the Wii U game. Re-releases, such as Virtual Console and Switch Online versions, are small rows inside each entry.<span class="qa-l">See <a href="#mystery-dungeon">Mystery Dungeon</a>, <a href="#pokken">Pokkén Tournament</a>.</span></dd></div></dl>
+</section>
+ </div>
+</header>
+
+
+<section class="filters" hidden aria-label="Filter the series">
+  <div class="wrap filters-in">
+    <div class="chips" role="group" aria-label="Show only series that fit"><button type="button" class="chip" data-filter="all" aria-pressed="true">Everything<span class="cnt">22</span></button><button type="button" class="chip" data-filter="battle" aria-pressed="false">Battle and fighting<span class="cnt">4</span></button><button type="button" class="chip" data-filter="dungeon" aria-pressed="false">Dungeons and strategy<span class="cnt">2</span></button><button type="button" class="chip" data-filter="action" aria-pressed="false">Action and adventure<span class="cnt">5</span></button><button type="button" class="chip" data-filter="puzzle" aria-pressed="false">Puzzle, pinball and cards<span class="cnt">4</span></button><button type="button" class="chip" data-filter="life" aria-pressed="false">Sims, photos and learning<span class="cnt">7</span></button><button type="button" class="chip" data-filter="switch" aria-pressed="false">On Switch or Switch Online<span class="cnt">8</span></button></div>
+    <p class="status" id="filter-status" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<main class="wrap">
+  
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="stadium" data-tags="battle switch" aria-labelledby="stadium-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2000</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="stadium-t">Stadium</h2>
+      <p class="sub">Pokémon Stadium and Stadium 2</p>
+      <p class="catline">Battle and fighting</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li><li><b>78</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Turn-based 3D battles on the Nintendo 64. You bring your teams over from the Game Boy games with the Transfer Pak, then fight in cups, a gym leader castle and a set of mini-games.</p>
+  <section class="games" aria-label="Games in Stadium">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="stadium1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Stadium</h4><p class="g-when">Nintendo 64. Mar 6, 2000 in North America. Apr 7, 2000 in Europe.</p><p class="g-text">All 151 Pokémon in turn-based 3D battles. It has four Cups with 80 battles in all, the Gym Leader Castle, a Mewtwo battle, the Pokémon Lab and a Kids Club with nine mini-games. The Transfer Pak moves Pokémon in from Red, Blue and Yellow, and lets you play the Game Boy game on the TV.</p><dl class="facts"><div><dt>GameRankings</dt><dd><b>78.6%</b></dd></div></dl><p class="g-crit">GameRankings averages 26 reviews at 78.60%.</p></div></li><li class="gm" id="stadium2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Pokémon Stadium 2</h4><p class="g-when">Nintendo 64. Mar 26, 2001 in North America. Oct 10, 2001 in Europe.</p><p class="g-text">Adds the Gold, Silver and Crystal Pokémon, so all 251 are playable. The Gym Leader Castle returns, a Game Boy Tower is new, and the Transfer Pak reads both generations of Game Boy games. A Mini-Game Park has 12 mini-games and quizzes.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>78</b></dd></div><div><dt>GameRankings</dt><dd><b>73.31%</b></dd></div></dl><p class="g-crit">Critics said it plays much like the first game, with a weaker soundtrack and announcer, and that it repeats itself. GameRankings averages 18 reviews at 73.31%.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">Stadium and Stadium 2 on Nintendo Switch Online</h4><p class="g-when">Nintendo Switch Online, Nintendo Classics (N64). 2023. Stadium on Apr 12, 2023.</p><p class="g-text">Both games, without the Transfer Pak features. Stadium has online play.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>Stadium 2 raises the roster from 151 to 251 and adds the Game Boy Tower.</li><li>Both use the Transfer Pak. Stadium reads Red, Blue and Yellow, and Stadium 2 reads those plus Gold, Silver and Crystal.</li><li>Japan’s first Stadium, with 40 Pokémon, was never released in English.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Stadium 2 holds a Metacritic score of 78. Its GameRankings score, 73.31%, is lower than the first game’s 78.60%. Critics said the second game feels like the first.</p>
+      <p class="verdict"><b>Short answer:</b> Same kind of game, with a bigger roster in the second. Both are on Switch Online without the Transfer Pak.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="colosseum" data-tags="battle switch" aria-labelledby="colosseum-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2004</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="colosseum-t">Colosseum and XD</h2>
+      <p class="sub">Pokémon Colosseum and Pokémon XD: Gale of Darkness</p>
+      <p class="catline">Battle and fighting</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li><li><b>64 to 73</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Role-playing games on the GameCube, set in Orre, where you snag Shadow Pokémon from other trainers. A keengamer retrospective notes that Colosseum has no gyms and no wild Pokémon, and that all of its battles are doubles.</p>
+  <section class="games" aria-label="Games in Colosseum and XD">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="colosseum1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Colosseum</h4><p class="g-when">GameCube. Mar 22, 2004 in North America. May 14, 2004 in Europe.</p><p class="g-text">You play Wes, a former member of Team Snagem, and snag Shadow Pokémon from the Cipher gang. Modes include Quick Battle, Colosseum battles that pay Poké Coupons, and four-player Gang Battle. It trades with Ruby, Sapphire, FireRed, LeafGreen and Emerald. North American pre-orders got a bonus disc with Jirachi.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>73</b></dd></div><div><dt>GameRankings</dt><dd><b>73.46%</b></dd></div></dl></div></li><li class="gm" id="xd"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Pokémon XD: Gale of Darkness</h4><p class="g-when">GameCube. Oct 3, 2005 in North America. Nov 18, 2005 in Europe.</p><p class="g-text">Set in Orre five years later, with a new hero, Michael, who starts with an Eevee. Shadow Lugia is on the cover. Wild Pokémon return as Poké Spots, where you lure them with bait, and Battle Bingo is a new mode in the Realgam Tower. Munchlax and Bonsly debut here.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>64</b></dd></div><div><dt>GameRankings</dt><dd><b>66.91%</b></dd></div></dl><p class="g-crit">Reviews were mixed, at 6 to 7 out of 10, and noted reused Colosseum areas. A keengamer retrospective says XD improves nearly everything.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">XD on Nintendo Switch Online</h4><p class="g-when">Nintendo Switch Online, GameCube. March 2026.</p><p class="g-text">XD joined Nintendo Switch Online’s GameCube selection in March 2026, according to Game Informer’s recap of the Feb 27, 2026 Pokémon Presents.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>XD is set five years after Colosseum, with a new hero.</li><li>Colosseum has no wild Pokémon. XD adds them back as Poké Spots.</li><li>Shadow Pokémon, the ones you snag, are in both.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Colosseum scored 73 on Metacritic and XD 64, so the sequel scored lower even though a retrospective says it improves on the first game.</p>
+      <p class="verdict"><b>Short answer:</b> Colosseum is where Shadow Pokémon start. XD brings wild Pokémon back and is the one on Switch Online.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="battle-revolution" data-tags="battle" aria-labelledby="battle-revolution-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2007</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="battle-revolution-t">Battle Revolution</h2>
+      <p class="sub">Pokémon Battle Revolution</p>
+      <p class="catline">Battle and fighting</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>53</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A Wii battle game with no story. Most of what it offers needs Diamond or Pearl, with a DS as the controller. Wikipedia says it was the first Wii game with Nintendo Wi-Fi Connection in North America and Japan.</p>
+  <section class="games" aria-label="Games in Battle Revolution">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="br"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Battle Revolution</h4><p class="g-when">Wii. Jun 25, 2007 in North America. Dec 7, 2007 in Europe.</p><p class="g-text">Eleven colosseums to battle in and no story mode.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>53</b></dd></div></dl><p class="g-crit">IGN gave 5 and Game Informer 5.75. Famitsu gave 35 out of 40.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 53, one of the lowest scores among the spin-offs here.</p>
+      <p class="verdict"><b>Short answer:</b> Mostly of use if you already own Diamond or Pearl.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="pokken" data-tags="battle switch" aria-labelledby="pokken-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2016</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="pokken-t">Pokkén Tournament</h2>
+      <p class="sub">Pokkén Tournament and Pokkén Tournament DX</p>
+      <p class="catline">Battle and fighting</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li><li><b>76 to 79</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A fighting game from Bandai Namco in which you control one Pokémon. It began in Japanese arcades in 2015, and the English releases are on Wii U and Switch.</p>
+  <section class="games" aria-label="Games in Pokkén Tournament">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="pokken1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokkén Tournament</h4><p class="g-when">Wii U. Mar 18, 2016.</p><p class="g-text">The first console version, after the arcade game. A fight switches between a Field Phase and a Duel Phase. A Synergy Gauge lets a Pokémon Mega Evolve, and you pick Support Pokémon to help.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>76</b></dd></div></dl><p class="g-crit">Nominated for Best Fighting Game at The Game Awards 2016.</p></div></li><li class="gm" id="pokken-dx"><div class="g-side"><span class="lvtag"><i class="sw lv2" aria-hidden="true"></i>Extended version</span></div><div class="g-main"><h4 class="g-name">Pokkén Tournament DX</h4><p class="g-when">Nintendo Switch. Sep 22, 2017.</p><p class="g-text">The Wii U game, enlarged. It adds the last four arcade fighters, a fighter exclusive to this version and new modes, and 2018 DLC added Aegislash and Blastoise.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>79</b></dd></div><div><dt>Story</dt><dd><b>8.5</b> hours</dd></div><div><dt>With extras</dt><dd><b>20</b> hours</dd></div><div><dt>Everything</dt><dd><b>65.5</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 8½, 20 and 65½.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>DX is the Wii U game with four more arcade fighters, one new fighter, new modes and later DLC.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 76 on Wii U and 79 on Switch. The first game was nominated for Best Fighting Game at the 2016 Game Awards.</p>
+      <p class="verdict"><b>Short answer:</b> DX is the later, larger version, and it scored higher.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="mystery-dungeon" data-tags="dungeon switch" aria-labelledby="mystery-dungeon-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2006</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="mystery-dungeon-t">Mystery Dungeon</h2>
+      <p class="sub">Six games from Rescue Team to Rescue Team DX</p>
+      <p class="catline">Dungeons and strategy</p>
+      <ul class="figs" aria-label="At a glance"><li><b>6</b> games or pairs</li><li><b>54 to 69</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Roguelike dungeon crawlers from Chunsoft, now Spike Chunsoft. You are a human turned into a Pokémon, you explore randomly generated floors one turn at a time, and you recruit Pokémon as you go.</p>
+  <section class="games" aria-label="Games in Mystery Dungeon">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="md-rescue"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Red Rescue Team and Blue Rescue Team</h4><p class="g-when">Game Boy Advance (Red) and Nintendo DS (Blue). Sep 18, 2006 in North America. Nov 10, 2006 in Europe.</p><p class="g-text">The first. A personality quiz picks your Pokémon from 16, and you choose a partner from the rest, never one of your own type.</p><p class="g-pair"><b>How the pair differs.</b> Red is on Game Boy Advance and Blue on DS. They are mostly the same, but Blue uses both DS screens and has better graphics and sound. Each has six exclusive Pokémon, the starters.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Red <b>67</b>, Blue <b>62</b></dd></div></dl><p class="g-crit">1UP gave A-, IGN 6.5, GameSpot 5.2 and Game Informer 3. GameSpot said you should probably skip it. It was nominated for Children’s Game of the Year at the 10th DICE Awards.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">Red Rescue Team on Nintendo Switch Online</h4><p class="g-when">Nintendo Switch Online, Game Boy Advance. Aug 9, 2024.</p><p class="g-text">The Game Boy Advance game joined Nintendo Classics, per Wikipedia.</p></div></li><li class="gm" id="md-explorers"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Explorers of Time and Explorers of Darkness</h4><p class="g-when">Nintendo DS. Apr 20, 2008 in North America. Jul 4, 2008 in Europe.</p><p class="g-text">A sequel to Rescue Team. It brings in Generation 4 Pokémon, better Wi-Fi and touch controls, and lets you send a teammate to a friend, so a team can be larger than four. The story follows Grovyle, the Time Gears and Dusknoir.</p><p class="g-pair"><b>How the pair differs.</b> Time has Celebi, Combee, Lucario, Pachirisu and Riolu. Darkness has Burmy, Buneary, Lopunny, Mewtwo and Rotom. Each can get the other’s Pokémon through Wonder Mail.</p><dl class="facts"><div><dt>Metacritic</dt><dd>Time <b>60</b>, Darkness <b>59</b></dd></div><div><dt>GameRankings</dt><dd>Time <b>62.39%</b>, Darkness <b>61.25%</b></dd></div></dl><p class="g-crit">GameSpot and IGN gave 6.5 out of 10 and GamesRadar+ gave 2.5 out of 5. Critics praised the story, soundtrack and Wi-Fi, and criticised the graphics and the repetition.</p></div></li><li class="gm" id="md-sky"><div class="g-side"><span class="lvtag"><i class="sw lv2" aria-hidden="true"></i>Extended version</span></div><div class="g-main"><h4 class="g-name">Explorers of Sky</h4><p class="g-when">Nintendo DS. Oct 12, 2009 in North America. Nov 20, 2009 in Europe.</p><p class="g-text">The third version of Explorers. It adds more story and more playable characters, five new starters (Phanpy, Riolu, Shinx, Eevee and Vulpix), five Special Episodes and new places such as Shaymin Village and the Spinda Cafe. Its Wonder Mail S does not work with the earlier games.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>54</b></dd></div><div><dt>GameRankings</dt><dd><b>55.84%</b></dd></div></dl><p class="g-crit">Famitsu gave 35 out of 40 and added it to its Platinum Hall of Fame. Wikipedia says fans regard it as a cult classic.</p></div></li><li class="gm" id="md-gates"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Gates to Infinity</h4><p class="g-when">Nintendo 3DS. Mar 24, 2013 in North America. May 17, 2013 in Europe.</p><p class="g-text">A new game with new starters (Pikachu, Oshawott, Tepig, Snivy and Axew), 3D models and no personality quiz. A hub called Pokémon Paradise is new, Magnagates open when you scan round objects with the 3DS, and some dungeons were free or paid DLC.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>59</b></dd></div><div><dt>GameRankings</dt><dd><b>62.34%</b></dd></div></dl><p class="g-crit">IGN gave 4.5 and said it fails as both a Pokémon game and a Mystery Dungeon game. GameSpot gave 5, GamesRadar+ 2.5 out of 5 and Destructoid 8.</p></div></li><li class="gm" id="md-super"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Super Mystery Dungeon</h4><p class="g-when">Nintendo 3DS. Nov 20, 2015 in North America. Feb 19, 2016 in Europe.</p><p class="g-text">Twenty Pokémon are playable, and you recruit a partner from the other 19. Every Pokémon through Hoopa is in, 720 in all, with 3D graphics and generated dungeons.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>69</b></dd></div></dl><p class="g-alt">Nintendo World Report’s review mentions a story of 20 or more hours, and a tutorial of about four hours that it found overlong.</p><p class="g-crit">Destructoid gave 9 and Famitsu 36 out of 40. Critics called it repetitive, and Nintendo Life called it tedious. Nintendo World Report scored it 7.5 out of 10, called the story the weakest in the series and called it the easiest entry point.</p></div></li><li class="gm" id="md-dx"><div class="g-side"><span class="lvtag"><i class="sw lv3" aria-hidden="true"></i>Remake</span></div><div class="g-main"><h4 class="g-name">Rescue Team DX</h4><p class="g-when">Nintendo Switch. Mar 6, 2020 worldwide.</p><p class="g-text">A remake of the first games, with Red and Blue merged into one. It adds Mega Evolution, autosave and an auto-mode, a painted art style, and 16 Pokémon to choose from after the quiz, drawn from Generations 1 to 3. You switch to the next team member when yours is defeated, and shiny Pokémon appear only as strong foes. Bulbapedia says Western Cave drops from 99 floors to 20 and the team limit rises from 4 to 8.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>69</b></dd></div><div><dt>Story</dt><dd><b>17.5</b> hours</dd></div><div><dt>With extras</dt><dd><b>32.5</b> hours</dd></div><div><dt>Everything</dt><dd><b>124</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 17½, 32½ and 124. Gfinity cites an older figure, which it does not tie to a version, of about 20 hours for the story and nearly 150 for everything.</p><p class="g-crit">IGN gave 6 and GameSpot 8. Critics found the dungeons repetitive and missed enemy health bars.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>Explorers is a sequel with the same format, Generation 4 Pokémon and better Wi-Fi.</li><li>Explorers of Sky is a third version of Explorers, with more story, more playable characters and new episodes.</li><li>Gates to Infinity moves to 3D, drops the personality quiz and adds Magnagates.</li><li>Super Mystery Dungeon lets you recruit a partner from the 19 other playable Pokémon and has 720 Pokémon.</li><li>Rescue Team DX remakes the first games, with Red and Blue merged into one.</li><li>Adventure Team, three WiiWare games, came out in Japan only.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic scores run from 54 to 69. Super Mystery Dungeon and Rescue Team DX share the top at 69. Reviewers praised the story and soundtrack of Explorers and criticised repetition across the series.</p>
+      <p class="verdict"><b>Short answer:</b> Rescue Team DX is the remake of the first game and is on Switch. Nintendo World Report calls Super Mystery Dungeon the easiest entry point.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="conquest" data-tags="dungeon" aria-labelledby="conquest-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2012</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="conquest-t">Conquest</h2>
+      <p class="sub">Pokémon Conquest</p>
+      <p class="catline">Dungeons and strategy</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>80</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A tactical RPG made with Tecmo Koei as a crossover with Nobunaga’s Ambition. It is set in Ransei, a region with 17 kingdoms. Each Pokémon has one move based on its species, a Link score replaces levels, and a mini-game replaces catching. Only 200 of the 649 Pokémon of the time appear.</p>
+  <section class="games" aria-label="Games in Conquest">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="conquest1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Conquest</h4><p class="g-when">Nintendo DS. Jun 18, 2012 in North America. Jul 27, 2012 in Europe.</p><p class="g-text">The only game in the line.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>80</b></dd></div></dl><p class="g-alt">Nintendo World Report puts the main story at about 16 hours, with many more hours in the extra stories.</p><p class="g-crit">Famitsu gave 34 out of 40, IGN 9, Nintendo World Report 9, Destructoid 8 and Game Informer 7. IGN, GamesRadar+ and Nintendo Life each count it among the best DS games.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 80. IGN, GamesRadar+ and Nintendo Life each count it among the best DS games.</p>
+      <p class="verdict"><b>Short answer:</b> A strategy game, not a catching game, and well reviewed.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="dash" data-tags="action" aria-labelledby="dash-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2005</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="dash-t">Dash</h2>
+      <p class="sub">Pokémon Dash</p>
+      <p class="catline">Action and adventure</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>46</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A racing game for the first DS, where you steer Pikachu with the stylus. The races are across the sky with balloons, and up to six DS can play wirelessly, each needing its own copy.</p>
+  <section class="games" aria-label="Games in Dash">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="dash1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Dash</h4><p class="g-when">Nintendo DS. Mar 14, 2005 in North America. Mar 11, 2005 in Europe.</p><p class="g-text">A launch title in Japan and Europe.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>46</b></dd></div></dl><p class="g-crit">GameSpot called it one of the laziest uses of the DS’s touch screen. IGN gave 5 and Famitsu 31 out of 40.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 46, the lowest score among the spin-offs here.</p>
+      <p class="verdict"><b>Short answer:</b> Reviewers criticised its use of the touch screen.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="ranger" data-tags="action" aria-labelledby="ranger-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2006</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="ranger-t">Ranger</h2>
+      <p class="sub">Pokémon Ranger and two sequels</p>
+      <p class="catline">Action and adventure</p>
+      <ul class="figs" aria-label="At a glance"><li><b>3</b> games</li><li><b>68 to 69</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Action-adventure games on the DS where you draw circles around Pokémon with a Capture Styler to befriend them. You are a Ranger, not a trainer, and each game takes place in a new region: Fiore, Almia and Oblivia.</p>
+  <section class="games" aria-label="Games in Ranger">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="ranger1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Ranger</h4><p class="g-when">Nintendo DS. Oct 30, 2006 in North America. Apr 13, 2007 in Europe.</p><p class="g-text">You capture Pokémon by drawing circles with the Capture Styler. A Manaphy egg can be transferred to Diamond, Pearl, Platinum, HeartGold or SoulSilver.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>69</b></dd></div></dl></div></li><li class="gm" id="ranger2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Pokémon Ranger: Shadows of Almia</h4><p class="g-when">Nintendo DS. Nov 10, 2008 in North America. Nov 21, 2008 in Europe.</p><p class="g-text">A new region, Almia. Capturing now uses a Friendship Gauge, you choose a partner Pokémon (Pachirisu, Munchlax and Starly to start, 17 partners in all), and there are side quests, four Styler types and Wi-Fi missions.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>68</b></dd></div><div><dt>GameRankings</dt><dd><b>71%</b></dd></div></dl><p class="g-crit">GameSpot gave 7.5, IGN 6.7, Eurogamer 6 and 1UP C+.</p></div></li><li class="gm" id="ranger3"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Pokémon Ranger: Guardian Signs</h4><p class="g-when">Nintendo DS. 2010.</p><p class="g-text">Set in Oblivia. I did not open its page, so I have no score or details beyond its region and year.</p><dl class="facts"><div><dt>Score</dt><dd class="na">None found</dd></div></dl></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>Shadows of Almia adds a Friendship Gauge, partner Pokémon and side quests to the first game’s capture system.</li><li>Guardian Signs moves to Oblivia. I found no further details.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Ranger scored 69 and Shadows of Almia 68 on Metacritic. I found no score for Guardian Signs.</p>
+      <p class="verdict"><b>Short answer:</b> The first two score about the same.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="rumble" data-tags="action" aria-labelledby="rumble-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2009</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="rumble-t">Rumble</h2>
+      <p class="sub">Pokémon Rumble, Rumble Blast and Rumble U</p>
+      <p class="catline">Action and adventure</p>
+      <ul class="figs" aria-label="At a glance"><li><b>3</b> games</li><li><b>59</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Action brawlers where you play toy-like Pokémon in linear dungeons and arenas, a style likened to Smash TV. Rumble World, a free-to-start 3DS game, and Rumble Rush, a mobile game, are left out.</p>
+  <section class="games" aria-label="Games in Rumble">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="rumble1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Rumble</h4><p class="g-when">WiiWare. Nov 16, 2009 in North America. Nov 20, 2009 in Europe.</p><p class="g-text">The first, on WiiWare. It reuses character models from My Pokémon Ranch.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>59</b></dd></div></dl><p class="g-crit">IGN gave 6 and called it mindless, but fun.</p></div></li><li class="gm" id="rumble2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Pokémon Rumble Blast</h4><p class="g-when">Nintendo 3DS. 2011.</p><p class="g-text">The 3DS follow-up. I did not open its page, so I have its platform and year only.</p><dl class="facts"><div><dt>Score</dt><dd class="na">None found</dd></div></dl></div></li><li class="gm" id="rumble3"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Pokémon Rumble U</h4><p class="g-when">Wii U. 2013.</p><p class="g-text">The Wii U follow-up. I did not open its page, so I have its platform and year only.</p><dl class="facts"><div><dt>Score</dt><dd class="na">None found</dd></div></dl></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>I found no details of how the three games differ.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Pokémon Rumble scored 59 on Metacritic from nine critics. I found no scores for the two follow-ups.</p>
+      <p class="verdict"><b>Short answer:</b> Only the first game has a score I could find.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="pokepark" data-tags="action" aria-labelledby="pokepark-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2010</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="pokepark-t">PokéPark</h2>
+      <p class="sub">PokéPark Wii and PokéPark 2</p>
+      <p class="catline">Action and adventure</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li><li><b>60</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Wii adventure games that put you in control of Pokémon, with attractions that are mini-games.</p>
+  <section class="games" aria-label="Games in PokéPark">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="pokepark1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">PokéPark Wii: Pikachu’s Adventure</h4><p class="g-when">Wii. 2010.</p><p class="g-text">The first game. Its Wikipedia page would not open, so I have its platform and year only. The sequel’s page describes its reception as mixed.</p><dl class="facts"><div><dt>Score</dt><dd class="na">None found</dd></div></dl></div></li><li class="gm" id="pokepark2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">PokéPark 2: Wonders Beyond</h4><p class="g-when">Wii. Feb 27, 2012 in North America. Mar 23, 2012 in Europe.</p><p class="g-text">Pikachu and Piplup take on Wish Park. You switch between four playable Pokémon (Pikachu, Oshawott, Snivy and Tepig), and the attractions are mini-games for up to four players.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>60</b></dd></div><div><dt>GameRankings</dt><dd><b>64.92%</b></dd></div></dl><p class="g-crit">IGN gave 6.5, Nintendo Power 5.5 and Nintendo Life 7.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>I found no details of how the second game differs from the first.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>PokéPark 2 scored 60 on Metacritic. I found no score for the first game.</p>
+      <p class="verdict"><b>Short answer:</b> The second game’s score is the only one I have.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="detective-pikachu" data-tags="action switch" aria-labelledby="detective-pikachu-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2018</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="detective-pikachu-t">Detective Pikachu</h2>
+      <p class="sub">Detective Pikachu and Detective Pikachu Returns</p>
+      <p class="catline">Action and adventure</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li><li><b>66 to 71</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Mystery adventures where you play Tim Goodman, whose father is Harry, and Tim can understand what Pikachu says.</p>
+  <section class="games" aria-label="Games in Detective Pikachu">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="dp1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Detective Pikachu</h4><p class="g-when">Nintendo 3DS. Mar 23, 2018 worldwide.</p><p class="g-text">Japan got a download version first, on Feb 3, 2016, as Great Detective Pikachu: Birth of a New Duo, with three chapters. The 2018 cartridge has nine.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>71</b></dd></div></dl><p class="g-crit">IGN gave 8.2 and Nintendo Life 8, and Eurogamer likened it to Ace Attorney. Reviews called it easy and said it would work better as a film.</p></div></li><li class="gm" id="dp2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Detective Pikachu Returns</h4><p class="g-when">Nintendo Switch. Oct 6, 2023.</p><p class="g-text">A sequel set two years later, about the theft of the Aurora Drop, with a Friendship Week and ruins to explore.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>66</b></dd></div><div><dt>Story</dt><dd><b>12</b> hours</dd></div><div><dt>With extras</dt><dd><b>14.5</b> hours</dd></div><div><dt>Everything</dt><dd><b>14.5</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 12, 14½ and 14½.</p><p class="g-crit">Famitsu gave 31 out of 40, Game Informer 7.25 and Nintendo Life 7. Eurogamer, GameSpot and IGN gave 6 each, and GamesRadar+ gave 3 out of 5.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>The sequel is set two years after the first game.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Detective Pikachu scored 71 on Metacritic and Detective Pikachu Returns 66.</p>
+      <p class="verdict"><b>Short answer:</b> The sequel scored lower than the first game.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="pinball" data-tags="puzzle" aria-labelledby="pinball-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">1999</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="pinball-t">Pinball</h2>
+      <p class="sub">Pokémon Pinball and Pinball: Ruby and Sapphire</p>
+      <p class="catline">Puzzle, pinball and cards</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li></ul>
+    </div>
+  </header>
+  <p class="about">Pinball tables themed on the Game Boy games, where you catch Pokémon as you play. The Game Boy Color cartridge has a Rumble Pak built in.</p>
+  <section class="games" aria-label="Games in Pinball">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="pinball1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Pinball</h4><p class="g-when">Game Boy Color. Jun 29, 1999 in North America. Oct 6, 2000 in Europe.</p><p class="g-text">Red and Blue tables, with a two-minute Catch Mode and an Evolution Mode.</p><dl class="facts"><div><dt>GameRankings</dt><dd><b>81.73%</b></dd></div></dl><p class="g-crit">GameSpot gave 8.7 and Famitsu 32 out of 40. It sold 262,000 copies in 20 days, the fastest-selling Game Boy title at the time.</p></div></li><li class="gm" id="pinball2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">Pokémon Pinball: Ruby and Sapphire</h4><p class="g-when">Game Boy Advance. Aug 25, 2003 in North America. Nov 14, 2003 in Europe.</p><p class="g-text">Based on Ruby and Sapphire, with Pokémon to capture while you play. I found no score for it.</p><dl class="facts"><div><dt>Score</dt><dd class="na">None found</dd></div></dl></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>The second game is based on Ruby and Sapphire, and the first on Red and Blue.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>The first game has a GameRankings score of 81.73%. I found no score for the second.</p>
+      <p class="verdict"><b>Short answer:</b> Only the first game has a score I could find.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="tcg" data-tags="puzzle switch" aria-labelledby="tcg-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2000</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="tcg-t">Trading Card Game</h2>
+      <p class="sub">Pokémon Trading Card Game for Game Boy Color</p>
+      <p class="catline">Puzzle, pinball and cards</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li></ul>
+    </div>
+  </header>
+  <p class="about">A digital version of the card game, made by Hudson Soft and Creatures. You build 60-card decks, beat eight Club Masters and four Grand Masters, and trade by link cable or infrared. Japan also got a sequel, Pokémon Card GB2, which was never released in English.</p>
+  <section class="games" aria-label="Games in Trading Card Game">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="tcg1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Trading Card Game</h4><p class="g-when">Game Boy Color. Apr 10, 2000 in North America. Dec 15, 2001 in Europe.</p><p class="g-text">Japan had it from Dec 18, 1998, as Pokémon Card GB. It has a Card Pop! feature.</p><dl class="facts"><div><dt>GameRankings</dt><dd><b>81.25%</b></dd></div></dl><p class="g-crit">IGN gave 9 and GameSpot 7.6.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">Trading Card Game on 3DS and Switch Online</h4><p class="g-when">Nintendo 3DS Virtual Console, then Nintendo Switch Online. 3DS in 2014. Game Boy Color on Aug 8, 2023.</p><p class="g-text">The 3DS version came to Europe on Jul 10, 2014 and North America on Nov 13, 2014, without Card Pop!. The game later joined Nintendo Classics on Game Boy Color.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>GameRankings gives 81.25%. IGN gave 9 and GameSpot 7.6.</p>
+      <p class="verdict"><b>Short answer:</b> One game in English, and it is on Switch Online.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="puzzle-league" data-tags="puzzle" aria-labelledby="puzzle-league-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2000</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="puzzle-league-t">Puzzle League</h2>
+      <p class="sub">Pokémon Puzzle League and Pokémon Puzzle Challenge</p>
+      <p class="catline">Puzzle, pinball and cards</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li><li><b>81</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Falling-block puzzle games in the style of Panel de Pon, with Pokémon characters.</p>
+  <section class="games" aria-label="Games in Puzzle League">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="pl1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Puzzle League</h4><p class="g-when">Nintendo 64. Sep 25, 2000 in North America. Mar 2, 2001 in Europe.</p><p class="g-text">Panel de Pon play, in 2D and in a 3D cylinder mode, with anime characters, voice acting and video cutscenes. It began life as Panel de Pon 64.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>81</b></dd></div><div><dt>GameRankings</dt><dd><b>82.65%</b></dd></div></dl><p class="g-crit">IGN’s Fran Mirabella III wrote that he was totally addicted and thrilled. It was nominated for Best Console Puzzle Game at the 2000 Blister Awards.</p></div></li><li class="gm" id="pl2"><div class="g-side"><span class="lvtag"><i class="sw lv4" aria-hidden="true"></i>Companion game</span></div><div class="g-main"><h4 class="g-name">Pokémon Puzzle Challenge</h4><p class="g-when">Game Boy Color. 2000.</p><p class="g-text">A companion puzzle game released the same year. Wikipedia gives no exact date and doesn’t describe how it differs from the N64 game.</p><dl class="facts"><div><dt>Score</dt><dd class="na">None found</dd></div></dl></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>Puzzle Challenge is the Game Boy Color companion. I found no details of how it differs.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Puzzle League scored 81 on Metacritic and 82.65% on GameRankings. I found no score for Puzzle Challenge, though one reviewer of Trozei said Puzzle Challenge is better and cheaper.</p>
+      <p class="verdict"><b>Short answer:</b> Puzzle League has the second-highest Metacritic score among the spin-offs here.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="trozei" data-tags="puzzle" aria-labelledby="trozei-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2006</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="trozei-t">Trozei</h2>
+      <p class="sub">Pokémon Trozei!</p>
+      <p class="catline">Puzzle, pinball and cards</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>74</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A DS puzzle game where you match four identical Pokémon in a row to clear them, use Ditto as a wildcard and set off a Trozei Chance. A 3DS sequel, Battle Trozei, was free to start and is not covered.</p>
+  <section class="games" aria-label="Games in Trozei">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="trozei1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Trozei!</h4><p class="g-when">Nintendo DS. Mar 6, 2006 in North America. May 5, 2006 in Europe.</p><p class="g-text">The only paid game in the line.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>74</b></dd></div></dl><p class="g-crit">Game Informer gave 8.25 and Nintendo Power 8.5. Diehard GameFan gave 5.5 and said Puzzle Challenge is better and cheaper.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 74. Most reviews were positive.</p>
+      <p class="verdict"><b>Short answer:</b> One game, just under Metacritic’s 75 line.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="snap" data-tags="life switch" aria-labelledby="snap-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">1999</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="snap-t">Snap</h2>
+      <p class="sub">Pokémon Snap and New Pokémon Snap</p>
+      <p class="catline">Sims, photos and learning</p>
+      <ul class="figs" aria-label="At a glance"><li><b>2</b> games</li><li><b>77 to 79</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">Photography on rails. You ride a vehicle through the course and photograph Pokémon, and Professor Oak scores each shot.</p>
+  <section class="games" aria-label="Games in Snap">
+    <h3 class="sec-h">The games, and how they relate</h3>
+    <ol class="glist"><li class="gm" id="snap1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Snap</h4><p class="g-when">Nintendo 64. Jul 26, 1999 in North America. Sep 15, 2000 in Europe.</p><p class="g-text">You ride the Zero-One through seven courses, taking up to 60 photos a visit, and Professor Oak scores size, pose and framing. Apples, Pester Balls, the Poké Flute and the Dash Engine help. Only 63 of the 151 Pokémon appear.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>77</b></dd></div><div><dt>GameRankings</dt><dd><b>75.48%</b></dd></div></dl><p class="g-crit">Reviewers criticised the small Pokémon list and the short length.</p></div></li><li class="gm small"><div class="g-side"><span class="lvtag"><i class="sw lv1" aria-hidden="true"></i>Same game</span></div><div class="g-main"><h4 class="g-name">Pokémon Snap re-releases</h4><p class="g-when">Wii, Wii U and Nintendo Switch Online. Dec 2007 to Jun 2022.</p><p class="g-text">It came to Wii Virtual Console in Dec 2007, Wii U Virtual Console (Europe and Australia Aug 2016, North America Jan 2017) and Nintendo Classics on Switch Online in Jun 2022.</p></div></li><li class="gm" id="snap2"><div class="g-side"><span class="lvtag"><i class="sw lv5" aria-hidden="true"></i>Follow-up game</span></div><div class="g-main"><h4 class="g-name">New Pokémon Snap</h4><p class="g-when">Nintendo Switch. Apr 30, 2021.</p><p class="g-text">Made by Bandai Namco Studios and set in the Lental region. You travel in the NEO-ONE and take up to 72 photos an expedition. It keeps a Photodex and has Illumina and Re-Snap features. A free update in Aug 2021 added 20 Pokémon and three courses.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>79</b></dd></div><div><dt>Story</dt><dd><b>10.5</b> hours</dd></div><div><dt>With extras</dt><dd><b>19</b> hours</dd></div><div><dt>Everything</dt><dd><b>66.5</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 10½, 19 and 66½.</p><p class="g-crit">Reviewers criticised the repetition, a judgmental rating system and the lack of evolution.</p></div></li></ol>
+  </section>
+  <div class="cols2">
+    <div class="differ">
+      <h3 class="sec-h">What changes across this series</h3>
+      <ul class="diffs"><li>The sequel came 22 years after the first game.</li><li>A free update in Aug 2021 added 20 Pokémon and three courses to New Pokémon Snap.</li></ul>
+    </div>
+    <div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Pokémon Snap scored 77 on Metacritic and New Pokémon Snap 79, from 116 reviews.</p>
+      <p class="verdict"><b>Short answer:</b> Both are short photography games, and both are on Switch.</p>
+    </div>
+  </div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="hey-you-pikachu" data-tags="life" aria-labelledby="hey-you-pikachu-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2000</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="hey-you-pikachu-t">Hey You, Pikachu!</h2>
+      <p class="sub">Hey You, Pikachu!</p>
+      <p class="catline">Sims, photos and learning</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>57</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A virtual pet game for the N64 where you talk to Pikachu through the Voice Recognition Unit, a microphone that recognises 256 words. Only one other game, Densha de Go! 64, used it.</p>
+  <section class="games" aria-label="Games in Hey You, Pikachu!">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="hey1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Hey You, Pikachu!</h4><p class="g-when">Nintendo 64. Nov 6, 2000 in North America.</p><p class="g-text">Japan had it from Dec 12, 1998. You help Professor Oak test the PokéHelper, befriend a wild Pikachu, earn Pika Points and shop at Abra’s Shop over 365 days. Pikachu leaves and comes back after the credits.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>57</b></dd></div></dl><p class="g-crit">GameSpot gave 8.3, IGN 6, Game Informer 4 and Famitsu 30 out of 40. NextGen said it tastes just like chicken made of glucose. It was nominated for Console Family Game of the Year at the DICE Awards and lost to Mario Tennis.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 57, with scores that ranged from 4 to 8.3.</p>
+      <p class="verdict"><b>Short answer:</b> It needs the Voice Recognition Unit microphone.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="channel" data-tags="life" aria-labelledby="channel-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2003</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="channel-t">Channel</h2>
+      <p class="sub">Pokémon Channel</p>
+      <p class="catline">Sims, photos and learning</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>55</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A GameCube virtual-pet game where you explore a house in first-person 3D and channel-surf a TV network run by Professor Oak and Pikachu.</p>
+  <section class="games" aria-label="Games in Channel">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="channel1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Channel</h4><p class="g-when">GameCube. Dec 1, 2003 in North America. Apr 2, 2004 in Europe.</p><p class="g-text">Japan had it from Jul 18, 2003.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>55</b></dd></div></dl><p class="g-crit">GameSpy gave 1 out of 5 and said it has no gameplay. It appeals to existing fans and young children, and its collectibles were praised.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 55.</p>
+      <p class="verdict"><b>Short answer:</b> Aimed at existing fans and young children.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="ranch" data-tags="life" aria-labelledby="ranch-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2008</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="ranch-t">My Pokémon Ranch</h2>
+      <p class="sub">My Pokémon Ranch</p>
+      <p class="catline">Sims, photos and learning</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>47</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A WiiWare game by Ambrella. You move up to 1,000 Pokémon from Diamond and Pearl to a ranch with Hayley, and your Miis join in. A Platinum update raised the limit to 1,500.</p>
+  <section class="games" aria-label="Games in My Pokémon Ranch">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="ranch1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">My Pokémon Ranch</h4><p class="g-when">WiiWare. Jun 9, 2008 in North America. Jul 4, 2008 in Europe and Australia.</p><p class="g-text">It cost 1,000 Wii Points.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>47</b></dd></div></dl><p class="g-crit">IGN gave 4, Nintendo Life 4 and Official Nintendo Magazine UK 48%.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 47, the second lowest here.</p>
+      <p class="verdict"><b>Short answer:</b> Only useful with Diamond or Pearl.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="typing-adventure" data-tags="life" aria-labelledby="typing-adventure-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2012</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="typing-adventure-t">Typing Adventure</h2>
+      <p class="sub">Learn with Pokémon: Typing Adventure</p>
+      <p class="catline">Sims, photos and learning</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li></ul>
+    </div>
+  </header>
+  <p class="about">A typing game for the DS, sold with a Bluetooth Nintendo Wireless Keyboard. You capture Pokémon by typing their names. It came out in Europe and Australia, but not in North America.</p>
+  <section class="games" aria-label="Games in Typing Adventure">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="typing1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Learn with Pokémon: Typing Adventure</h4><p class="g-when">Nintendo DS. Sep 21, 2012 in Europe. Jan 10, 2013 in Australia.</p><p class="g-text">English is one of five languages on the cartridge.</p><dl class="facts"><div><dt>GameRankings</dt><dd><b>69.22%</b></dd></div></dl><p class="g-crit">Famitsu gave 32 out of 40, Official Nintendo Magazine 84% and GamesTM 4.2 out of 10.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>GameRankings gives 69.22%. Scores range from 4.2 out of 10 to 84%.</p>
+      <p class="verdict"><b>Short answer:</b> Not released in North America.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="art-academy" data-tags="life" aria-labelledby="art-academy-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2014</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="art-academy-t">Art Academy</h2>
+      <p class="sub">Pokémon Art Academy</p>
+      <p class="catline">Sims, photos and learning</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>76</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A drawing course on the 3DS, with 40 lessons across three skill levels.</p>
+  <section class="games" aria-label="Games in Art Academy">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="art1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Art Academy</h4><p class="g-when">Nintendo 3DS. Jul 4, 2014 in Europe. Oct 24, 2014 in North America.</p><p class="g-text">Australia got it on Jul 5, 2014.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>76</b></dd></div></dl><p class="g-crit">Nintendo Life and Nintendo World Report each gave 8 out of 10, Official Nintendo Magazine 77% and Famitsu 31 out of 40.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 76.</p>
+      <p class="verdict"><b>Short answer:</b> A drawing course rather than a game.</p>
+    </div></div>
+</article>
+<div class="eq" aria-hidden="true"><i class="ball"></i></div>
+<article class="entry" id="pokopia" data-tags="life switch" aria-labelledby="pokopia-t">
+  <header class="entry-head">
+    <p class="gen"><span class="gen-n">2026</span><span class="gen-l">First in English</span></p>
+    <div class="head-main">
+      <h2 id="pokopia-t">Pokopia</h2>
+      <p class="sub">Pokémon Pokopia</p>
+      <p class="catline">Sims, photos and learning</p>
+      <ul class="figs" aria-label="At a glance"><li><b>1</b> game</li><li><b>89</b> on Metacritic</li></ul>
+    </div>
+  </header>
+  <p class="about">A life sim for Switch 2 in the vein of Animal Crossing and Minecraft. You play a Ditto in human form who rebuilds an island using Pokémon abilities, and four players can visit each other’s towns.</p>
+  <section class="games" aria-label="Games in Pokopia">
+    <h3 class="sec-h">The game</h3>
+    <ol class="glist"><li class="gm" id="pokopia1"><div class="g-side"><span class="lvtag"><i class="sw lv0" aria-hidden="true"></i>First game</span></div><div class="g-main"><h4 class="g-name">Pokémon Pokopia</h4><p class="g-when">Nintendo Switch 2. Mar 5, 2026.</p><p class="g-text">A Switch 2 exclusive, made by Game Freak and Koei Tecmo’s Omega Force, according to Wikipedia. A later update added diving into water, and a paid expansion pass has been announced.</p><dl class="facts"><div><dt>Metacritic</dt><dd><b>89</b></dd></div><div><dt>Story</dt><dd><b>36.5</b> hours</dd></div><div><dt>With extras</dt><dd><b>54</b> hours</dd></div><div><dt>Everything</dt><dd><b>148.5</b> hours</dd></div></dl><p class="g-alt">HowLongToBeat, via Deku Deals, says 36½, 54 and 148½.</p><p class="g-crit">Famitsu gave 39 out of 40, and IGN and GameSpot gave 9 out of 10. Video Games Chronicle reported 88 on Metacritic just before launch, the highest of any Pokémon game on the site, and called it Pokémon’s best spin-off.</p></div></li></ol>
+  </section>
+  <div class="cols2 one"><div class="said">
+      <h3 class="sec-h">What critics said</h3>
+      <p>Metacritic 89, above every main-series score on the other page, where the highest is 88.</p>
+      <p class="verdict"><b>Short answer:</b> The best-scoring spin-off here, and the newest.</p>
+    </div></div>
+</article>
+  <div class="eq" aria-hidden="true"><i class="ball"></i></div>
+
+  <section class="after" aria-labelledby="cover-h">
+    <h2 id="cover-h">Not covered</h2>
+    <p class="cover">Left out because you asked: Pokémon Picross, and every mobile or free-to-play game, including Pokémon GO, Masters EX, Unite, TCG Pocket, Quest, Shuffle, Café Mix, Magikarp Jump, Champions, Rumble World, Rumble Rush and Battle Trozei. Apps such as Pokémon HOME, Bank, Dream Radar and Pokédex 3D are not games. Japan-only, per Wikipedia’s list: Pocket Monsters Stadium, Pokémon Card GB2, Adventure Team on WiiWare and the Sega Pico titles. Arcade games other than Pokkén are not covered either. Not researched: Pokémon Box: Ruby and Sapphire, a GameCube storage tool released in English in 2004, the Pokémon Mini handheld and its games, and PC or CD-ROM titles such as Play It! and Project Studio. The mainline games are on the other page. <a href="../pokemon-mainline-guide/index.html">Main-series games</a></p>
+  </section>
+
+  <section class="after" aria-labelledby="gap-h">
+    <h2 id="gap-h">What I could not confirm</h2>
+    <p class="after-sub">I read most of this through Wikipedia, so details are as those pages state them.</p>
+    <ul class="gaps"><li>Metacritic scores for Rumble Blast, Rumble U, Puzzle Challenge, Ranger: Guardian Signs, Pinball: Ruby and Sapphire and PokéPark Wii. I found none.</li><li>Details for Rumble Blast, Rumble U and Ranger: Guardian Signs. I have their platforms and years only.</li><li>Anything about PokéPark Wii beyond its platform and years. Its Wikipedia page would not open.</li><li>Play times for most spin-offs. I found HowLongToBeat figures, read from Deku Deals, for five Switch games, plus scattered mentions for Conquest, Super Mystery Dungeon and the first Rescue Team. For everything else I found no figure and show none.</li><li>Whether Pokémon Colosseum is on Nintendo Switch Online. Wikipedia’s page says it is due to join Nintendo Classics on Switch 2, and I did not confirm it. I also did not check which membership tier each classic needs.</li><li>Which parts of Pokopia’s paid expansion pass have been released. My source listed the plans but not their status.</li><li>Scores for the older games come from two sources. GameRankings percentages from Wikipedia stand in where Metacritic has none, and they are not the same scale.</li></ul>
+  </section>
+
+  <section class="after" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <div class="src-grid"><div class="src"><h3>The whole page</h3><ul><li><a href="https://en.wikipedia.org/wiki/List_of_Pok%C3%A9mon_video_games">Wikipedia: List of Pokémon video games</a></li></ul></div><div class="src"><h3>Stadium</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Stadium">Wikipedia: Pokémon Stadium</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Stadium_2">Wikipedia: Pokémon Stadium 2</a></li></ul></div><div class="src"><h3>Colosseum and XD</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Colosseum">Wikipedia: Pokémon Colosseum</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_XD:_Gale_of_Darkness">Wikipedia: Pokémon XD: Gale of Darkness</a></li><li><a href="https://www.keengamer.com/articles/features/opinion-pieces/pokemon-colosseum-retrospective/">keengamer: Pokémon Colosseum retrospective</a></li><li><a href="https://gameinformer.com/pokemon-presents/2026/02/27/everything-announced-at-the-february-2026-pokemon-presents">Game Informer: February 2026 Pokémon Presents</a></li></ul></div><div class="src"><h3>Battle Revolution</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Battle_Revolution">Wikipedia: Pokémon Battle Revolution</a></li></ul></div><div class="src"><h3>Pokkén Tournament</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pokk%C3%A9n_Tournament">Wikipedia: Pokkén Tournament</a></li><li><a href="https://www.dekudeals.com/items/pokken-tournament-dx">Deku Deals: Pokkén Tournament DX</a></li></ul></div><div class="src"><h3>Mystery Dungeon</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Mystery_Dungeon">Wikipedia: Pokémon Mystery Dungeon</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Mystery_Dungeon:_Blue_Rescue_Team_and_Red_Rescue_Team">Wikipedia: Blue Rescue Team and Red Rescue Team</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Mystery_Dungeon:_Explorers_of_Time_and_Explorers_of_Darkness">Wikipedia: Explorers of Time and Explorers of Darkness</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Mystery_Dungeon:_Explorers_of_Sky">Wikipedia: Explorers of Sky</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Mystery_Dungeon:_Gates_to_Infinity">Wikipedia: Gates to Infinity</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Super_Mystery_Dungeon">Wikipedia: Super Mystery Dungeon</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Mystery_Dungeon:_Rescue_Team_DX">Wikipedia: Rescue Team DX</a></li><li><a href="https://www.dekudeals.com/items/pokemon-mystery-dungeon-rescue-team-dx">Deku Deals: Rescue Team DX</a></li><li><a href="https://www.gfinityesports.com/article/pokemon-mystery-dungeon-rescue-team-dx-how-long-to-beat-guide-nintendo-switch">Gfinity: Rescue Team DX how long to beat</a></li><li><a href="https://www.nintendoworldreport.com/review/41587/pokemon-super-mystery-dungeon-3ds-review">Nintendo World Report: Super Mystery Dungeon review</a></li><li><a href="https://bulbapedia.bulbagarden.net/wiki/Remake">Bulbapedia: Remake</a></li></ul></div><div class="src"><h3>Conquest</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Conquest">Wikipedia: Pokémon Conquest</a></li><li><a href="https://www.nintendoworldreport.com/review/30772/pokemon-conquest-nintendo-ds">Nintendo World Report: Pokémon Conquest review</a></li></ul></div><div class="src"><h3>Dash</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Dash">Wikipedia: Pokémon Dash</a></li></ul></div><div class="src"><h3>Ranger</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Ranger">Wikipedia: Pokémon Ranger</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Ranger:_Shadows_of_Almia">Wikipedia: Pokémon Ranger: Shadows of Almia</a></li><li><a href="https://strategywiki.org/wiki/Pok%C3%A9mon_Ranger:_Shadows_of_Almia">StrategyWiki: Pokémon Ranger: Shadows of Almia</a></li></ul></div><div class="src"><h3>Rumble</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Rumble">Wikipedia: Pokémon Rumble</a></li></ul></div><div class="src"><h3>PokéPark</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9Park_2:_Wonders_Beyond">Wikipedia: PokéPark 2: Wonders Beyond</a></li></ul></div><div class="src"><h3>Detective Pikachu</h3><ul><li><a href="https://en.wikipedia.org/wiki/Detective_Pikachu_(video_game)">Wikipedia: Detective Pikachu</a></li><li><a href="https://en.wikipedia.org/wiki/Detective_Pikachu_Returns">Wikipedia: Detective Pikachu Returns</a></li><li><a href="https://www.dekudeals.com/items/detective-pikachu-returns">Deku Deals: Detective Pikachu Returns</a></li></ul></div><div class="src"><h3>Pinball</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pinball">Wikipedia: Pokémon Pinball</a></li></ul></div><div class="src"><h3>Trading Card Game</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Trading_Card_Game_(video_game)">Wikipedia: Pokémon Trading Card Game</a></li></ul></div><div class="src"><h3>Puzzle League</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Puzzle_League">Wikipedia: Pokémon Puzzle League</a></li><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Trozei!">Wikipedia: Pokémon Trozei!</a></li></ul></div><div class="src"><h3>Trozei</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Trozei!">Wikipedia: Pokémon Trozei!</a></li></ul></div><div class="src"><h3>Snap</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Snap">Wikipedia: Pokémon Snap</a></li><li><a href="https://en.wikipedia.org/wiki/New_Pok%C3%A9mon_Snap">Wikipedia: New Pokémon Snap</a></li><li><a href="https://www.dekudeals.com/items/new-pokemon-snap">Deku Deals: New Pokémon Snap</a></li></ul></div><div class="src"><h3>Hey You, Pikachu!</h3><ul><li><a href="https://en.wikipedia.org/wiki/Hey_You,_Pikachu!">Wikipedia: Hey You, Pikachu!</a></li></ul></div><div class="src"><h3>Channel</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Channel">Wikipedia: Pokémon Channel</a></li></ul></div><div class="src"><h3>My Pokémon Ranch</h3><ul><li><a href="https://en.wikipedia.org/wiki/My_Pok%C3%A9mon_Ranch">Wikipedia: My Pokémon Ranch</a></li></ul></div><div class="src"><h3>Typing Adventure</h3><ul><li><a href="https://en.wikipedia.org/wiki/Learn_with_Pok%C3%A9mon:_Typing_Adventure">Wikipedia: Learn with Pokémon: Typing Adventure</a></li></ul></div><div class="src"><h3>Art Academy</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Art_Academy">Wikipedia: Pokémon Art Academy</a></li></ul></div><div class="src"><h3>Pokopia</h3><ul><li><a href="https://en.wikipedia.org/wiki/Pok%C3%A9mon_Pokopia">Wikipedia: Pokémon Pokopia</a></li><li><a href="https://www.videogameschronicle.com/news/pokemon-pokopia-is-currently-the-highest-rated-pokemon-game-ever-on-metacritic">Video Games Chronicle: Pokopia is the highest-rated Pokémon game on Metacritic</a></li><li><a href="https://www.dekudeals.com/items/pokemon-pokopia">Deku Deals: Pokopia</a></li></ul></div></div>
+  </section>
+
+  <footer class="foot">
+    <p>Pokémon is a trademark of Nintendo, Creatures Inc. and Game Freak. This is a fan reference and is not affiliated with them.</p>
+    <p>Typefaces: Sofia Sans and Sofia Sans Condensed, both under the SIL Open Font License.</p>
+  </footer>
+</main>
+
+<script type="application/json" id="filter-labels">{"all": "Everything", "battle": "Battle and fighting", "dungeon": "Dungeons and strategy", "action": "Action and adventure", "puzzle": "Puzzle, pinball and cards", "life": "Sims, photos and learning", "switch": "On Switch or Switch Online"}</script>
+<script>
+(function () {
+  var bar = document.querySelector(".filters");
+  var tip = document.createElement("div");
+  tip.className = "tip"; tip.setAttribute("role", "tooltip"); tip.hidden = true;
+  document.body.appendChild(tip);
+
+  function showTip(text, rect) {
+    tip.textContent = text; tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var x = Math.min(Math.max(8, rect.left + rect.width / 2 - w / 2), window.innerWidth - w - 8);
+    var y = rect.top - h - 8;
+    if (y < 8) y = rect.bottom + 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { tip.hidden = true; }
+
+  [].forEach.call(document.querySelectorAll("[data-chart]"), function (chart) {
+    chart.addEventListener("mouseover", function (ev) {
+      var d = ev.target.closest && ev.target.closest(".dot, .ln-track");
+      if (!d) return;
+      var row = d.closest(".sc-row");
+      showTip(d.getAttribute("data-tip") || row.getAttribute("data-all"), d.getBoundingClientRect());
+    });
+    chart.addEventListener("mouseout", function (ev) {
+      if (ev.target.closest && ev.target.closest(".dot, .ln-track")) hideTip();
+    });
+    chart.addEventListener("click", function (ev) {
+      var d = ev.target.closest && ev.target.closest(".dot, .ln-track");
+      if (d) {
+        var row = d.closest(".sc-row");
+        showTip(d.getAttribute("data-tip") || row.getAttribute("data-all"), d.getBoundingClientRect());
+      } else if (!(ev.target.closest && ev.target.closest(".sc-n"))) hideTip();
+    });
+    [].forEach.call(chart.querySelectorAll(".sc-row"), function (r) {
+      r.addEventListener("focus", function () { showTip(r.getAttribute("data-all"), r.getBoundingClientRect()); });
+      r.addEventListener("blur", hideTip);
+    });
+  });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") hideTip(); });
+  window.addEventListener("scroll", hideTip, { passive: true });
+
+  if (!bar) return;
+  bar.hidden = false;
+  var chips = [].slice.call(bar.querySelectorAll(".chip"));
+  var entries = [].slice.call(document.querySelectorAll(".entry"));
+  var eqs = [].slice.call(document.querySelectorAll("main .eq"));
+  var rows = [].slice.call(document.querySelectorAll(".tl-row, .sc-list li[data-tags]"));
+  var status = document.getElementById("filter-status");
+  var labels = JSON.parse(document.getElementById("filter-labels").textContent);
+  var current = "all";
+
+  function has(el, f) { return f === "all" || (" " + el.getAttribute("data-tags") + " ").indexOf(" " + f + " ") > -1; }
+
+  function apply(f) {
+    current = f;
+    var shown = 0;
+    entries.forEach(function (en, i) {
+      var ok = has(en, f);
+      en.hidden = !ok;
+      if (eqs[i]) eqs[i].hidden = !ok;
+      if (ok) shown++;
+    });
+    rows.forEach(function (r) { r.classList.toggle("dim", !has(r, f)); });
+    chips.forEach(function (c) {
+      c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false");
+    });
+    status.textContent = f === "all" ? "" :
+      "Showing " + shown + " of " + entries.length + " series. Filter: " + labels[f] + ".";
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () { apply(c.getAttribute("data-filter")); });
+  });
+
+  // a link to a region that the filter has hidden clears the filter first
+  document.addEventListener("click", function (ev) {
+    var link = ev.target.closest && ev.target.closest('a[href^="#"]');
+    if (!link || current === "all") return;
+    var id = link.getAttribute("href").slice(1);
+    var target = id && document.getElementById(id);
+    var host = target && (target.closest ? target.closest(".entry") : null);
+    if (host && host.hidden) {
+      apply("all");
+      target.scrollIntoView();
+    }
+  });
+  apply("all");
+})();
+</script>
+</body>
+</html>
