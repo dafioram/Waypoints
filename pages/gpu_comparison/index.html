@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>GPU comparison — Waypoints</title>
+<meta name="description" content="Graphics cards side by side: filter by slots, bracket height and power, sort by speed, or open any card on its own." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "GPU comparison",
+  "description": "Graphics cards side by side: filter by slots, bracket height and power, sort by speed, or open any card on its own.",
+  "tags": [
+    "hardware",
+    "gpu",
+    "reference",
+    "comparison"
+  ],
+  "date": "2026-10-27"
+}
+</script>
+<!--
+  THE DATA. Everything below the page is built from this block.
+
+  Add a GPU:     add one line to "gpus". Only "name" is needed. Leave out what you don’t know.
+  Add a column:  add one line to "columns". GPUs without that key use the column’s "default"
+                 (or show a dash if it has none). "null" on a GPU means unknown on purpose.
+  The page also explains this under "Add a GPU or a column", and flags typos in a "Data check" note.
+-->
+<script type="application/json" id="gpu-data">
+{
+  "defaultSort": [["g3d", "desc"]],
+  "columns": [
+    {"key": "name", "label": "GPU", "type": "text", "show": true},
+    {"key": "maker", "label": "Chip maker", "type": "choice", "options": ["AMD", "NVIDIA", "Intel"], "quick": true, "group": "Background", "about": "Who makes the graphics chip. Filled in from the model names."},
+    {"key": "g3d", "label": "G3D Mark", "type": "number", "best": "high", "headline": true, "quick": true, "show": true, "group": "Performance", "about": "PassMark’s GPU benchmark score. Higher is faster."},
+    {"key": "slots", "label": "Slots", "type": "number", "filter": "choice", "best": "low", "grouping": false, "quick": true, "show": true, "group": "Fit and power", "about": "Case slots the card blocks. 0 means graphics built into the CPU."},
+    {"key": "extra", "label": "Extra power", "type": "choice", "options": ["No", "6 Pin", "6 + 8"], "quick": true, "show": true, "group": "Fit and power", "about": "Power connectors needed on top of the PCIe slot."},
+    {"key": "half", "label": "Half height", "type": "choice", "options": ["Yes", "No", "N/A"], "quick": true, "show": true, "group": "Fit and power", "about": "Comes as a half-height (low-profile) card."},
+    {"key": "arch", "label": "Architecture", "type": "choice", "group": "Background"},
+    {"key": "tdp", "label": "TDP", "type": "number", "unit": "W", "best": "low", "quick": true, "show": true, "group": "Fit and power", "about": "Rated power draw in watts."},
+    {"key": "h264", "label": "H.264", "type": "choice", "options": ["No", "D", "E+D"], "meanings": {"D": "decode only", "E+D": "encode and decode"}, "about": "Hardware video support. D is decode only. E+D is encode and decode.", "group": "Video"},
+    {"key": "h265", "label": "H.265", "type": "choice", "options": ["No", "D", "E+D"], "meanings": {"D": "decode only", "E+D": "encode and decode"}, "about": "Hardware video support. D is decode only. E+D is encode and decode.", "group": "Video"},
+    {"key": "av1", "label": "AV1", "type": "choice", "options": ["No", "D", "E+D"], "meanings": {"D": "decode only", "E+D": "encode and decode"}, "about": "Hardware video support. D is decode only. E+D is encode and decode.", "group": "Video"},
+    {"key": "apis", "label": "APIs", "type": "text", "group": "Performance", "about": "DX is the DirectX level. V is the Vulkan version."},
+    {"key": "year", "label": "Year", "type": "number", "best": "high", "grouping": false, "show": true, "group": "Background"},
+    {"key": "pcie_gen", "label": "PCIe generation", "type": "number", "decimals": 1, "filter": "choice", "best": "high", "group": "Fit and power"},
+    {"key": "pcie_lanes", "label": "PCIe lanes", "type": "number", "prefix": "x", "filter": "choice", "best": "high", "group": "Fit and power"},
+    {"key": "mem", "label": "Memory", "type": "number", "unit": "GB", "best": "high", "show": true, "group": "Memory"},
+    {"key": "output", "label": "Video outputs", "type": "text", "group": "Video"},
+    {"key": "cuda", "label": "CUDA", "type": "number", "decimals": 1, "best": "high", "group": "Performance", "about": "NVIDIA’s CUDA compute capability. AMD and Intel cards don’t have one."},
+    {"key": "cost", "label": "Cost", "type": "number", "prefix": "$", "best": "low", "quick": true, "show": true, "group": "Price", "about": "Price in dollars."},
+    {"key": "ppw", "label": "Points per watt", "type": "number", "derive": {"ratio": ["g3d", "tdp"]}, "decimals": 1, "best": "high", "group": "Performance", "about": "G3D Mark divided by TDP. Worked out from the two columns."},
+    {"key": "ppd", "label": "Points per dollar", "type": "number", "derive": {"ratio": ["g3d", "cost"]}, "decimals": 1, "best": "high", "group": "Price", "about": "G3D Mark divided by cost. Worked out from the two columns."},
+    {"key": "notes", "label": "Notes", "type": "text", "group": "Background"}
+  ],
+  "presets": [
+    {"name": "Single slot, half height", "filters": {"slots": ["1"], "half": ["Yes"]}, "sort": [["g3d", "desc"]]},
+    {"name": "No power connector", "filters": {"extra": ["No"]}, "sort": [["g3d", "desc"]]},
+    {"name": "Most points per dollar", "filters": {}, "sort": [["ppd", "desc"]]}
+  ],
+  "gpus": [
+    {"name": "RX 6750 XT", "maker": "AMD", "g3d": 20678, "slots": 2, "extra": "6 + 8", "half": "No", "tdp": 250, "apis": "DX12U V1.4", "year": 2022, "pcie_gen": 4.0, "pcie_lanes": 16, "mem": 12, "output": "HDMI, x3 DP", "cost": 350},
+    {"name": "RTX A2000", "maker": "NVIDIA", "g3d": 13481, "slots": 2, "extra": "No", "tdp": 70, "apis": "DX12U V1.4", "year": 2021, "pcie_gen": 4.0, "pcie_lanes": 16, "mem": 6, "output": "4 mDP", "cuda": 8.6},
+    {"name": "Yeston 3050", "maker": "NVIDIA", "g3d": 10752, "slots": 1, "extra": "No", "half": "Yes", "apis": "DX12U V1.4", "cuda": 8.6, "cost": 220},
+    {"name": "GTX 1060", "maker": "NVIDIA", "g3d": 10064, "slots": 2, "extra": "6 Pin", "half": "No", "tdp": 120, "apis": "DX12.1 V1.4", "year": 2016, "pcie_gen": 3.0, "pcie_lanes": 16, "mem": 6, "output": "DVI, HDMI, DP", "cuda": 6.1, "cost": 120},
+    {"name": "GTX 1650", "maker": "NVIDIA", "g3d": 7880, "cuda": 7.4},
+    {"name": "Rx 6400", "maker": "AMD", "g3d": 7733, "half": "Yes", "cost": 215},
+    {"name": "GTX 1050 Ti", "maker": "NVIDIA", "g3d": 6348, "cuda": 6.1},
+    {"name": "GTX 770", "maker": "NVIDIA", "g3d": 5960, "mem": 2, "cuda": 3.0},
+    {"name": "ARC A310", "maker": "Intel", "g3d": 4900, "slots": 1, "extra": "No", "half": "Yes", "cost": 110},
+    {"name": "Quadro P1000", "maker": "NVIDIA", "g3d": 4498, "slots": 1, "extra": "No", "tdp": 47, "apis": "DX12 V1.4", "year": 2017, "pcie_gen": 3.0, "pcie_lanes": 16, "mem": 4, "output": "4 mDP", "cuda": 6.1, "cost": 40},
+    {"name": "Radeon Pro WX 4100", "maker": "AMD", "g3d": 3683, "slots": 1, "extra": "No", "half": "Yes", "tdp": 50, "h264": "E+D", "h265": "E+D", "av1": "No", "apis": "DX12 V1.3", "year": 2016, "pcie_gen": 3.0, "pcie_lanes": 8, "mem": 4, "output": "4 mDP", "cost": 60},
+    {"name": "Quadro P620", "maker": "NVIDIA", "g3d": 3693, "slots": 1, "extra": "No", "half": "Yes", "arch": "GP107 (Pascal)", "h264": "E+D", "h265": "E+D", "av1": "No", "mem": 2, "cuda": 6.1},
+    {"name": "RX 560", "maker": "AMD", "g3d": 3683, "slots": 2, "extra": "No", "tdp": 75, "apis": "DX12 V1.3", "year": 2017, "pcie_gen": 3.0, "pcie_lanes": 8, "mem": 4, "output": "DVI, HDMI, DP"},
+    {"name": "RX 550", "maker": "AMD", "g3d": 2678, "extra": "No"},
+    {"name": "GT 1030", "maker": "NVIDIA", "g3d": 2407, "slots": 1, "extra": "No", "half": "Yes", "tdp": 30, "h264": "D", "h265": "D", "av1": "No", "apis": "DX12.1 V1.4", "year": 2017, "pcie_gen": 3.0, "pcie_lanes": 4, "mem": 2, "cuda": 6.1},
+    {"name": "Quadro P400", "maker": "NVIDIA", "g3d": 1658, "slots": 1, "extra": "No", "half": "Yes", "tdp": 30, "apis": "DX12 V1.4", "year": 2017, "pcie_gen": 3.0, "pcie_lanes": 16, "mem": 2, "output": "x3 mDP", "cuda": 6.1},
+    {"name": "550 Ti", "maker": "NVIDIA", "g3d": 1559, "slots": 2, "extra": "6 Pin", "half": "No", "tdp": 116, "apis": "DX11", "year": 2011, "pcie_gen": 2.0, "pcie_lanes": 16, "mem": 1, "output": "HDMI, DVI", "cuda": 2.1},
+    {"name": "UHD 630", "maker": "Intel", "g3d": 615, "slots": 0, "extra": "No", "half": "N/A", "tdp": 15, "apis": "DX12.1 V1.3", "year": 2017, "cuda": "N/A", "cost": 20}
+  ]
+}
+</script>
+<style>
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:400;font-display:swap;src:url(media/atkinson-hyperlegible-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:700;font-display:swap;src:url(media/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Big Shoulders Display";font-style:normal;font-weight:800;font-display:swap;src:url(media/big-shoulders-display-latin-800-normal.woff2) format("woff2")}
+
+:root{
+  --gp-bg:#E6ECEE; --gp-sheet:#F7F9F9; --gp-field:#FFFFFF;
+  --gp-ink:#10202A; --gp-ink2:#435863; --gp-rule:#C3CED3; --gp-edge:#677B86;
+  --gp-accent:#0A6A60; --gp-accent-ink:#FFFFFF; --gp-wash:#D3E7E3; --gp-wash2:#EBF2F1;
+  --gp-gold:#D9A441; --gp-focus:#0A6A60;
+  --gp-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --gp-text:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --gp-bg:#0C1A1F; --gp-sheet:#132429; --gp-field:#0F1E23;
+    --gp-ink:#E3EEF0; --gp-ink2:#9FB5BC; --gp-rule:#284148; --gp-edge:#6D8890;
+    --gp-accent:#4CC1B1; --gp-accent-ink:#04211D; --gp-wash:#1B3A3B; --gp-wash2:#183036;
+    --gp-gold:#E3B341; --gp-focus:#7EE0D2;
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--gp-bg);color:var(--gp-ink);font:400 1rem/1.5 var(--gp-text)}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;padding:0}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+:focus-visible{outline:3px solid var(--gp-focus);outline-offset:2px}
+button,input,select,summary{font:inherit;color:inherit}
+
+/* hero */
+.hero{padding:26px 0 24px;border-bottom:1px solid var(--gp-rule)}
+.hero .wrap{display:grid;gap:22px 48px;grid-template-columns:minmax(0,1fr);align-items:end}
+h1{margin:0 0 .22em;font:800 clamp(3.1rem,10vw,5.6rem)/.9 var(--gp-display)}
+.lede{margin:0;max-width:44ch;color:var(--gp-ink2);font-size:1.0625rem}
+.key{margin:0;display:flex;align-items:flex-end;gap:26px}
+.key figure{margin:0;display:grid;gap:8px;justify-items:start;align-content:end}
+.key figure>span{display:block}
+.key figcaption{font-size:.875rem;line-height:1.3;color:var(--gp-ink2);width:7.4em;min-height:2.6em}
+.key-note{margin:10px 0 0;font-size:.875rem;color:var(--gp-ink2);max-width:36ch}
+@media (min-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr) auto}}
+@media (prefers-reduced-motion:no-preference){
+  .key .glyph{transform-origin:50% 100%;animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+  .key figure:nth-child(2) .glyph{animation-delay:.1s}
+  .key figure:nth-child(3) .glyph{animation-delay:.2s}
+  @keyframes rise{from{transform:scaleY(.04);opacity:0}to{transform:none;opacity:1}}
+}
+
+/* bracket glyph */
+.glyph{display:block;flex:none;overflow:visible}
+.glyph .b{fill:var(--gp-wash);stroke:var(--gp-ink2);stroke-width:1.5px;vector-effect:non-scaling-stroke}
+.glyph .dash{stroke-dasharray:3 3}
+.glyph .div{stroke:var(--gp-edge);stroke-width:1px;stroke-dasharray:2 3;vector-effect:non-scaling-stroke}
+.glyph .screw{fill:var(--gp-gold);stroke:var(--gp-ink2);stroke-width:1px;vector-effect:non-scaling-stroke}
+.glyph .pin{stroke:var(--gp-ink2);stroke-width:1.5px;vector-effect:non-scaling-stroke}
+.glyph.big .b{stroke-width:2px}
+
+/* layout */
+.app{display:grid;gap:18px;padding:18px 16px 36px;max-width:1240px;margin:0 auto}
+.side{background:var(--gp-sheet);border:1px solid var(--gp-rule);border-radius:6px;padding:14px 14px 16px}
+.side h2{margin:0 0 10px;font:800 1.7rem/1 var(--gp-display)}
+.side-body{display:grid;gap:16px}
+@media (max-width:959px){.side{display:none}.side.shown{display:block}}
+@media (min-width:960px){
+  .app{grid-template-columns:276px minmax(0,1fr);gap:28px;align-items:start}
+  .side{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+  .filters-toggle{display:none!important}
+  .app.solo{grid-template-columns:minmax(0,1fr)}
+}
+
+/* controls */
+.btn{background:var(--gp-sheet);color:var(--gp-ink);border:1px solid var(--gp-edge);border-radius:4px;padding:7px 13px;min-height:40px;cursor:pointer;font-weight:700;line-height:1.2}
+.btn:hover{background:var(--gp-wash2)}
+.btn[aria-pressed="true"]{background:var(--gp-accent);color:var(--gp-accent-ink);border-color:var(--gp-accent)}
+.btn.plain{border-color:transparent;background:none;text-decoration:underline;text-underline-offset:3px;font-weight:400;padding:7px 4px}
+.seg{display:inline-flex}
+.seg .btn{border-radius:0}
+.seg .btn:first-child{border-radius:4px 0 0 4px}
+.seg .btn:last-child{border-radius:0 4px 4px 0;margin-left:-1px}
+input[type=number],input[type=search],select{background:var(--gp-field);border:1px solid var(--gp-edge);border-radius:4px;padding:6px 9px;min-height:40px;max-width:100%}
+input[type=number]{width:100%}
+select{padding-right:6px}
+label.chk{display:flex;gap:9px;align-items:flex-start;line-height:1.35;cursor:pointer}
+label.chk input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--gp-accent);flex:none}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0;font-weight:700;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{position:relative;display:inline-block}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.chip span{display:inline-block;min-height:36px;padding:6px 11px;border:1px solid var(--gp-edge);border-radius:4px;background:var(--gp-field);line-height:22px}
+.chip input:hover + span{background:var(--gp-wash2)}
+.chip input:checked + span{background:var(--gp-accent);color:var(--gp-accent-ink);border-color:var(--gp-accent);font-weight:700}
+.chip input:focus-visible + span{outline:3px solid var(--gp-focus);outline-offset:2px}
+.range{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.range label{display:grid;gap:3px;font-size:.875rem;color:var(--gp-ink2)}
+.hint{margin:4px 0 0;font-size:.875rem;color:var(--gp-ink2)}
+.presets{display:grid;gap:6px}
+.presets .btn{text-align:left}
+details.more>summary,details.fine>summary{cursor:pointer;font-weight:700;padding:6px 0}
+details.more[open]>summary{margin-bottom:8px}
+.more-body{display:grid;gap:16px}
+
+/* toolbar */
+.bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.count{margin:0;font-size:1.0625rem}
+.count b{font:800 1.7rem/1 var(--gp-display);margin-right:.1em}
+.tools{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end;margin:12px 0 0}
+.sortbox{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:flex-end}
+.sortbox label{display:grid;gap:3px;font-size:.875rem;color:var(--gp-ink2)}
+.sortbox .btn{min-width:8.6em;display:inline-flex;gap:6px;align-items:center;justify-content:center}
+.sortbox .btn svg{width:12px;height:14px}
+.cols{position:relative}
+.cols>summary{list-style:none;cursor:pointer;display:inline-block}
+.cols>summary::-webkit-details-marker{display:none}
+.cols-panel{position:absolute;z-index:5;right:0;top:calc(100% + 6px);width:min(320px,calc(100vw - 32px));max-height:60vh;overflow:auto;background:var(--gp-sheet);border:1px solid var(--gp-edge);border-radius:6px;padding:12px 14px;display:grid;gap:8px}
+@media (max-width:640px){.cols-panel{right:auto;left:0}}
+.cols-panel h3{margin:6px 0 0;font-size:.9375rem}
+.sortline{margin:10px 0 0;color:var(--gp-ink2);font-size:.9375rem}
+.sortline button{margin-left:6px}
+.active{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:10px 0 0;padding:0}
+.active button{display:inline-flex;gap:7px;align-items:center;min-height:32px;padding:3px 10px;border:1px solid var(--gp-edge);border-radius:4px;background:var(--gp-wash);color:var(--gp-ink);cursor:pointer}
+.active button svg{width:10px;height:10px}
+.results{min-width:0}
+
+/* table */
+.tbl-w{position:relative;margin-top:14px;overflow-x:auto;background:var(--gp-sheet);border:1px solid var(--gp-rule);border-radius:6px}
+.grid{border-collapse:separate;border-spacing:0;width:100%;font-size:.9375rem;font-variant-numeric:tabular-nums}
+.grid th,.grid td{padding:8px 10px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--gp-rule);background:var(--gp-sheet);vertical-align:bottom}
+.grid tbody tr:last-child>*{border-bottom:0}
+.grid th.n,.grid td.n{text-align:right}
+.grid thead th{font-weight:700;vertical-align:bottom;white-space:normal;line-height:1.2;border-bottom:2px solid var(--gp-ink2)}
+.grid thead th:first-child{white-space:nowrap}
+.grid tbody th{position:sticky;left:0;z-index:1;font-weight:700;box-shadow:1px 0 0 var(--gp-rule)}
+.grid thead th:first-child{position:sticky;left:0;z-index:2;box-shadow:1px 0 0 var(--gp-rule)}
+.grid tbody tr:hover>*{background:var(--gp-wash2)}
+.sorth{display:inline-flex;gap:6px;align-items:center;background:none;border:0;padding:2px 0;cursor:pointer;font-weight:700;text-align:inherit}
+.sorth:hover{text-decoration:underline;text-underline-offset:3px}
+.sorth svg{width:10px;height:14px;flex:none}
+.sorth svg path{fill:var(--gp-rule)}
+.sorth svg path.on{fill:var(--gp-accent)}
+.sorth .ord{font-size:.75rem;line-height:1;border:1px solid var(--gp-accent);border-radius:3px;padding:1px 4px;color:var(--gp-ink)}
+th.n .sorth{flex-direction:row-reverse}
+.open{display:inline-flex;align-items:flex-end;gap:10px;background:none;border:0;padding:2px 0;cursor:pointer;font-weight:700;text-align:left}
+.open:hover .nm{text-decoration:underline;text-underline-offset:3px}
+.unk{color:var(--gp-ink2)}
+.bar-t{display:block;height:4px;min-width:84px;margin-top:5px;background:var(--gp-rule);border-radius:2px}
+.bar-t i{display:block;height:100%;background:var(--gp-accent);border-radius:0 2px 2px 0}
+.grid td .bar-t{margin-left:auto}
+.empty{margin:14px 0 0;padding:22px;background:var(--gp-sheet);border:1px dashed var(--gp-edge);border-radius:6px}
+.empty p{margin:0 0 10px}
+
+/* cards */
+.cards{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(244px,1fr))}
+.cards>li{display:flex}
+.card{flex:1;align-content:start;position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:14px;align-content:start;background:var(--gp-sheet);border:1px solid var(--gp-rule);border-radius:6px;padding:14px}
+.card:hover{background:var(--gp-wash2)}
+.card:has(.open:focus-visible){outline:3px solid var(--gp-focus);outline-offset:2px}
+.card .open:focus-visible{outline:none}
+.card .open::after{content:"";position:absolute;inset:0}
+.card .gl{align-self:end}
+.card h3{margin:0;font:800 1.65rem/1 var(--gp-display)}
+.card h3 .open{font:inherit;display:inline;padding:0}
+.card .sub{margin:3px 0 0;font-size:.875rem;color:var(--gp-ink2)}
+.card .score{margin:10px 0 0;font-size:.875rem;color:var(--gp-ink2)}
+.card .score b{display:block;font:800 1.9rem/1 var(--gp-display);color:var(--gp-ink)}
+.stats{grid-column:1 / -1;margin:12px 0 0;display:grid;font-size:.9375rem;font-variant-numeric:tabular-nums}
+.stats div{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-top:1px solid var(--gp-rule)}
+.stats dt{color:var(--gp-ink2)}
+.stats dd{margin:0;font-weight:700;text-align:right}
+.blank-note{grid-column:1 / -1;margin:8px 0 0;font-size:.875rem;color:var(--gp-ink2)}
+
+/* single card */
+.detail{margin-top:14px;background:var(--gp-sheet);border:1px solid var(--gp-rule);border-radius:6px;padding:18px}
+.dnav{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between}
+.dnav .pn{display:flex;gap:8px;align-items:center}
+.dnav .pos{color:var(--gp-ink2);font-size:.9375rem}
+.dhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px 28px;align-items:end;margin:22px 0 4px}
+.dhead h2{margin:0;font:800 clamp(2.4rem,7vw,4rem)/.95 var(--gp-display)}
+.dhead h2:focus{outline:none}
+.dhead .sub{margin:6px 0 0;color:var(--gp-ink2)}
+.dscore{margin:16px 0 0;max-width:420px}
+.dscore b{display:block;font:800 3rem/1 var(--gp-display)}
+.dscore .bar-t{height:8px;border-radius:4px;min-width:0}
+.dscore .bar-t i{border-radius:0 4px 4px 0}
+.dscore p{margin:6px 0 0;color:var(--gp-ink2);font-size:.9375rem}
+.specs{display:grid;gap:22px 36px;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));margin-top:24px}
+.specs h3{margin:0 0 4px;font-size:1rem;padding-bottom:4px;border-bottom:2px solid var(--gp-ink2)}
+.specs dl{margin:0;font-variant-numeric:tabular-nums}
+.specs dl div{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px solid var(--gp-rule)}
+.specs dt{color:var(--gp-ink2)}
+.specs dd{margin:0;font-weight:700;text-align:right}
+.specs dd small{display:block;font-weight:400;color:var(--gp-ink2);font-size:.8125rem}
+.notyet{margin:22px 0 0;color:var(--gp-ink2);font-size:.9375rem;max-width:70ch}
+.outside{margin:12px 0 0;color:var(--gp-ink2);font-size:.9375rem}
+@media (prefers-reduced-motion:no-preference){
+  .dscore .bar-t i{animation:grow .5s cubic-bezier(.2,.8,.2,1) both;transform-origin:0 50%}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:none}}
+}
+
+/* footer */
+.foot{max-width:1240px;margin:0 auto;padding:6px 16px 40px;display:grid;gap:10px}
+.foot details{background:var(--gp-sheet);border:1px solid var(--gp-rule);border-radius:6px;padding:10px 14px}
+.foot summary{cursor:pointer;font-weight:700;padding:4px 0}
+.foot details>div{margin-top:8px;max-width:78ch}
+.foot p{margin:.5em 0}
+.foot code{font:400 .875em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.foot pre{margin:.5em 0;padding:10px 12px;background:var(--gp-bg);border:1px solid var(--gp-rule);border-radius:4px;white-space:pre-wrap;overflow-wrap:anywhere;font:400 .875rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.foot dl{margin:0;display:grid;gap:8px}
+.foot dt{font-weight:700}
+.foot dd{margin:0;color:var(--gp-ink2)}
+.reset-line{margin:6px 0 0;color:var(--gp-ink2);font-size:.9375rem}
+.fatal{max-width:70ch;margin:24px auto;padding:16px 18px;border:2px solid var(--gp-ink);border-radius:6px;background:var(--gp-sheet)}
+.fatal h2{margin:0 0 6px;font:800 1.7rem/1 var(--gp-display)}
+.fatal pre{white-space:pre-wrap;margin:8px 0 0}
+.check li{margin:.3em 0}
+
+@media (max-width:480px){
+  .dhead{grid-template-columns:minmax(0,1fr)}
+  .dhead .glyph{justify-self:start}
+  .key{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:end}
+  .key figcaption{width:auto;font-size:.8125rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <h1>GPU comparison</h1>
+      <p class="lede">Graphics cards and the specs that decide whether one fits: slots, bracket height, power, speed and cost. Filter, sort, or open a card to see one GPU on its own.</p>
+    </div>
+    <div>
+      <div class="key" id="key"></div>
+      <p class="key-note">Each icon is the card’s back bracket, seen from behind the case. Wider means more slots. Shorter means half height. A dashed outline means a size isn’t filled in yet.</p>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <noscript><div class="wrap"><p class="empty">This page builds its table from the data block with JavaScript. Turn JavaScript on to see the GPUs.</p></div></noscript>
+  <div class="app" id="app" hidden>
+    <section class="side" id="side" aria-labelledby="side-h">
+      <h2 id="side-h">Filters</h2>
+      <div class="side-body" id="side-body"></div>
+    </section>
+    <section class="results" id="results" aria-labelledby="res-h">
+      <h2 class="sr" id="res-h">GPUs</h2>
+      <div id="bar"></div>
+      <div id="list"></div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot" id="foot"></footer>
+
+<script>
+(function () {
+  'use strict';
+  var STORE = 'waypoints:gpu-comparison';
+  var BASE_TITLE = document.title;
+  var NONE = { t: 'none' };
+
+  /* ---------- small helpers ---------- */
+  function h(tag, props, kids) {
+    var n = document.createElement(tag);
+    if (props) Object.keys(props).forEach(function (k) {
+      var v = props[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === 'class') n.className = v;
+      else if (k === 'text') n.textContent = v;
+      else if (k === 'html') n.innerHTML = v;
+      else n.setAttribute(k, v === true ? '' : v);
+    });
+    (kids || []).forEach(function (c) {
+      if (c === null || c === undefined || c === false) return;
+      n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    });
+    return n;
+  }
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function has(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+  function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'gpu'; }
+  function ordinal(n) {
+    var m = n % 100; if (m >= 11 && m <= 13) return n + 'th';
+    return n + ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th');
+  }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  var issues = [], seenIssue = {};
+  function issue(m) { if (!seenIssue[m]) { seenIssue[m] = 1; issues.push(m); } }
+
+  var app = $('#app');
+  function fatal(msg) {
+    app.hidden = false; app.className = ''; app.innerHTML = '';
+    app.appendChild(h('div', { class: 'fatal', role: 'alert' }, [
+      h('h2', { text: 'The GPU data can’t be read' }),
+      h('p', { text: 'Fix the data block near the top of this file, then reload the page.' }),
+      h('pre', { text: msg })
+    ]));
+  }
+
+  /* ---------- read the data block ---------- */
+  var raw;
+  try { raw = JSON.parse($('#gpu-data').textContent); }
+  catch (err) { fatal(String(err && err.message || err)); return; }
+  if (!raw || typeof raw !== 'object') { fatal('The data block should be an object with "columns" and "gpus".'); return; }
+
+  var COLS = [], BY = {};
+  (Array.isArray(raw.columns) ? raw.columns : []).forEach(function (c) {
+    if (!c || typeof c.key !== 'string' || !c.key || typeof c.label !== 'string' || !c.label) {
+      issue('A column needs both a "key" and a "label".'); return;
+    }
+    if (BY[c.key]) { issue('Two columns use the key "' + c.key + '". Only the first one is used.'); return; }
+    var col = {}; Object.keys(c).forEach(function (k) { col[k] = c[k]; });
+    if (['text', 'number', 'choice'].indexOf(col.type) < 0) {
+      if (col.type) issue('Column "' + col.key + '" has the type "' + col.type + '". Use text, number or choice. It’s treated as text.');
+      col.type = 'text';
+    }
+    if (col.derive) {
+      var d = col.derive.ratio;
+      if (Array.isArray(d) && d.length === 2) col.type = 'number';
+      else { issue('Column "' + col.key + '" has a "derive" that isn’t {"ratio": [top, bottom]}. It’s ignored.'); delete col.derive; }
+    }
+    var f = col.filter;
+    if (['range', 'choice', 'text', 'none'].indexOf(f) < 0) f = null;
+    if (f === 'range' && col.type !== 'number') f = null;
+    col.filter = f || (col.type === 'number' ? 'range' : col.type === 'choice' ? 'choice' : 'text');
+    if (col.key === 'name') col.filter = 'none';
+    COLS.push(col); BY[col.key] = col;
+  });
+  if (!BY.name) {
+    issue('There is no column with the key "name", so GPUs have no title. One was added.');
+    var nc = { key: 'name', label: 'GPU', type: 'text', show: true, filter: 'none' };
+    COLS.unshift(nc); BY.name = nc;
+  }
+
+  var ROWS = [], BYID = {};
+  (Array.isArray(raw.gpus) ? raw.gpus : []).forEach(function (g, i) {
+    if (!g || typeof g !== 'object' || Array.isArray(g)) { issue('Entry ' + (i + 1) + ' in "gpus" isn’t an object.'); return; }
+    var nm = g.name === null || g.name === undefined ? '' : String(g.name).trim();
+    if (!nm) { issue('Entry ' + (i + 1) + ' in "gpus" has no name.'); nm = 'Unnamed GPU ' + (i + 1); }
+    var base = slug(g.id ? g.id : nm), id = base, k = 2;
+    while (BYID[id]) { id = base + '-' + k++; }
+    if (id !== base && !g.id) issue('More than one GPU is called "' + nm + '". Their links end in -2, -3 and so on.');
+    var r = { i: ROWS.length, id: id, src: g, v: {}, name: nm };
+    Object.keys(g).forEach(function (key) {
+      if (key === 'id') return;
+      if (!BY[key]) issue(nm + ' has "' + key + '", which isn’t a column. Add the column or fix the spelling.');
+      else if (BY[key].derive) issue(nm + ' has a value for "' + key + '", which is worked out from other columns. It’s ignored.');
+    });
+    BYID[id] = r; ROWS.push(r);
+  });
+
+  function parse(rawv, col, r) {
+    if (rawv === null || rawv === undefined) return NONE;
+    if (typeof rawv === 'string' && rawv.trim() === '') return NONE;
+    if (col.type === 'number') {
+      if (typeof rawv === 'number' && isFinite(rawv)) return { t: 'num', n: rawv };
+      if (typeof rawv === 'string') {
+        var s = rawv.trim();
+        if (/^n\/?a$/i.test(s)) return { t: 'na', s: 'N/A' };
+        var n = Number(s.replace(/,/g, ''));
+        if (isFinite(n)) return { t: 'num', n: n };
+      }
+      issue(r.name + ': “' + col.key + '” should be a number but is ' + JSON.stringify(rawv) + '. It’s treated as unknown.');
+      return NONE;
+    }
+    if (rawv === true) rawv = 'Yes'; else if (rawv === false) rawv = 'No';
+    return { t: 'str', s: String(rawv).trim() };
+  }
+  function getV(r, col, depth) {
+    var c = r.v[col.key]; if (c) return c;
+    var out = NONE;
+    if (col.derive) {
+      depth = depth || 0;
+      var a = BY[col.derive.ratio[0]], b = BY[col.derive.ratio[1]];
+      if (!a || !b) issue('Column "' + col.key + '" works from "' + col.derive.ratio.join('" and "') + '", and one of those isn’t a column.');
+      else if (depth < 4) {
+        var x = getV(r, a, depth + 1), y = getV(r, b, depth + 1);
+        if (x.t === 'num' && y.t === 'num' && y.n !== 0) out = { t: 'num', n: x.n / y.n };
+      }
+    } else {
+      var rv = has(r.src, col.key) ? r.src[col.key] : (has(col, 'default') ? col.default : null);
+      out = parse(rv, col, r);
+    }
+    r.v[col.key] = out; return out;
+  }
+  function ckey(v) { return v.t === 'num' ? String(v.n) : v.t === 'str' ? v.s : null; }
+
+  var HEAD = null;
+  COLS.forEach(function (c) {
+    ROWS.forEach(function (r) { getV(r, c); });
+    if (c.type === 'number') {
+      var ns = ROWS.map(function (r) { return r.v[c.key]; }).filter(function (v) { return v.t === 'num'; }).map(function (v) { return v.n; });
+      c.min = ns.length ? Math.min.apply(null, ns) : null; c.max = ns.length ? Math.max.apply(null, ns) : null;
+      if (c.headline && !HEAD) HEAD = c;
+    }
+    if (c.filter === 'choice') {
+      var opts = [];
+      if (c.type === 'choice' && Array.isArray(c.options)) c.options.forEach(function (o) { opts.push(String(o)); });
+      c.listed = opts.length;
+      ROWS.forEach(function (r) { var k = ckey(r.v[c.key]); if (k !== null && opts.indexOf(k) < 0) opts.push(k); });
+      if (c.type === 'number') opts.sort(function (a, b) { return Number(a) - Number(b); });
+      else if (!c.listed) opts.sort(function (a, b) { return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }); });
+      c.opts = opts;
+    } else if (c.type === 'choice') {
+      c.opts = Array.isArray(c.options) ? c.options.map(String) : [];
+      c.listed = c.opts.length;
+      ROWS.forEach(function (r) { var k = ckey(r.v[c.key]); if (k !== null && c.opts.indexOf(k) < 0) c.opts.push(k); });
+    }
+  });
+
+  /* ---------- formatting ---------- */
+  function fmtNum(c, n) {
+    var o = { useGrouping: c.grouping !== false };
+    if (typeof c.decimals === 'number') { o.minimumFractionDigits = c.decimals; o.maximumFractionDigits = c.decimals; }
+    else { o.minimumFractionDigits = 0; o.maximumFractionDigits = 2; }
+    return n.toLocaleString('en-US', o);
+  }
+  function fmtVal(c, v) {
+    if (v.t === 'num') return (c.prefix || '') + fmtNum(c, v.n) + (c.unit ? ' ' + c.unit : '');
+    return v.s;
+  }
+  function chipLabel(c, k) { return c.type === 'number' ? fmtVal(c, { t: 'num', n: Number(k) }) : k; }
+  function unknownNode() {
+    return h('span', { class: 'unk' }, [h('span', { 'aria-hidden': 'true', text: '—' }), h('span', { class: 'sr', text: 'Not filled in' })]);
+  }
+
+  /* ---------- bracket icons ---------- */
+  function glyphRaw(slots, half, s, big) {
+    var SW = 20, FH = 120, HH = 80, P = 2, H = FH + P * 2;
+    var cls = 'glyph' + (big ? ' big' : '');
+    if (slots !== null && slots === 0) {
+      var d = 44, pad = 8, W = d + pad * 2, x0 = pad, y0 = P + FH - 6 - d, pins = '';
+      for (var i = 1; i <= 3; i++) {
+        var p = d * i / 4;
+        pins += '<path class="pin" d="M' + (x0 + p) + ' ' + (y0 - 6) + 'V' + y0 + 'M' + (x0 + p) + ' ' + (y0 + d) + 'V' + (y0 + d + 6) +
+          'M' + (x0 - 6) + ' ' + (y0 + p) + 'H' + x0 + 'M' + (x0 + d) + ' ' + (y0 + p) + 'H' + (x0 + d + 6) + '"/>';
+      }
+      return '<svg class="' + cls + '" viewBox="0 0 ' + W + ' ' + H + '" width="' + (W * s) + '" height="' + (H * s) +
+        '" aria-hidden="true" focusable="false"><rect class="b" x="' + x0 + '" y="' + y0 + '" width="' + d + '" height="' + d + '" rx="4"/>' +
+        '<rect class="b" x="' + (x0 + 12) + '" y="' + (y0 + 12) + '" width="' + (d - 24) + '" height="' + (d - 24) + '" rx="2"/>' + pins + '</svg>';
+    }
+    var okSlots = slots !== null && slots > 0, okHalf = half === 'Yes' || half === 'No';
+    var n = okSlots ? slots : 1, hh = half === 'Yes' ? HH : FH, w = SW * n, Wd = w + P * 2, y = P + FH - hh;
+    var svg = '<svg class="' + cls + '" viewBox="0 0 ' + Wd + ' ' + H + '" width="' + (Wd * s) + '" height="' + (H * s) +
+      '" aria-hidden="true" focusable="false"><rect class="b' + (okSlots && okHalf ? '' : ' dash') + '" x="' + P + '" y="' + y +
+      '" width="' + w + '" height="' + hh + '" rx="3"/>';
+    if (s >= 0.8) {
+      for (var j = 1; j < Math.floor(n); j++) svg += '<line class="div" x1="' + (P + SW * j) + '" y1="' + (y + 22) + '" x2="' + (P + SW * j) + '" y2="' + (y + hh - 6) + '"/>';
+      svg += '<circle class="screw" cx="' + (P + SW / 2) + '" cy="' + (y + 10) + '" r="3.5"/>';
+    }
+    return svg + '</svg>';
+  }
+  function glyphFor(r, s, big) {
+    if (!BY.slots) return '';
+    var sv = getV(r, BY.slots), hv = BY.half ? getV(r, BY.half) : NONE;
+    return glyphRaw(sv.t === 'num' ? sv.n : null, hv.t === 'str' ? hv.s : null, s, big);
+  }
+
+  /* ---------- state ---------- */
+  var narrow = !!(window.matchMedia && window.matchMedia('(max-width: 700px)').matches);
+  function cleanSort(arr) {
+    var out = [];
+    (Array.isArray(arr) ? arr : []).forEach(function (s) {
+      var k = Array.isArray(s) ? s[0] : s && s.k, d = Array.isArray(s) ? s[1] : s && s.d;
+      var c = BY[k];
+      if (!c || c.sortable === false || out.some(function (o) { return o.k === k; })) return;
+      out.push({ k: k, d: d === 'asc' ? 'asc' : d === 'desc' ? 'desc' : firstDir(c) });
+    });
+    return out.slice(0, 2);
+  }
+  function firstDir(c) { return c.type === 'number' ? (c.best === 'low' ? 'asc' : 'desc') : 'asc'; }
+  function defaults() {
+    var ds = cleanSort(raw.defaultSort);
+    if (!ds.length && HEAD) ds = [{ k: HEAD.key, d: 'desc' }];
+    return { view: narrow ? 'cards' : 'table', q: '', f: {}, blanks: false, sort: ds, on: [], off: [] };
+  }
+  function cleanFilter(c, f) {
+    if (!f || typeof f !== 'object') return null;
+    if (c.filter === 'choice') {
+      var a = (Array.isArray(f.in) ? f.in : []).map(String).filter(function (k) { return c.opts.indexOf(k) >= 0; });
+      return a.length ? { in: a } : null;
+    }
+    if (c.filter === 'range') {
+      var mn = typeof f.min === 'number' && isFinite(f.min) ? f.min : null, mx = typeof f.max === 'number' && isFinite(f.max) ? f.max : null;
+      return mn !== null || mx !== null ? { min: mn, max: mx } : null;
+    }
+    if (c.filter === 'text') return typeof f.q === 'string' && f.q.trim() ? { q: f.q } : null;
+    return null;
+  }
+  function presetFilters(map) {
+    var out = {};
+    Object.keys(map || {}).forEach(function (k) {
+      var c = BY[k], v = map[k]; if (!c) { issue('A quick view mentions “' + k + '”, which isn’t a column.'); return; }
+      var f = c.filter === 'choice' ? { in: [].concat(v).map(String) } : c.filter === 'range' ? { min: v && v[0] !== undefined ? v[0] : null, max: v && v[1] !== undefined ? v[1] : null } : { q: String(v) };
+      var cf = cleanFilter(c, f); if (cf) out[k] = cf;
+    });
+    return out;
+  }
+  function load() {
+    var s = defaults();
+    try {
+      var t = localStorage.getItem(STORE); if (!t) return s;
+      var o = JSON.parse(t); if (!o || typeof o !== 'object') return s;
+      if (o.view === 'table' || o.view === 'cards') s.view = o.view;
+      if (typeof o.q === 'string') s.q = o.q;
+      if (o.blanks === true) s.blanks = true;
+      if (Array.isArray(o.sort)) s.sort = cleanSort(o.sort);
+      if (o.f && typeof o.f === 'object') Object.keys(o.f).forEach(function (k) { if (BY[k]) { var cf = cleanFilter(BY[k], o.f[k]); if (cf) s.f[k] = cf; } });
+      ['on', 'off'].forEach(function (w) { if (Array.isArray(o[w])) s[w] = o[w].filter(function (k) { return BY[k] && k !== 'name'; }); });
+    } catch (e) { /* storage unavailable or unreadable: use the defaults */ }
+    return s;
+  }
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* ignore */ } }
+  var state = load();
+  var PRESETS = (Array.isArray(raw.presets) ? raw.presets : []).filter(function (p) { return p && p.name; });
+
+  function isOn(c) {
+    if (c.key === 'name') return true;
+    return c.show ? state.off.indexOf(c.key) < 0 : state.on.indexOf(c.key) >= 0;
+  }
+  function visCols() { return COLS.filter(isOn); }
+  function showSorted() { state.sort.forEach(function (x) { if (!isOn(BY[x.k])) setColOn(BY[x.k], true); }); }
+  function setColOn(c, on) {
+    state.on = state.on.filter(function (k) { return k !== c.key; });
+    state.off = state.off.filter(function (k) { return k !== c.key; });
+    if (on !== !!c.show) (on ? state.on : state.off).push(c.key);
+  }
+
+  /* ---------- filtering and sorting ---------- */
+  function isActive(c) {
+    var f = state.f[c.key]; if (!f) return false;
+    if (c.filter === 'choice') return f.in && f.in.length > 0;
+    if (c.filter === 'range') return f.min !== null && f.min !== undefined || f.max !== null && f.max !== undefined;
+    if (c.filter === 'text') return !!(f.q && f.q.trim());
+    return false;
+  }
+  function activeCols() { return COLS.filter(isActive); }
+  function hay(r) {
+    if (r.hay) return r.hay;
+    var parts = [r.name];
+    COLS.forEach(function (c) { if (c.type === 'text' && c.key !== 'name') { var v = r.v[c.key]; if (v.t === 'str') parts.push(v.s); } });
+    return (r.hay = parts.join(' ').toLowerCase());
+  }
+  function passes(r, blanks) {
+    var q = state.q.trim().toLowerCase();
+    if (q && hay(r).indexOf(q) < 0) return false;
+    var act = activeCols();
+    for (var i = 0; i < act.length; i++) {
+      var c = act[i], f = state.f[c.key], v = r.v[c.key];
+      if (v.t === 'none' || (v.t === 'na' && c.type === 'number')) { if (blanks) continue; return false; }
+      if (c.filter === 'choice') { if (f.in.indexOf(ckey(v)) < 0) return false; }
+      else if (c.filter === 'range') {
+        if (v.t !== 'num') return false;
+        if (f.min !== null && f.min !== undefined && v.n < f.min) return false;
+        if (f.max !== null && f.max !== undefined && v.n > f.max) return false;
+      } else if (c.filter === 'text') { if (String(v.s).toLowerCase().indexOf(f.q.trim().toLowerCase()) < 0) return false; }
+    }
+    return true;
+  }
+  function sortKey(r, c) {
+    var v = r.v[c.key];
+    if (v.t === 'num') return v.n;
+    if (v.t === 'str') return c.type === 'choice' ? c.opts.indexOf(v.s) : v.s;
+    return null;
+  }
+  function comparer(sorts) {
+    return function (a, b) {
+      for (var i = 0; i < sorts.length; i++) {
+        var c = BY[sorts[i].k], ka = sortKey(a, c), kb = sortKey(b, c);
+        if (ka === null && kb === null) continue;
+        if (ka === null) return 1;
+        if (kb === null) return -1;
+        var d = typeof ka === 'number' ? ka - kb : ka.localeCompare(kb, undefined, { numeric: true, sensitivity: 'base' });
+        if (d) return sorts[i].d === 'desc' ? -d : d;
+      }
+      return a.i - b.i;
+    };
+  }
+  var CURRENT = [], HIDDEN_BY_BLANKS = 0;
+  function apply() {
+    var cmp = comparer(state.sort);
+    CURRENT = ROWS.filter(function (r) { return passes(r, state.blanks); }).sort(cmp);
+    HIDDEN_BY_BLANKS = state.blanks ? 0 : ROWS.filter(function (r) { return passes(r, true) && !passes(r, false); }).length;
+  }
+  function rankOf(r) {
+    if (!HEAD) return null;
+    var v = r.v[HEAD.key]; if (v.t !== 'num') return null;
+    var known = ROWS.filter(function (o) { return o.v[HEAD.key].t === 'num'; });
+    return { rank: 1 + known.filter(function (o) { return o.v[HEAD.key].n > v.n; }).length, of: known.length };
+  }
+
+  /* ---------- page pieces ---------- */
+  var side = $('#side'), sideBody = $('#side-body'), bar = $('#bar'), list = $('#list');
+  var syncers = [];
+  function changed() { save(); apply(); renderBar(); renderList(); }
+  function syncAll() { syncers.forEach(function (f) { f(); }); }
+
+  // hero key
+  (function () {
+    var key = $('#key'); if (!key || !BY.slots) return;
+    [[1, 'Yes', 'Single slot, half height'], [1, 'No', 'Single slot, full height'], [2, 'No', 'Double slot, full height']].forEach(function (k) {
+      key.appendChild(h('figure', null, [h('span', { html: glyphRaw(k[0], k[1], 0.9, true) }), h('figcaption', { text: k[2] })]));
+    });
+  })();
+
+  // filters
+  function buildSide() {
+    var chunks = [];
+    if (PRESETS.length) {
+      var pf = h('fieldset', null, [h('legend', { text: 'Quick views' })]);
+      var pw = h('div', { class: 'presets' });
+      PRESETS.forEach(function (p) {
+        var b = h('button', { type: 'button', class: 'btn', 'aria-pressed': 'false', text: p.name });
+        b.addEventListener('click', function () {
+          state.f = presetFilters(p.filters); state.q = ''; state.blanks = false;
+          if (p.sort) state.sort = cleanSort(p.sort);
+          showSorted(); syncAll(); changed();
+        });
+        p.btn = b; pw.appendChild(b);
+      });
+      pf.appendChild(pw); chunks.push(pf);
+      syncers.push(function () {
+        PRESETS.forEach(function (p) {
+          var f = presetFilters(p.filters), same = JSON.stringify(f, Object.keys(f).sort()) === JSON.stringify(state.f, Object.keys(state.f).sort()) && !state.q && !state.blanks &&
+            (!p.sort || JSON.stringify(cleanSort(p.sort)) === JSON.stringify(state.sort));
+          p.btn.setAttribute('aria-pressed', same ? 'true' : 'false');
+        });
+      });
+    }
+    var sInp = h('input', { type: 'search', id: 'q', autocomplete: 'off' });
+    sInp.addEventListener('input', function () { state.q = sInp.value; changed(); });
+    chunks.push(h('div', null, [h('label', { for: 'q', class: 'sr', text: 'Search names and notes' }), h('p', { style: 'margin:0 0 6px;font-weight:700', text: 'Search' }), sInp]));
+    syncers.push(function () { sInp.value = state.q; });
+
+    var quick = COLS.filter(function (c) { return c.quick && c.filter !== 'none'; });
+    var more = COLS.filter(function (c) { return !c.quick && c.filter !== 'none'; });
+    quick.forEach(function (c) { chunks.push(buildControl(c)); });
+    if (more.length) {
+      var mb = h('div', { class: 'more-body' }); more.forEach(function (c) { mb.appendChild(buildControl(c)); });
+      chunks.push(h('details', { class: 'more' }, [h('summary', { text: 'More filters' }), mb]));
+    }
+    var bl = h('input', { type: 'checkbox', id: 'blanks' });
+    bl.addEventListener('change', function () { state.blanks = bl.checked; changed(); });
+    chunks.push(h('div', null, [h('label', { class: 'chk', for: 'blanks' }, [bl, h('span', { text: 'Keep GPUs that have blanks' })]),
+      h('p', { class: 'hint', text: 'A GPU with no value in a column you’re filtering stays in the list.' })]));
+    var clr = h('button', { type: 'button', class: 'btn', text: 'Clear filters' });
+    clr.addEventListener('click', function () { state.f = {}; state.q = ''; state.blanks = false; syncAll(); changed(); });
+    chunks.push(clr);
+    syncers.push(function () { bl.checked = state.blanks; });
+    chunks.forEach(function (c) { sideBody.appendChild(c); });
+  }
+  function buildControl(c) {
+    var fs, inputs = [];
+    if (c.filter === 'choice') {
+      fs = h('fieldset', null, [h('legend', { text: c.label })]);
+      var box = h('div', { class: 'chips' });
+      c.opts.forEach(function (k) {
+        var inp = h('input', { type: 'checkbox', value: k });
+        inp.addEventListener('change', function () {
+          var f = state.f[c.key] || (state.f[c.key] = { in: [] }), i = f.in.indexOf(k);
+          if (inp.checked && i < 0) f.in.push(k); if (!inp.checked && i >= 0) f.in.splice(i, 1);
+          if (!f.in.length) delete state.f[c.key];
+          syncAll(); changed();
+        });
+        inputs.push(inp); box.appendChild(h('label', { class: 'chip' }, [inp, h('span', { text: chipLabel(c, k) })]));
+      });
+      fs.appendChild(box);
+      syncers.push(function () { var f = state.f[c.key]; inputs.forEach(function (i) { i.checked = !!(f && f.in.indexOf(i.value) >= 0); }); });
+    } else if (c.filter === 'range') {
+      var u = c.unit || c.prefix || '';
+      fs = h('fieldset', null, [h('legend', { text: c.label + (u ? ' (' + u + ')' : '') })]);
+      var mk = function (which, ph) {
+        var inp = h('input', { type: 'number', inputmode: 'decimal', step: 'any', placeholder: ph });
+        inp.addEventListener('input', function () {
+          var val = inp.value === '' ? null : Number(inp.value); if (val !== null && !isFinite(val)) val = null;
+          var f = state.f[c.key] || (state.f[c.key] = { min: null, max: null }); f[which] = val;
+          if (f.min === null && f.max === null) delete state.f[c.key];
+          syncPresets(); changed();
+        });
+        inputs.push(inp); return inp;
+      };
+      var mn = mk('min', c.min === null ? 'Min' : fmtNum(c, c.min)), mx = mk('max', c.max === null ? 'Max' : fmtNum(c, c.max));
+      fs.appendChild(h('div', { class: 'range' }, [h('label', null, ['Min', mn]), h('label', null, ['Max', mx])]));
+      if (c.min !== null) fs.appendChild(h('p', { class: 'hint', text: 'In the data: ' + fmtVal(c, { t: 'num', n: c.min }) + ' to ' + fmtVal(c, { t: 'num', n: c.max }) }));
+      syncers.push(function () { var f = state.f[c.key] || {}; mn.value = f.min === null || f.min === undefined ? '' : f.min; mx.value = f.max === null || f.max === undefined ? '' : f.max; });
+    } else {
+      fs = h('fieldset', null, [h('legend', { text: c.label })]);
+      var ti = h('input', { type: 'search', autocomplete: 'off', 'aria-label': c.label + ' contains' });
+      ti.addEventListener('input', function () {
+        if (ti.value.trim()) state.f[c.key] = { q: ti.value }; else delete state.f[c.key];
+        syncPresets(); changed();
+      });
+      fs.appendChild(ti);
+      syncers.push(function () { ti.value = state.f[c.key] ? state.f[c.key].q : ''; });
+    }
+    return fs;
+  }
+  function syncPresets() { syncers[0] && PRESETS.length && syncers[0](); }
+
+  // toolbar
+  var els = {}, syncCols = function () {};
+  function sortOptions(sel, none) {
+    sel.appendChild(h('option', { value: '', text: none }));
+    COLS.filter(function (c) { return c.sortable !== false; }).forEach(function (c) { sel.appendChild(h('option', { value: c.key, text: c.label })); });
+  }
+  function dirWords(c, d) {
+    if (c.type === 'number') return d === 'desc' ? 'Highest first' : 'Lowest first';
+    if (c.type === 'choice' && c.listed) return d === 'desc' ? 'Reversed' : 'As listed';
+    return d === 'desc' ? 'Z to A' : 'A to Z';
+  }
+  var ARROW = '<svg viewBox="0 0 12 14" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 1 L11 7 H7.2 V13 H4.8 V7 H1 Z"/></svg>';
+  function buildBar() {
+    els.count = h('p', { class: 'count', id: 'count', role: 'status', 'aria-atomic': 'true', tabindex: '-1' });
+    els.cn = h('b'); els.ct = h('span'); els.count.appendChild(els.cn); els.count.appendChild(els.ct);
+
+    els.ft = h('button', { type: 'button', class: 'btn filters-toggle', 'aria-expanded': 'false', 'aria-controls': 'side' });
+    els.ft.addEventListener('click', function () {
+      var open = side.classList.toggle('shown'); els.ft.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    var seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'View' });
+    ['table', 'cards'].forEach(function (v) {
+      var b = h('button', { type: 'button', class: 'btn', 'aria-pressed': 'false', text: v === 'table' ? 'Table' : 'Cards', 'data-view': v });
+      b.addEventListener('click', function () { state.view = v; save(); renderBar(); renderList(); });
+      els['v_' + v] = b; seg.appendChild(b);
+    });
+    var top = h('div', { class: 'bar' }, [els.count, h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap' }, [els.ft, seg])]);
+
+    var sortbox = h('div', { class: 'sortbox' });
+    [0, 1].forEach(function (i) {
+      var sel = h('select', { id: 'sort' + i }); sortOptions(sel, i === 0 ? 'Original order' : 'None');
+      var db = h('button', { type: 'button', class: 'btn', id: 'dir' + i });
+      sel.addEventListener('change', function () {
+        var k = sel.value, next = state.sort.slice();
+        if (!k) { next.splice(i); }
+        else { var c = BY[k]; next[i] = { k: k, d: firstDir(c) }; next = cleanSort(next.filter(Boolean)); if (i === 0 && next.length === 0) next = []; }
+        state.sort = next; showSorted(); syncCols(); save(); apply(); renderBar(); renderList();
+      });
+      db.addEventListener('click', function () {
+        if (!state.sort[i]) return; state.sort[i].d = state.sort[i].d === 'desc' ? 'asc' : 'desc';
+        save(); apply(); renderBar(); renderList();
+      });
+      els['s' + i] = sel; els['d' + i] = db;
+      sortbox.appendChild(h('label', null, [i === 0 ? 'Sort by' : 'Then by', sel]));
+      sortbox.appendChild(db);
+    });
+
+    els.colsList = h('div', { class: 'cols-panel' });
+    els.colsD = h('details', { class: 'cols', id: 'colsd' }, [h('summary', { class: 'btn', text: 'Columns' }), els.colsList]);
+    var tools = h('div', { class: 'tools' }, [sortbox, els.colsD]);
+    els.line = h('p', { class: 'sortline' });
+    els.active = h('ul', { class: 'active', 'aria-label': 'Active filters' });
+    [top, tools, els.line, els.active].forEach(function (n) { bar.appendChild(n); });
+
+    // column picker
+    var byGroup = [], gi = {};
+    COLS.forEach(function (c) { if (c.key === 'name') return; var g = c.group || 'Other'; if (!(g in gi)) { gi[g] = byGroup.length; byGroup.push({ g: g, cs: [] }); } byGroup[gi[g]].cs.push(c); });
+    els.colsList.appendChild(h('p', { class: 'hint', style: 'margin:0', text: 'Columns show in the table and on the cards.' }));
+    var boxes = [];
+    byGroup.forEach(function (grp) {
+      els.colsList.appendChild(h('h3', { text: grp.g }));
+      grp.cs.forEach(function (c) {
+        var cb = h('input', { type: 'checkbox' });
+        cb.addEventListener('change', function () { setColOn(c, cb.checked); save(); renderList(); });
+        boxes.push([c, cb]); els.colsList.appendChild(h('label', { class: 'chk' }, [cb, h('span', { text: c.label })]));
+      });
+    });
+    var rst = h('button', { type: 'button', class: 'btn', text: 'Show the usual columns' });
+    rst.addEventListener('click', function () { state.on = []; state.off = []; save(); syncCols(); renderList(); });
+    els.colsList.appendChild(rst);
+    syncCols = function () { boxes.forEach(function (p) { p[1].checked = isOn(p[0]); }); };
+    syncers.push(syncCols);
+    document.addEventListener('click', function (e) { if (els.colsD.open && !els.colsD.contains(e.target)) els.colsD.open = false; });
+    els.colsD.addEventListener('keydown', function (e) { if (e.key === 'Escape' && els.colsD.open) { els.colsD.open = false; $('summary', els.colsD).focus(); } });
+  }
+  function nActive() { return activeCols().length + (state.q.trim() ? 1 : 0); }
+  function describeActive() {
+    var out = [];
+    if (state.q.trim()) out.push({ label: 'Search: ' + state.q.trim(), clear: function () { state.q = ''; } });
+    activeCols().forEach(function (c) {
+      var f = state.f[c.key], txt;
+      if (c.filter === 'choice') txt = c.label + ': ' + f.in.map(function (k) { return chipLabel(c, k); }).join(', ');
+      else if (c.filter === 'range') {
+        var a = f.min !== null && f.min !== undefined, b = f.max !== null && f.max !== undefined;
+        txt = c.label + ': ' + (a && b ? fmtVal(c, { t: 'num', n: f.min }) + ' to ' + fmtVal(c, { t: 'num', n: f.max }) : a ? fmtVal(c, { t: 'num', n: f.min }) + ' or more' : 'up to ' + fmtVal(c, { t: 'num', n: f.max }));
+      } else txt = c.label + ' has “' + f.q.trim() + '”';
+      out.push({ label: txt, clear: function () { delete state.f[c.key]; } });
+    });
+    return out;
+  }
+  function renderBar() {
+    var n = CURRENT.length, tot = ROWS.length, act = nActive();
+    els.cn.textContent = n;
+    els.ct.textContent = (act ? ' of ' + tot : '') + (act ? ' GPU' + (tot === 1 ? '' : 's') : ' GPU' + (n === 1 ? '' : 's'));
+    els.ft.textContent = act ? 'Filters (' + act + ')' : 'Filters';
+    ['table', 'cards'].forEach(function (v) { els['v_' + v].setAttribute('aria-pressed', state.view === v ? 'true' : 'false'); });
+    [0, 1].forEach(function (i) {
+      var s = state.sort[i], sel = els['s' + i], db = els['d' + i];
+      sel.value = s ? s.k : '';
+      if (i === 1) { sel.disabled = !state.sort[0]; }
+      db.disabled = !s; db.hidden = !s;
+      db.innerHTML = s ? ARROW : '';
+      if (s) {
+        db.firstChild.style.transform = s.d === 'asc' ? 'none' : 'rotate(180deg)';
+        db.appendChild(document.createTextNode(dirWords(BY[s.k], s.d)));
+        db.setAttribute('aria-label', 'Direction, now ' + dirWords(BY[s.k], s.d).toLowerCase() + '. Press to reverse.');
+      } else { db.textContent = 'Direction'; db.removeAttribute('aria-label'); }
+    });
+    // sentence under the controls
+    els.line.innerHTML = '';
+    var parts = state.sort.map(function (s) { return BY[s.k].label + ', ' + dirWords(BY[s.k], s.d).toLowerCase(); });
+    els.line.appendChild(document.createTextNode(parts.length ? 'Sorted by ' + parts.join(', then ') + '.' : 'In the order they’re listed in the data.'));
+    if (HIDDEN_BY_BLANKS) {
+      els.line.appendChild(document.createTextNode(' ' + HIDDEN_BY_BLANKS + (HIDDEN_BY_BLANKS === 1 ? ' more has' : ' more have') + ' blanks in the columns you filtered.'));
+      var inc = h('button', { type: 'button', class: 'btn plain', text: 'Include ' + (HIDDEN_BY_BLANKS === 1 ? 'it' : 'them') });
+      inc.addEventListener('click', function () { state.blanks = true; syncAll(); changed(); });
+      els.line.appendChild(inc);
+    }
+    // active filter chips
+    els.active.innerHTML = '';
+    describeActive().forEach(function (a) {
+      var b = h('button', { type: 'button', 'aria-label': 'Remove filter: ' + a.label }, [h('span', { text: a.label }), h('span', { html: '<svg viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M1 1 L9 9 M9 1 L1 9" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>' })]);
+      b.addEventListener('click', function () { a.clear(); syncAll(); changed(); els.count.focus(); });
+      els.active.appendChild(h('li', null, [b]));
+    });
+    els.active.hidden = !els.active.children.length;
+  }
+
+  /* ---------- results: table and cards ---------- */
+  var pendingFocus = null;
+  function headSort(key, add) {
+    var c = BY[key], cur = state.sort.slice(), i = cur.map(function (s) { return s.k; }).indexOf(key);
+    if (add && cur.length) {
+      if (i >= 0) cur[i] = { k: key, d: cur[i].d === 'desc' ? 'asc' : 'desc' };
+      else cur = [cur[0], { k: key, d: firstDir(c) }];
+    } else if (i === 0) cur = [{ k: key, d: cur[0].d === 'desc' ? 'asc' : 'desc' }];
+    else cur = [{ k: key, d: firstDir(c) }];
+    state.sort = cur.slice(0, 2); pendingFocus = '[data-sk="' + key + '"]'; save(); apply(); renderBar(); renderList();
+  }
+  function sortIcon(dir) {
+    var up = '<path d="M5 1 L9 6 H1 Z"' + (dir === 'asc' ? ' class="on"' : '') + '/>', dn = '<path d="M5 13 L9 8 H1 Z"' + (dir === 'desc' ? ' class="on"' : '') + '/>';
+    return '<svg viewBox="0 0 10 14" aria-hidden="true" focusable="false">' + (dir === 'asc' ? up : dir === 'desc' ? dn : up + dn) + '</svg>';
+  }
+  function headCell(c) {
+    var th = h('th', { scope: 'col', class: c.type === 'number' ? 'n' : '' });
+    if (c.sortable === false) { th.textContent = c.label; return th; }
+    var idx = state.sort.map(function (s) { return s.k; }).indexOf(c.key), s = state.sort[idx];
+    var kids = [h('span', { text: c.label }), h('span', { html: sortIcon(s ? s.d : '') })];
+    if (idx === 1) kids.push(h('span', { class: 'ord', 'aria-hidden': 'true', text: '2' }));
+    if (idx >= 0) th.setAttribute('aria-sort', idx === 0 ? (s.d === 'desc' ? 'descending' : 'ascending') : 'none');
+    var b = h('button', { type: 'button', class: 'sorth', 'data-sk': c.key }, kids);
+    if (idx === 1) b.appendChild(h('span', { class: 'sr', text: 'Second sort, ' + dirWords(c, s.d).toLowerCase() }));
+    b.addEventListener('click', function (e) { headSort(c.key, e.shiftKey || e.ctrlKey || e.metaKey); });
+    th.appendChild(b); return th;
+  }
+  function openBtn(r, inner) {
+    var b = h('button', { type: 'button', class: 'open', 'data-open': r.id }, inner);
+    b.addEventListener('click', function () { openGpu(r, b); });
+    return b;
+  }
+  function barFor(r, thick) {
+    var v = r.v[HEAD.key]; if (v.t !== 'num' || !HEAD.max) return null;
+    return h('span', { class: 'bar-t', 'aria-hidden': 'true' }, [h('i', { style: 'width:' + Math.max(2, Math.round(v.n / HEAD.max * 1000) / 10) + '%' })]);
+  }
+  function renderTable(rows) {
+    var vis = visCols();
+    var thead = h('thead', null, [h('tr', null, vis.map(headCell))]);
+    var tbody = h('tbody', null, rows.map(function (r) {
+      return h('tr', null, vis.map(function (c) {
+        if (c.key === 'name') return h('th', { scope: 'row' }, [openBtn(r, [h('span', { html: glyphFor(r, 0.22, false) }), h('span', { class: 'nm', text: r.name })])]);
+        var v = r.v[c.key], td = h('td', { class: c.type === 'number' ? 'n' : '' });
+        if (v.t === 'none') td.appendChild(unknownNode());
+        else { td.appendChild(document.createTextNode(fmtVal(c, v))); if (c === HEAD) { var bf = barFor(r); if (bf) td.appendChild(bf); } }
+        return td;
+      }));
+    }));
+    var table = h('table', { class: 'grid' }, [h('caption', { class: 'sr', text: 'GPUs. Use the column headings to sort.' }), thead, tbody]);
+    return h('div', { class: 'tbl-w', role: 'region', 'aria-label': 'GPU table, scrolls sideways', tabindex: '0' }, [table]);
+  }
+  function renderCards(rows) {
+    var skip = { name: 1, maker: 1, year: 1 };
+    var vis = visCols().filter(function (c) { return !skip[c.key] && c !== HEAD; });
+    var ul = h('ul', { class: 'cards' });
+    rows.forEach(function (r) {
+      var sub = ['maker', 'year'].map(function (k) { return BY[k] && r.v[k].t !== 'none' ? fmtVal(BY[k], r.v[k]) : null; }).filter(Boolean).join(', ');
+      var main = h('div', null, [h('h3', null, [openBtn(r, [r.name])])]);
+      if (sub) main.appendChild(h('p', { class: 'sub', text: sub }));
+      if (HEAD && r.v[HEAD.key].t === 'num') {
+        main.appendChild(h('p', { class: 'score' }, [h('b', { text: fmtVal(HEAD, r.v[HEAD.key]) }), HEAD.label]));
+        var cb = barFor(r); if (cb) main.appendChild(cb);
+      }
+      var dl = h('dl', { class: 'stats' }), blank = 0;
+      vis.forEach(function (c) {
+        var v = r.v[c.key]; if (v.t === 'none') { blank++; return; }
+        dl.appendChild(h('div', null, [h('dt', { text: c.label }), h('dd', { text: fmtVal(c, v) })]));
+      });
+      var art = h('article', { class: 'card' }, [h('div', { class: 'gl', html: glyphFor(r, 0.6, false) }), main]);
+      if (dl.children.length) art.appendChild(dl);
+      if (blank) art.appendChild(h('p', { class: 'blank-note', text: blank + (blank === 1 ? ' column' : ' columns') + ' blank' }));
+      ul.appendChild(h('li', null, [art]));
+    });
+    return ul;
+  }
+  function renderList() {
+    if (routeId()) return;
+    list.innerHTML = '';
+    if (!CURRENT.length) {
+      var e = h('div', { class: 'empty' }, [h('p', { text: 'No GPUs match these filters.' })]);
+      if (HIDDEN_BY_BLANKS) {
+        var b2 = h('button', { type: 'button', class: 'btn', text: 'Include the ' + HIDDEN_BY_BLANKS + ' with blanks' });
+        b2.addEventListener('click', function () { state.blanks = true; syncAll(); changed(); }); e.appendChild(b2);
+      }
+      var b1 = h('button', { type: 'button', class: 'btn', text: 'Clear filters', style: HIDDEN_BY_BLANKS ? 'margin-left:8px' : '' });
+      b1.addEventListener('click', function () { state.f = {}; state.q = ''; state.blanks = false; syncAll(); changed(); });
+      e.appendChild(b1); list.appendChild(e);
+    } else list.appendChild(state.view === 'cards' ? renderCards(CURRENT) : renderTable(CURRENT));
+    syncPresets();
+    if (pendingFocus) { var t = $(pendingFocus, list); pendingFocus = null; if (t) t.focus(); }
+  }
+
+  /* ---------- one GPU on its own ---------- */
+  var opener = null, savedY = 0;
+  function routeId() {
+    var m = /^#gpu=(.+)$/.exec(location.hash); if (!m) return null;
+    var id; try { id = decodeURIComponent(m[1]); } catch (e) { return null; }
+    return BYID[id] ? id : null;
+  }
+  function openGpu(r, from) {
+    opener = from ? from.getAttribute('data-open') : null; savedY = window.pageYOffset;
+    history.pushState(null, '', '#gpu=' + encodeURIComponent(r.id)); route(true);
+  }
+  function closeGpu() {
+    history.pushState(null, '', location.pathname + location.search); route(false);
+    var back = opener && $('[data-open="' + opener + '"]', list);
+    if (back) back.focus({ preventScroll: true }); else els.count.focus({ preventScroll: true });
+    window.scrollTo(0, savedY);
+  }
+  function renderDetail(r) {
+    var inList = CURRENT.indexOf(r) >= 0, seq = inList ? CURRENT : ROWS.slice().sort(comparer(state.sort));
+    var pos = seq.indexOf(r), prev = seq[pos - 1], next = seq[pos + 1];
+    var back = h('button', { type: 'button', class: 'btn', text: 'All GPUs' });
+    back.addEventListener('click', closeGpu);
+    var go = function (to, txt) {
+      var b = h('button', { type: 'button', class: 'btn', text: txt });
+      if (!to) b.disabled = true; else b.addEventListener('click', function () { history.pushState(null, '', '#gpu=' + encodeURIComponent(to.id)); route(true, true); });
+      return b;
+    };
+    var nav = h('div', { class: 'dnav' }, [back, h('div', { class: 'pn' }, [go(prev, 'Previous'), h('span', { class: 'pos', text: (pos + 1) + ' of ' + seq.length }), go(next, 'Next')])]);
+
+    var sub = ['maker', 'year'].map(function (k) { return BY[k] && r.v[k].t !== 'none' ? fmtVal(BY[k], r.v[k]) : null; }).filter(Boolean).join(', ');
+    var head = h('div', null, [h('h2', { id: 'dh', tabindex: '-1', text: r.name })]);
+    if (sub) head.appendChild(h('p', { class: 'sub', text: sub }));
+    if (HEAD && r.v[HEAD.key].t === 'num') {
+      var rk = rankOf(r), sc = h('div', { class: 'dscore' }, [h('b', { text: fmtVal(HEAD, r.v[HEAD.key]) }), h('p', { text: HEAD.label + (rk ? '. ' + ordinal(rk.rank) + ' of ' + rk.of + ' on this page.' : '') })]);
+      var db2 = barFor(r); if (db2) sc.insertBefore(db2, sc.lastChild);
+      head.appendChild(sc);
+    }
+    var dhead = h('div', { class: 'dhead' }, [h('div', { html: glyphFor(r, 1.4, true) }), head]);
+
+    var groups = [], gi = {}, missing = [];
+    COLS.forEach(function (c) {
+      if (c.key === 'name') return;
+      var v = r.v[c.key];
+      if (v.t === 'none') { if (!c.derive) missing.push(c.label); return; }
+      if (c === HEAD || c.key === 'maker' || c.key === 'year') return;
+      var g = c.group || 'Other'; if (!(g in gi)) { gi[g] = groups.length; groups.push({ g: g, rows: [] }); }
+      var dd = h('dd', { text: fmtVal(c, v) });
+      if (c.meanings && v.t === 'str' && c.meanings[v.s]) dd.appendChild(h('small', { text: cap(c.meanings[v.s]) }));
+      groups[gi[g]].rows.push(h('div', null, [h('dt', { text: c.label }), dd]));
+    });
+    var specs = h('div', { class: 'specs' }, groups.map(function (g) { return h('section', null, [h('h3', { text: g.g }), h('dl', null, g.rows)]); }));
+    var art = h('article', { class: 'detail', 'aria-labelledby': 'dh' }, [nav, dhead, specs]);
+    if (missing.length) art.appendChild(h('p', { class: 'notyet', text: 'Not filled in yet: ' + missing.join(', ') + '.' }));
+    if (!inList) art.appendChild(h('p', { class: 'outside', text: 'This GPU isn’t in your current filters. Previous and next move through all GPUs.' }));
+    return art;
+  }
+  function route(fromUser, keepFocus) {
+    var id = routeId();
+    if (id) {
+      var r = BYID[id];
+      app.classList.add('solo'); side.hidden = true; bar.hidden = true;
+      list.innerHTML = ''; list.appendChild(renderDetail(r));
+      document.title = r.name + ' — ' + BASE_TITLE;
+      if (fromUser || keepFocus) {
+        var top = app.getBoundingClientRect().top + window.pageYOffset - 8;
+        if (window.pageYOffset > top) window.scrollTo(0, Math.max(0, top));
+        $('#dh').focus({ preventScroll: true });
+      }
+    } else {
+      app.classList.remove('solo'); side.hidden = false; bar.hidden = false;
+      document.title = BASE_TITLE; apply(); renderBar(); renderList();
+    }
+  }
+  window.addEventListener('popstate', function () { route(false); });
+  window.addEventListener('hashchange', function () { route(false); });
+
+  /* ---------- footer ---------- */
+  function buildFoot() {
+    var foot = $('#foot');
+    var gl = h('dl');
+    COLS.forEach(function (c) { if (c.about) { gl.appendChild(h('dt', { text: c.label })); gl.appendChild(h('dd', { text: c.about })); } });
+    foot.appendChild(h('details', null, [h('summary', { text: 'What the columns mean' }), h('div', null, [
+      h('p', { text: 'A dash means the value isn’t filled in yet. It doesn’t mean zero. Blank values sort to the end whichever way you sort.' }), gl])]));
+    var ex1 = '{"name": "My new card", "maker": "AMD", "g3d": 9000, "slots": 1, "half": "Yes"}';
+    var ex2 = '{"key": "bus", "label": "Memory bus", "type": "number", "unit": "bit", "default": null}';
+    var ex3 = '{"key": "lp", "label": "Low-profile bracket included", "type": "choice", "options": ["Yes", "No"], "default": "No"}';
+    foot.appendChild(h('details', null, [h('summary', { text: 'Add a GPU or a column' }), h('div', null, [
+      h('p', { html: 'Everything on this page is built from the data block near the top of this file. Edit the block, save, and reload.' }),
+      h('p', { html: '<strong>Add a GPU.</strong> Add one line to <code>"gpus"</code>. Only the name is required. Anything you leave out shows as a dash and sorts last.' }),
+      h('pre', { text: ex1 }),
+      h('p', { html: '<strong>Add a column.</strong> Add one line to <code>"columns"</code>. Every GPU that doesn’t have the new key gets the column’s <code>"default"</code>, or a dash if there isn’t one. You can fill in the real values later, one GPU at a time.' }),
+      h('pre', { text: ex2 }), h('pre', { text: ex3 }),
+      h('p', { html: 'Column types are <code>text</code>, <code>number</code> and <code>choice</code>. Useful extras: <code>unit</code>, <code>prefix</code>, <code>decimals</code>, <code>options</code> (the order of a choice), <code>best</code> (<code>"high"</code> or <code>"low"</code>, which way a first sort goes), <code>show</code> (in the table by default), <code>quick</code> (filter always visible), <code>group</code> and <code>about</code> (shown under “What the columns mean”). A column can be worked out from two others with <code>"derive": {"ratio": ["g3d", "tdp"]}</code>.' }),
+      h('p', { html: 'In a GPU’s line, <code>null</code> means unknown on purpose and <code>"N/A"</code> means a number doesn’t apply.' })])]));
+    if (issues.length) {
+      foot.appendChild(h('details', { class: 'check', open: true }, [h('summary', { text: 'Data check: ' + issues.length + (issues.length === 1 ? ' thing to look at' : ' things to look at') }),
+        h('div', null, [h('ul', null, issues.map(function (m) { return h('li', { text: m }); }))])]));
+    }
+    var rs = h('button', { type: 'button', class: 'btn plain', text: 'Reset everything' });
+    rs.addEventListener('click', function () {
+      try { localStorage.removeItem(STORE); } catch (e) { /* ignore */ }
+      state = defaults(); syncAll();
+      if (location.hash) history.pushState(null, '', location.pathname + location.search);
+      route(false);
+    });
+    foot.appendChild(h('p', { class: 'reset-line' }, ['Your filters, sort and column choices are saved in this browser.', rs]));
+  }
+
+  /* ---------- go ---------- */
+  buildSide(); buildBar(); buildFoot(); syncAll();
+  app.hidden = false;
+  apply();
+  route(false);
+  if (routeId()) { var dh = $('#dh'); if (dh) dh.focus({ preventScroll: true }); }
+})();
+</script>
+</body>
+</html>
