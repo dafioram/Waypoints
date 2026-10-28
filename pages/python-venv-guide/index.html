@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<title>Python virtual environments — Waypoints</title>
+<meta name="description" content="Create, activate and delete Python virtual environments on Linux and Windows, manage requirements files, run several Python versions side by side, and fix the common errors." />
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preload" href="media/literata-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="media/literata-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+<script type="application/json" id="page-meta">
+{
+  "title": "Python virtual environments",
+  "description": "Create, activate and delete Python virtual environments on Linux and Windows, manage requirements files, run several Python versions side by side, and fix the common errors.",
+  "tags": [
+    "python",
+    "venv",
+    "reference",
+    "command-line"
+  ],
+  "date": "2026-10-28"
+}
+</script>
+<script>(function(){try{var d=document.documentElement,o=null;try{var r=JSON.parse(localStorage.getItem("waypoints:python-venv-guide")||"{}");if(r&&(r.os==="linux"||r.os==="windows"))o=r.os}catch(e){}if(!o){var p=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||"";o=/^win/i.test(p)||/Windows/.test(navigator.userAgent||"")?"windows":"linux"}d.setAttribute("data-os",o);d.className+=" js"}catch(e){}})();</script>
+<style>
+@font-face{font-family:"Literata";font-style:normal;font-weight:400;font-display:swap;src:url(media/literata-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Literata";font-style:italic;font-weight:400;font-display:swap;src:url(media/literata-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Literata";font-style:normal;font-weight:700;font-display:swap;src:url(media/literata-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url(media/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:700;font-display:swap;src:url(media/jetbrains-mono-latin-700-normal.woff2) format("woff2")}
+
+:root{
+  --pv-paper:#EFECF6; --pv-sheet:#F9F8FC; --pv-wash:#E2DDEF;
+  --pv-ink:#211A37; --pv-ink2:#4A4262; --pv-rule:#C9C2DB;
+  --pv-term:#261E40; --pv-bar:#33294F; --pv-tink:#F0ECFA; --pv-tdim:#B0A8CC; --pv-trule:#4A3F73;
+  --pv-live:#17694B; --pv-live-t:#8BE6BA; --pv-live-wash:#D3ECE1;
+  --pv-warn:#A3361C; --pv-warn-wash:#F6DDD5;
+  --pv-gold:#D9A441; --pv-gold-wash:#F3E7C9;
+  --pv-link:#4A2DB2; --pv-focus:#5B3FD0;
+  --pv-serif:"Literata",Georgia,"Times New Roman",serif;
+  --pv-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,Menlo,monospace;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --pv-paper:#16112A; --pv-sheet:#1E1738; --pv-wash:#2B2250;
+    --pv-ink:#ECE8F8; --pv-ink2:#B9B0D4; --pv-rule:#3E3464;
+    --pv-term:#0D0A1C; --pv-bar:#1D1637; --pv-tink:#F0ECFA; --pv-tdim:#A79EC6; --pv-trule:#3E3464;
+    --pv-live:#7FDDB0; --pv-live-t:#8BE6BA; --pv-live-wash:#16382B;
+    --pv-warn:#FF9F84; --pv-warn-wash:#3C1F1B;
+    --pv-gold:#E3B341; --pv-gold-wash:#3A3019;
+    --pv-link:#BDAEFF; --pv-focus:#BDAEFF;
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--pv-paper);color:var(--pv-ink);font:400 1.0625rem/1.65 var(--pv-serif)}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;padding:0}
+:focus-visible{outline:3px solid var(--pv-focus);outline-offset:2px}
+button,input,summary{font:inherit;color:inherit}
+a{color:var(--pv-link);text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+code,pre,.d-prompt,.d-path,.d-res dd,.d-btn,.tp{font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
+code{font:400 .875em/1.4 var(--pv-mono);background:var(--pv-wash);padding:.08em .35em;border-radius:4px;overflow-wrap:anywhere}
+h1,h2,h3{font-family:var(--pv-serif);font-weight:700;color:var(--pv-ink)}
+h1{margin:0 0 1.1rem;font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.04;letter-spacing:-.018em}
+h2{margin:0 0 .8rem;font-size:clamp(1.55rem,3.6vw,1.95rem);line-height:1.18;letter-spacing:-.008em;scroll-margin-top:4.5rem}
+h3{margin:2.1rem 0 .5rem;font-size:1.2rem;line-height:1.3;scroll-margin-top:4.5rem}
+h3 code{font-size:.82em}
+p{margin:0 0 1rem;max-width:41rem}
+ul,ol{margin:0 0 1.1rem;padding-left:1.3rem;max-width:41rem}
+li{margin:0 0 .4rem}
+strong{font-weight:700}
+
+/* hero */
+.hero{padding:1.6rem 16px 2.2rem}
+.hero-in{max-width:76rem;margin:0 auto;display:grid;gap:1.6rem 3rem;grid-template-columns:minmax(0,1fr);align-items:start}
+.lede{margin:0;font-size:1.1875rem;line-height:1.6;color:var(--pv-ink2);max-width:34rem}
+@media (min-width:920px){.hero{padding-top:2.4rem;padding-bottom:3rem}.hero-in{grid-template-columns:minmax(0,1fr) minmax(0,27rem)}}
+
+/* the one thing that moves: PATH demo */
+.demo{background:var(--pv-term);color:var(--pv-tink);border-radius:12px;padding:1.05rem 1.15rem 1.15rem}
+.demo h2{margin:0 0 .75rem;font-size:1.05rem;line-height:1.3;letter-spacing:0;color:var(--pv-tink)}
+.d-prompt{margin:0 0 .9rem;padding:.55rem .75rem;background:var(--pv-bar);border-radius:6px;font:400 .875rem/1.5 var(--pv-mono);overflow-wrap:anywhere}
+.d-prompt .pv{color:var(--pv-live-t);font-weight:700}
+.d-lab{margin:0 0 .3rem;font-size:.875rem;color:var(--pv-tdim);max-width:none}
+.d-path{list-style:none;margin:0 0 .9rem;padding:0;max-width:none;font:400 .8125rem/1.45 var(--pv-mono)}
+.d-path li{margin:0;padding:.3rem .6rem;border-left:3px solid var(--pv-trule);display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .8rem;justify-content:space-between}
+.d-path li+li{margin-top:2px}
+.d-path .pth{overflow-wrap:anywhere;min-width:0}
+.d-path .hit{font:400 .8125rem/1.4 var(--pv-serif);color:var(--pv-tink);background:var(--pv-trule);border-radius:99px;padding:.02rem .55rem;white-space:nowrap}
+.d-path li.new{border-left-color:var(--pv-live-t);background:rgba(139,230,186,.12)}
+.d-path li.new .pth{color:var(--pv-live-t)}
+.d-path li.new .hit{background:var(--pv-live-t);color:#0D2A1F}
+@media (prefers-reduced-motion:no-preference){.d-path li.fresh{animation:slotin .28s cubic-bezier(.2,.8,.2,1) both}@keyframes slotin{from{opacity:0;transform:translateY(-.5rem)}to{opacity:1;transform:none}}}
+.d-res{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.2rem .9rem;margin:0 0 1rem;font-size:.875rem}
+.d-res dt{color:var(--pv-tdim)}
+.d-res dd{margin:0;font:400 .8125rem/1.5 var(--pv-mono);overflow-wrap:anywhere}
+.d-btn{display:block;width:100%;min-height:2.75rem;padding:.5rem .9rem;text-align:left;border-radius:8px;border:1.5px solid var(--pv-live-t);background:transparent;color:var(--pv-live-t);font:700 .875rem/1.35 var(--pv-mono);cursor:pointer;overflow-wrap:anywhere}
+.d-btn:hover{background:rgba(139,230,186,.14)}
+.d-btn.on{background:var(--pv-live-t);color:#0D2A1F}
+.d-btn.on:hover{background:#A6EFCB}
+.d-btn:focus-visible{outline-color:var(--pv-live-t)}
+.d-note{margin:.8rem 0 0;font-size:.875rem;line-height:1.5;color:var(--pv-tdim);max-width:none}
+
+/* sticky OS switch */
+.osbar{position:sticky;top:0;z-index:30;background:var(--pv-paper);border-top:1px solid var(--pv-rule);border-bottom:1px solid var(--pv-rule)}
+.osbar-in{max-width:76rem;margin:0 auto;padding:.5rem 16px;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem}
+.seg{display:flex;align-items:center;flex-wrap:wrap;gap:.3rem .7rem;min-width:0}
+.seg-l{font-size:.9375rem;color:var(--pv-ink2)}
+.seg-b{display:flex;border:1.5px solid var(--pv-ink2);border-radius:8px;overflow:hidden}
+.seg label{position:relative;display:block}
+.seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.seg label span{display:block;padding:.38rem .85rem;font-size:.9375rem;line-height:1.4;min-height:2.25rem;display:flex;align-items:center}
+.seg label+label span{border-left:1.5px solid var(--pv-ink2)}
+.seg input:checked+span{background:var(--pv-ink);color:var(--pv-paper);font-weight:700}
+.seg input:focus-visible+span{outline:3px solid var(--pv-focus);outline-offset:-3px}
+.linkbtn{background:none;border:0;padding:.35rem .2rem;min-height:2.25rem;color:var(--pv-link);text-decoration:underline;text-underline-offset:.18em;cursor:pointer;font-size:.9375rem}
+.osbar-note{margin:0;font-size:.9375rem;color:var(--pv-ink2);max-width:none}
+
+/* page grid */
+.shell{max-width:76rem;margin:0 auto;padding:0 16px 3rem;display:grid;grid-template-columns:minmax(0,1fr);gap:0 3.5rem}
+.rail{display:none}
+.toc-m{margin:1rem 0 0}
+.toc-m details{border:1px solid var(--pv-rule);border-radius:8px;background:var(--pv-sheet)}
+.toc-m summary{padding:.7rem 1rem;cursor:pointer;font-weight:700}
+.toc-m ol{list-style:none;margin:0;padding:0 1rem .8rem;max-width:none}
+.toc-m a{display:block;padding:.3rem 0}
+@media (min-width:1000px){
+  .shell{grid-template-columns:13rem minmax(0,50rem)}
+  .rail{display:block;position:sticky;top:4.25rem;align-self:start;padding-top:1.7rem;max-height:calc(100vh - 5rem);overflow:auto}
+  .toc-m{display:none}
+}
+.rail-h{margin:0 0 .5rem;font-size:1rem;line-height:1.3;font-weight:700}
+.rail ol{list-style:none;margin:0;padding:0;max-width:none}
+.rail li{margin:0}
+.rail a{display:block;padding:.28rem .7rem;border-left:3px solid transparent;color:var(--pv-ink2);text-decoration:none;font-size:.9375rem;line-height:1.35}
+.rail a:hover{color:var(--pv-ink);background:var(--pv-wash)}
+.rail a[aria-current]{border-left-color:var(--pv-live);color:var(--pv-ink);font-weight:700}
+
+main{min-width:0}
+section.sec{padding-top:3rem}
+section.sec:first-of-type{padding-top:1.8rem}
+
+/* terminal and file blocks */
+.term,.file{margin:1rem 0 1.5rem;background:var(--pv-term);color:var(--pv-tink);border-radius:8px;overflow:hidden}
+.term-h{display:flex;align-items:center;justify-content:space-between;gap:.6rem;background:var(--pv-bar);padding:.2rem .45rem .2rem .95rem;min-height:2.6rem}
+.term-t{font-size:.875rem;line-height:1.3;color:var(--pv-tdim);min-width:0}
+.copy{flex:none;min-height:2.1rem;padding:.2rem .8rem;border:1px solid var(--pv-trule);border-radius:6px;background:transparent;color:var(--pv-tink);font-size:.8125rem;cursor:pointer}
+.copy:hover{background:var(--pv-trule)}
+.copy:focus-visible{outline-color:var(--pv-live-t)}
+.term pre,.file pre{margin:0;padding:.85rem 1rem 1rem;font:400 .875rem/1.7 var(--pv-mono);white-space:pre-wrap;overflow-wrap:anywhere;tab-size:4}
+.term code,.file code{font:inherit;background:none;padding:0;border-radius:0;display:block;overflow-wrap:anywhere}
+.ln{display:block}
+.ln.bl{height:.85em}
+.p{color:var(--pv-tdim);user-select:none;-webkit-user-select:none}
+.p .pv{color:var(--pv-live-t);font-weight:700}
+.o,.tc,.cm{color:var(--pv-tdim)}
+.tc{user-select:none;-webkit-user-select:none}
+.t{color:var(--pv-tink)}
+
+/* folder trees */
+.tree{margin:1rem 0 1.6rem;padding:.75rem 1rem;background:var(--pv-sheet);border:1px solid var(--pv-rule);border-radius:8px}
+.tree{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:0 1.6rem}
+.tl{display:contents}
+.tp{font:400 .875rem/1.65 var(--pv-mono);white-space:pre}
+.tp .tg{color:var(--pv-ink2)}
+.tn{font-size:.9375rem;line-height:1.5;color:var(--pv-ink2);padding-top:.05rem}
+@media (max-width:43rem){.tree{grid-template-columns:minmax(0,1fr)}.tn{padding:0 0 .45rem 3ch}}
+
+/* tables */
+.t-w{margin:1rem 0 1.6rem}
+table.tb{width:100%;border-collapse:collapse;font-size:.9375rem;line-height:1.5}
+.tb caption{text-align:left;padding:0 0 .5rem;color:var(--pv-ink2);font-size:.9375rem}
+.tb th,.tb td{padding:.55rem .75rem;border-bottom:1px solid var(--pv-rule);text-align:left;vertical-align:top}
+.tb thead th{background:var(--pv-wash);font-weight:700;border-bottom:0}
+.tb tbody th{font-weight:700;width:1%;white-space:nowrap}
+.tb.wide tbody th{width:11rem;white-space:normal}
+.tb.wide td{width:auto}
+.tb td code{white-space:normal}
+@media (max-width:43rem){
+  table.tb.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%)}
+  table.tb.stack caption{display:block;width:auto}
+  table.tb.stack,table.tb.stack tbody,table.tb.stack tr,table.tb.stack th,table.tb.stack td{display:block;width:auto}
+  table.tb.stack tr{padding:.6rem 0;border-bottom:1px solid var(--pv-rule)}
+  table.tb.stack th,table.tb.stack td{border:0;padding:.12rem 0;white-space:normal}
+  table.tb.stack td:not([data-l])::before{display:none}
+  table.tb.stack td::before{content:attr(data-l);display:block;font-size:.8125rem;font-weight:700;color:var(--pv-ink2)}
+  table.tb.stack tbody th{width:auto;font-size:1.0625rem}
+}
+@media (max-width:30rem){
+  table.tb:not(.stack) tbody th{white-space:normal}
+  .seg-l{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+  .osbar-in{gap:.4rem .6rem}
+}
+
+/* callouts */
+.note{margin:1.3rem 0 1.6rem;padding:.8rem 1.05rem .85rem 1.1rem;border-left:4px solid var(--pv-live);background:var(--pv-sheet);border-radius:0 8px 8px 0;max-width:41rem}
+.note p{margin:0 0 .6rem}
+.note p:last-child,.note .term:last-child{margin-bottom:0}
+.note.warn{border-left-color:var(--pv-warn)}
+.note.pick{border-left-color:var(--pv-gold);background:var(--pv-gold-wash)}
+.note .term,.note .file{max-width:100%}
+
+/* deep dives */
+details.deep{margin:1.3rem 0 1.6rem;border:1px solid var(--pv-rule);border-radius:8px;background:var(--pv-sheet)}
+details.deep>summary{cursor:pointer;padding:.75rem 1rem;font-weight:700;list-style:none;display:flex;align-items:center;gap:.7rem}
+details.deep>summary::-webkit-details-marker{display:none}
+details.deep>summary::before{content:"";flex:none;width:.5rem;height:.5rem;border-right:2px solid var(--pv-ink2);border-bottom:2px solid var(--pv-ink2);transform:rotate(-45deg);transition:transform .15s}
+details.deep[open]>summary::before{transform:rotate(45deg)}
+@media (prefers-reduced-motion:reduce){details.deep>summary::before{transition:none}}
+.deep-b{padding:0 1rem 1rem}
+.deep-b>*:last-child{margin-bottom:0}
+.deep-b .term,.deep-b .file{margin-top:.6rem}
+
+html:not(.js) .osbar{display:none}
+/* OS filtering: with JS one OS shows; without JS both do and titles say which is which */
+html[data-os="linux"] [data-os-only="windows"],html[data-os="windows"] [data-os-only="linux"]{display:none!important}
+
+.src{padding-left:1.3rem}
+.src li{overflow-wrap:anywhere}
+.foot{max-width:76rem;margin:0 auto;padding:0 16px 3rem}
+.foot p{max-width:41rem;color:var(--pv-ink2);font-size:.9375rem}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+
+<header class="hero">
+  <div class="hero-in">
+    <div>
+      <h1>Python virtual environments</h1>
+      <p class="lede">A virtual environment is a folder that gives one project its own Python packages, so what you install for one project cannot break another. This guide covers the everyday commands, how to keep several Python versions side by side, and what to do when something goes wrong.</p>
+    </div>
+    <section class="demo" aria-labelledby="d-h">
+      <h2 id="d-h">What activating changes</h2>
+      <p class="d-prompt" id="d-prompt">ada@box:~/myproject$</p>
+      <p class="d-lab" id="d-path-l">PATH, searched from the top. The first match wins.</p>
+      <ol class="d-path" id="d-path" aria-labelledby="d-path-l">
+        <li><span class="pth">/home/ada/.local/bin</span></li>
+        <li><span class="pth">/usr/local/bin</span></li>
+        <li><span class="pth">/usr/bin</span><span class="hit">python3 found here</span></li>
+        <li><span class="pth">/bin</span></li>
+      </ol>
+      <dl class="d-res">
+        <dt id="d-py-l">python3 runs</dt><dd id="d-py">/usr/bin/python3</dd>
+        <dt>VIRTUAL_ENV</dt><dd id="d-ve">not set</dd>
+      </dl>
+      <button type="button" class="d-btn" id="d-btn" hidden>source .venv/bin/activate</button>
+      <p class="d-note">Example paths; yours will differ. Activation only edits PATH and the prompt. Nothing is copied or installed.</p>
+      <p class="sr" role="status" id="d-live"></p>
+    </section>
+  </div>
+</header>
+
+<section class="osbar" aria-label="Operating system for commands">
+  <div class="osbar-in">
+    <div class="seg" role="radiogroup" aria-labelledby="seg-l">
+      <span id="seg-l" class="seg-l">Commands for</span>
+      <div class="seg-b">
+        <label><input type="radio" name="os" value="linux" /><span>Linux, macOS</span></label>
+        <label><input type="radio" name="os" value="windows" /><span>Windows</span></label>
+      </div>
+    </div>
+    <button type="button" class="linkbtn" id="os-reset">Reset choice</button>
+  </div>
+</section>
+
+<div class="shell">
+  <nav class="rail" aria-label="On this page">
+    <p class="rail-h">On this page</p>
+    <ol><li><a href="#quick-start">Quick start</a></li><li><a href="#what-it-is">What a virtual environment is</a></li><li><a href="#create">Create an environment</a></li><li><a href="#activate">Activate and deactivate</a></li><li><a href="#packages">Install and inspect packages</a></li><li><a href="#requirements">Requirements files</a></li><li><a href="#versions">Several Python versions</a></li><li><a href="#conventions">Project conventions</a></li><li><a href="#troubleshooting">Troubleshooting</a></li><li><a href="#checked">How this was checked</a></li></ol>
+  </nav>
+  <main id="main">
+    <nav class="toc-m" aria-label="On this page"><details><summary>On this page</summary><ol><li><a href="#quick-start">Quick start</a></li><li><a href="#what-it-is">What a virtual environment is</a></li><li><a href="#create">Create an environment</a></li><li><a href="#activate">Activate and deactivate</a></li><li><a href="#packages">Install and inspect packages</a></li><li><a href="#requirements">Requirements files</a></li><li><a href="#versions">Several Python versions</a></li><li><a href="#conventions">Project conventions</a></li><li><a href="#troubleshooting">Troubleshooting</a></li><li><a href="#checked">How this was checked</a></li></ol></details></nav>
+<section class="sec" id="quick-start">
+<h2>Quick start</h2>
+<p>These are the commands you will run most often, from creating an environment to throwing it away. The rest of the guide explains each step and what to do when one fails.</p>
+
+<div class="term" data-os-only="linux" role="group" aria-label="Quick start (Linux, macOS)"><div class="term-h"><span class="term-t">Quick start (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">cd myproject</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python3 -m venv .venv</span><span class="tc"> # create it, once per project</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">source .venv/bin/activate</span><span class="tc"> # switch it on, in every new terminal</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip install requests</span><span class="tc"> # installs into .venv only</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip list</span><span class="tc"> # what is installed here</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip freeze &gt; requirements.txt</span><span class="tc"> # save the exact versions</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip install -r requirements.txt</span><span class="tc"> # restore them somewhere else</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">deactivate</span><span class="tc"> # switch it off</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">rm -rf .venv</span><span class="tc"> # delete it; you can always recreate it</span></span></code></pre></div>
+
+<div class="term" data-os-only="windows" role="group" aria-label="Quick start (Windows, PowerShell)"><div class="term-h"><span class="term-t">Quick start (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">cd myproject</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py -m venv .venv</span><span class="tc"> # create it, once per project</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">.venv\Scripts\Activate.ps1</span><span class="tc"> # switch it on, in every new terminal</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip install requests</span><span class="tc"> # installs into .venv only</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip list</span><span class="tc"> # what is installed here</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip freeze | Out-File -Encoding utf8 requirements.txt</span><span class="tc"> # save the exact versions</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip install -r requirements.txt</span><span class="tc"> # restore them somewhere else</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">deactivate</span><span class="tc"> # switch it off</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">Remove-Item -Recurse -Force .venv</span><span class="tc"> # delete it; you can always recreate it</span></span></code></pre></div>
+
+<p data-os-only="windows">The Windows examples use PowerShell. The <code>pip</code> and <code>uv</code> commands are identical in cmd.exe; only activating and deleting differ, and <a href="#activate">the activation section</a> lists those.</p>
+<p>The prompt shows <code>(.venv)</code> while an environment is switched on, and the examples show it the same way. Two habits are worth keeping from day one: write <code>python -m pip</code> when you are not sure which pip you will get, and commit <code>requirements.txt</code> but never <code>.venv</code>.</p>
+</section>
+
+<section class="sec" id="what-it-is">
+<h2>What a virtual environment is</h2>
+<p>A virtual environment is an ordinary folder, usually named <code>.venv</code>, inside your project. It holds a <code>python</code> that points back at the Python which created it, its own empty <code>site-packages</code> folder where <code>pip install</code> puts packages, and a few activation scripts. It is quick to create because nothing is downloaded and Python's standard library is not copied.</p>
+
+<div class="tree" data-os-only="linux" role="group" aria-label="Contents of .venv on Linux"><div class="tl"><span class="tp"><span class="tg" aria-hidden="true"></span>.venv/</span><span class="tn">The whole environment. Safe to delete.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>bin/</span><span class="tn">Commands and activation scripts.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  ├─ </span>python</span><span class="tn">A link to the Python that created it.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  ├─ </span>pip</span><span class="tn">pip for this environment only.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  └─ </span>activate</span><span class="tn">Also activate.fish, activate.csh and Activate.ps1.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>include/</span><span class="tn">Headers, for packages that compile code.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>lib/python3.12/</span><span class="tn">Named for the Python version.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  └─ </span>site-packages/</span><span class="tn">Every package you install lands here.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>lib64</span><span class="tn">A link to lib, on 64-bit Linux.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">└─ </span>pyvenv.cfg</span><span class="tn">Records which Python made it.</span></div></div>
+
+<div class="tree" data-os-only="windows" role="group" aria-label="Contents of .venv on Windows"><div class="tl"><span class="tp"><span class="tg" aria-hidden="true"></span>.venv\</span><span class="tn">The whole environment. Safe to delete.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>Scripts\</span><span class="tn">Commands and activation scripts.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  ├─ </span>python.exe</span><span class="tn">The environment's Python.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  ├─ </span>pip.exe</span><span class="tn">pip for this environment only.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  └─ </span>Activate.ps1</span><span class="tn">Also activate.bat and activate.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>Include\</span><span class="tn">Headers, for packages that compile code.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>Lib\</span><span class="tn">Python's library folder.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">│  └─ </span>site-packages\</span><span class="tn">Every package you install lands here.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">└─ </span>pyvenv.cfg</span><span class="tn">Records which Python made it.</span></div></div>
+
+<p>The last file is why an environment stays on one Python version. This is the real <code>pyvenv.cfg</code> of an environment created with Python 3.12:</p>
+<div class="file" role="group" aria-label="pyvenv.cfg"><div class="term-h"><span class="term-t">pyvenv.cfg</span></div><pre><code><span class="ln"><span class="t">home = /usr/bin</span></span><span class="ln"><span class="t">include-system-site-packages = false</span></span><span class="ln"><span class="t">version = 3.12.3</span></span><span class="ln"><span class="t">executable = /usr/bin/python3.12</span></span><span class="ln"><span class="t">command = /usr/bin/python3.12 -m venv /home/ada/myproject/.venv</span></span></code></pre></div>
+
+<h3>What activating does</h3>
+<p>Activation changes three things in your current terminal: it puts the environment's <span data-os-only="linux"><code>bin</code></span><span data-os-only="windows"><code>Scripts</code></span> folder first on <code>PATH</code>, sets a <code>VIRTUAL_ENV</code> variable, and adds <code>(.venv)</code> to your prompt. Typing <code>python</code> then finds the environment's copy before the system one. <code>deactivate</code> undoes exactly those three changes. The panel at the top of this page lets you try it.</p>
+
+<h3>What follows from that</h3>
+<ul>
+<li><strong>You do not have to activate.</strong> <span data-os-only="linux"><code>.venv/bin/python app.py</code></span><span data-os-only="windows"><code>.venv\Scripts\python app.py</code></span> runs with the environment's packages. Use this form in cron jobs, services and scripts, where nobody is there to activate.</li>
+<li><strong>An environment belongs to its path.</strong> The scripts inside it contain the absolute path of the folder they were created in. Moving or renaming <code>.venv</code> breaks it; <a href="#troubleshooting">recreate it instead</a>.</li>
+<li><strong>An environment belongs to one Python version.</strong> To change version you build a new environment, as <a href="#versions">the versions section</a> shows.</li>
+<li><strong>An environment is disposable.</strong> Delete it whenever it gets confusing. The requirements file is the record, and the environment is only the result.</li>
+</ul>
+<p>To check from inside Python whether an environment is active, compare two values. They differ only inside an environment:</p>
+<div class="term" role="group" aria-label="Is an environment active?"><div class="term-h"><span class="term-t">Is an environment active?</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="t">python -c "import sys; print(sys.prefix != sys.base_prefix)"</span></span><span class="ln o">False</span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">python -c "import sys; print(sys.prefix != sys.base_prefix)"</span></span><span class="ln o">True</span></code></pre></div>
+</section>
+
+<section class="sec" id="create">
+<h2>Create an environment</h2>
+<p>Run this from your project folder. <code>-m venv</code> means “run the venv module of this Python”, and <code>.venv</code> is the folder to create.</p>
+
+<div class="term" data-os-only="linux" role="group" aria-label="Create (Linux, macOS)"><div class="term-h"><span class="term-t">Create (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python3 -m venv .venv</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Create (Windows, PowerShell)"><div class="term-h"><span class="term-t">Create (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py -m venv .venv</span></span></code></pre></div>
+
+<p>The new environment uses the Python that ran the command, at that version. To use a different version, run that version instead, as in <a href="#versions">Several Python versions</a>. <span data-os-only="windows">On Windows <code>py</code> starts the Python install manager's default Python; <code>python -m venv .venv</code> works too when <code>python</code> is on your PATH.</span><span data-os-only="linux">On Debian and Ubuntu you may first need <code>sudo apt install python3-venv</code>; <a href="#t-ensurepip">the exact message is below</a>.</span></p>
+
+<h3>Name and location</h3>
+<p>Call it <code>.venv</code> and keep it in the project root. The leading dot hides it from casual listings, uv uses that name by default, and because it is the same in every project, commands and docs can be copied between them. Names like <code>venv</code> or <code>env</code> work the same but need their own line in <code>.gitignore</code> and are not what uv looks for.</p>
+
+<details class="deep">
+<summary>Every option of python -m venv</summary>
+<div class="deep-b">
+<div class="t-w">
+<table class="tb stack">
+<thead><tr><th scope="col">Option</th><th scope="col">What it does</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>--prompt NAME</code></th><td>Text shown in the prompt while the environment is active. The default is the folder name, so <code>(.venv)</code>. <code>--prompt .</code> uses the name of the folder you ran the command in.</td></tr>
+<tr><th scope="row"><code>--upgrade-deps</code></th><td>Upgrade pip to the newest release as part of creating the environment (Python 3.9 and later). Saves a separate upgrade step.</td></tr>
+<tr><th scope="row"><code>--system-site-packages</code></th><td>Let the environment also import packages installed in the base Python. Off by default; leave it off unless you know you need it.</td></tr>
+<tr><th scope="row"><code>--clear</code></th><td>Empty the target folder first if it already exists.</td></tr>
+<tr><th scope="row"><code>--upgrade</code></th><td>Update an existing environment after the base Python was upgraded in place. It does not switch versions.</td></tr>
+<tr><th scope="row"><code>--without-pip</code></th><td>Skip installing pip.</td></tr>
+<tr><th scope="row"><code>--symlinks</code>, <code>--copies</code></th><td>Link or copy the Python files. Linux defaults to links and Windows to copies.</td></tr>
+<tr><th scope="row"><code>--without-scm-ignore-files</code></th><td>Python 3.13 and later: do not write the <code>.gitignore</code> that those versions put inside the environment.</td></tr>
+</tbody>
+</table>
+</div>
+<p>A common combination:</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Prompt named after the folder, pip up to date (Linux, macOS)"><div class="term-h"><span class="term-t">Prompt named after the folder, pip up to date (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python3 -m venv --prompt . --upgrade-deps .venv</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Prompt named after the folder, pip up to date (Windows, PowerShell)"><div class="term-h"><span class="term-t">Prompt named after the folder, pip up to date (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py -m venv --prompt . --upgrade-deps .venv</span></span></code></pre></div>
+</div>
+</details>
+</section>
+
+<section class="sec" id="activate">
+<h2>Activate and deactivate</h2>
+<p>Activation applies to one terminal window. Do it again whenever you open a new terminal in the project.</p>
+
+<div class="t-w">
+<table class="tb stack">
+<caption>Activation command for each shell</caption>
+<thead><tr><th scope="col">Shell</th><th scope="col">Command</th></tr></thead>
+<tbody>
+<tr data-os-only="linux"><th scope="row">bash, zsh</th><td><code>source .venv/bin/activate</code></td></tr>
+<tr data-os-only="linux"><th scope="row">fish</th><td><code>source .venv/bin/activate.fish</code></td></tr>
+<tr data-os-only="linux"><th scope="row">csh, tcsh</th><td><code>source .venv/bin/activate.csh</code></td></tr>
+<tr data-os-only="linux"><th scope="row">PowerShell on Linux</th><td><code>.venv/bin/Activate.ps1</code></td></tr>
+<tr data-os-only="windows"><th scope="row">PowerShell</th><td><code>.venv\Scripts\Activate.ps1</code></td></tr>
+<tr data-os-only="windows"><th scope="row">cmd.exe</th><td><code>.venv\Scripts\activate.bat</code></td></tr>
+<tr data-os-only="windows"><th scope="row">Git Bash</th><td><code>source .venv/Scripts/activate</code> (the venv docs do not list this one; it is the usual form in Git Bash)</td></tr>
+</tbody>
+</table>
+</div>
+<p data-os-only="linux">In bash and zsh the word <code>source</code> matters. The script has to change your current shell, so running it as a program (<code>./.venv/bin/activate</code>) does nothing useful and fails with “Permission denied”.</p>
+
+<div class="note warn" data-os-only="windows">
+<p><strong>“Running scripts is disabled on this system.”</strong> PowerShell blocks <code>Activate.ps1</code> until you allow local scripts for your own account. Run this once:</p>
+<div class="term" data-os-only="windows" role="group" aria-label="Allow local scripts for your user (Windows, PowerShell)"><div class="term-h"><span class="term-t">Allow local scripts for your user (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</span></span></code></pre></div>
+</div>
+
+<h3>Check that it worked</h3>
+<p>The prompt gains <code>(.venv)</code>. To be certain, ask where Python and pip come from; both should point inside the environment.</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Check (Linux, macOS)"><div class="term-h"><span class="term-t">Check (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">which python</span></span><span class="ln o">/home/ada/myproject/.venv/bin/python</span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip --version</span></span><span class="ln o">pip 24.0 from /home/ada/myproject/.venv/lib/python3.12/site-packages/pip (python 3.12)</span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Check (Windows, PowerShell)"><div class="term-h"><span class="term-t">Check (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">(Get-Command python).Source</span></span><span class="ln o">C:\Users\ada\myproject\.venv\Scripts\python.exe</span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip --version</span></span></code></pre></div>
+
+<h3>Deactivate and delete</h3>
+<div class="term" data-os-only="linux" role="group" aria-label="Switch off, then delete (Linux, macOS)"><div class="term-h"><span class="term-t">Switch off, then delete (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">deactivate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">rm -rf .venv</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Switch off, then delete (Windows, PowerShell)"><div class="term-h"><span class="term-t">Switch off, then delete (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">deactivate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">Remove-Item -Recurse -Force .venv</span></span></code></pre></div>
+<p data-os-only="windows">In cmd.exe the delete command is <code>rmdir /s /q .venv</code>.</p>
+<p><code>deactivate</code> is a function that the activate script defines, so it exists only while an environment is active. Typed with nothing active, it answers “command not found”. Leave the environment before deleting it, so your PATH does not keep pointing at a folder that no longer exists.</p>
+</section>
+
+<section class="sec" id="packages">
+<h2>Install and inspect packages</h2>
+<p>With the environment active, <code>pip</code> installs into it and nowhere else. This is the session behind the numbers in this guide:</p>
+<div class="term" role="group" aria-label="Install, then look"><div class="term-h"><span class="term-t">Install, then look</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip install requests</span></span><span class="ln o">Successfully installed certifi-2026.10.23 charset-normalizer-3.5.2 idna-3.20 requests-2.34.2 urllib3-2.8.0</span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip list</span></span><span class="ln o">Package            Version</span><span class="ln o">------------------ ----------</span><span class="ln o">certifi            2026.10.23</span><span class="ln o">charset-normalizer 3.5.2</span><span class="ln o">idna               3.20</span><span class="ln o">pip                24.0</span><span class="ln o">requests           2.34.2</span><span class="ln o">urllib3            2.8.0</span></code></pre></div>
+<p>Installing one package pulled in four, because <code>requests</code> depends on them. That matters again in <a href="#requirements">Requirements files</a>.</p>
+
+<div class="t-w">
+<table class="tb stack">
+<caption>The pip commands you will use most</caption>
+<thead><tr><th scope="col">Command</th><th scope="col">What it does</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>pip install requests</code></th><td>Install the newest version.</td></tr>
+<tr><th scope="row"><code>pip install requests==2.34.2</code></th><td>Install exactly that version.</td></tr>
+<tr><th scope="row"><code>pip install "requests&gt;=2.31,&lt;3"</code></th><td>Install a version within a range. The quotes stop the shell treating <code>&gt;</code> and <code>&lt;</code> as redirects.</td></tr>
+<tr><th scope="row"><code>pip install --upgrade requests</code></th><td>Move to the newest version.</td></tr>
+<tr><th scope="row"><code>pip uninstall requests</code></th><td>Remove it. Asks first; <code>-y</code> skips the question. Its dependencies stay.</td></tr>
+<tr><th scope="row"><code>pip list --outdated</code></th><td>Show installed packages that have newer releases.</td></tr>
+<tr><th scope="row"><code>pip show requests</code></th><td>Version, install location, and which packages it needs.</td></tr>
+<tr><th scope="row"><code>pip check</code></th><td>Report installed packages whose requirements are not met.</td></tr>
+<tr><th scope="row"><code>pip install -e .</code></th><td>Install your own project in editable mode, so code changes take effect without reinstalling. Needs a <code>pyproject.toml</code>.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<p><strong><code>python -m pip</code> is the safe spelling.</strong> <code>pip</code> and <code>python -m pip</code> both use the environment's pip when it is active. The longer form always uses the pip that belongs to the Python you named, so it cannot pick up another pip by accident. It is also the only form that works when you call the environment's Python by path, as in <span data-os-only="linux"><code>.venv/bin/python -m pip install requests</code></span><span data-os-only="windows"><code>.venv\Scripts\python -m pip install requests</code></span>.</p>
+</div>
+
+<div class="note" data-os-only="linux">
+<p><strong>Do not use <code>sudo pip install</code>.</strong> Recent Debian and Ubuntu releases refuse global installs with <code>externally-managed-environment</code> (see <a href="#t-externally-managed">Troubleshooting</a>). The refusal is the system telling you to use an environment.</p>
+</div>
+</section>
+
+<section class="sec" id="requirements">
+<h2>Requirements files</h2>
+<p>A requirements file is a text file with one package per line. It is how you rebuild an environment after a fresh clone, on another machine, or after deleting <code>.venv</code>.</p>
+
+<h3>Freeze and restore</h3>
+<p><code>pip freeze</code> prints every installed package with its exact version, and <code>-r</code> installs from such a file.</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Save and restore (Linux, macOS)"><div class="term-h"><span class="term-t">Save and restore (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip freeze &gt; requirements.txt</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip install -r requirements.txt</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Save and restore (Windows, PowerShell)"><div class="term-h"><span class="term-t">Save and restore (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip freeze | Out-File -Encoding utf8 requirements.txt</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip install -r requirements.txt</span></span></code></pre></div>
+<p>After installing only <code>requests</code>, the file contains five lines:</p>
+<div class="file" role="group" aria-label="requirements.txt"><div class="term-h"><span class="term-t">requirements.txt</span></div><pre><code><span class="ln"><span class="t">certifi==2026.10.23</span></span><span class="ln"><span class="t">charset-normalizer==3.5.2</span></span><span class="ln"><span class="t">idna==3.20</span></span><span class="ln"><span class="t">requests==2.34.2</span></span><span class="ln"><span class="t">urllib3==2.8.0</span></span></code></pre></div>
+<p>That reproduces the environment exactly, which is the point. The cost is that the file no longer shows which line you chose and which came along with it. <code>pip freeze</code> also leaves out pip itself.</p>
+
+<div class="note warn" data-os-only="windows">
+<p><strong>PowerShell 5.1 writes <code>&gt;</code> output as UTF-16.</strong> Microsoft documents that Windows PowerShell’s redirection operators and <code>Out-File</code> default to UTF-16LE, while PowerShell 7 defaults to UTF-8. pip can still read a UTF-16 file that has a byte-order mark (tested), but git, grep and many editors will treat it as garbled or binary. The <code>Out-File -Encoding utf8</code> form above avoids that on both versions.</p>
+</div>
+
+<h3>Keep two files: what you asked for and what you got</h3>
+<p>For anything beyond a script, keep the packages you chose in a short <code>requirements.in</code> and generate the long pinned <code>requirements.txt</code> from it. pip-tools does this on any system, and works in an ordinary environment.</p>
+<div class="file" role="group" aria-label="requirements.in"><div class="term-h"><span class="term-t">requirements.in</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln"><span class="t">requests</span></span></code></pre></div>
+<div class="term" role="group" aria-label="Compile and sync with pip-tools"><div class="term-h"><span class="term-t">Compile and sync with pip-tools</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip install pip-tools</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip-compile requirements.in</span><span class="tc"> # writes requirements.txt with every dependency pinned</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip-sync requirements.txt</span><span class="tc"> # make the environment match that file exactly</span></span></code></pre></div>
+<p>The generated file records why each package is there:</p>
+<div class="file" role="group" aria-label="requirements.txt"><div class="term-h"><span class="term-t">requirements.txt</span></div><pre><code><span class="ln"><span class="t">#</span></span><span class="ln"><span class="t"># This file is autogenerated by pip-compile with Python 3.12</span></span><span class="ln"><span class="t"># by the following command:</span></span><span class="ln"><span class="t">#</span></span><span class="ln"><span class="t">#    pip-compile requirements.in</span></span><span class="ln"><span class="t">#</span></span><span class="ln"><span class="t">certifi==2026.10.23</span></span><span class="ln"><span class="t">    # via requests</span></span><span class="ln"><span class="t">charset-normalizer==3.5.2</span></span><span class="ln"><span class="t">    # via requests</span></span><span class="ln"><span class="t">idna==3.20</span></span><span class="ln"><span class="t">    # via requests</span></span><span class="ln"><span class="t">requests==2.34.2</span></span><span class="ln"><span class="t">    # via -r requirements.in</span></span><span class="ln"><span class="t">urllib3==2.8.0</span></span><span class="ln"><span class="t">    # via requests</span></span></code></pre></div>
+<p><code>pip-sync</code> also uninstalls anything the file does not list, which is why it is better than <code>pip install -r</code> for keeping an environment honest. (pip-compile 7 prints a warning about <code>--strip-extras</code>; add that flag to silence it.)</p>
+<p>With uv, the same two steps are <code>uv pip compile requirements.in -o requirements.txt</code> and <code>uv pip sync requirements.txt</code>.</p>
+
+<h3>Separate development tools from what runs in production</h3>
+<p>A second input file can include the first with <code>-r</code> and add test tools on top.</p>
+<div class="file" role="group" aria-label="requirements-dev.in"><div class="term-h"><span class="term-t">requirements-dev.in</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln"><span class="t">-r requirements.in</span></span><span class="ln"><span class="t">pytest</span></span></code></pre></div>
+<div class="term" role="group" aria-label="Two environments from two files"><div class="term-h"><span class="term-t">Two environments from two files</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip-compile requirements-dev.in</span><span class="tc"> # writes requirements-dev.txt</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip-sync requirements-dev.txt</span><span class="tc"> # development: requests and pytest</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip-sync requirements.txt</span><span class="tc"> # production: requests only, pytest is removed</span></span></code></pre></div>
+
+<h3>Limit versions without installing anything</h3>
+<p>A constraints file caps versions but never asks for a package. It only applies to packages that something else installs. Use it to hold back one release you know is broken for you.</p>
+<div class="file" role="group" aria-label="constraints.txt"><div class="term-h"><span class="term-t">constraints.txt</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln"><span class="t">urllib3&lt;2</span></span></code></pre></div>
+<div class="term" role="group" aria-label="Install with a constraint"><div class="term-h"><span class="term-t">Install with a constraint</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip install -r requirements.in -c constraints.txt</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip list</span></span><span class="ln o">requests           2.34.2</span><span class="ln o">urllib3            1.26.20</span></code></pre></div>
+<p>Without the constraint, urllib3 would install as 2.8.0.</p>
+
+<h3>Check what you ended up with</h3>
+<p><code>pip check</code> reads the installed packages and reports any whose requirements are not met. It prints one line and exits 0 when all is well, and exits 1 with a message when not:</p>
+<div class="term" role="group" aria-label="pip check"><div class="term-h"><span class="term-t">pip check</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip check</span></span><span class="ln o">No broken requirements found.</span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip install --no-deps idna==2.0</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip check</span></span><span class="ln o">requests 2.34.2 has requirement idna&lt;4,&gt;=2.5, but you have idna 2.0.</span></code></pre></div>
+
+<h3>The file syntax in one table</h3>
+<div class="t-w">
+<table class="tb stack">
+<thead><tr><th scope="col">Line</th><th scope="col">Meaning</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code># note</code></th><td>A comment.</td></tr>
+<tr><th scope="row"><code>requests==2.34.2</code></th><td>That exact version.</td></tr>
+<tr><th scope="row"><code>requests&gt;=2.31,&lt;3</code></th><td>Any version in the range.</td></tr>
+<tr><th scope="row"><code>-r requirements.in</code></th><td>Include another requirements file.</td></tr>
+<tr><th scope="row"><code>-c constraints.txt</code></th><td>Apply the version limits in that file.</td></tr>
+<tr><th scope="row"><code>pytest ; python_version &gt;= "3.10"</code></th><td>Install only when the condition is true (an environment marker).</td></tr>
+</tbody>
+</table>
+</div>
+
+<details class="deep">
+<summary>Pin hashes so a changed download is refused</summary>
+<div class="deep-b">
+<p>A hash is a fingerprint of the exact file pip downloads. If a package on the index is tampered with or silently replaced, the fingerprint no longer matches and pip stops. Generate them when compiling:</p>
+<div class="term" role="group" aria-label="Compile with hashes, install with checking"><div class="term-h"><span class="term-t">Compile with hashes, install with checking</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">uv pip compile --generate-hashes requirements.in -o requirements.txt</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> </span><span class="t">pip install --require-hashes -r requirements.txt</span></span></code></pre></div>
+<p>(<code>pip-compile --generate-hashes</code> does the same for pip-tools.) Each package then carries one <code>--hash=sha256:…</code> line per downloadable file, and a download that matches any one of them is accepted. Two things to expect:</p>
+<ul>
+<li>Pip turns hash checking on automatically as soon as one line has a hash, and then requires hashes and exact versions for every line. A line without one fails with <code>Hashes are required in --require-hashes mode, but they are missing from some requirements.</code> and prints the hash you could add.</li>
+<li>A mismatch fails with <code>THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE</code>, followed by the expected and the actual hash.</li>
+</ul>
+</div>
+</details>
+
+<div class="note">
+<p><strong>What to commit.</strong> Commit the requirements files (<code>requirements.in</code> and <code>requirements.txt</code>, or just <code>requirements.txt</code> if you use plain freeze). Never commit <code>.venv</code>.</p>
+</div>
+</section>
+
+<section class="sec" id="versions">
+<h2>Several Python versions</h2>
+<p>This is the part venv cannot do by itself. <code>python -m venv</code> builds the environment from whichever Python runs it, and it cannot download one. So “which version does this project use?” turns into three smaller questions: where do I get that Python, how do I pick it for this project, and where do I write the choice down?</p>
+
+<h3>See what you already have</h3>
+<div class="term" data-os-only="linux" role="group" aria-label="Installed versions (Linux, macOS)"><div class="term-h"><span class="term-t">Installed versions (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">ls /usr/bin/python3.*[0-9]</span></span><span class="ln o">/usr/bin/python3.11</span><span class="ln o">/usr/bin/python3.12</span><span class="ln o">/usr/bin/python3.13</span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">uv python list --only-installed</span><span class="tc"> # if you have uv; also lists versions uv downloaded</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Installed versions (Windows, PowerShell)"><div class="term-h"><span class="term-t">Installed versions (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py list</span><span class="tc"> # Python install manager; older launchers use: py -0</span></span></code></pre></div>
+
+<h3>Pick a version by naming its interpreter</h3>
+<p>The simplest method needs no extra tools. Run the environment-creating command with the Python you want, and the environment gets that version.</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Create with a specific version (Linux, macOS)"><div class="term-h"><span class="term-t">Create with a specific version (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python3.12 -m venv .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">.venv/bin/python --version</span></span><span class="ln o">Python 3.12.3</span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Create with a specific version (Windows, PowerShell)"><div class="term-h"><span class="term-t">Create with a specific version (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py -V:3.12 -m venv .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">.venv\Scripts\python --version</span></span></code></pre></div>
+<p data-os-only="windows">Older tutorials write <code>py -3.12</code>. That form still works, but <code>-V:3.12</code> is the one the current Python docs use.</p>
+<p data-os-only="linux">This only works for versions your system has. Debian and Ubuntu install extra ones as packages, such as <code>sudo apt install python3.12 python3.12-venv</code>, but only the versions your release carries. For anything else, use one of the tools below.</p>
+
+<h3>Three ways to get and choose versions</h3>
+<div class="t-w">
+<table class="tb stack wide">
+<caption>Version tools compared</caption>
+<thead><tr><td></td><th scope="col">Installed Pythons and the <code>py</code> launcher</th><th scope="col">uv</th><th scope="col">pyenv</th></tr></thead>
+<tbody>
+<tr><th scope="row">Runs on</th><td data-l="Installed Pythons and py">Linux, macOS, Windows</td><td data-l="uv">Linux, macOS, Windows</td><td data-l="pyenv">Linux and macOS. On Windows only inside WSL; pyenv-win is a separate project.</td></tr>
+<tr><th scope="row">Where the Python comes from</th><td data-l="Installed Pythons and py">Your OS packages, python.org installers, or the Windows Python install manager</td><td data-l="uv">Downloads prebuilt Pythons on demand: <code>uv python install 3.13</code></td><td data-l="pyenv">Compiles from source, so it needs build dependencies and takes minutes</td></tr>
+<tr><th scope="row">Choosing per project</th><td data-l="Installed Pythons and py">Type the version: <code>python3.12 -m venv</code> or <code>py -V:3.12 -m venv</code></td><td data-l="uv">A <code>.python-version</code> file (<code>uv python pin</code>) or <code>--python 3.13</code></td><td data-l="pyenv">A <code>.python-version</code> file (<code>pyenv local</code>); shims make <code>python</code> follow it</td></tr>
+<tr><th scope="row">Trade-off</th><td data-l="Installed Pythons and py">Nothing extra to install, but you get only what the OS offers, and there is no pin file.</td><td data-l="uv">One more tool to install. Its environments have no pip unless you ask.</td><td data-l="pyenv">Slowest to install, and shims change what <code>python</code> means everywhere. It does not create environments itself.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note pick">
+<p><strong>Recommendation: use uv to choose versions, and keep the environment itself plain.</strong> The commands are the same on Linux and Windows, it downloads a Python in seconds without touching the system one, and it still produces an ordinary <code>.venv</code> that every other tool in this guide understands. Use explicit interpreters instead when you cannot install tools on the machine, and stay with pyenv when your team already runs on it.</p>
+</div>
+
+<h3>The convention, step by step</h3>
+<p>Pick the version once for the project, write it down in a file that is committed, and create <code>.venv</code> from it.</p>
+<div class="term" role="group" aria-label="Choose 3.12 for this project"><div class="term-h"><span class="term-t">Choose 3.12 for this project</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="t">uv python install 3.12</span><span class="tc"> # download it, once per machine</span></span><span class="ln o">Installed Python 3.12.13 in 1.86s</span><span class="ln" data-c="1"><span class="t">uv python pin 3.12</span><span class="tc"> # writes .python-version in this folder</span></span><span class="ln o">Pinned `.python-version` to `3.12`</span><span class="ln" data-c="1"><span class="t">uv venv</span><span class="tc"> # creates .venv using the pinned version</span></span><span class="ln o">Using CPython 3.12.13</span><span class="ln o">Creating virtual environment at: .venv</span></code></pre></div>
+<div class="file" role="group" aria-label=".python-version"><div class="term-h"><span class="term-t">.python-version</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln"><span class="t">3.12</span></span></code></pre></div>
+<p>Anyone who clones the project and runs <code>uv venv</code> gets the same Python line. uv looks for <code>.python-version</code> in the current folder and its parents, and pyenv reads the same file, so the pin works for either tool. <code>3.12</code> means “any 3.12.x”. uv checks the Pythons it has installed first, then the ones on your PATH, and downloads a matching one only when it finds none, so the first command is optional; it just makes the download explicit. After installing a Python, uv may warn that its executable folder is not on your PATH. You can ignore that here, because uv finds the Pythons it installed by itself.</p>
+<p>Then activate as before. uv creates environments without pip, so either use uv's own pip-compatible commands, which find <code>.venv</code> in the current folder even when nothing is active, or ask for pip when you create it:</p>
+<div class="term" role="group" aria-label="Two ways to install into a uv environment"><div class="term-h"><span class="term-t">Two ways to install into a uv environment</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="t">uv pip install -r requirements.txt</span><span class="tc"> # uv's installer; needs no pip inside</span></span><span class="ln" data-c="1"><span class="t">uv venv --seed --clear</span><span class="tc"> # or: recreate with pip included, so every pip command here works as written</span></span></code></pre></div>
+
+<h3>One environment per version, for testing</h3>
+<p>When code must work on several versions, keep the everyday environment as <code>.venv</code> and add one more per version, named after it: <code>.venv-3.11</code>, <code>.venv-3.13</code>. The name tells you the version at a glance, and a <code>.venv*/</code> line in <code>.gitignore</code> covers them all.</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Create one per version, then use them without activating (Linux, macOS)"><div class="term-h"><span class="term-t">Create one per version, then use them without activating (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">for v in 3.11 3.12 3.13; do python$v -m venv .venv-$v; done</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">for v in 3.11 3.12 3.13; do .venv-$v/bin/python -m pip install -q -r requirements.txt; done</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">for v in 3.11 3.12 3.13; do .venv-$v/bin/python -c "import sys, requests; print(sys.version.split()[0], requests.__version__)"; done</span></span><span class="ln o">3.11.17 2.34.2</span><span class="ln o">3.12.3 2.34.2</span><span class="ln o">3.13.16 2.34.2</span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Create one per version, then use them without activating (Windows, PowerShell)"><div class="term-h"><span class="term-t">Create one per version, then use them without activating (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">foreach ($v in "3.11","3.12","3.13") { py "-V:$v" -m venv ".venv-$v" }</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">foreach ($v in "3.11","3.12","3.13") { &amp; ".venv-$v\Scripts\python" -m pip install -q -r requirements.txt }</span></span></code></pre></div>
+<p>With uv, <code>uv venv .venv-3.13 --python 3.13</code> creates one, and the version is downloaded first if it is missing. Calling each environment's Python by path, rather than activating it, is what makes loops like these work: there is no state to switch.</p>
+
+<h3>Move a project to another version</h3>
+<p>Do not try to convert an environment. Delete it and create a new one, then reinstall from the requirements file.</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Switch the project to Python 3.13 (Linux, macOS)"><div class="term-h"><span class="term-t">Switch the project to Python 3.13 (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">deactivate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">rm -rf .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python3.13 -m venv .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">source .venv/bin/activate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip install -r requirements.txt</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">python --version</span></span><span class="ln o">Python 3.13.16</span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Switch the project to Python 3.13 (Windows, PowerShell)"><div class="term-h"><span class="term-t">Switch the project to Python 3.13 (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">deactivate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">Remove-Item -Recurse -Force .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py -V:3.13 -m venv .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">.venv\Scripts\Activate.ps1</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip install -r requirements.txt</span></span></code></pre></div>
+<p>With uv: <code>uv python pin 3.13</code>, then <code>uv venv --clear</code>. Without <code>--clear</code> uv refuses to overwrite an existing <code>.venv</code> and tells you to add it. Exact pins can fail on a new Python version, for example when a pinned release has no build for it. If so, regenerate the pins from <code>requirements.in</code> rather than editing them by hand.</p>
+
+<details class="deep">
+<summary>pyenv on Linux and macOS</summary>
+<div class="deep-b">
+<p>pyenv installs Python versions side by side under your home folder and uses small wrapper programs called shims to decide which one <code>python</code> means. It builds each version from source, so install your system's build dependencies first (the pyenv wiki lists them per distribution).</p>
+<div class="term" data-os-only="linux" role="group" aria-label="pyenv, then a plain venv (Linux, macOS)"><div class="term-h"><span class="term-t">pyenv, then a plain venv (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">pyenv install --list</span><span class="tc"> # every version that can be built</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">pyenv install 3.12.3</span><span class="tc"> # compile and install one</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">pyenv local 3.12.3</span><span class="tc"> # writes .python-version in this folder</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python -m venv .venv</span><span class="tc"> # python now resolves to 3.12.3</span></span></code></pre></div>
+<p>pyenv picks a version in this order: the <code>PYENV_VERSION</code> variable (set per terminal with <code>pyenv shell</code>), then the nearest <code>.python-version</code> file in the current folder or a parent, then the global default from <code>pyenv global</code>. <code>pyenv versions</code> lists what is installed and marks the active one. pyenv does not manage environments; a separate plugin, pyenv-virtualenv, does, and plain <code>python -m venv</code> as above is enough for this guide’s conventions.</p>
+<p>These pyenv commands come from its README and were not run for this guide.</p>
+</div>
+</details>
+
+<details class="deep" data-os-only="windows">
+<summary>The Windows Python install manager</summary>
+<div class="deep-b">
+<p>Current Python releases for Windows are installed with the Python install manager, which provides the <code>py</code> and <code>python</code> commands. It replaces the older “py launcher” that came with the full installer.</p>
+<div class="term" data-os-only="windows" role="group" aria-label="Install manager commands (Windows, PowerShell)"><div class="term-h"><span class="term-t">Install manager commands (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py install 3.12</span><span class="tc"> # download and install a version</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py list</span><span class="tc"> # what is installed</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py uninstall 3.12</span><span class="tc"> # remove one</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py -V:3.12 -m venv .venv</span><span class="tc"> # use a specific one</span></span></code></pre></div>
+<p>If you installed the older launcher as well, it can take over the <code>py</code> command and produce errors such as “can't open file”; the Python docs cover the fix. With an environment active, <code>py</code> runs that environment's Python. These commands come from the official Windows documentation and were not run for this guide.</p>
+</div>
+</details>
+</section>
+
+<section class="sec" id="conventions">
+<h2>Project conventions</h2>
+<p>These rules keep every project predictable. They are the ones the rest of the guide already follows.</p>
+
+<div class="tree" role="group" aria-label="A project folder with these conventions"><div class="tl"><span class="tp"><span class="tg" aria-hidden="true"></span>myproject/</span><span class="tn">The project.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>.venv/</span><span class="tn">Local only, never committed.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>.python-version</span><span class="tn">Committed. Contains 3.12.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>.gitignore</span><span class="tn">Contains .venv*/</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>requirements.in</span><span class="tn">Committed. What you asked for.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>requirements.txt</span><span class="tn">Committed. Every package, pinned.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>requirements-dev.in</span><span class="tn">Committed. Adds test tools.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">├─ </span>requirements-dev.txt</span><span class="tn">Committed. The same, pinned.</span></div><div class="tl"><span class="tp"><span class="tg" aria-hidden="true">└─ </span>README.md</span><span class="tn">Setup steps for the next person.</span></div></div>
+
+<ol>
+<li><strong>One environment per project, inside the project.</strong> Never install a project's packages into the system Python.</li>
+<li><strong>Use the same name everywhere.</strong> <code>.venv</code> for the everyday one, <code>.venv-3.13</code> style for extra versions.</li>
+<li><strong>Commit the recipe, not the result.</strong> Requirements files and <code>.python-version</code> go in git; the environment does not. A line in <code>.gitignore</code> keeps it out:
+<div class="file" role="group" aria-label=".gitignore"><div class="term-h"><span class="term-t">.gitignore</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln"><span class="t">.venv*/</span></span></code></pre></div>
+Python 3.13 and later, and uv, also write a <code>.gitignore</code> containing <code>*</code> inside the environment, which hides it from git. Python 3.12 and earlier do not, so keep your own line.</li>
+<li><strong>Recreate rather than repair.</strong> If an environment behaves strangely, delete it and rebuild from the requirements file. It takes seconds.</li>
+<li><strong>Call the environment's Python by path in anything unattended.</strong> Cron jobs, services and CI should run <span data-os-only="linux"><code>.venv/bin/python</code></span><span data-os-only="windows"><code>.venv\Scripts\python</code></span> rather than rely on a shell that activated something.</li>
+<li><strong>Make pip refuse to run outside an environment.</strong> This turns the classic mistake of installing globally into an immediate error:
+<div class="term" role="group" aria-label="Require an environment for pip"><div class="term-h"><span class="term-t">Require an environment for pip</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="t">pip config set global.require-virtualenv true</span></span><span class="ln o">Writing to /home/ada/.config/pip/pip.conf</span><span class="ln" data-c="1"><span class="t">pip install requests</span><span class="tc"> # outside any environment</span></span><span class="ln o">ERROR: Could not find an activated virtualenv (required).</span></code></pre></div>
+It also blocks the rare deliberate global install. Set <code>PIP_REQUIRE_VIRTUALENV=false</code> for a single command to override it.</li>
+<li><strong>Write the setup steps in the README</strong> so the next person, or you in six months, can start without asking.</li>
+</ol>
+
+<h3>Setting up a fresh clone</h3>
+<div class="term" data-os-only="linux" role="group" aria-label="First run on a new machine (Linux, macOS)"><div class="term-h"><span class="term-t">First run on a new machine (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">git clone &lt;your-repo-url&gt; myproject</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">cd myproject</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python3 -m venv .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">source .venv/bin/activate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip install -r requirements.txt</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="First run on a new machine (Windows, PowerShell)"><div class="term-h"><span class="term-t">First run on a new machine (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">git clone &lt;your-repo-url&gt; myproject</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">cd myproject</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">py -m venv .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">.venv\Scripts\Activate.ps1</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">pip install -r requirements.txt</span></span></code></pre></div>
+<p>Replace <code>&lt;your-repo-url&gt;</code> with your repository's address. If the project has a <code>.python-version</code>, create the environment from that version as shown in <a href="#versions">Several Python versions</a> instead of the default Python.</p>
+</section>
+
+<section class="sec" id="troubleshooting">
+<h2>Troubleshooting</h2>
+<p>Each heading is the message you will see. The Linux messages below were produced for this guide, and the Windows ones come from the official documentation.</p>
+
+<div class="ts" data-os-only="linux">
+<h3 id="t-externally-managed"><code>error: externally-managed-environment</code></h3>
+<p>You ran <code>pip install</code> against a system Python that its distribution manages (the check is called PEP 668). Recent Debian and Ubuntu releases mark their system Python this way. The message itself says what to do: use an environment.</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Fix (Linux, macOS)"><div class="term-h"><span class="term-t">Fix (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">python3 -m venv .venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">source .venv/bin/activate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">pip install requests</span></span></code></pre></div>
+<p>pip also offers <code>--break-system-packages</code>. It exists for the rare case you really want to change the system Python, and it can break tools your system relies on.</p>
+</div>
+<div class="ts" data-os-only="linux">
+<h3 id="t-ensurepip"><code>ensurepip is not available</code></h3>
+<p>Debian and Ubuntu split the venv module into its own package. Without it, creating an environment fails with this text:</p>
+<div class="file" role="group" aria-label="Message"><div class="term-h"><span class="term-t">Message</span></div><pre><code><span class="ln"><span class="t">The virtual environment was not created successfully because ensurepip is not</span></span><span class="ln"><span class="t">available.  On Debian/Ubuntu systems, you need to install the python3-venv</span></span><span class="ln"><span class="t">package using the following command.</span></span><span class="ln bl"></span><span class="ln"><span class="t">    apt install python3.12-venv</span></span></code></pre></div>
+<p>Install the package for the version you are using (the number in the message is the version), then run the create command again. <code>sudo apt install python3.12-venv</code> is the full form.</p>
+</div>
+<div class="ts" data-os-only="linux">
+<h3><code>Permission denied</code> when activating (Linux)</h3>
+<p>You ran the script instead of sourcing it. Compare the two forms:</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Wrong, then right (Linux, macOS)"><div class="term-h"><span class="term-t">Wrong, then right (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">./.venv/bin/activate</span></span><span class="ln o">bash: ./.venv/bin/activate: Permission denied</span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">source .venv/bin/activate</span></span></code></pre></div>
+</div>
+<h3><code>No such file or directory</code> when activating</h3>
+<p>The path does not exist from where you are: you are in the wrong folder, the environment was never created, or the folder is named something else. Run <span data-os-only="linux"><code>ls -a</code></span><span data-os-only="windows"><code>Get-ChildItem -Force</code></span> and check that <code>.venv</code> is there. On Windows the activation scripts live in <code>Scripts</code>, not <code>bin</code>, and a command copied from a Linux guide fails on the first line.</p>
+
+<h3><code>deactivate: command not found</code></h3>
+<p>Nothing is active in this terminal, or you activated in a different window. <code>deactivate</code> only exists while an environment is on. There is nothing to undo, so carry on.</p>
+
+<div class="ts" data-os-only="windows">
+<h3>Running scripts is disabled on this system (Windows)</h3>
+<p>PowerShell's execution policy is blocking <code>Activate.ps1</code>. Allow local scripts for your account once with <code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code>, or activate with <code>.venv\Scripts\activate.bat</code> from cmd.exe instead.</p>
+</div>
+<h3>The package installed, but Python cannot import it</h3>
+<p>Almost always pip and python belong to different environments. Ask both where they live:</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Find out which Python and pip you are using (Linux, macOS)"><div class="term-h"><span class="term-t">Find out which Python and pip you are using (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">which python</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">python -m pip --version</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Find out which Python and pip you are using (Windows, PowerShell)"><div class="term-h"><span class="term-t">Find out which Python and pip you are using (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">(Get-Command python).Source</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> PS&gt; </span><span class="t">python -m pip --version</span></span></code></pre></div>
+<p>Both paths should be inside <code>.venv</code>. If not, activate the environment or call its Python by path, then install again with <code>python -m pip install</code>. If an editor shows import errors even though the terminal works, point the editor's Python interpreter setting at <span data-os-only="linux"><code>.venv/bin/python</code></span><span data-os-only="windows"><code>.venv\Scripts\python.exe</code></span>.</p>
+
+<div class="ts" data-os-only="linux">
+<h3><code>cannot execute: required file not found</code> after moving a folder</h3>
+<p>Scripts such as <code>pip</code> start with the absolute path of the Python they were created for. Move or rename the environment, or the project that holds it, and that path goes stale:</p>
+<div class="term" data-os-only="linux" role="group" aria-label="What a moved environment does (Linux, macOS)"><div class="term-h"><span class="term-t">What a moved environment does (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">mv old-project/.venv new-project/.venv</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">cd new-project</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">.venv/bin/pip --version</span></span><span class="ln o">bash: .venv/bin/pip: cannot execute: required file not found</span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">source .venv/bin/activate</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true"><span class="pv">(.venv)</span> $ </span><span class="t">which python</span></span><span class="ln o">/usr/bin/python</span></code></pre></div>
+<p>The last two lines are the dangerous part. Activation did not fail, but it kept the <em>old</em> <code>VIRTUAL_ENV</code> path, so <code>python</code> quietly became the system Python and anything you install goes to the wrong place. <code>python -m pip</code> may still appear to work for the same reason. (If the folder path is very long, over roughly 120 characters, pip prints <code>pip: 2: exec: …/python3.12: not found</code> instead. It is the same problem with the same fix.) Delete the moved folder and create a new one; there is nothing worth rescuing.</p>
+</div>
+<div class="ts" data-os-only="linux">
+<h3><code>python</code> or <code>pip</code> says “No such file or directory” in a working-looking environment</h3>
+<p>The environment's <code>python</code> is a link to the Python that created it. If that Python was upgraded to a new version, uninstalled, or moved, the link points at nothing:</p>
+<div class="term" data-os-only="linux" role="group" aria-label="A dangling link (Linux, macOS)"><div class="term-h"><span class="term-t">A dangling link (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">.venv/bin/python --version</span></span><span class="ln o">bash: .venv/bin/python: No such file or directory</span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">.venv/bin/pip --version</span></span><span class="ln o">bash: .venv/bin/pip: cannot execute: required file not found</span></code></pre></div>
+<p>Check the <code>home =</code> line of <code>pyvenv.cfg</code> to see which Python it expected, then recreate the environment from your requirements file. This commonly follows a system upgrade that replaces one Python version with the next.</p>
+</div>
+<div class="ts" data-os-only="windows">
+<h3>pip or python fails after moving the folder or upgrading Python (Windows)</h3>
+<p>The causes are the same as on Linux. The programs in <code>Scripts</code> carry the absolute path of the folder they were created in, and <code>python.exe</code> depends on the Python that created it. Rename or move <code>.venv</code>, or uninstall or replace that Python, and the environment stops working. The exact error text on Windows was not captured for this guide. The fix does not depend on it: check the <code>home =</code> line of <code>pyvenv.cfg</code>, then delete the environment and recreate it from your requirements file.</p>
+</div>
+<h3><code>No module named pip</code> in a uv environment</h3>
+<p>uv leaves pip out of environments it creates, so <code>python -m pip</code> fails there:</p>
+<div class="term" role="group" aria-label="The error, and two fixes"><div class="term-h"><span class="term-t">The error, and two fixes</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="t">.venv/bin/python -m pip --version</span></span><span class="ln o">.venv/bin/python: No module named pip</span><span class="ln" data-c="1"><span class="t">uv pip install requests</span><span class="tc"> # fix 1: use uv's installer</span></span><span class="ln" data-c="1"><span class="t">uv venv --seed --clear</span><span class="tc"> # fix 2: recreate the environment with pip inside</span></span></code></pre></div>
+
+<h3>The new environment has the wrong Python version</h3>
+<p>The environment copies whichever Python ran <code>-m venv</code>, and plain <span data-os-only="linux"><code>python3</code></span><span data-os-only="windows"><code>python</code></span> is whatever your PATH finds first. Check what you got and rebuild with the interpreter named explicitly:</p>
+<div class="term" data-os-only="linux" role="group" aria-label="Check, then rebuild (Linux, macOS)"><div class="term-h"><span class="term-t">Check, then rebuild (Linux, macOS)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">.venv/bin/python --version</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">grep version .venv/pyvenv.cfg</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">$ </span><span class="t">rm -rf .venv &amp;&amp; python3.12 -m venv .venv</span></span></code></pre></div>
+<div class="term" data-os-only="windows" role="group" aria-label="Check, then rebuild (Windows, PowerShell)"><div class="term-h"><span class="term-t">Check, then rebuild (Windows, PowerShell)</span><button type="button" class="copy">Copy</button></div><pre><code><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">.venv\Scripts\python --version</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">Select-String version .venv\pyvenv.cfg</span></span><span class="ln" data-c="1"><span class="p" aria-hidden="true">PS&gt; </span><span class="t">Remove-Item -Recurse -Force .venv; py -V:3.12 -m venv .venv</span></span></code></pre></div>
+<p>If you use pyenv and a <code>.python-version</code> file seems to be ignored, pyenv is probably not set up in this shell, so <code>python</code> still resolves to the system one. <code>pyenv version</code> prints what it thinks is selected.</p>
+
+<div class="ts" data-os-only="windows">
+<h3><code>py</code> starts the wrong Python or says “can't open file” (Windows)</h3>
+<p>When both the older py launcher and the Python install manager are installed, the older one can take over the <code>py</code> command. Remove the older launcher, or use <code>python</code> directly. The current Python docs for Windows describe the conflict.</p>
+</div>
+<div class="ts" data-os-only="windows">
+<h3>requirements.txt is unreadable in git or an editor (Windows)</h3>
+<p>You created it with <code>&gt;</code> in Windows PowerShell 5.1, which writes UTF-16. Recreate it with <code>pip freeze | Out-File -Encoding utf8 requirements.txt</code>.</p>
+</div>
+</section>
+
+<section class="sec" id="checked">
+<h2>How this was checked</h2>
+<p>Every Linux command in this guide was run on a Debian-based system with Python 3.11, 3.12 and 3.13, pip 24.0, uv 0.11.32 and pip-tools 7.6.2, and the outputs shown are what they printed. Folder paths are shortened to <code>/home/ada/myproject</code>. Package versions are the ones that installed on 28 October 2026.</p>
+<p>The Windows commands, the Python install manager, and the pyenv commands were taken from their official documentation and were not run, because none of them can run on the system this guide was written on. The PowerShell encoding behaviour comes from Microsoft's documentation, and pip's reading of UTF-16 and UTF-8 files with a byte-order mark was tested. macOS uses the Linux commands for everything here, and was not tested separately.</p>
+<h3>Sources</h3>
+<ul class="src">
+<li><a href="https://docs.python.org/3/library/venv.html">venv: creation of virtual environments</a>, Python documentation</li>
+<li><a href="https://docs.python.org/3/using/windows.html">Using Python on Windows</a>, Python documentation</li>
+<li><a href="https://peps.python.org/pep-0773/">PEP 773: A Python installation manager for Windows</a></li>
+<li><a href="https://peps.python.org/pep-0668/">PEP 668: Marking Python base environments as externally managed</a></li>
+<li><a href="https://pip.pypa.io/en/stable/reference/requirements-file-format/">Requirements file format</a>, pip documentation</li>
+<li><a href="https://docs.astral.sh/uv/concepts/python-versions/">Python versions</a>, uv documentation</li>
+<li><a href="https://github.com/pyenv/pyenv">pyenv README</a></li>
+<li><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_Character_Encoding">about_Character_Encoding</a>, PowerShell documentation</li>
+</ul>
+</section>
+
+  </main>
+</div>
+
+<p class="sr" role="status" aria-live="polite" id="announce"></p>
+<script>
+(function () {
+  "use strict";
+  var KEY = "waypoints:python-venv-guide";
+  var root = document.documentElement;
+
+  function readStore() {
+    try { var raw = localStorage.getItem(KEY); var o = raw ? JSON.parse(raw) : {}; return o && typeof o === "object" ? o : {}; }
+    catch (e) { return {}; }
+  }
+  function writeStore(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {} }
+  function clearStore() { try { localStorage.removeItem(KEY); } catch (e) {} }
+  function detect() {
+    var plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+    var ua = navigator.userAgent || "";
+    return /^win/i.test(plat) || /Windows/.test(ua) ? "windows" : "linux";
+  }
+  function valid(os) { return os === "linux" || os === "windows"; }
+
+  var os = valid(readStore().os) ? readStore().os : detect();
+  var active = false;
+
+  /* ---------- PATH demo ---------- */
+  var DEMO = {
+    linux: {
+      prompt: "ada@box:~/myproject$",
+      tag: "(.venv)",
+      cmd: "python3",
+      venvEntry: "/home/ada/myproject/.venv/bin",
+      entries: ["/home/ada/.local/bin", "/usr/local/bin", "/usr/bin", "/bin"],
+      hit: 2,
+      found: function (venv) { return venv ? "/home/ada/myproject/.venv/bin/python3" : "/usr/bin/python3"; },
+      on: "source .venv/bin/activate",
+      off: "deactivate",
+      veVal: "/home/ada/myproject/.venv"
+    },
+    windows: {
+      prompt: "PS C:\\Users\\ada\\myproject>",
+      tag: "(.venv)",
+      cmd: "python",
+      venvEntry: "C:\\Users\\ada\\myproject\\.venv\\Scripts",
+      entries: ["C:\\Users\\ada\\AppData\\Local\\Microsoft\\WindowsApps", "C:\\Windows\\System32", "C:\\Windows"],
+      hit: 0,
+      found: function (venv) { return venv ? "C:\\Users\\ada\\myproject\\.venv\\Scripts\\python.exe" : "C:\\Users\\ada\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"; },
+      on: ".venv\\Scripts\\Activate.ps1",
+      off: "deactivate",
+      veVal: "C:\\Users\\ada\\myproject\\.venv"
+    }
+  };
+  var $ = function (id) { return document.getElementById(id); };
+  var elPrompt = $("d-prompt"), elPath = $("d-path"), elPy = $("d-py"), elPyL = $("d-py-l"), elVe = $("d-ve"), elBtn = $("d-btn"), elLive = $("d-live");
+
+  function li(path, cls, hit) {
+    var item = document.createElement("li");
+    if (cls) item.className = cls;
+    var s = document.createElement("span"); s.className = "pth"; s.textContent = path; item.appendChild(s);
+    if (hit) { var h = document.createElement("span"); h.className = "hit"; h.textContent = DEMO_CMD() + " found here"; item.appendChild(h); }
+    return item;
+  }
+  function DEMO_CMD() { return DEMO[os].cmd; }
+
+  function renderDemo(announce, animate) {
+    if (!elPath) return;
+    var d = DEMO[os];
+    elPrompt.textContent = "";
+    if (active) { var t = document.createElement("span"); t.className = "pv"; t.textContent = d.tag + " "; elPrompt.appendChild(t); }
+    elPrompt.appendChild(document.createTextNode(d.prompt));
+    elPath.textContent = "";
+    if (active) elPath.appendChild(li(d.venvEntry, "new" + (animate ? " fresh" : ""), true));
+    d.entries.forEach(function (p, i) { elPath.appendChild(li(p, "", !active && i === d.hit)); });
+    elPyL.textContent = d.cmd + " runs";
+    elPy.textContent = d.found(active);
+    elVe.textContent = active ? d.veVal : "not set";
+    elBtn.textContent = active ? d.off : d.on;
+    elBtn.className = "d-btn" + (active ? " on" : "");
+    if (announce) elLive.textContent = active
+      ? "Activated. " + d.cmd + " now runs " + d.found(true) + "."
+      : "Deactivated. " + d.cmd + " runs " + d.found(false) + ".";
+  }
+  if (elBtn) {
+    elBtn.hidden = false;
+    elBtn.addEventListener("click", function () { active = !active; renderDemo(true, true); });
+  }
+
+  /* ---------- OS switch ---------- */
+  var radios = document.querySelectorAll('input[name="os"]');
+  function applyOS(next, save) {
+    os = next;
+    root.setAttribute("data-os", os);
+    Array.prototype.forEach.call(radios, function (r) { r.checked = r.value === os; });
+    if (save) writeStore({ os: os });
+    renderDemo(false, false);
+  }
+  Array.prototype.forEach.call(radios, function (r) {
+    r.addEventListener("change", function () { if (r.checked) applyOS(r.value, true); });
+  });
+  var reset = $("os-reset");
+  if (reset) reset.addEventListener("click", function () {
+    clearStore();
+    applyOS(detect(), false);
+    $("announce").textContent = "Choice cleared. Showing " + (os === "windows" ? "Windows" : "Linux and macOS") + " commands.";
+  });
+  applyOS(os, false);
+
+  /* ---------- copy buttons ---------- */
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta); return ok;
+  }
+  function blockText(block) {
+    var rows = block.querySelectorAll(block.classList.contains("term") ? ".ln[data-c]" : ".ln");
+    return Array.prototype.map.call(rows, function (r) {
+      var t = r.querySelector(".t"); return t ? t.textContent : r.textContent;
+    }).join("\n");
+  }
+  document.addEventListener("click", function (ev) {
+    var btn = ev.target.closest && ev.target.closest(".copy");
+    if (!btn) return;
+    var block = btn.closest(".term,.file");
+    var text = blockText(block);
+    var done = function (ok) {
+      var old = btn.getAttribute("data-label") || btn.textContent;
+      btn.setAttribute("data-label", old);
+      btn.textContent = ok ? "Copied" : "Select and copy";
+      $("announce").textContent = ok ? "Copied to clipboard." : "Copy failed. Select the text and copy it by hand.";
+      setTimeout(function () { btn.textContent = old; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
+    } else done(fallbackCopy(text));
+  });
+
+  /* ---------- contents highlight ---------- */
+  var heads = document.querySelectorAll("main section.sec[id]");
+  var links = document.querySelectorAll(".rail a[href^='#']");
+  function mark(id) {
+    Array.prototype.forEach.call(links, function (a) {
+      if (a.getAttribute("href") === "#" + id) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+    });
+  }
+  if ("IntersectionObserver" in window && heads.length) {
+    var seen = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { seen[e.target.id] = e.isIntersecting; });
+      for (var i = 0; i < heads.length; i++) { if (seen[heads[i].id]) { mark(heads[i].id); return; } }
+    }, { rootMargin: "-72px 0px -62% 0px" });
+    Array.prototype.forEach.call(heads, function (h) { io.observe(h); });
+  }
+  var mtoc = document.querySelector(".toc-m details");
+  if (mtoc) mtoc.addEventListener("click", function (ev) { if (ev.target.closest("a")) mtoc.removeAttribute("open"); });
+})();
+</script>
+</body>
+</html>
