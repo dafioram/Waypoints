@@ -1,0 +1,1407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<meta name="description" content="Advanced Git CLI reference for branching, rebasing, worktrees, recovery, Git internals, GitHub and Git LFS, with extensive owned and external submodule workflows." />
+<title>The Ultimate Git Command-Line Guide — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<script type="application/json" id="page-meta">
+{
+  "title": "The Ultimate Git Command-Line Guide",
+  "description": "Advanced Git CLI reference for branching, rebasing, worktrees, recovery, Git internals, GitHub and Git LFS, with extensive owned and external submodule workflows.",
+  "tags": [
+    "git",
+    "command-line",
+    "development",
+    "github"
+  ],
+  "date": "2026-10-29"
+}
+</script>
+<style>
+:root{--ink:#16283d;--muted:#586c7c;--paper:#f4f6fa;--white:#fff;--line:#e2e7ee;--accent:#d3653a;--accent-dark:#b6512d;--accentlight:#fff1e8;--dark:#111d2d;--dark2:#1c2b40;--cyan:#57c9ba;--risk:#b83f3e;--riskbg:#fff2ef}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:25px}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.78 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}a{color:#aa4a25;text-underline-offset:3px}a:hover{color:#7d351d}button,input{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #2baba8;outline-offset:3px}code,pre,kbd{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-variant-ligatures:none}code{overflow-wrap:anywhere}
+.kb-topbar{display:block;position:relative;z-index:3;padding:12px max(24px,calc((100vw - 1500px)/2));background:#0c1521;color:#c6e1e5;text-decoration:none;font-size:12px;font-weight:750;border-bottom:1px solid #324256;letter-spacing:.045em}.kb-topbar:hover{color:white}
+.shell{width:min(1500px,100%);margin:auto;display:grid;grid-template-columns:286px minmax(0,1fr);align-items:stretch;min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;overflow:auto;background:var(--dark);color:#c7d6e8;border-right:1px solid #334459;padding:28px 17px 30px 22px;scrollbar-color:#40576e transparent;scrollbar-width:thin}.mini{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:#81b9c2;font-weight:850;margin:0 0 7px}.brand{font-size:22px;color:#fff;font-weight:850;letter-spacing:-.05em;line-height:1.19}.brand span{display:block;font-size:12px;color:#9fb6c9;margin-top:8px;font-weight:500;letter-spacing:0}.sidebar-head{margin-bottom:23px}.toc-search{padding:11px 12px;width:100%;background:#23354b;border:1px solid #415870;border-radius:9px;color:#fff;font-size:12px}.toc-search::placeholder{color:#a9bbc9}.toc-label{margin:25px 4px 10px;color:#8ea9bb;text-transform:uppercase;font-size:10px;font-weight:850;letter-spacing:.13em}.toc{display:flex;flex-direction:column;gap:2px}.toc a{font-size:11.5px;font-weight:600;line-height:1.36;text-decoration:none;color:#bdd0de;display:flex;gap:9px;align-items:flex-start;padding:9px 7px 9px 9px;border-radius:0 6px 6px 0;border-left:2px solid transparent}.toc a:hover,.toc a.active{background:#24374f;border-left-color:var(--cyan);color:#fff}.toc a[hidden]{display:none}.toc .n{min-width:20px;color:#7394a8;font-size:10px;font-weight:850}.sidebar-foot{margin-top:26px;border-top:1px solid #304157;padding-top:16px;font-size:11px;line-height:1.65;color:#9ab2c4}.mobile-toggle{display:none}.no-search{display:none;font-size:12px;color:#a8c2d1;padding:15px 9px}
+.main{background:white;min-width:0;box-shadow:0 20px 50px rgba(16,30,48,.05)}.hero{padding:65px clamp(26px,5vw,76px) 58px;background:radial-gradient(ellipse at top right,rgba(208,103,60,.27),transparent 48%),linear-gradient(135deg,#17253b 0%,#102236 58%,#153b43 100%);color:white;border-bottom:5px solid #dc744c}.hero .eyebrow{color:#80dfd0;font-weight:800;text-transform:uppercase;letter-spacing:.2em;font-size:11px;display:block;margin-bottom:25px}.hero h1{font-size:clamp(35px,5.1vw,64px);font-weight:850;letter-spacing:-.065em;line-height:1.07;margin:0;max-width:850px}.hero h1 em{display:block;font-style:normal;color:#ffab84;font-size:clamp(21px,2.7vw,31px);letter-spacing:-.04em;margin-top:11px}.hero p{color:#ccdae6;font-size:16px;max-width:710px;line-height:1.72;margin:24px 0}.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.hero-meta span{font-size:11px;font-weight:750;padding:5px 11px;border:1px solid #5b7582;border-radius:999px;color:#c8eaed;background:#26455680;letter-spacing:.055em}
+.body{width:min(1020px,100%);margin:auto;padding:40px clamp(24px,5vw,67px) 100px}.intro-banner{border:1px solid #efcdbd;background:#fff8f4;border-radius:12px;padding:18px 22px;margin:0 0 31px}.intro-banner strong{display:block;color:#843b23;font-size:13px}.intro-banner p{margin:6px 0 0;color:#734c42;font-size:13px}.jump-head{font-size:24px;letter-spacing:-.045em;margin:25px 0 4px}.jump-desc{color:var(--muted);margin:3px 0 19px}.jump-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:24px 0 45px}.jump{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);background:#fbfdff;border:1px solid #dfe8ee;border-radius:12px;padding:19px 21px;transition:.15s ease}.jump:hover{border-color:#ec9976;background:#fff9f4;transform:translateY(-1px);box-shadow:0 8px 23px rgba(20,40,64,.06)}.jump-num{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dark)}.jump strong{display:block;font-size:16px;line-height:1.3;letter-spacing:-.025em;margin:6px 0}.jump span.desc{font-size:12px;line-height:1.6;color:var(--muted)}.jump .go{font-size:11px;color:var(--accent-dark);font-weight:800;margin-top:11px}.jump-foot{font-size:12px;color:#697a8d;margin:-26px 0 43px}
+.chapter{border-top:1px solid var(--line);padding-top:52px;margin-top:56px;scroll-margin-top:26px}.chapter-cat{font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.14em;color:#a35632;display:block;margin-bottom:9px}.chapter h2{font-size:clamp(25px,2.7vw,34px);line-height:1.26;letter-spacing:-.046em;color:#1a3048;display:flex;align-items:flex-start;gap:15px;margin:0 0 25px}.chapter .num{flex:0 0 auto;font-size:12px;font-weight:900;letter-spacing:.04em;line-height:1.9;color:#ad5633;background:#fff0e6;padding:4px 10px;border-radius:7px}.chapter h3{font-size:19px;line-height:1.4;letter-spacing:-.028em;color:#24465a;margin:36px 0 12px;scroll-margin-top:30px}.chapter p{margin:14px 0 19px;max-width:85ch}.chapter strong{font-weight:750}.chapter ul,.chapter ol{padding-left:23px;margin:14px 0 25px}.chapter li{margin:7px 0;padding-left:2px}.chapter li::marker{color:#c26d48}.chapter :not(pre)>code{background:#edf2f6;color:#1d495f;font-size:.88em;padding:2px 5px;border-radius:4px}.chapter a{text-decoration-thickness:1px}.chapter .note,.chapter .caution{padding:15px 18px;border-radius:9px;border:1px solid #b9dbde;border-left:4px solid #16a79c;background:#effaf9}.chapter .caution{background:#fff4ed;border-color:#f2cfbc;border-left-color:#d57140}.chapter blockquote{border-left:4px solid #d36a43;background:#fff5ef;padding:14px 17px;margin:22px 0;color:#603e34}
+.table-wrap{overflow-x:auto;scrollbar-width:thin;border:1px solid var(--line);border-radius:10px;margin:23px 0 30px}.chapter table{border-collapse:collapse;min-width:560px;width:100%;font-size:12.8px;line-height:1.53}.chapter table th{text-align:left;padding:13px 14px;background:#f0f5f8;color:#264d60;font-weight:850;white-space:normal;border-bottom:1px solid #d7e1e9}.chapter table td{padding:12px 14px;vertical-align:top;border-top:1px solid #e3eaf0}.chapter table tbody tr:nth-child(even){background:#fbfdff}.chapter table td:first-child{font-weight:650;color:#354d5e}
+.codebox{border-radius:10px;overflow:hidden;border:1px solid #273d54;background:#121e30;color:#d7e7f4;margin:22px 0 29px;box-shadow:0 7px 20px rgba(21,38,59,.08)}.codebox.risk{border-color:#ad655a}.code-header{background:#1d2c43;display:flex;align-items:center;justify-content:space-between;padding:7px 11px 7px 17px;border-bottom:1px solid #35465b}.risk .code-header{background:#402a30;border-bottom-color:#6c4950}.code-type{color:#9abed0;font-size:10px;text-transform:uppercase;font-weight:850;letter-spacing:.14em}.risk .code-type{color:#ffd4a6}.copy{font-size:11px;line-height:1.4;color:#e2f3f8;border-radius:6px;border:1px solid #4d6175;background:#2c435c;padding:5px 12px;font-weight:750;cursor:pointer}.copy:hover{background:#3b5973}.copy.done{background:#197165}.codebox pre{font-size:12.6px;line-height:1.72;overflow-x:auto;white-space:pre;tab-size:2;margin:0;padding:17px 19px 21px;scrollbar-color:#42596f transparent}.codebox pre code{color:#d6e7f3;white-space:pre;background:none;padding:0;font-weight:500;overflow-wrap:normal}
+.foot{border-top:1px solid var(--line);padding:24px 0;color:#6b7e8f;font-size:12px;margin-top:50px}.top{position:fixed;bottom:23px;right:22px;z-index:4;border-radius:999px;background:#ba5d35;color:#fff;text-decoration:none;padding:10px 16px;font-size:12px;font-weight:850;box-shadow:0 8px 25px rgba(47,39,31,.2)}.top:hover{background:#944524;color:#fff}.count{color:#9aadb9;font-size:11px;margin-top:10px}.only-print{display:none}
+@media(max-width:1080px){.shell{grid-template-columns:246px minmax(0,1fr)}.sidebar{padding:22px 11px 25px 15px}.hero{padding:50px 38px}.body{padding:30px 35px 80px}}
+@media(max-width:770px){.shell{display:block}.sidebar{position:relative;max-height:none;height:auto;overflow:visible;padding:14px 18px}.sidebar-head{display:flex;align-items:center;justify-content:space-between;margin:0;gap:10px}.sidebar .mini,.sidebar .brand span,.sidebar-foot{display:none}.brand{font-size:17px}.mobile-toggle{display:block;color:#fff;border:1px solid #62738a;border-radius:7px;padding:7px 11px;background:#283d54;font-size:12px;font-weight:800}.toc-zone{display:none;margin-top:16px}.sidebar.open .toc-zone{display:block}.toc{max-height:270px;overflow:auto}.toc a{font-size:12px}.toc-label{margin:10px 4px}.hero{padding:42px 23px 43px}.hero p{font-size:14px}.body{padding:25px 19px 65px}.jump-grid{grid-template-columns:1fr;gap:9px}.jump{padding:14px 16px}.chapter{padding-top:38px;margin-top:43px}.chapter h2{gap:10px}.chapter .num{font-size:11px;padding:2px 8px}.codebox pre{font-size:12px;padding:15px 14px}.chapter table{font-size:12px}.top{bottom:13px;right:12px;padding:8px 12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.jump{transition:none}}
+@media print{.sidebar,.kb-topbar,.top,.copy,.jump-grid,.jump-foot{display:none!important}.shell{display:block}.hero{color:#15283a;background:white;border-bottom:2px solid #333;padding:20px 0}.hero h1,.hero h1 em,.hero p,.hero .eyebrow{color:#122337}.hero-meta span{color:#222;border:1px solid #ccc}.body{width:auto;padding:10px 0}.chapter{break-inside:auto;page-break-before:auto}.chapter h2,.chapter h3{break-after:avoid}.codebox{break-inside:avoid;color:black;background:#f5f6f7;box-shadow:none;border-color:#bbb}.code-header{background:#eee}.codebox pre code{color:black}.chapter table{min-width:0}.chapter table th{background:#eee}.only-print{display:block}}
+
+/* Revision 2: searchable reference navigation and workflow checkpoints. */
+[hidden]{display:none!important}.skip-link{position:fixed;left:12px;top:-100px;z-index:100;background:white;padding:10px 16px}.skip-link:focus{top:10px}
+.toc-group-title{font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:#83cfc4;margin:22px 9px 7px;font-weight:800}.toc-group:first-child .toc-group-title{margin-top:14px}
+.search-results a{display:block;padding:13px 10px;border-bottom:1px solid #35465b;text-decoration:none;color:#e1edf4;font-size:12px;line-height:1.5}.search-results a:hover,.search-results a:focus{background:#263d55}.search-results strong{display:block;color:#91e1d4;font-size:10px;margin-bottom:4px}.search-results .excerpt{display:block;color:#b6c8d7;font-size:11px;margin-top:6px}.search-results mark{background:#ffe2ab;color:#252b32;padding:0 1px;border-radius:2px}
+.example-output{border-left:3px solid #329687;background:#eef7f5;padding:12px 16px;margin:-10px 0 26px;border-radius:0 7px 7px 0}.example-output strong{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#38665f}.example-output pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.65;margin:7px 0;color:#28534b}
+.heading-link{opacity:0;font-size:.7em;font-weight:500;margin-left:9px;text-decoration:none}.chapter h3:hover .heading-link,.heading-link:focus{opacity:1}.chapter h3:target{background:#fff3db;box-shadow:0 0 0 8px #fff3db}.code-type{max-width:78%}.codebox.risk .code-type::before{content:'CAUTION · ';font-weight:900}.codebox pre{outline-offset:-3px}
+@media(max-width:770px){html{scroll-padding-top:84px}.sidebar{position:sticky;top:0;z-index:20;box-shadow:0 3px 14px #10223626}.sidebar.open{max-height:82dvh}.toc-zone{max-height:calc(82dvh - 75px);overflow-y:auto;padding-bottom:6px}.toc{max-height:none;overflow:visible}.toc-group-title{margin-top:16px}.search-results a{font-size:13px;padding:14px 8px}.search-results .excerpt{font-size:12px}.chapter,.chapter h3{scroll-margin-top:84px}.heading-link{opacity:1}.top{font-size:11px}.codebox pre{padding-bottom:19px}.toc-search{font-size:16px}}
+@media print{.skip-link,.heading-link{display:none!important}.codebox pre{white-space:pre-wrap;overflow-wrap:anywhere}.table-wrap{overflow:visible}.example-output{break-inside:avoid}}
+</style>
+</head>
+<body id="top"><a class="skip-link" href="#main-content">Skip to guide</a>
+<a class="kb-topbar" href="../../index.html">← Waypoints / Reference guides</a>
+<div class="shell">
+<aside class="sidebar" id="sidebar" aria-label="Guide navigation">
+  <div class="sidebar-head"><div><p class="mini">Waypoints / Field manual</p><div class="brand">Git <span>Advanced command-line reference</span></div></div><button class="mobile-toggle" id="mobile-toggle" type="button" aria-expanded="false" aria-controls="toc-zone">Chapters & search</button></div>
+  <div id="toc-zone" class="toc-zone"><label for="toc-search" class="toc-label">Search the guide <span style="text-transform:none;font-weight:500;letter-spacing:0">/</span></label><input id="toc-search" class="toc-search" type="search" placeholder="bisect, squash, LFS, error…" aria-controls="search-results toc" autocomplete="off" />
+  <div class="count" id="result-count" role="status" aria-live="polite"></div><div id="search-results" class="search-results" hidden aria-label="Search results"></div><nav id="toc" class="toc"><div class="toc-group"><p class="toc-group-title">Foundations</p><a href="#operating-model-and-safety-conventions" data-search="operating model and safety conventions foundation"><span class="n">01</span><span>Operating model and safety conventions</span></a><a href="#configuration-identity-and-authentication" data-search="configuration, identity and authentication foundation"><span class="n">02</span><span>Configuration, identity and authentication</span></a><a href="#graph-refs-head-and-the-index" data-search="graph, refs, head and the index foundation"><span class="n">03</span><span>Graph, refs, HEAD and the index</span></a><a href="#investigate-changes-before-acting" data-search="investigate changes before acting foundation"><span class="n">04</span><span>Investigate changes before acting</span></a><a href="#branching-strategies-and-clean-commits" data-search="branching strategies and clean commits foundation"><span class="n">05</span><span>Branching strategies and clean commits</span></a><a href="#fetch-pull-push-and-remote-architecture" data-search="fetch, pull, push, and remote architecture foundation"><span class="n">06</span><span>Fetch, pull, push, and remote architecture</span></a><a href="#worktrees-parallel-work-without-extra-clones" data-search="worktrees: parallel work without extra clones foundation"><span class="n">10</span><span>Worktrees: parallel work without extra clones</span></a><a href="#tags-releases-and-version-conventions" data-search="tags, releases and version conventions foundation"><span class="n">11</span><span>Tags, releases and version conventions</span></a><a href="#git-attributes-ignore-rules-and-line-endings" data-search="git attributes, ignore rules and line endings foundation"><span class="n">12</span><span>Git attributes, ignore rules and line endings</span></a></div><div class="toc-group"><p class="toc-group-title">Recovery &amp; conflicts</p><a href="#merge-rebase-and-conflict-resolution" data-search="merge, rebase and conflict resolution foundation"><span class="n">07</span><span>Merge, rebase and conflict resolution</span></a><a href="#stash-restore-reset-and-the-danger-ladder" data-search="stash, restore, reset and the danger ladder foundation"><span class="n">08</span><span>Stash, restore, reset and the danger ladder</span></a><a href="#reflog-and-recovering-lost-work" data-search="reflog and recovering lost work foundation"><span class="n">09</span><span>Reflog and recovering lost work</span></a><a href="#quick-incident-decision-tree" data-search="quick incident decision tree reference"><span class="n">34</span><span>Quick incident decision tree</span></a></div><div class="toc-group"><p class="toc-group-title">Submodules</p><a href="#submodules-the-mental-model-read-first" data-search="submodules: the mental model (read first) submodules"><span class="n">13</span><span>Submodules: the mental model (read first)</span></a><a href="#submodule-architecture-own-it-or-depend-on-it" data-search="submodule architecture: own it or depend on it? submodules"><span class="n">14</span><span>Submodule architecture: own it or depend on it?</span></a><a href="#submodules-add-clone-inspect-and-initialize" data-search="submodules: add, clone, inspect and initialize submodules"><span class="n">15</span><span>Submodules: add, clone, inspect and initialize</span></a><a href="#self-managed-submodule-the-full-two-repo-workflow" data-search="self-managed submodule: the full two-repo workflow submodules"><span class="n">16</span><span>Self-managed submodule: the full two-repo workflow</span></a><a href="#externally-managed-submodule-upgrade-without-ownership" data-search="externally managed submodule: upgrade without ownership submodules"><span class="n">17</span><span>Externally managed submodule: upgrade without ownership</span></a><a href="#external-child-with-local-patches-fork-or-contribute" data-search="external child with local patches: fork or contribute submodules"><span class="n">18</span><span>External child with local patches: fork or contribute</span></a><a href="#submodule-lifecycle-move-remove-sync-and-restore" data-search="submodule lifecycle: move, remove, sync and restore submodules"><span class="n">19</span><span>Submodule lifecycle: move, remove, sync and restore</span></a><a href="#submodule-conflict-resolution-and-recovery" data-search="submodule conflict resolution and recovery submodules"><span class="n">20</span><span>Submodule conflict resolution and recovery</span></a><a href="#submodule-checklists-clone-upgrade-publish-recover" data-search="submodule checklists: clone, upgrade, publish, recover submodules"><span class="n">31</span><span>Submodule checklists: clone, upgrade, publish, recover</span></a></div><div class="toc-group"><p class="toc-group-title">Large files &amp; LFS</p><a href="#git-lfs-how-large-files-actually-work" data-search="git lfs: how large files actually work large files &amp; lfs"><span class="n">21</span><span>Git LFS: how large files actually work</span></a><a href="#git-lfs-install-track-inspect-and-download" data-search="git lfs: install, track, inspect and download large files &amp; lfs"><span class="n">22</span><span>Git LFS: install, track, inspect and download</span></a><a href="#git-lfs-migrate-existing-files-and-clean-history" data-search="git lfs: migrate existing files and clean history large files &amp; lfs"><span class="n">23</span><span>Git LFS: migrate existing files and clean history</span></a><a href="#git-lfs-with-submodules-and-ci" data-search="git lfs with submodules and ci large files &amp; lfs"><span class="n">24</span><span>Git LFS with submodules and CI</span></a></div><div class="toc-group"><p class="toc-group-title">GitHub</p><a href="#github-cli-fork-workflows-and-pull-requests" data-search="github cli, fork workflows and pull requests github"><span class="n">25</span><span>GitHub CLI, fork workflows and pull requests</span></a><a href="#github-actions-reproducible-checkouts" data-search="github actions: reproducible checkouts github"><span class="n">26</span><span>GitHub Actions: reproducible checkouts</span></a></div><div class="toc-group"><p class="toc-group-title">History &amp; internals</p><a href="#advanced-history-editing" data-search="advanced history editing deep operations"><span class="n">27</span><span>Advanced history editing</span></a><a href="#history-auditing-storage-and-repository-performance" data-search="history auditing, storage and repository performance deep operations"><span class="n">28</span><span>History auditing, storage and repository performance</span></a><a href="#plumbing-inspect-objects-trees-and-gitlinks" data-search="plumbing: inspect objects, trees and gitlinks deep operations"><span class="n">29</span><span>Plumbing: inspect objects, trees and gitlinks</span></a><a href="#hooks-aliases-and-automation-safety" data-search="hooks, aliases and automation safety deep operations"><span class="n">30</span><span>Hooks, aliases and automation safety</span></a></div><div class="toc-group"><p class="toc-group-title">Reference</p><a href="#troubleshooting-by-symptom" data-search="troubleshooting by symptom reference"><span class="n">32</span><span>Troubleshooting by symptom</span></a><a href="#recommended-conventions-and-anti-patterns" data-search="recommended conventions and anti-patterns reference"><span class="n">33</span><span>Recommended conventions and anti-patterns</span></a><a href="#official-documentation-and-further-reading" data-search="official documentation and further reading reference"><span class="n">35</span><span>Official documentation and further reading</span></a></div></nav><div class="no-search" id="no-search">No matching passages. Try fewer words or a command name.</div>
+  <div class="sidebar-foot">Copyable terminal examples · Source-linked documentation · Updated October 2026.<br/>Search commands and explanations above, or use your browser’s Find.</div></div>
+</aside>
+<main class="main" id="main-content">
+<header class="hero"><span class="eyebrow">The developer's field manual / 2026 · revised edition</span><h1>The Ultimate Git <em>Command-Line Guide</em></h1>
+<p>A deep practical reference for engineers who already know how to commit, but want to understand Git's graph, control history safely, maintain submodules, collaborate on GitHub, and manage large-file assets without surprises.</p>
+<div class="hero-meta"><span>35 chapters</span><span>Reviewed command recipes</span><span>Owned + upstream submodules</span><span>Git LFS</span><span>GitHub / internals</span></div></header>
+<div class="body">
+<div class="intro-banner"><strong>Read before copying commands</strong><p>Examples assume a POSIX terminal and illustrative repository URLs. Commands that alter history, remove files, change gitlinks, or migrate LFS content can have irreversible collaborative effects. Verify the repository, branch, remotes and current status first.</p></div>
+<h2 class="jump-head">Start with the job you're doing</h2><p class="jump-desc">The full chapter index is on the left. These routes lead to the most important advanced workflows.</p>
+<div class="jump-grid"><a class="jump" href="#submodules-the-mental-model-read-first"><span class="jump-num">Path 01</span><strong>Understand submodules</strong><span class="desc">Understand gitlinks, pinned commits, detached HEAD and separate histories.</span><span class="go">Read chapter →</span></a>
+<a class="jump" href="#self-managed-submodule-the-full-two-repo-workflow"><span class="jump-num">Path 02</span><strong>Develop code you own</strong><span class="desc">Commit and push child code, then publish the parent pointer safely.</span><span class="go">Read chapter →</span></a>
+<a class="jump" href="#externally-managed-submodule-upgrade-without-ownership"><span class="jump-num">Path 03</span><strong>Upgrade external code</strong><span class="desc">Choose a tested upstream release and record the exact dependency revision.</span><span class="go">Read chapter →</span></a>
+<a class="jump" href="#external-child-with-local-patches-fork-or-contribute"><span class="jump-num">Path 04</span><strong>Maintain an external fork</strong><span class="desc">Carry patches, keep upstream synchronized and make clones reproducible.</span><span class="go">Read chapter →</span></a>
+<a class="jump" href="#git-lfs-how-large-files-actually-work"><span class="jump-num">Path 05</span><strong>Manage large files</strong><span class="desc">Use Git LFS appropriately, understand storage and migrate existing blobs.</span><span class="go">Read chapter →</span></a>
+<a class="jump" href="#reflog-and-recovering-lost-work"><span class="jump-num">Path 06</span><strong>Recover lost work</strong><span class="desc">Rescue branches, reverse unsafe operations and diagnose unreachable commits.</span><span class="go">Read chapter →</span></a></div><p class="jump-foot">Tip: press <kbd>/</kbd> to search the full guide. Results link directly to the matching subsection.</p>
+<div class="chapters"><section class="chapter" data-search="operating model and safety conventions foundation" id="operating-model-and-safety-conventions"><span class="chapter-cat">Foundation</span><h2><span class="num">01</span><span class="heading-title">Operating model and safety conventions</span></h2>
+<p>Git is a distributed <strong>content-addressed database</strong> with a mutable index and named references. A working directory is only one view of that database. Most Git mistakes become understandable once you distinguish <strong>working tree</strong>, <strong>index (staging area)</strong>, <strong>current commit</strong>, and <strong>remote-tracking refs</strong>.</p>
+<h3 id="operating-model-and-safety-conventions-four-places-a-change-can-live">Four places a change can live</h3>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Place</th>
+<th>Meaning</th>
+<th>Inspect it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Working tree</td>
+<td>Files on disk, including unstaged edits and untracked files</td>
+<td><code>git status --short</code>; <code>git diff</code></td>
+</tr>
+<tr>
+<td>Index</td>
+<td>Snapshot proposed for the next commit</td>
+<td><code>git diff --cached</code>; <code>git ls-files -s</code></td>
+</tr>
+<tr>
+<td><code>HEAD</code></td>
+<td>The currently checked-out commit (normally reached through a branch)</td>
+<td><code>git show --stat HEAD</code>; <code>git symbolic-ref --short HEAD</code></td>
+</tr>
+<tr>
+<td>Remote-tracking ref</td>
+<td>Your last fetched view of a remote branch, e.g. <code>origin/main</code></td>
+<td><code>git branch -r -vv</code>; <code>git log origin/main</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Fetch does not merge.</strong> <strong>Committing does not push.</strong> <strong>Pushing does not create a PR.</strong> These are deliberately separate operations.</p>
+<h3 id="operating-model-and-safety-conventions-conventions-used-in-this-guide">Conventions used in this guide</h3>
+<ul>
+<li><code>main</code> is the example default branch; substitute the actual branch name. <code>origin</code> means your normal remote, <code>upstream</code> means the original project you forked.</li>
+<li>Commands use a POSIX shell and Git CLI. Replace illustrative <code>example-org</code> repositories, branch names and paths.</li>
+<li>Check <code>git status --short --branch</code> before history edits. A backup branch protects committed history only. Save uncommitted files separately; a new worktree does not copy those edits. Paths following <code>--</code> are file paths, not revisions.</li>
+<li>A <strong>published commit</strong> may be in someone else's clone. Prefer revert over rewriting shared history.</li>
+<li>Red-labeled commands can discard work or change shared history. Read consequences before pasting them.</li>
+</ul>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># Always a useful diagnostic starting point
+git status --short --branch
+git branch -vv
+git remote -v
+git log --oneline --graph --decorate -12
+</code></pre></div>
+<h3 id="recipe-conventions">How to use the recipes</h3><p>Each copy box is one action or one sequence. Separate boxes may be alternatives or require a review checkpoint between them. Labels identify inspection, mutation, and destructive operations; output panels are examples, not commands. Replace illustrative repository URLs, IDs, and paths before use. If a command fails, stop and diagnose it before proceeding.</p><p>Multi-step recipes use shell variables: run their steps in the same terminal session. Unless stated otherwise, commands run at the superproject root. Each chapter remains readable offline; search works entirely in the page.</p>
+</section>
+<section class="chapter" data-search="configuration, identity and authentication foundation" id="configuration-identity-and-authentication"><span class="chapter-cat">Foundation</span><h2><span class="num">02</span><span class="heading-title">Configuration, identity and authentication</span></h2>
+<h3 id="configuration-identity-and-authentication-know-which-config-wins">Know which config wins</h3>
+<p>System (<code>--system</code>), user (<code>--global</code>), repository (<code>--local</code>), and worktree config can overlap. Higher-precedence scopes and command-line overrides win; includes and multiple values can complicate the result.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git --version
+git config --list --show-origin --show-scope
+git config --show-origin --get user.email
+git config --global user.name "Your Name"
+git config --global user.email "you@example.net"
+git config --global init.defaultBranch main
+git config --global fetch.prune true
+git config --global rerere.enabled true
+# Only choose pull.rebase after deciding your team's policy
+git config --global pull.ff only
+</code></pre></div>
+<p><code>pull.ff only</code> rejects divergent pulls instead of choosing a merge or rebase automatically. To inspect a single setting, use <code>git config --show-origin --get KEY</code>.</p>
+<h3 id="configuration-identity-and-authentication-ssh-versus-https">SSH versus HTTPS</h3>
+<p>SSH typically uses your SSH agent and public key; HTTPS generally uses a credential helper or <code>gh auth login</code>. A GitHub account password is not a supported Git-over-HTTPS credential. Keep private keys and tokens out of the repository.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">ssh -T git@github.com             # Test GitHub SSH authentication
+gh auth login                     # GitHub CLI interactive sign-in
+gh auth status
+git remote set-url origin git@github.com:example-org/app.git
+</code></pre></div>
+<h3 id="configuration-identity-and-authentication-signing-commits-and-tags">Signing commits and tags</h3>
+<p>Git supports SSH, GPG, and other signing workflows. Signing authenticates who held a signing key; it does not mean the code is safe. Configure an approved key and check verification on your hosting platform.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git config --global gpg.format ssh
+git config --global user.signingkey "${HOME}/.ssh/id_ed25519.pub"
+git config --global commit.gpgsign true
+git log --show-signature -1
+git tag -s v1.2.0 -m "Release v1.2.0"
+</code></pre></div>
+</section>
+<section class="chapter" data-search="graph, refs, head and the index foundation" id="graph-refs-head-and-the-index"><span class="chapter-cat">Foundation</span><h2><span class="num">03</span><span class="heading-title">Graph, refs, HEAD and the index</span></h2>
+<h3 id="graph-refs-head-and-the-index-the-graph-is-the-history">The graph is the history</h3>
+<p>A commit points to a tree and zero or more parent commits; trees point to blobs or more trees. Branches and tags are names pointing into the graph. Rebasing and amending create <strong>new commits with new IDs</strong>, even if their visible file content is identical.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">diagram</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-text">A──B──C──D  main
+    └──E──F  feature
+
+HEAD -&gt; refs/heads/feature -&gt; F
+origin/main -&gt; D  (the last fetched remote state)
+</code></pre></div>
+<p><code>HEAD</code> usually names a branch symbolically. A <strong>detached HEAD</strong> points directly to a commit; new commits there need a branch name to keep them conveniently reachable.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git cat-file -t HEAD
+git cat-file -p HEAD
+git rev-parse --show-toplevel
+git rev-parse --git-dir
+git symbolic-ref -q --short HEAD || echo "detached HEAD"
+git ls-tree HEAD
+git ls-files --stage
+</code></pre></div>
+<h3 id="graph-refs-head-and-the-index-revisions-and-ranges">Revisions and ranges</h3>
+<ul>
+<li><code>HEAD~3</code>: first parent three commits back; <code>HEAD^2</code>: second parent of a merge commit.</li>
+<li><code>A..B</code>: commits reachable from B but not A; <code>A...B</code> is symmetric difference <strong>for log</strong>; <code>git diff A...B</code> instead compares the merge base with B.</li>
+<li><code>git merge-base A B</code>: best shared ancestor for typical branch comparisons.</li>
+</ul>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git log --graph --oneline --decorate --all --simplify-by-decoration
+git log main..feature --oneline
+git log --left-right --cherry-pick main...feature --oneline
+git merge-base main feature
+git diff main...feature --stat
+</code></pre></div>
+</section>
+<section class="chapter" data-search="investigate changes before acting foundation" id="investigate-changes-before-acting"><span class="chapter-cat">Foundation</span><h2><span class="num">04</span><span class="heading-title">Investigate changes before acting</span></h2>
+<h3 id="investigate-changes-before-acting-inspect-working-tree-staged-contents-and-one-commit">Inspect working tree, staged contents, and one commit</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git status --short --branch
+git diff --check                    # Whitespace errors
+git diff --stat
+git diff --word-diff
+git diff --cached
+git show --format=fuller --stat HEAD
+git show HEAD:src/config.py         # File as stored in HEAD
+git log --follow --oneline -- src/config.py
+</code></pre></div>
+<p><code>git status --short</code> prefixes are two characters: index status then worktree status (<code>M </code> staged; <code> M</code> unstaged; <code>??</code> untracked). Use <code>git status --porcelain=v1 -z</code> for robust scripting.</p>
+<h3 id="investigate-changes-before-acting-find-the-introduction-of-a-bug">Find the introduction of a bug</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">investigate file history</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git log -S&#x27;problematic_symbol&#x27; --all --oneline -- src/
+git log -G&#x27;regex.*pattern&#x27; --patch -- src/
+git blame -L 40,75 src/file.py
+</code></pre></div>
+<p>Bisect is a separate session. With a clean checkout, a known bad current commit, and a known good <code>v1.0.0</code> tag:</p><div class="codebox"><div class="code-header"><span class="code-type">start binary-search investigation</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git bisect start
+git bisect bad
+git bisect good v1.0.0
+</code></pre></div>
+<p>At each selected commit, run the test and mark it with <code>git bisect good</code>, <code>git bisect bad</code>, or <code>git bisect skip</code>. Alternatively, when your script reliably classifies a revision:</p><div class="codebox"><div class="code-header"><span class="code-type">automate revision classification</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git bisect run ./test.sh
+</code></pre></div>
+<p>Record the first bad commit and its test evidence. Finish the session separately to return to the original checkout:</p><div class="codebox"><div class="code-header"><span class="code-type">finish bisect session</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git bisect reset
+</code></pre></div>
+
+<p><code>git bisect run</code> requires a repeatable test: exit 0 good, 1–127 except 125 bad, 125 skip. Make the test self-contained; run against a clean environment.</p>
+</section>
+<section class="chapter" data-search="branching strategies and clean commits foundation" id="branching-strategies-and-clean-commits"><span class="chapter-cat">Foundation</span><h2><span class="num">05</span><span class="heading-title">Branching strategies and clean commits</span></h2>
+<p>A branch is a cheap movable name for a commit. Prefer small, cohesive branches and reviews rather than long-lived integration branches where possible. Name them by intent: <code>feat/parser-cache</code>, <code>fix/timeout</code>, <code>docs/git-guide</code>.</p>
+<h3 id="branching-strategies-and-clean-commits-create-inspect-and-clean-up-branches">Create, inspect, and clean up branches</h3>
+<p>Start from a clean checkout. Create the feature branch here; commit and integrate its work before using the separate cleanup step.</p><div class="codebox"><div class="code-header"><span class="code-type">create feature branch</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git switch main
+git fetch origin
+git merge --ff-only origin/main
+git switch -c feat/fast-index
+</code></pre></div>
+<h3 id="branch-cleanup">Clean up after integration</h3><p>Switch away from the feature branch before deleting it. If a squash merge prevents Git from recognizing it as merged, inspect the PR and compare the changes before deciding whether forced deletion is appropriate.</p><div class="codebox"><div class="code-header"><span class="code-type">delete integrated branch</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git switch main
+git fetch origin
+git merge --ff-only origin/main
+git branch --merged main
+git branch -d feat/fast-index
+</code></pre></div>
+<p>Only for a branch you have intentionally abandoned; preserve its tip under another name first if it may be needed.</p><div class="codebox risk"><div class="code-header"><span class="code-type">delete unmerged branch</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git branch -D abandoned-branch
+</code></pre></div>
+
+<h3 id="branching-strategies-and-clean-commits-stage-intentionally">Stage intentionally</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">review and commit</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add -p
+git diff --cached --check
+git diff --cached
+git commit -m &quot;fix: avoid duplicate work during retry&quot;
+</code></pre></div>
+<p>Separate operation: amend only when the last commit is the one you intend to replace. Review staged changes first; amending changes its ID.</p><div class="codebox risk"><div class="code-header"><span class="code-type">replace last commit</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git commit --amend
+</code></pre></div>
+
+<p>For a conventional commit convention, use <code>type(scope): imperative summary</code> if the project adopts it. It is a team convention, not a built-in Git rule. Keep secret files ignored <strong>and</strong> excluded from commits; <code>.gitignore</code> cannot retroactively untrack committed secrets.</p>
+</section>
+<section class="chapter" data-search="fetch, pull, push, and remote architecture foundation" id="fetch-pull-push-and-remote-architecture"><span class="chapter-cat">Foundation</span><h2><span class="num">06</span><span class="heading-title">Fetch, pull, push, and remote architecture</span></h2>
+<h3 id="fetch-pull-push-and-remote-architecture-the-remote-ref-distinction">The remote/ref distinction</h3>
+<p><code>origin/main</code> is <strong>local</strong> remote-tracking state, updated by fetch. <code>main</code> is your local branch. <code>git push</code> requests a remote ref update. A branch upstream (<code>@{upstream}</code>) is the configured integration target, not necessarily a remote named <code>upstream</code>.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git remote -v
+git remote show origin
+git fetch --prune origin
+git log --oneline --left-right main...origin/main
+git branch --set-upstream-to=origin/main main
+git push -u origin feat/fast-index
+</code></pre></div>
+<h3 id="fetch-pull-push-and-remote-architecture-choose-merge-rebase-or-fast-forward-deliberately">Choose merge, rebase, or fast-forward deliberately</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git switch main
+git fetch origin
+git merge --ff-only origin/main   # Safe linear synchronization
+
+# On your private feature branch, replay commits on new main:
+git switch feat/fast-index
+git rebase main
+# If branch was already published and you must update it:
+git push --force-with-lease origin feat/fast-index
+</code></pre></div>
+<p><code>--force-with-lease</code> is safer than <code>--force</code>, but it is not a substitute for coordination: background fetches can affect its expected value. Prefer reviewing the branch's current remote OID and an explicit lease for high-stakes changes.</p>
+<h3 id="fetch-pull-push-and-remote-architecture-fork-topology">Fork topology</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">gh repo fork example-org/project --clone   # Fork and clone if allowed
+git remote -v                           # Usually origin=fork, upstream=original
+git fetch upstream
+git switch main
+git merge --ff-only upstream/main
+git push origin main
+</code></pre></div>
+<h3 id="explicit-force-lease">Use an explicit lease when a private published branch must be rewritten</h3><p>Coordinate the rewrite first. On your feature branch, fetch and inspect the remote tip before saving the expected value; retain it while you rewrite. An explicit lease rejects the push if the server’s branch has changed since that point.</p><div class="codebox"><div class="code-header"><span class="code-type">review and capture remote expectation</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git fetch origin
+expected_feature=$(git rev-parse refs/remotes/origin/feat/fast-index)
+git log --oneline --left-right HEAD...&quot;$expected_feature&quot;
+</code></pre></div>
+<p>After the agreed rebase and verification, use the captured ID:</p><div class="codebox risk"><div class="code-header"><span class="code-type">replace only the agreed branch</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git push --force-with-lease=&quot;refs/heads/feat/fast-index:$expected_feature&quot; \
+  origin HEAD:refs/heads/feat/fast-index
+</code></pre></div>
+<p>A rejection is a reason to inspect new remote work, not to refresh the expected value automatically. This protects against an unexpected ref change, not against choosing the wrong branch or rewriting work collaborators already based on.</p>
+</section>
+<section class="chapter" data-search="merge, rebase and conflict resolution foundation" id="merge-rebase-and-conflict-resolution"><span class="chapter-cat">Foundation</span><h2><span class="num">07</span><span class="heading-title">Merge, rebase and conflict resolution</span></h2>
+<h3 id="merge-rebase-and-conflict-resolution-choose-the-mechanism">Choose the mechanism</h3>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Operation</th>
+<th>Tradeoff</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integrate shared feature history intact</td>
+<td><code>git merge</code></td>
+<td>Preserves topology; can add a merge commit</td>
+</tr>
+<tr>
+<td>Keep an unpublished branch linear</td>
+<td><code>git rebase</code></td>
+<td>Rewrites its commit IDs</td>
+</tr>
+<tr>
+<td>Apply one selected fix</td>
+<td><code>git cherry-pick</code></td>
+<td>New commit, may need manual conflict handling</td>
+</tr>
+<tr>
+<td>Reverse a published change</td>
+<td><code>git revert</code></td>
+<td>Records inverse change without rewriting history</td>
+</tr>
+</tbody>
+</table></div>
+<p>These are separate choices. Begin on the branch that should receive the change, with a clean working tree.</p><div class="codebox"><div class="code-header"><span class="code-type">merge a feature</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git merge --no-ff feat/my-feature
+</code></pre></div>
+<div class="codebox risk"><div class="code-header"><span class="code-type">edit your private branch history</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git rebase -i main
+</code></pre></div>
+<div class="codebox risk"><div class="code-header"><span class="code-type">fold fixup commits</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git rebase -i --autosquash main
+</code></pre></div>
+<div class="codebox"><div class="code-header"><span class="code-type">apply one selected commit</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git cherry-pick -x abcdef12
+</code></pre></div>
+<div class="codebox"><div class="code-header"><span class="code-type">reverse one published commit</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git revert abcdef12
+</code></pre></div>
+
+<h3 id="merge-rebase-and-conflict-resolution-during-a-conflict">During a conflict</h3>
+<p>Conflict markers are just a textual representation of competing changes; they may also appear in <code>rebase</code> or <code>cherry-pick</code>. Understand which side is which before choosing <code>--ours</code> / <code>--theirs</code>: during rebase the meanings often surprise people.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git status
+git diff --name-only --diff-filter=U
+git ls-files -u                # Stage 1 base, stage 2 ours, stage 3 theirs
+git diff --merge
+# Edit files to intended result, then:
+git add affected/file.py
+git merge --continue            # During merge; or git rebase --continue
+# Abandon instead: git merge --abort / git rebase --abort
+</code></pre></div>
+<p><code>git rerere</code> can remember previous resolutions of the same conflict shape. Review the resolution after it applies; it is not a semantic merge engine.</p>
+</section>
+<section class="chapter" data-search="stash, restore, reset and the danger ladder foundation" id="stash-restore-reset-and-the-danger-ladder"><span class="chapter-cat">Foundation</span><h2><span class="num">08</span><span class="heading-title">Stash, restore, reset and the danger ladder</span></h2>
+<h3 id="stash-restore-reset-and-the-danger-ladder-know-the-smallest-operation-that-works">Know the smallest operation that works</h3>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Intent</th>
+<th>Prefer</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Discard <strong>unstaged</strong> edits to one tracked file</td>
+<td><code>git restore -- file</code></td>
+<td>Working tree only</td>
+</tr>
+<tr>
+<td>Unstage changes without deleting them</td>
+<td><code>git restore --staged -- file</code></td>
+<td>Index only</td>
+</tr>
+<tr>
+<td>Temporarily set aside edits</td>
+<td><code>git stash push -u -m "context"</code></td>
+<td>Working tree + index + untracked (not ignored)</td>
+</tr>
+<tr>
+<td>Move branch to an earlier commit, retain file changes</td>
+<td><code>git reset --mixed COMMIT</code></td>
+<td>Branch + index, retains working tree</td>
+</tr>
+<tr>
+<td>Abandon a merge/rebase</td>
+<td><code>git merge --abort</code> / <code>git rebase --abort</code></td>
+<td>In-progress operation</td>
+</tr>
+<tr>
+<td>Undo published code without altering history</td>
+<td><code>git revert COMMIT</code></td>
+<td>New inverse commit</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="stash-save">Save work in this repository</h3><div class="codebox"><div class="code-header"><span class="code-type">stash and inspect</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git stash push -u -m &quot;before dependency update&quot;
+git stash list
+git stash show -p &#x27;stash@{0}&#x27;
+</code></pre></div>
+<p>Ignored files are excluded. A parent stash does not preserve uncommitted work inside submodules: save or commit that work separately in each child. Check that a stash was actually created before referring to <code>stash@{0}</code>.</p><h3 id="stash-recover">Recover a stash without immediately deleting it</h3><div class="codebox"><div class="code-header"><span class="code-type">apply saved work</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git stash apply --index &#x27;stash@{0}&#x27;
+</code></pre></div>
+<p>Inspect <code>git status</code> and test the result. <code>--index</code> attempts to restore the staged state as well; conflicts may prevent this. The stash remains available. After confirming recovery, remove that exact stash in a separate action:</p><div class="codebox risk"><div class="code-header"><span class="code-type">drop verified stash</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git stash drop &#x27;stash@{0}&#x27;
+</code></pre></div>
+<p>If applying conflicts, resolve and stage the intended files; there is no <code>stash --continue</code>. Keep the stash until the result is verified. To abandon the attempt, first preserve any work that existed before applying it; do not blindly hard-reset a mixed working tree.</p><h3 id="unstage-file">Unstage one file, preserving its contents</h3><div class="codebox"><div class="code-header"><span class="code-type">unstage only</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git restore --staged -- src/app.py
+</code></pre></div>
+<h3 id="discard-file">Discard unstaged edits to one tracked file</h3><p>This replaces the working-tree file with the index version. Unsaved edits may be unrecoverable.</p><div class="codebox risk"><div class="code-header"><span class="code-type">discard unstaged edits</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git restore -- src/app.py
+</code></pre></div>
+
+<h3 id="stash-restore-reset-and-the-danger-ladder-destructive-reset-and-clean">Destructive reset and clean</h3>
+<p>Use <code>git clean -nd</code> to preview, <strong>always</strong>. <code>-x</code> includes ignored files (such as build caches and sometimes local settings) and <code>-fdx</code> can erase valuable untracked work.</p>
+<p>First inspect and save tracked edits, untracked files, ignored files, and child-repository work separately. A backup branch only preserves committed history.</p><div class="codebox risk"><div class="code-header"><span class="code-type">discard tracked edits</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git reset --hard HEAD
+</code></pre></div>
+<p>This reset replaces tracked files and may also remove untracked paths that obstruct writing tracked files. It is a separate action from cleaning.</p><h3 id="clean-preview">Preview untracked-file deletion</h3><div class="codebox"><div class="code-header"><span class="code-type">preview only</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git clean -nd
+</code></pre></div>
+<p><strong>Stop and inspect every listed path.</strong> If the preview is correct and the working tree has not changed, run the deletion separately:</p><div class="codebox risk"><div class="code-header"><span class="code-type">delete previewed untracked files</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git clean -fd
+</code></pre></div>
+<p>To include ignored files, first preview with <code>git clean -ndx</code>. Only after reviewing that expanded list consider <code>git clean -fdx</code>. This can erase local settings, build output, and other valuable files.</p>
+</section>
+<section class="chapter" data-search="reflog and recovering lost work foundation" id="reflog-and-recovering-lost-work"><span class="chapter-cat">Foundation</span><h2><span class="num">09</span><span class="heading-title">Reflog and recovering lost work</span></h2>
+<p>The reflog tracks local movements of refs and HEAD; it is a powerful short-term safety net, not a permanent backup. It is local to the repository and may expire or be pruned.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git reflog --date=local --all
+git reflog show main
+git show HEAD@{2} --stat
+git switch -c rescue/recovered HEAD@{2}  # Preserve before resetting anything
+git fsck --full --no-reflogs --unreachable # Last-resort unreachable objects
+</code></pre></div>
+<h3 id="reflog-and-recovering-lost-work-incident-recipes">Incident recipes</h3>
+<p><strong>Deleted a branch:</strong> find its tip in reflog, create <code>rescue/&lt;name&gt;</code> there. <strong>Bad hard reset:</strong> find pre-reset <code>HEAD@{N}</code> and create a rescue branch. <strong>Accidental amend/rebase:</strong> find old tip in reflog, inspect both versions before any force-push. <strong>Deleted an untracked file:</strong> Git generally cannot recover it; use backups or filesystem recovery.</p>
+<p class="caution"><strong>Already pushed a secret?</strong> Remove access, rotate the credential immediately, then coordinate history cleanup and provider-side secret revocation. Deleting the local file alone does not remove it from old commits, forks, or caches.</p>
+</section>
+<section class="chapter" data-search="worktrees: parallel work without extra clones foundation" id="worktrees-parallel-work-without-extra-clones"><span class="chapter-cat">Foundation</span><h2><span class="num">10</span><span class="heading-title">Worktrees: parallel work without extra clones</span></h2>
+<p>A linked worktree gives one repository multiple checked-out working directories, usually with different branches, and shares its Git object database. Good for reviewing a PR while developing another feature, release hotfixes, or bisecting without disrupting the primary directory.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git worktree add -b hotfix/urgent ../app-hotfix main
+git worktree add ../app-review origin/main   # Detached worktree for inspection
+git worktree list --porcelain
+git -C ../app-hotfix status
+git worktree remove ../app-review           # Refuses dirty worktree by default
+git worktree prune                         # Clean stale administrative metadata
+</code></pre></div>
+<p>Do not manually delete active worktree folders. Git normally prevents the same local branch being checked out in two worktrees. Submodule setup is <strong>per worktree</strong> and has operational limitations; do not assume submodules are populated or safely shared between linked worktrees. For many complex submodule builds, separate clones may be simpler.</p>
+</section>
+<section class="chapter" data-search="tags, releases and version conventions foundation" id="tags-releases-and-version-conventions"><span class="chapter-cat">Foundation</span><h2><span class="num">11</span><span class="heading-title">Tags, releases and version conventions</span></h2>
+<p>Annotated tags are immutable in intent and contain tagger/message metadata. Lightweight tags are just refs. Avoid moving published release tags; automation and downstream users may have cached them.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git tag -a v2.4.0 -m "Release 2.4.0"
+git show v2.4.0
+git push origin v2.4.0
+git ls-remote --tags origin
+gh release create v2.4.0 --generate-notes
+</code></pre></div>
+<p>A tag does <strong>not</strong> tag nested submodule histories: the superproject's tagged commit pins gitlinks, and each submodule commit must still be fetchable from its own configured source. Use signed tags for provenance when appropriate and record reproducible build inputs.</p>
+</section>
+<section class="chapter" data-search="git attributes, ignore rules and line endings foundation" id="git-attributes-ignore-rules-and-line-endings"><span class="chapter-cat">Foundation</span><h2><span class="num">12</span><span class="heading-title">Git attributes, ignore rules and line endings</span></h2>
+<p><code>.gitignore</code> controls untracked candidates; <code>.gitattributes</code> controls content treatment: text normalization, diff, merge drivers, and LFS filters. Patterns in <code>.gitignore</code> cannot remove a file already tracked in Git.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">inspect ignore and attribute policy</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git check-ignore -v build/cache.bin
+git ls-files --cached -- .env
+git check-attr -a -- assets/scene.psd
+</code></pre></div>
+<p>Separate operation: stop tracking a file while keeping its working-tree copy. Add the corresponding ignore rule and review the staged deletion before committing.</p><div class="codebox"><div class="code-header"><span class="code-type">untrack local configuration</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git rm --cached -- .env
+</code></pre></div>
+<p>Optional POSIX user-level convention; review existing repository attributes before changing it:</p><div class="codebox"><div class="code-header"><span class="code-type">set user line-ending policy</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git config --global core.autocrlf input
+</code></pre></div>
+
+<div class="codebox"><div class="code-header"><span class="code-type">.gitattributes</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-gitattributes"># Example .gitattributes: commit consistent LF line endings
+* text=auto
+*.sh text eol=lf
+*.bat text eol=crlf
+*.png binary
+</code></pre></div>
+<p>Introduce normalization in a dedicated commit, separate from feature work, and review <code>git diff --check</code> to avoid mass line-ending conflicts.</p>
+</section>
+<section class="chapter" data-search="submodules: the mental model (read first) submodules" id="submodules-the-mental-model-read-first"><span class="chapter-cat">Submodules</span><h2><span class="num">13</span><span class="heading-title">Submodules: the mental model (read first)</span></h2>
+<p>A <strong>submodule is a separate Git repository</strong>, not a regular directory whose files the parent tracks. The <strong>superproject</strong> records a gitlink (tree entry mode <code>160000</code>) pointing to one exact submodule commit. <code>.gitmodules</code> records the path and clone URL, plus optional hints such as a branch to use with <code>update --remote</code>.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">diagram</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-text">Superproject (app)                    Submodule (engine)
+┌────────────────────────────┐       ┌────────────────────────────┐
+│ app commit 9d8c...         │       │ engine commits: a1 → b2 → c3│
+│   src/...                  │       │                            │
+│   .gitmodules              │       │ main → c3                  │
+│   engine/ 160000 → b2 ───────────→ │ commit b2 (PINNED)         │
+└────────────────────────────┘       └────────────────────────────┘
+</code></pre></div>
+<p class="note"><strong>Important consequences:</strong></p>
+<ul>
+<li>Cloning the parent without recursive options often leaves submodule working directories unpopulated.</li>
+<li><code>git submodule update --init</code> normally checks out the <strong>pinned commit in detached HEAD</strong>, whether or not it is the latest on a branch. This is correct and reproducible.</li>
+<li>Committing inside the submodule changes its own repository, <strong>not</strong> the parent's recorded gitlink. Commit the updated gitlink in the parent separately.</li>
+<li>The parent does <strong>not</strong> store the child repository's objects or LFS content. The pinned commit must be obtainable from the child's remote for teammates and CI.</li>
+<li><code>.gitmodules</code> and <code>submodule.*</code> values in local <code>.git/config</code> are related but distinct. <code>git submodule init</code> copies configuration when first registering; <code>git submodule sync</code> updates changed URLs for initialized modules.</li>
+</ul>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git ls-tree HEAD libs/engine               # 160000 commit &lt;sha&gt;
+git submodule status --recursive
+git diff --submodule=log
+git submodule summary --cached
+git -C libs/engine rev-parse HEAD
+</code></pre></div>
+</section>
+<section class="chapter" data-search="submodule architecture: own it or depend on it? submodules" id="submodule-architecture-own-it-or-depend-on-it"><span class="chapter-cat">Submodules</span><h2><span class="num">14</span><span class="heading-title">Submodule architecture: own it or depend on it?</span></h2>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>You manage the child repo</th>
+<th>Someone else manages it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Update authority</td>
+<td>You can commit and push upstream</td>
+<td>You generally cannot push to its upstream</td>
+</tr>
+<tr>
+<td>Default intent</td>
+<td>Develop child and parent together</td>
+<td>Adopt a tested upstream release or commit</td>
+</tr>
+<tr>
+<td>Typical workflow</td>
+<td>Child feature branch → push child → parent pin → push parent</td>
+<td>Fetch upstream → inspect changes → select commit → parent pin</td>
+</tr>
+<tr>
+<td>Local modification</td>
+<td>Make a normal child branch and PR</td>
+<td>Contribute upstream, or maintain a clearly named fork</td>
+</tr>
+<tr>
+<td>Critical check</td>
+<td>Push child commit <strong>before</strong> publishing parent pointer</td>
+<td>Pinned commit exists in an accessible upstream or fork</td>
+</tr>
+<tr>
+<td>Maintenance</td>
+<td>Coordinated test/version/release policy</td>
+<td>Watch compatibility, licensing, security, and upstream availability</td>
+</tr>
+</tbody>
+</table></div>
+<p class="note"><strong>Core recommendation:</strong> treat both situations as <strong>pinned dependencies</strong> in released/CI builds. <code>--remote</code> is an <strong>explicit upgrade operation</strong>, not what a normal checkout should do. Do not make builds silently chase <code>main</code> or the default upstream branch.</p>
+<h3 id="submodule-architecture-own-it-or-depend-on-it-when-not-to-use-submodules">When not to use submodules</h3>
+<p>Use a package manager for published libraries with release/version resolution; a monorepo for code that needs atomic commits and one review process; <code>git subtree</code> or vendoring if consumers must receive source in one clone and accept copying upstream code. Submodules excel when repositories have independent lifecycles, security boundaries, or reuse and you need exact commit pins.</p>
+</section>
+<section class="chapter" data-search="submodules: add, clone, inspect and initialize submodules" id="submodules-add-clone-inspect-and-initialize"><span class="chapter-cat">Submodules</span><h2><span class="num">15</span><span class="heading-title">Submodules: add, clone, inspect and initialize</span></h2>
+<h3 id="submodules-add-clone-inspect-and-initialize-add-a-child-repository">Add a child repository</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># Commands run from superproject root; sample URLs are illustrative.
+git submodule add -b main https://github.com/example-org/engine.git libs/engine
+git diff -- .gitmodules
+git diff --cached --submodule=log
+git commit -m "build: pin engine as submodule"
+</code></pre></div>
+<p><code>-b main</code> records a <strong>branch hint for <code>git submodule update --remote</code></strong>; it does not replace the recorded commit pin. Prefer relative submodule URLs (<code>../engine.git</code>) only when the projects genuinely share a stable host/organization relationship and forks can resolve them correctly.</p>
+<h3 id="submodules-add-clone-inspect-and-initialize-clone-a-parent-containing-submodules">Clone a parent containing submodules</h3>
+<p>For a new clone:</p><div class="codebox"><div class="code-header"><span class="code-type">clone pinned dependencies</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git clone --recurse-submodules https://github.com/example-org/app.git
+cd app
+git submodule status --recursive
+</code></pre></div>
+<p>For an existing parent checkout instead:</p><div class="codebox"><div class="code-header"><span class="code-type">initialize existing checkout</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git submodule update --init --recursive
+</code></pre></div>
+<p>To initialize only one selected module instead:</p><div class="codebox"><div class="code-header"><span class="code-type">initialize one module</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git submodule update --init -- libs/engine
+</code></pre></div>
+
+<p>After switching parent branches, run <code>git submodule update --init --recursive</code> to move children to the commits recorded by the new parent commit. This may detach a child's HEAD; that is normal for dependency consumption.</p>
+<h3 id="submodules-add-clone-inspect-and-initialize-status-symbols-and-changed-pointers">Status symbols and changed pointers</h3>
+<p><code>git submodule status</code> uses <code>-</code> for uninitialized, <code>+</code> when the child HEAD differs from the parent's recorded pin, and <code>U</code> for an unresolved gitlink merge conflict. A modified submodule working tree is a distinct condition from a different gitlink commit.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git status --short
+git diff --submodule=log
+# Inspect what parent expects vs what is actually checked out:
+git rev-parse HEAD:libs/engine
+git -C libs/engine rev-parse HEAD
+</code></pre></div>
+</section>
+<section class="chapter" data-search="self-managed submodule: the full two-repo workflow submodules" id="self-managed-submodule-the-full-two-repo-workflow"><span class="chapter-cat">Submodules</span><h2><span class="num">16</span><span class="heading-title">Self-managed submodule: the full two-repo workflow</span></h2>
+<p><strong>Scenario:</strong> your application uses <code>libs/engine</code>, and you have push access to both repositories. You are modifying the engine API and the application in the same feature. The unit of publication is <strong>two Git commits and two pushes</strong>, not a single atomic commit.</p>
+<h3 id="self-managed-submodule-the-full-two-repo-workflow-1-create-a-branch-and-change-the-child">1. Create a branch and change the child</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># In the parent:
+git switch -c feat/new-parser
+# In the child (often detached after initialization):
+git -C libs/engine switch -c feat/new-parser
+# Edit child files, run its tests...
+git -C libs/engine status --short
+git -C libs/engine add -p
+git -C libs/engine commit -m "feat: expose parser streaming API"
+git -C libs/engine push -u origin feat/new-parser
+</code></pre></div>
+<p>If the child branch already exists locally, use <code>git -C libs/engine switch feat/new-parser</code> rather than creating it again. Review what it branched from; after a normal submodule checkout, it may start at an older pinned commit.</p>
+<h3 id="self-managed-submodule-the-full-two-repo-workflow-2-commit-and-publish-the-parent-pin">2. Commit and publish the parent pin</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># Change parent application code to use the API, then:
+git status --short
+git diff --submodule=log
+git add src/ libs/engine
+git commit -m "feat: use streaming parser from engine"
+# Local guard; follow with the fresh-clone verification below.
+git push --recurse-submodules=check origin feat/new-parser
+</code></pre></div>
+<p>If the remote child commit is on a <strong>feature branch</strong>, teammates need permission to fetch it and that branch must not be deleted before merging/retaining the commit. Preferred release practice: merge the child's PR into a durable branch or tag first, then pin the resulting reachable commit in the parent.</p>
+<h3 id="self-managed-submodule-the-full-two-repo-workflow-3-optional-push-automation">3. Optional push automation</h3>
+<p>Choose automatic child pushing only when every relevant child has an appropriate push remote and branch configuration:</p><div class="codebox"><div class="code-header"><span class="code-type">attempt child pushes before parent</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git push --recurse-submodules=on-demand origin feat/new-parser
+</code></pre></div>
+<p>Alternatively, configure this parent repository to check child publication on future pushes:</p><div class="codebox"><div class="code-header"><span class="code-type">enable local publication guard</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git config --local push.recurseSubmodules check
+</code></pre></div>
+
+<p><code>check</code> uses child remote-tracking reachability to detect unpublished commits; <code>on-demand</code> attempts child pushes. Neither proves that the recorded clone URL, current server state, and a teammate’s credentials can supply the pin. Use the fresh-clone verification below.</p>
+<h3 id="self-managed-submodule-the-full-two-repo-workflow-typical-traps">Typical traps</h3>
+<ul>
+<li>You committed in the child but didn't stage <code>libs/engine</code> in the parent: the parent still points to the old commit.</li>
+<li>You committed a new gitlink in the parent but never pushed the child: fresh clones cannot fetch the pin.</li>
+<li>You ran <code>git submodule update</code> while developing on a child branch: default checkout may detach HEAD at the parent pin. Preserve child work in a branch before running it.</li>
+<li>You changed parent and child in separate PRs: coordinate merge order so the parent never points at an unavailable child commit.</li>
+</ul>
+<h3 id="squash-child-pr">When the child PR is squash-merged</h3><p><strong>Starting state:</strong> child PR 42 was merged into <code>example-org/engine</code> with squash, and the parent feature branch still pins the original child feature tip. Squashing creates a different commit. Obtain the merged PR’s actual commit, fetch it, and repin before the old branch is retired.</p><div class="codebox"><div class="code-header"><span class="code-type">inspect merged child commit</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">child_release=$(gh pr view 42 --repo example-org/engine --json mergeCommit --jq &#x27;.mergeCommit.oid&#x27;)
+test -n &quot;$child_release&quot; &amp;&amp; test &quot;$child_release&quot; != null
+git -C libs/engine fetch origin main
+git -C libs/engine show --stat &quot;$child_release&quot;
+git -C libs/engine merge-base --is-ancestor &quot;$child_release&quot; origin/main
+</code></pre></div>
+<p>Stop if any check fails, or the child contains local edits. Once the commit and compatibility are confirmed:</p><div class="codebox"><div class="code-header"><span class="code-type">select durable child commit</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C libs/engine switch --detach &quot;$child_release&quot;
+git -C libs/engine submodule sync --recursive
+git -C libs/engine submodule update --init --recursive
+git diff --submodule=log
+</code></pre></div>
+<p>Run the child tests and the application’s integration tests before recording the pin.</p><div class="codebox"><div class="code-header"><span class="code-type">publish revised parent pin</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add libs/engine
+git commit -m &quot;deps: pin merged engine change&quot;
+git push --recurse-submodules=check origin HEAD
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>The parent now records the merged child commit, not the pre-squash feature tip.</pre></div><h3 id="verify-child-publication">Verify publication from a fresh clone</h3><p>Use a new directory and the same access model as CI. This checks the actual recorded clone URLs rather than your existing child remotes or object cache. The branch must already be published.</p><div class="codebox"><div class="code-header"><span class="code-type">verify clean consumer checkout</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git clone --branch feat/new-parser --recurse-submodules \
+  https://github.com/example-org/app.git ../app-pin-check
+git -C ../app-pin-check submodule status --recursive
+git -C ../app-pin-check status --short
+</code></pre></div>
+<p>Expect no <code>-</code>, <code>+</code>, or <code>U</code> prefix in submodule status and a clean parent status. If LFS is used, pull and verify those payloads in each relevant repository, then run the build. Failure here blocks parent integration. To roll back a published parent change, use a reviewed revert and update the child worktrees to the restored pins.</p>
+<p>Reference: <a href="https://git-scm.com/docs/git-push" target="_blank" rel="noopener noreferrer">git-push recursive submodule checks</a>.</p>
+</section>
+<section class="chapter" data-search="externally managed submodule: upgrade without ownership submodules" id="externally-managed-submodule-upgrade-without-ownership"><span class="chapter-cat">Submodules</span><h2><span class="num">17</span><span class="heading-title">Externally managed submodule: upgrade without ownership</span></h2>
+<p><strong>Scenario:</strong> your application embeds an upstream codec repository (<code>vendor/codec</code>) that you do not control. Treat it like a release-managed dependency. The safest update is a deliberate commit selection, <strong>not</strong> an unreviewed move to the tip of the upstream branch.</p>
+<h3 id="externally-managed-submodule-upgrade-without-ownership-1-inspect-upstream-and-pick-a-version">1. Inspect upstream and pick a version</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C vendor/codec remote -v
+git -C vendor/codec fetch --tags origin
+git -C vendor/codec log --oneline --decorate -15 origin/main
+git -C vendor/codec tag --sort=-version:refname | head
+# Inspect between old pin and proposed release:
+git -C vendor/codec log --oneline HEAD..v2.3.1
+git -C vendor/codec diff --stat HEAD v2.3.1
+</code></pre></div>
+<h3 id="externally-managed-submodule-upgrade-without-ownership-2-move-to-the-tested-version-and-record-it-in-the-parent">2. Move to the tested version and record it in the parent</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C vendor/codec switch --detach v2.3.1
+git -C vendor/codec submodule sync --recursive
+git -C vendor/codec submodule update --init --recursive
+git -C vendor/codec rev-parse HEAD
+git diff --submodule=log
+# Run tests in the superproject now
+git add vendor/codec
+git commit -m "deps: update codec to v2.3.1"
+git push origin HEAD
+</code></pre></div>
+<p>The superproject stores the <strong>commit ID</strong>, not the tag name. Tags can be moved or removed upstream; record the selected version and reason in the commit/PR. Verify licenses and changelog, test consumers, and keep a rollback path to the previous parent commit.</p>
+<h3 id="externally-managed-submodule-upgrade-without-ownership-explicit-branch-following-update-not-a-checkout-default">Explicit branch-following update (not a checkout default)</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># Configure the branch hint in the tracked .gitmodules:
+git submodule set-branch --branch main vendor/codec
+git add .gitmodules &amp;&amp; git commit -m "build: track codec main for manual upgrades"
+# This fetches and checks out the remote tracking branch's target (normally detached):
+git submodule update --remote vendor/codec
+# Review and test, then stage/commit the new gitlink only if approved.
+git diff --submodule=log
+git add vendor/codec &amp;&amp; git commit -m "deps: advance codec pin"
+</code></pre></div>
+<p><code>git submodule update --remote --merge</code> and <code>--rebase</code> can integrate new upstream commits into an existing <strong>child branch</strong> instead of detached-checkout behavior; they are for active child development, not passive consumption. <code>git pull</code> inside the child follows its own branch tracking config, not necessarily the <code>.gitmodules</code> branch hint.</p>
+<h3 id="nested-upgrade-check">Nested dependencies after selecting a release</h3><p>The release-selection recipe above also updates nested dependencies. Check their pins before staging the parent pointer; switching the top-level child alone does not populate those worktrees.</p><div class="codebox"><div class="code-header"><span class="code-type">verify nested release pins</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C vendor/codec submodule status --recursive
+</code></pre></div>
+<p>Do this before staging the parent pointer. For rollback, restore the previously selected parent commit through your normal branch/revert workflow, then run <code>git submodule update --init --recursive</code>.</p>
+</section>
+<section class="chapter" data-search="external child with local patches: fork or contribute submodules" id="external-child-with-local-patches-fork-or-contribute"><span class="chapter-cat">Submodules</span><h2><span class="num">18</span><span class="heading-title">External child with local patches: fork or contribute</span></h2>
+<p>If upstream needs a patch, choose intentionally:</p>
+<ol>
+<li><strong>Contribute upstream:</strong> fork the child, make a PR; once merged to upstream and available there, select the upstream commit and pin it in the parent. Best long-term maintenance.</li>
+<li><strong>Maintain a fork:</strong> if upstream cannot accept the change in time, point the parent's <code>.gitmodules</code> URL at your fork and pin a commit available from that fork. Now you own updating and securing that fork.</li>
+<li><strong>Avoid an unpushed detached commit:</strong> a parent cannot reliably clone a child commit that exists only on your machine.</li>
+</ol>
+<h3 id="external-child-with-local-patches-fork-or-contribute-a-maintainable-fork-workflow">A maintainable fork workflow</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># In the child, keep official upstream separate from your fork:
+git -C vendor/codec remote rename origin upstream
+git -C vendor/codec remote add origin git@github.com:your-org/codec-fork.git
+git -C vendor/codec fetch upstream
+git -C vendor/codec switch -c patches/app-compat upstream/main
+# Edit; commit; test, then publish to your fork:
+git -C vendor/codec push -u origin patches/app-compat
+# In parent, RECORD your fork URL for future clean clones:
+git submodule set-url vendor/codec https://github.com/your-org/codec-fork.git
+git add .gitmodules vendor/codec
+git commit -m "deps: use patched codec fork"
+</code></pre></div>
+<p class="caution"><strong>Caution:</strong> <code>git submodule set-url</code> updates <code>.gitmodules</code> and synchronizes this checkout; teammates with old initialized URL settings should run <code>git submodule sync --recursive</code> after pulling. Confirm all relevant CI deploy keys or tokens can read the fork. A private fork embedded into a public parent can make fresh clones fail.</p>
+<h3 id="external-child-with-local-patches-fork-or-contribute-bring-upstream-fixes-into-your-fork">Bring upstream fixes into your fork</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C vendor/codec fetch upstream
+git -C vendor/codec switch patches/app-compat
+git -C vendor/codec merge upstream/main
+# Resolve/test/commit as necessary, then:
+git -C vendor/codec push origin patches/app-compat
+git add vendor/codec
+git commit -m "deps: refresh patched codec against upstream"
+</code></pre></div>
+<p>Decide whether to <strong>merge</strong> or <strong>rebase</strong> local patch history based on whether the fork branch is shared. Never rewrite a branch other consumers depend on without coordinating.</p>
+</section>
+<section class="chapter" data-search="submodule lifecycle: move, remove, sync and restore submodules" id="submodule-lifecycle-move-remove-sync-and-restore"><span class="chapter-cat">Submodules</span><h2><span class="num">19</span><span class="heading-title">Submodule lifecycle: move, remove, sync and restore</span></h2>
+<h3 id="submodule-lifecycle-move-remove-sync-and-restore-when-an-upstream-url-changes">When an upstream URL changes</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git submodule set-url libs/engine https://github.com/example-org/new-engine.git
+git add .gitmodules &amp;&amp; git commit -m "build: update engine source URL"
+# Teammates after pulling the URL change:
+git submodule sync --recursive
+git submodule update --init --recursive
+</code></pre></div>
+<h3 id="submodule-lifecycle-move-remove-sync-and-restore-remove-from-the-parent-project">Remove from the parent project</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># From the parent root; check there are no irreplaceable child edits first:
+git -C libs/engine status --short
+git rm libs/engine
+# Review staged .gitmodules and gitlink removals:
+git diff --cached -- .gitmodules libs/engine
+git commit -m "build: remove engine dependency"
+</code></pre></div>
+<p><code>git rm</code> removes the tracked submodule and its <code>.gitmodules</code> entry. Modern Git may retain the child's object database under <code>.git/modules/...</code> for safety; do not manually purge it until you have confirmed no worktree, backups or local commits depend on it.</p>
+<h3 id="submodule-lifecycle-move-remove-sync-and-restore-deinitialize-without-removing-the-dependency">Deinitialize without removing the dependency</h3>
+<div class="codebox risk"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git submodule deinit libs/engine       # Removes local registration/worktree
+git submodule update --init --recursive libs/engine # Recreate pinned checkout
+# DANGER: deinit -f can discard uncommitted child edits.
+</code></pre></div>
+<h3 id="submodule-lifecycle-move-remove-sync-and-restore-check-nested-submodules-and-historic-layouts">Check nested submodules and historic layouts</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git submodule foreach --recursive 'printf "%s: " "$displaypath"; git status --short'
+git submodule sync --recursive
+git submodule absorbgitdirs          # Normalize old nested .git directory layouts
+</code></pre></div>
+<p>Use recursive operations intentionally; nested submodules introduce additional URLs, access requirements, gitlinks and CI setup steps.</p>
+<h3 id="move-submodule">Move an existing submodule</h3><p><strong>Starting state:</strong> an initialized, clean <code>libs/engine</code> using a modern gitfile layout; the destination does not exist. Save child work and check nested repositories before moving. Update build paths separately as part of the same reviewed change.</p><div class="codebox"><div class="code-header"><span class="code-type">move and inspect</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">mkdir -p components
+git mv libs/engine components/engine
+git diff --cached -- .gitmodules libs/engine components/engine
+git -C components/engine status --short
+</code></pre></div>
+<p>Git updates the gitfile connection and the tracked submodule path. The submodule’s logical name can remain <code>libs/engine</code>; name and path are different. Review the staged metadata and build-path changes before committing.</p><div class="codebox"><div class="code-header"><span class="code-type">record moved submodule</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add .gitmodules
+git commit -m &quot;build: move engine into components&quot;
+git submodule status --recursive
+</code></pre></div>
+<p>Verify by cloning the resulting branch afresh. Switching between commits before and after a move can leave an old populated directory; inspect it for edits before removing anything. Do not manually rename directories under <code>.git/modules</code>.</p><h3 id="restore-removed-submodule">Restore a dependency removed in one commit</h3><p>If the removal was a dedicated commit, a reviewed revert restores its gitlink and <code>.gitmodules</code> entry together. Replace the example ID with the actual removal commit. A revert also reverses any other changes in that commit.</p><div class="codebox"><div class="code-header"><span class="code-type">restore tracked dependency definition</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git revert REMOVE_COMMIT
+</code></pre></div>
+<p>After resolving any revert conflicts and completing the revert:</p><div class="codebox"><div class="code-header"><span class="code-type">populate restored dependency</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git submodule sync --recursive
+git submodule update --init --recursive
+git submodule status --recursive
+</code></pre></div>
+<p>The old child commit still needs to be available locally or from its remote. Retaining an old object database is not a substitute for a child backup.</p>
+<p>Reference: <a href="https://git-scm.com/docs/git-mv" target="_blank" rel="noopener noreferrer">git-mv submodule handling and historical-layout caveats</a>.</p>
+</section>
+<section class="chapter" data-search="submodule conflict resolution and recovery submodules" id="submodule-conflict-resolution-and-recovery"><span class="chapter-cat">Submodules</span><h2><span class="num">20</span><span class="heading-title">Submodule conflict resolution and recovery</span></h2>
+<p>A gitlink conflict represents competing child commit IDs. Resolve the child history first, then stage the chosen child commit in the parent. The following recipe is for an ordinary <strong>parent merge</strong> stopped on <code>libs/engine</code>, with two divergent child commits and push access to the child. For a rebase, inspect the reversed side meanings and use <code>git rebase --continue</code> at the final parent step.</p><h3 id="child-conflict-inspect">1. Capture both pins and inspect the child</h3><p>Do not start with dirty child worktrees. Save child edits and detached commits before switching branches. Keep this terminal open so the captured variables remain available.</p><div class="codebox"><div class="code-header"><span class="code-type">inspect unmerged gitlink stages</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">ours=$(git rev-parse :2:libs/engine)
+theirs=$(git rev-parse :3:libs/engine)
+git -C libs/engine fetch origin
+git -C libs/engine cat-file -e &quot;$ours^{commit}&quot;
+git -C libs/engine cat-file -e &quot;$theirs^{commit}&quot;
+git -C libs/engine log --graph --oneline --left-right &quot;$ours...$theirs&quot;
+</code></pre></div>
+<p>Stop if either object is missing. Fetch the child branches that contain those commits from an authorized source; do not replace a missing pin arbitrarily. Use <code>git merge-base --is-ancestor</code> in both directions to check whether choosing a descendant is sufficient. Exit 0 means ancestor; 1 means not ancestor; other nonzero results are errors.</p><h3 id="child-conflict-merge">2. Merge the child commits</h3><div class="codebox"><div class="code-header"><span class="code-type">integrate child histories</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C libs/engine switch -c integrate/parent-merge &quot;$ours&quot;
+git -C libs/engine merge --no-ff &quot;$theirs&quot;
+</code></pre></div>
+<p>If this produces a child file conflict, edit that file to the intended result, then stage it explicitly. Here the conflicting file is <code>src/parser.py</code>; substitute the paths Git reports.</p><div class="codebox"><div class="code-header"><span class="code-type">finish child conflict resolution</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C libs/engine diff --name-only --diff-filter=U
+git -C libs/engine add -- src/parser.py
+git -C libs/engine diff --cached
+git -C libs/engine merge --continue
+</code></pre></div>
+<p>Skip that conflict block if the child merge completed automatically. Run the child’s tests and the parent’s integration tests. Then verify both input tips are ancestors of the selected child result:</p><div class="codebox"><div class="code-header"><span class="code-type">verify child integration</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C libs/engine merge-base --is-ancestor &quot;$ours&quot; HEAD
+git -C libs/engine merge-base --is-ancestor &quot;$theirs&quot; HEAD
+git -C libs/engine status --short
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>Both ancestry checks exit 0. The child status is clean; HEAD is the integration commit.</pre></div><h3 id="child-conflict-publish">3. Publish the child, then finish the parent</h3><div class="codebox"><div class="code-header"><span class="code-type">publish child integration</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git -C libs/engine push -u origin integrate/parent-merge
+</code></pre></div>
+<p>Retain this child commit on a durable branch or tag under the recorded child URL. After a successful child push:</p><div class="codebox"><div class="code-header"><span class="code-type">stage parent resolution</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add libs/engine
+git diff --cached --submodule=log
+git diff --name-only --diff-filter=U
+</code></pre></div>
+<p>The last command must produce no paths before continuing; resolve any other parent conflicts first.</p><div class="codebox"><div class="code-header"><span class="code-type">finish parent merge</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git merge --continue
+</code></pre></div>
+<p>Publish the parent through its normal reviewed workflow, then use the <a href="#verify-child-publication">fresh-clone check</a>.</p><h3 id="child-conflict-recovery">Recovery at either layer</h3><p>While the child merge is in progress, <code>git -C libs/engine merge --abort</code> abandons that merge. While the parent merge is in progress, <code>git merge --abort</code> abandons the parent merge. These are separate operations. A completed child integration commit stays on its child branch even if the parent merge is aborted. Save edits before repopulating the parent’s old pin with <code>git submodule update --init --recursive</code>. After publication, use coordinated revert commits rather than deleting reachable history.</p><h3 id="submodule-conflict-resolution-and-recovery-common-submodule-errors">Common submodule errors</h3>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Safe next step</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>not our ref &lt;sha&gt;</code></td>
+<td>Child remote cannot supply parent's pinned commit</td>
+<td>Confirm commit exists on an accessible branch/tag or correct remote; push child or repin parent</td>
+</tr>
+<tr>
+<td>Child looks empty after clone</td>
+<td>Submodules not initialized</td>
+<td><code>git submodule update --init --recursive</code></td>
+</tr>
+<tr>
+<td>Child says detached HEAD</td>
+<td>Normal pinned checkout</td>
+<td>Make a branch <strong>in child</strong> before editing</td>
+</tr>
+<tr>
+<td>Parent says <code>modified: child</code></td>
+<td>Child HEAD changed or child has modified/untracked content</td>
+<td>Inspect <code>git -C child status</code>; compare <code>git diff --submodule=log</code></td>
+</tr>
+<tr>
+<td>Authentication works for parent, fails for child</td>
+<td>Different private repository/URL/token scope</td>
+<td>Confirm child URL, credentials and access in CI</td>
+</tr>
+<tr>
+<td>URL changed but old URL used locally</td>
+<td>Stale initialized local config</td>
+<td><code>git submodule sync --recursive</code></td>
+</tr>
+<tr>
+<td><code>git submodule update</code> loses branch checkout</td>
+<td>Checkout strategy selects parent's pin</td>
+<td>Preserve work on branch, then deliberately switch back</td>
+</tr>
+</tbody>
+</table></div>
+<p class="note"><strong>Hard rule:</strong> never solve an unavailable child commit by force-cleaning the parent. The real failure is missing child history, incorrect URL/credentials, or a parent gitlink that should not have been published.</p>
+
+</section>
+<section class="chapter" data-search="git lfs: how large files actually work large files &amp; lfs" id="git-lfs-how-large-files-actually-work"><span class="chapter-cat">Large files &amp; LFS</span><h2><span class="num">21</span><span class="heading-title">Git LFS: how large files actually work</span></h2>
+<p>Git stores ordinary file versions as Git blob objects. Large binaries that change frequently can bloat every clone because the history retains their prior versions. <strong>Git Large File Storage (LFS)</strong> puts a small text <strong>pointer</strong> in ordinary Git history and stores the large payload in a separate LFS object store. LFS is an extension with its own lifecycle, permissions, retention and storage/bandwidth quotas.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">diagram</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-text">Git history:                 LFS store:
+assets/scene.psd             oid sha256:abcdef... ──&gt; actual 180 MB file
+  ↳ pointer file (&lt; 1 KB)
+</code></pre></div>
+<p>A pointer contains a version declaration, SHA-256 object ID, and size, not the binary content. Normal working trees usually contain the real file because the LFS smudge/filter process downloads it.</p>
+<h3 id="git-lfs-how-large-files-actually-work-when-lfs-helps-and-when-it-does-not">When LFS helps—and when it does not</h3>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Recommended location</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source code, small text configs</td>
+<td>Ordinary Git</td>
+<td>Great textual deltas and history</td>
+</tr>
+<tr>
+<td>Large frequently edited PSD, CAD, datasets, binaries</td>
+<td>Git LFS</td>
+<td>Avoids repeated large Git blobs</td>
+</tr>
+<tr>
+<td>Generated build artifacts</td>
+<td>Release/package registry/artifact storage</td>
+<td>Usually shouldn't be versioned at all</td>
+</tr>
+<tr>
+<td>Dependency source</td>
+<td>Package manager, submodule, or vendoring</td>
+<td>Depends on release and ownership model</td>
+</tr>
+<tr>
+<td>Secrets / passwords</td>
+<td>Secret manager, <strong>never</strong> Git or LFS</td>
+<td>LFS is not an encryption mechanism</td>
+</tr>
+<tr>
+<td>Huge reproducible data archive</td>
+<td>Object storage/data versioning system</td>
+<td>LFS quotas and download patterns may be unsuitable</td>
+</tr>
+</tbody>
+</table></div>
+<p>On GitHub, ordinary Git warns above <strong>50 MiB</strong> and blocks individual files above <strong>100 MiB</strong>; LFS per-file limits depend on plan. <strong>GitHub Pages does not support Git LFS</strong>, so do not use LFS for assets that your Waypoints static site itself needs to serve. Store page media as normal files (if suitably small), or use external hosting when appropriate.</p>
+</section>
+<section class="chapter" data-search="git lfs: install, track, inspect and download large files &amp; lfs" id="git-lfs-install-track-inspect-and-download"><span class="chapter-cat">Large files &amp; LFS</span><h2><span class="num">22</span><span class="heading-title">Git LFS: install, track, inspect and download</span></h2>
+<h3 id="git-lfs-install-track-inspect-and-download-track-new-large-binaries">Track new large binaries</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># Install git-lfs using the OS package manager first (package name: git-lfs)
+git lfs version
+git lfs install
+git lfs track '*.psd'
+git lfs track '*.blend'
+git add .gitattributes assets/scene.psd
+git commit -m "assets: track design source in Git LFS"
+git push origin HEAD
+</code></pre></div>
+<p><strong>Commit <code>.gitattributes</code></strong>: this is the policy that tells other clones to use LFS for matching paths. Quote patterns so the shell doesn't expand them before <code>git lfs track</code> receives them. Use specific extensions rather than indiscriminately sending all binary files to LFS.</p>
+<h3 id="git-lfs-install-track-inspect-and-download-inspect-lfs-versus-normal-git">Inspect LFS versus normal Git</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs ls-files
+git lfs status
+git lfs env
+git check-attr filter -- assets/scene.psd
+git show HEAD:assets/scene.psd  # Git stores a textual pointer
+# Avoid accidentally printing a binary from the working tree to the terminal.
+</code></pre></div>
+<h3 id="git-lfs-install-track-inspect-and-download-download-or-selectively-skip-large-payloads">Download or selectively skip large payloads</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">download current checkout payloads</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs pull
+</code></pre></div>
+<p>Separate backup/migration operation; it can download a large amount of history:</p><div class="codebox"><div class="code-header"><span class="code-type">fetch historical payloads</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs fetch --all
+</code></pre></div>
+<p>Inspect local cache pruning before deleting anything:</p><div class="codebox"><div class="code-header"><span class="code-type">preview local LFS cache pruning</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs prune --dry-run
+</code></pre></div>
+<p>After checking the preview and verifying remote copies/backups, prune eligible local objects separately:</p><div class="codebox risk"><div class="code-header"><span class="code-type">prune local LFS cache</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs prune --verify-remote
+</code></pre></div>
+<p>To start a new clone without downloading asset payloads:</p><div class="codebox"><div class="code-header"><span class="code-type">clone with pointers initially</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/example-org/artwork.git
+cd artwork
+git lfs install --local
+</code></pre></div>
+<p>Run <code>git lfs pull</code> inside that clone when you need the real files.</p>
+<p><code>git lfs prune</code> cannot replace a verified remote backup. Offline operations and old releases can require payloads you no longer have locally.</p>
+</section>
+<section class="chapter" data-search="git lfs: migrate existing files and clean history large files &amp; lfs" id="git-lfs-migrate-existing-files-and-clean-history"><span class="chapter-cat">Large files &amp; LFS</span><h2><span class="num">23</span><span class="heading-title">Git LFS: migrate existing files and clean history</span></h2>
+<h3 id="git-lfs-migrate-existing-files-and-clean-history-already-tracked-binaries-but-history-may-stay-as-is">Already tracked binaries, but history may stay as-is</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs track '*.psd'
+git add .gitattributes
+git add --renormalize .
+git diff --cached --stat
+git commit -m "assets: convert current PSD files to LFS"
+</code></pre></div>
+<p>This converts current matching tracked content to pointers in <strong>new commits</strong>, without removing the old large blobs from past commits. It is appropriate when you cannot rewrite shared history and old repository size is acceptable.</p>
+<h3 id="lfs-migration-scope">Worked migration: rewrite one agreed branch</h3><p><strong>Starting state:</strong> a coordinated freeze, a remote with one branch to migrate (<code>main</code>), no release tags requiring rewriting, sufficient LFS quota, and permission to replace the branch. This example converts PSD and Blender history. Other branches, tags, PR refs, and provider retention can still keep old blobs reachable. A migration is not automatic server-side storage reclamation.</p><h3 id="lfs-migration-backup">1. Clone, record the lease, and back up</h3><div class="codebox"><div class="code-header"><span class="code-type">prepare migration and backup</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">GIT_LFS_SKIP_SMUDGE=1 git clone --single-branch --branch main \
+  https://github.com/example-org/artwork.git artwork-migration
+cd artwork-migration
+git lfs install --local
+git fetch origin main
+old_main=$(git rev-parse refs/remotes/origin/main)
+printf &#x27;%s\n&#x27; &quot;$old_main&quot; &gt; ../artwork-main-before.txt
+git bundle create ../artwork-before.bundle --all
+git bundle verify ../artwork-before.bundle
+git lfs fetch --all origin
+git rev-parse --git-path lfs/objects
+</code></pre></div>
+<p>Copy the LFS objects directory printed above to a separate backup location if it exists. The bundle does not contain those payloads. Confirm a restore from the bundle and LFS backup before continuing. Keep the recorded old ID unchanged; it is the expected remote value for the later lease.</p><h3 id="lfs-migration-transform">2. Inspect and transform</h3><div class="codebox"><div class="code-header"><span class="code-type">inspect candidate history</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git status --short
+git lfs migrate info --include-ref=refs/heads/main
+</code></pre></div>
+<p>Stop if the working tree is not clean or the inventory does not match the agreed scope. Then rewrite the selected branch:</p><div class="codebox risk"><div class="code-header"><span class="code-type">rewrite main history</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs migrate import --include-ref=refs/heads/main --include=&#x27;*.psd,*.blend&#x27;
+</code></pre></div>
+<p>The explicit include ref selects the reachable history of local <code>main</code>. The original remote-tracking ref and external backup remain useful for comparison; they may still retain old blobs locally.</p><div class="codebox"><div class="code-header"><span class="code-type">verify pointers and policy</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs checkout
+git lfs ls-files
+git lfs fsck
+git log --oneline -8 main
+git show main:.gitattributes
+git show main:assets/scene.psd
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>assets/scene.psd in Git is a pointer containing version, oid sha256:…, and size.
+The working-tree file should still contain the real asset.</pre></div><p>Use an asset path that actually exists. <code>git lfs checkout</code> materializes payloads already in the local LFS cache; it does not download missing ones. Open representative assets, run project tests, and compare payload checksums against the original versions. Check attributes across relevant historical revisions when old releases matter.</p><h3 id="lfs-migration-publish">3. Upload payloads, then replace exactly one ref</h3><div class="codebox"><div class="code-header"><span class="code-type">upload migrated LFS payloads</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git lfs push --all origin main
+</code></pre></div>
+<p>Stop on any upload failure. After review and any required branch-protection exception, replace only <code>main</code> using the previously recorded expected ID. Do not substitute a new expected ID merely to bypass a rejected lease.</p><div class="codebox risk"><div class="code-header"><span class="code-type">publish agreed history rewrite</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git push --force-with-lease=&quot;refs/heads/main:$old_main&quot; \
+  origin refs/heads/main:refs/heads/main
+</code></pre></div>
+<h3 id="lfs-migration-verify">4. Verify as a new consumer</h3><div class="codebox"><div class="code-header"><span class="code-type">verify remote Git and LFS together</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">cd ..
+GIT_LFS_SKIP_SMUDGE=1 git clone --single-branch --branch main \
+  https://github.com/example-org/artwork.git artwork-verify
+cd artwork-verify
+git lfs install --local
+git lfs pull
+git lfs fsck
+git lfs ls-files
+git status --short
+</code></pre></div>
+<p>Open the actual assets and run the build in this new clone. Expect a clean status and valid LFS payloads. Only then end the freeze and instruct collaborators to re-clone or carefully transplant their unpushed work. Never merge the old branch wholesale into the rewritten history.</p><h3 id="lfs-migration-rollback">Recovery and wider migrations</h3><p>Before publication, abandon the migration clone and restore from the verified backups. After publication, freeze writes again, inspect the current remote ID, and coordinate any restoration of the original branch using an explicit lease; account for new work first. Keep the Git bundle and LFS backup until the migration has been accepted.</p><p>For several branches or tags, inventory every ref, map old to new IDs, and publish an explicitly reviewed list. <code>git lfs migrate import --everything</code> considers commits reachable from local and remote refs but updates local refs; it does not automatically rewrite remote-tracking refs or publish anything. Signed tags and signed rewritten commits require renewed provenance. Avoid an indiscriminate mirror push. See the <a href="https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-migrate.adoc" target="_blank" rel="noopener noreferrer">migration manual</a>.</p><h3 id="git-lfs-migrate-existing-files-and-clean-history-remove-a-large-file-committed-by-mistake">Remove a large file committed by mistake</h3>
+<p>If the bad file is only in an <strong>unpublished last commit</strong>, remove it from the index and amend. If already shared, avoid casual rewrite; choose <code>git filter-repo</code> in a fresh clone with organizational coordination when rewriting history is genuinely necessary. Removing a file in a new commit does not remove old blobs.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># Only for an unpublished last commit:
+git rm --cached assets/huge.dump
+printf '\nassets/*.dump\n' &gt;&gt; .gitignore
+git add .gitignore
+git commit --amend
+# For large history cleanup, evaluate git-filter-repo in a fresh clone.
+</code></pre></div>
+
+</section>
+<section class="chapter" data-search="git lfs with submodules and ci large files &amp; lfs" id="git-lfs-with-submodules-and-ci"><span class="chapter-cat">Large files &amp; LFS</span><h2><span class="num">24</span><span class="heading-title">Git LFS with submodules and CI</span></h2>
+<p>Every submodule is a separate repository with its own <code>.gitattributes</code>, LFS remote, credentials and content. The parent's Git LFS configuration does not make a child repository's payload magically available.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git clone --recurse-submodules https://github.com/example-org/app.git
+cd app
+git lfs pull
+git submodule foreach --recursive 'git lfs pull'
+# Inspect pointers and content in child:
+git -C vendor/art lfs ls-files
+git -C vendor/art lfs status
+</code></pre></div>
+<p>For GitHub Actions, the <code>actions/checkout</code> action supports <code>submodules: recursive</code> and <code>lfs: true</code>, but additional LFS pulling inside submodules may be necessary depending on checkout version and configuration. Ensure credentials can reach each child repository and LFS store. Test with a fresh checkout rather than relying on a developer's cached payloads.</p>
+</section>
+<section class="chapter" data-search="github cli, fork workflows and pull requests github" id="github-cli-fork-workflows-and-pull-requests"><span class="chapter-cat">GitHub</span><h2><span class="num">25</span><span class="heading-title">GitHub CLI, fork workflows and pull requests</span></h2>
+<p><code>gh</code> is the GitHub CLI; it works alongside Git, not as a replacement for Git's object model. Git commits/branches are local, while PRs, reviews, branch protections, issues and releases are GitHub objects.</p>
+<h3 id="github-cli-fork-workflows-and-pull-requests-typical-feature-pr-lifecycle">Typical feature PR lifecycle</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">gh auth status
+git switch -c feat/better-output
+git add -p &amp;&amp; git commit -m "feat: improve output formatting"
+git push -u origin feat/better-output
+gh pr create --fill --base main
+gh pr status
+gh pr checks
+gh pr view --web
+</code></pre></div>
+<h3 id="github-cli-fork-workflows-and-pull-requests-review-and-merge-another-pr">Review and merge another PR</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">gh pr list --state open
+gh pr checkout 123
+gh pr diff 123
+gh pr checks 123
+gh pr review 123 --comment --body "Please add a regression test."
+# After review + required checks, if authorized:
+gh pr merge 123 --squash --delete-branch
+</code></pre></div>
+<p>Check repository policy before merge. Squash merge produces a new commit on the target branch; rebase merge and merge commits have different histories. If a PR changes a submodule pin, check both <strong>the parent diff and the child repository diff</strong>; parent alone may show only one SHA transition.</p>
+<h3 id="github-cli-fork-workflows-and-pull-requests-fork-vs-collaborator-access">Fork vs collaborator access</h3>
+<p>If you cannot push to upstream: fork it, push a branch to your fork, and propose a PR to upstream. If you can push, branch permissions and PR review may still be required. An upstream dependency submodule is <strong>not automatically your fork</strong> just because your parent app repository is forked.</p>
+</section>
+<section class="chapter" data-search="github actions: reproducible checkouts github" id="github-actions-reproducible-checkouts"><span class="chapter-cat">GitHub</span><h2><span class="num">26</span><span class="heading-title">GitHub Actions: reproducible checkouts</span></h2>
+<p>Treat CI as a clean consumer of the repository. GitHub-hosted jobs normally get fresh environments; self-hosted runners may retain state. Do not assume <code>.git/modules</code>, LFS caches, SSH agent or credentials from your laptop exist. GitHub's checkout action can initialize submodules. Avoid fetching and executing untrusted PR code in a privileged token context.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">GitHub Actions</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-yaml"># Example job steps within an existing GitHub Actions workflow.
+# Use the current supported checkout release in your repository.
+steps:
+  - uses: actions/checkout@v7
+    with:
+      fetch-depth: 0
+      submodules: recursive
+      lfs: true
+  - name: Resolve nested LFS payloads when needed
+    run: git submodule foreach --recursive 'git lfs pull'
+  - name: Inspect pinned child commits
+    run: git submodule status --recursive
+</code></pre></div>
+<p><code>fetch-depth: 0</code> fetches complete history for the checked-out repository when bisecting, full-history tags or release tooling need it; ordinary tests often need less. For <strong>private submodules</strong>, the default workflow token may lack access to other repositories. Use appropriately scoped read credentials or deploy keys, protect secrets, and avoid granting tokens to untrusted contributions.</p>
+<h3 id="github-actions-reproducible-checkouts-protected-branches-and-review-policy">Protected branches and review policy</h3>
+<p>Require CI checks, limit direct pushes, and prefer reviewed dependency updates. For parent+child repos, verify that the child SHA is fetchable <strong>before</strong> accepting the parent PR. For an upstream fork, review both the fork URL and the gitlink. Automation must not use <code>--remote</code> in a deployment checkout unless moving to the latest upstream is an explicit policy.</p>
+</section>
+<section class="chapter" data-search="advanced history editing deep operations" id="advanced-history-editing"><span class="chapter-cat">Deep operations</span><h2><span class="num">27</span><span class="heading-title">Advanced history editing</span></h2>
+<p>History editing replaces commits. Start with a clean working tree, preserve the old tip, and use these recipes on a private branch or under an agreed rewrite policy. A backup branch preserves committed states, not unstaged edits. The examples below are separate workflows.</p><h3 id="fixup-workflow">Fixup and autosquash</h3><p>Stage only the correction for the chosen earlier commit; replace <code>abc1234</code> with that commit ID.</p><div class="codebox risk"><div class="code-header"><span class="code-type">fold a focused correction</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add -p
+git diff --cached
+git commit --fixup=abc1234
+git branch backup/before-autosquash
+git rebase -i --autosquash main
+</code></pre></div>
+<p>Review the generated todo list before accepting it. Resolve conflicts, stage the intended files, and run <code>git rebase --continue</code>. During an unfinished rebase, <code>git rebase --abort</code> returns to the starting branch state. Compare the resulting patch series with the backup and rerun tests.</p><h3 id="split-commit">Split one private commit into two</h3><p><strong>Starting state:</strong> branch <code>feat/parser</code> has a non-root commit touching both <code>src/parser.py</code> and <code>docs/parser.md</code>, followed by other commits. Both files were already tracked in the preceding commit. You want the implementation and documentation as separate commits. Save unrelated work first.</p><div class="codebox risk"><div class="code-header"><span class="code-type">start commit split</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git switch feat/parser
+git branch backup/before-split
+git rebase -i main
+</code></pre></div>
+<p>In the editor, change <code>pick</code> to <code>edit</code> for the combined commit, save, and exit. Wait for Git to stop at that commit. Then move HEAD back one commit while leaving its file changes unstaged:</p><div class="codebox risk"><div class="code-header"><span class="code-type">uncommit the stopped change</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git reset --mixed HEAD^
+</code></pre></div>
+<p>This reset is intentional inside the stopped rebase; do not use <code>--hard</code>. The combined change is now in the working tree.</p><div class="codebox"><div class="code-header"><span class="code-type">record implementation part</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add -- src/parser.py
+git diff --cached
+git commit -m &quot;feat: add parser mode&quot;
+</code></pre></div>
+<p>Review what remains before creating the second commit. Use <code>git add -p</code> instead when splitting hunks in the same file.</p><div class="codebox"><div class="code-header"><span class="code-type">record documentation part</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add -- docs/parser.md
+git diff --cached
+git commit -m &quot;docs: explain parser mode&quot;
+git status --short
+</code></pre></div>
+<p>The working tree must now be clean. If the original commit added other paths, include them deliberately before continuing.</p><div class="codebox"><div class="code-header"><span class="code-type">replay later commits</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git rebase --continue
+</code></pre></div>
+<div class="codebox"><div class="code-header"><span class="code-type">verify split result</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git diff --exit-code backup/before-split HEAD
+git range-diff main..backup/before-split main..HEAD
+git log --oneline main..HEAD
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>The final tree diff is empty; the original combined change is now two commits.
+Later commits may have new IDs. Run tests even when the final tree matches.</pre></div><p>If the rebase is still in progress, abort it to return to the original tip. If it already finished, inspect <code>backup/before-split</code> and create a rescue branch there; do not overwrite new work with a blind reset.</p><h3 id="rebase-onto">Move a stacked branch with rebase --onto</h3><p><strong>Starting state:</strong> <code>feature-a</code> contains A1 and A2 on top of main; <code>feature-b</code> contains B1 and B2 on top of A2. A was squash-merged into the current main, so replaying A1 and A2 is unwanted. Preserve the old A2 boundary before moving or deleting feature-a.</p><div class="codebox"><div class="code-header"><span class="code-type">inspect commits to transplant</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git switch feature-b
+git branch backup/before-onto
+git branch backup/a-boundary feature-a
+git log --oneline backup/a-boundary..feature-b
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>Only B1 and B2 should be listed. Stop if the range includes unrelated work.</pre></div><div class="codebox risk"><div class="code-header"><span class="code-type">transplant B onto main</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git rebase --onto main backup/a-boundary feature-b
+</code></pre></div>
+<p>The arguments mean: new base <code>main</code>, exclude commits reachable from the old boundary, rewrite <code>feature-b</code>. The result is main → B1′ → B2′. Conflict resolution may still be needed even though A’s changes are already present.</p><div class="codebox"><div class="code-header"><span class="code-type">review transplanted patch series</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git range-diff backup/a-boundary..backup/before-onto main..feature-b
+git log --oneline --graph --decorate -12
+</code></pre></div>
+<p>Run the feature’s tests. During a stopped rebase use continue/abort as above. If the old boundary was lost or rewritten, recover it from reflog before guessing a range. <code>--rebase-merges</code> can recreate merge topology, but prior manual merge resolutions may need to be reapplied and tested.</p><h3 id="revert-merge-workflow">Revert a merge, then reintroduce its corrected feature</h3><p><strong>Starting state:</strong> published main contains a true merge commit M whose first parent is the previous main tip. The feature contains a defect. Inspect M’s parents before choosing the mainline; <code>-m 1</code> means preserve the first-parent side, not “revert one commit.” Work through review branches.</p><div class="codebox"><div class="code-header"><span class="code-type">inspect merge parents</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git switch -c revert/parser origin/main
+git show --no-patch --pretty=raw MERGE_COMMIT
+</code></pre></div>
+<p>After confirming the first parent is the intended mainline, substitute the inspected merge ID:</p><div class="codebox"><div class="code-header"><span class="code-type">reverse merge changes</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git revert -m 1 MERGE_COMMIT
+</code></pre></div>
+<p>Resolve any conflicts, stage the result, and use <code>git revert --continue</code>; use <code>git revert --abort</code> to abandon an unfinished revert. Test and merge the revert through a PR. Record the resulting revert commit ID on main, especially if your PR itself is squash-merged.</p><p>A revert leaves M in the ancestry. Merging the old feature branch again will not simply restore all its old changes. If the team fixes the original feature by adding commits to that same branch, a common reintegration path is to revert the revert, then merge the corrected feature on a new review branch:</p><div class="codebox"><div class="code-header"><span class="code-type">restore previously reverted change</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git fetch origin
+git switch -c reintroduce/parser origin/main
+git revert REVERT_COMMIT_ON_MAIN
+</code></pre></div>
+<p>Complete and inspect this revert before integrating the corrected feature:</p><div class="codebox"><div class="code-header"><span class="code-type">integrate follow-up fixes</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git merge --no-ff origin/feature-parser
+</code></pre></div>
+<p>Test the full restored feature before publication. This recipe assumes the corrected branch extends the original history. If the feature was rebuilt as a new patch series, analyze that history separately rather than automatically reverting the revert. See <a href="https://git-scm.com/docs/git-revert" target="_blank" rel="noopener noreferrer">git-revert</a> and <a href="https://git-scm.com/docs/git-rebase" target="_blank" rel="noopener noreferrer">git-rebase</a>.</p>
+</section>
+<section class="chapter" data-search="history auditing, storage and repository performance deep operations" id="history-auditing-storage-and-repository-performance"><span class="chapter-cat">Deep operations</span><h2><span class="num">28</span><span class="heading-title">History auditing, storage and repository performance</span></h2>
+<h3 id="history-auditing-storage-and-repository-performance-identify-repository-size-and-object-composition">Identify repository size and object composition</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git count-objects -vH
+git gc --auto
+git fsck --full
+git verify-pack -v .git/objects/pack/pack-EXAMPLE.idx  # Replace with an actual pack index
+</code></pre></div>
+<p>Git compacts objects into packs and may store delta-compressed representations. A local <code>.git</code> directory can include refs, hooks, config, object packs, reflogs, submodule object databases and worktree metadata. <code>git gc</code> does not turn Git into an efficient version store for frequently changing giant binaries.</p>
+<h3 id="history-auditing-storage-and-repository-performance-faster-clones-and-selective-materialization">Faster clones and selective materialization</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># Git server must support the requested features:
+git clone --filter=blob:none https://github.com/example-org/large-repo.git
+cd large-repo
+# Create a sparse working tree (index and history still exist):
+git sparse-checkout init --cone
+git sparse-checkout set src docs
+git sparse-checkout list
+</code></pre></div>
+<p><strong>Partial clone</strong> defers downloading some objects; <strong>sparse checkout</strong> selects which paths are populated. They solve different problems. Combine only if build tooling and dependencies tolerate absent files. Submodules are independently cloned repositories and require their own filtering strategy.</p>
+</section>
+<section class="chapter" data-search="plumbing: inspect objects, trees and gitlinks deep operations" id="plumbing-inspect-objects-trees-and-gitlinks"><span class="chapter-cat">Deep operations</span><h2><span class="num">29</span><span class="heading-title">Plumbing: inspect objects, trees and gitlinks</span></h2>
+<p>The porcelain commands (<code>status</code>, <code>switch</code>, <code>commit</code>) are human-facing. Plumbing (<code>cat-file</code>, <code>hash-object</code>, <code>rev-list</code>, <code>update-ref</code>) exposes Git's underlying model. Use these for diagnostics or carefully reviewed scripts, not routine manual ref editing.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git rev-parse HEAD
+git cat-file -t HEAD
+git cat-file -p HEAD
+git cat-file -p HEAD^{tree}
+git ls-tree -r HEAD | head -30
+git ls-tree HEAD vendor/codec   # '160000 commit' for submodule
+git rev-list --objects --all | head
+git for-each-ref --format='%(refname:short) %(objectname:short)' refs/heads/
+</code></pre></div>
+<h3 id="plumbing-inspect-objects-trees-and-gitlinks-index-entries-and-hash-algorithms">Index entries and hash algorithms</h3>
+<p><code>git ls-files --stage</code> prints modes, object IDs and index stages. Modes include <code>100644</code> regular file, <code>100755</code> executable, <code>120000</code> symlink, and <code>160000</code> gitlink. SHA-1 repository formats remain common; Git also supports SHA-256-format repositories, but hosting/tool support must be checked before creating one. Never assume an object ID is always 40 hexadecimal digits in programmatic tools.</p>
+<h3 id="plumbing-inspect-objects-trees-and-gitlinks-atomic-reference-changes">Atomic reference changes</h3>
+<p><code>git update-ref</code> is for scripts and experts; it can verify an expected old OID to guard against races. Prefer <code>git branch</code>, <code>git tag</code>, and <code>git push</code> for normal use. A ref update does not rewrite underlying objects.</p>
+<h3 id="objects-lab">Lab: trace one file from working tree to branch ref</h3><p>Run this in a disposable directory outside any existing repository. It creates only a new <code>git-object-lab</code> folder and configures identity locally. If that name already exists, choose a fresh one; do not reuse a real project.</p><div class="codebox"><div class="code-header"><span class="code-type">create and stage a file</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">mkdir git-object-lab
+cd git-object-lab
+git init -b main
+git config user.name &quot;Git Lab&quot;
+git config user.email &quot;git-lab@example.invalid&quot;
+printf &#x27;hello\n&#x27; &gt; hello.txt
+git hash-object hello.txt
+git add hello.txt
+git ls-files --stage
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>The index shows: 100644 &lt;blob-id&gt; 0 hello.txt
+The object ID matches hash-object; stage 0 means a normal, resolved entry.</pre></div><p><code>hash-object</code> computes an ID here without writing an object; staging writes the blob and records its ID in the index. This new repo has no attributes affecting this file. In other repositories, clean filters and normalization can change the stored bytes.</p><div class="codebox"><div class="code-header"><span class="code-type">inspect blob, tree, commit, and ref</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git cat-file -p :hello.txt
+tree_id=$(git write-tree)
+git cat-file -p &quot;$tree_id&quot;
+git commit -m &quot;Add greeting&quot;
+git cat-file -p HEAD
+git rev-parse HEAD^{tree}
+git symbolic-ref HEAD
+git rev-parse refs/heads/main
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>Blob content: hello
+Tree entry: 100644 blob &lt;blob-id&gt; hello.txt
+Root commit: tree &lt;tree-id&gt;, author, committer, message (no parent)
+HEAD symbolically names refs/heads/main; that ref resolves to the commit ID.</pre></div><p>The tree printed by <code>rev-parse HEAD^{tree}</code> matches <code>tree_id</code>. <code>write-tree</code> serializes the index without moving a branch. The commit refers to that tree and identity/message metadata; the branch names the commit.</p><h3 id="index-versus-working-tree-lab">Lab: change the working tree without changing the index</h3><div class="codebox"><div class="code-header"><span class="code-type">compare all three file states</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">printf &#x27;hello again\n&#x27; &gt; hello.txt
+git diff -- hello.txt
+git diff --cached -- hello.txt
+git cat-file -p :hello.txt
+git show HEAD:hello.txt
+</code></pre></div>
+<div class="example-output"><strong>Expected result</strong><pre>Working-tree diff shows the edit. Cached diff is empty.
+The index and HEAD still contain hello; the working tree contains hello again.</pre></div><p>Now stage and commit the new version:</p><div class="codebox"><div class="code-header"><span class="code-type">store a second snapshot</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git add hello.txt
+git diff --cached -- hello.txt
+git commit -m &quot;Extend greeting&quot;
+git cat-file -p HEAD
+git show HEAD^:hello.txt
+</code></pre></div>
+<p>The new commit has a parent pointing to the first commit and a new tree pointing to a new blob. The old commit and blob still exist. Rename detection and patch output are comparisons Git computes; commits fundamentally name snapshots. In a superproject tree, a gitlink uses mode <code>160000</code> and identifies a child commit whose objects live in the child repository.</p>
+</section>
+<section class="chapter" data-search="hooks, aliases and automation safety deep operations" id="hooks-aliases-and-automation-safety"><span class="chapter-cat">Deep operations</span><h2><span class="num">30</span><span class="heading-title">Hooks, aliases and automation safety</span></h2>
+<p>Local hooks live in the repository's hooks directory (or configured <code>core.hooksPath</code>) and are <strong>not generally versioned and auto-installed</strong> from a remote clone. Tools such as pre-commit can manage shared hook policy. Server-side protections are needed because users can bypass local hooks.</p>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git config --global alias.lg 'log --oneline --graph --decorate --all'
+git config --global alias.unstage 'restore --staged --'
+git config --get core.hooksPath
+git help hooks
+</code></pre></div>
+<h3 id="hooks-aliases-and-automation-safety-shell-scripting-conventions">Shell scripting conventions</h3>
+<ul>
+<li>Inspect <code>git rev-parse --show-toplevel</code> instead of assuming the current directory is the root.</li>
+<li>Quote paths and use NUL-delimited output (<code>-z</code>) when processing arbitrary filenames.</li>
+<li>Prefer <code>git status --porcelain=v1 -z</code> and <code>git diff --name-only -z</code> to human-readable output.</li>
+<li>Treat a detached HEAD in CI as normal. Do not assume <code>git branch --show-current</code> yields a name.</li>
+<li>Before scripted destructive changes, validate repo identity, current branch, clean state and expected remote OIDs.</li>
+</ul>
+<p>A status-command failure must stop the script. This example checks the exit status before checking whether the output is empty; it includes untracked files and overrides submodule-ignore settings. It does not protect ignored files or detached child commits.</p><div class="codebox"><div class="code-header"><span class="code-type">fail-closed status guard</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash"># POSIX shell script; exit terminates the script.
+repo_status=$(git status --porcelain=v1 --untracked-files=all --ignore-submodules=none) || {
+  printf &#x27;%s\n&#x27; &#x27;Refusing operation: unable to inspect repository&#x27; &gt;&amp;2
+  exit 1
+}
+if [ -n &quot;$repo_status&quot; ]; then
+  printf &#x27;%s\n&#x27; &#x27;Refusing operation: working tree or index not clean&#x27; &gt;&amp;2
+  exit 1
+fi
+</code></pre></div>
+
+</section>
+<section class="chapter" data-search="submodule checklists: clone, upgrade, publish, recover submodules" id="submodule-checklists-clone-upgrade-publish-recover"><span class="chapter-cat">Submodules</span><h2><span class="num">31</span><span class="heading-title">Submodule checklists: clone, upgrade, publish, recover</span></h2>
+<p>Use these as completion checks; the linked recipes contain the commands and recovery paths.</p><div class="table-wrap" role="region" aria-label="Submodule completion checklists" tabindex="0"><table><thead><tr><th>Job</th><th>Complete when…</th><th>Recipe</th></tr></thead><tbody>
+<tr><td>New clone</td><td>Recorded URLs work, recursive pins match, required LFS payloads exist, and the clean build passes.</td><td><a href="#submodules-add-clone-inspect-and-initialize">Clone and initialize</a></td></tr>
+<tr><td>Owned child feature</td><td>The durable child result is published, the parent pins that exact result, and a fresh consumer clone passes.</td><td><a href="#self-managed-submodule-the-full-two-repo-workflow">Two-repository publication</a></td></tr>
+<tr><td>External upgrade</td><td>Selected revision and nested pins are tested; the parent commit records the version and reason.</td><td><a href="#externally-managed-submodule-upgrade-without-ownership">Upstream release upgrade</a></td></tr>
+<tr><td>Conflict</td><td>The chosen child result is compatible and reachable, the parent gitlink is staged, and all parent conflicts are resolved.</td><td><a href="#child-conflict-inspect">Gitlink conflict recipe</a></td></tr>
+<tr><td>Recovery</td><td>Local child work is preserved, expected versus actual pins are understood, and the correct URLs supply the chosen history.</td><td><a href="#child-conflict-recovery">Layer-by-layer recovery</a></td></tr>
+</tbody></table></div>
+</section>
+<section class="chapter" data-search="troubleshooting by symptom reference" id="troubleshooting-by-symptom"><span class="chapter-cat">Reference</span><h2><span class="num">32</span><span class="heading-title">Troubleshooting by symptom</span></h2>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Diagnosis</th>
+<th>Next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Everything up-to-date</code> but web UI lacks commits</td>
+<td>Wrong branch or wrong remote</td>
+<td><code>git branch -vv</code>, <code>git remote -v</code>, <code>git log origin/branch..branch</code></td>
+</tr>
+<tr>
+<td><code>fatal: refusing to merge unrelated histories</code></td>
+<td>Two unrelated commit graphs</td>
+<td>Verify remote/repo; merge unrelated histories only with an intentional migration plan</td>
+</tr>
+<tr>
+<td><code>non-fast-forward</code> push rejection</td>
+<td>Remote ref advanced</td>
+<td>Fetch, inspect divergence, merge or rebase your own work</td>
+</tr>
+<tr>
+<td><code>fatal: could not read Username</code></td>
+<td>Missing HTTPS credentials or prompt</td>
+<td>Configure credential manager / <code>gh auth login</code></td>
+</tr>
+<tr>
+<td><code>Permission denied (publickey)</code></td>
+<td>SSH key/agent or repo access problem</td>
+<td><code>ssh -T git@github.com</code>, inspect SSH identity and access</td>
+</tr>
+<tr>
+<td>File ignored unexpectedly</td>
+<td>Ignore pattern inherited from another layer</td>
+<td><code>git check-ignore -v path</code></td>
+</tr>
+<tr>
+<td>Huge file rejected by GitHub</td>
+<td>Blob above 100 MiB</td>
+<td>LFS or artifact storage; remove failed blob from history before pushing</td>
+</tr>
+<tr>
+<td>LFS downloads pointers instead of content</td>
+<td>Missing filter, skipped smudge, or auth failure</td>
+<td><code>git lfs install</code>, <code>git lfs pull</code>, <code>git lfs env</code></td>
+</tr>
+<tr>
+<td>Worktree locked / branch already checked out</td>
+<td>Branch held by another linked worktree</td>
+<td><code>git worktree list</code>, use another branch/worktree</td>
+</tr>
+<tr>
+<td>Submodule <code>not our ref</code></td>
+<td>Gitlink references unavailable child SHA</td>
+<td>Publish/fetch correct child commit or repin</td>
+</tr>
+<tr>
+<td><code>fatal: detected dubious ownership</code></td>
+<td>Repository ownership does not match current user</td>
+<td>Verify filesystem ownership; fix it or add a narrowly scoped <code>safe.directory</code> after trust review</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="chapter" data-search="recommended conventions and anti-patterns reference" id="recommended-conventions-and-anti-patterns"><span class="chapter-cat">Reference</span><h2><span class="num">33</span><span class="heading-title">Recommended conventions and anti-patterns</span></h2>
+<ul>
+<li><strong>Atomic by intent:</strong> one logical change per commit; keep generated artifacts out of commits unless intentionally required.</li>
+<li><strong>No magic pull behavior:</strong> team chooses <code>ff-only</code>/rebase/merge policy; the default should not rewrite shared work accidentally.</li>
+<li><strong>Pinned dependencies:</strong> commit versions or SHAs, including submodules; don't chase upstream in releases and CI.</li>
+<li><strong>Durable child pointers:</strong> never publish parent gitlinks before child objects are reachable by reviewers and CI.</li>
+<li><strong>Minimal force:</strong> avoid rewriting protected/shared branches; when essential use explicit leases and announce coordination.</li>
+<li><strong>Auditable large files:</strong> track LFS policy in <code>.gitattributes</code>; distinguish code history from downloaded payloads and billing.</li>
+<li><strong>Secrets are special:</strong> rotate exposed tokens; <code>.gitignore</code> and history rewrites alone cannot un-expose a leaked secret.</li>
+<li><strong>Separate working contexts:</strong> use worktrees for parallel branches, dedicated fresh clones for risky history migrations.</li>
+<li><strong>Backups matter:</strong> mirrored hosting and reflog are not full backups; consider a tested <code>git bundle</code> plus LFS backups.</li>
+</ul>
+<h3 id="recommended-conventions-and-anti-patterns-back-up-git-history-in-a-portable-bundle">Back up Git history in a portable bundle</h3>
+<div class="codebox"><div class="code-header"><span class="code-type">terminal</span><button aria-label="Copy code example" class="copy" type="button">Copy</button></div><pre><code class="language-bash">git bundle create repo-backup.bundle --all
+git bundle verify repo-backup.bundle
+git clone repo-backup.bundle recovered-repo
+</code></pre></div>
+<p>A bundle contains Git refs and objects selected by the bundle command, <strong>not LFS payloads</strong>, hosting metadata (PRs, issues, permissions), remote secrets, or uncommitted working-tree/index changes. Back up these separately when necessary. Submodules are separate repositories: back them up individually.</p>
+</section>
+<section class="chapter" data-search="quick incident decision tree reference" id="quick-incident-decision-tree"><span class="chapter-cat">Reference</span><h2><span class="num">34</span><span class="heading-title">Quick incident decision tree</span></h2>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>I need to...</th>
+<th>Use this first</th>
+<th>Avoid initially</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Recover after a hard reset</td>
+<td><code>git reflog</code> → new <code>rescue/</code> branch</td>
+<td>More resets, garbage collection</td>
+</tr>
+<tr>
+<td>Undo a bad published commit</td>
+<td><code>git revert</code></td>
+<td>Force push of shared branch</td>
+</tr>
+<tr>
+<td>Unstage a file</td>
+<td><code>git restore --staged</code></td>
+<td><code>git reset --hard</code></td>
+</tr>
+<tr>
+<td>Review a remote branch</td>
+<td><code>git fetch</code> then <code>git log</code> / <code>git diff</code></td>
+<td>Blind <code>git pull</code></td>
+</tr>
+<tr>
+<td>Try a fix without disrupting work</td>
+<td><code>git worktree add</code></td>
+<td>Stashing several intertwined changes</td>
+</tr>
+<tr>
+<td>Update a vendor submodule</td>
+<td>Fetch tags → detached checkout chosen SHA → test</td>
+<td><code>update --remote</code> in CI</td>
+</tr>
+<tr>
+<td>Develop your own submodule</td>
+<td>Child branch/commit/push → parent gitlink/commit</td>
+<td>Editing detached child with no branch</td>
+</tr>
+<tr>
+<td>Remove a file from <strong>current</strong> Git commit</td>
+<td><code>git rm --cached</code>, amend if private</td>
+<td>Deleting the file but keeping old Git blobs</td>
+</tr>
+<tr>
+<td>Remove old large blobs everywhere</td>
+<td>Planned <code>git lfs migrate</code> or <code>git filter-repo</code></td>
+<td>Rewriting shared refs casually</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="chapter" data-search="official documentation and further reading reference" id="official-documentation-and-further-reading"><span class="chapter-cat">Reference</span><h2><span class="num">35</span><span class="heading-title">Official documentation and further reading</span></h2>
+<p>These are maintained primary references. Verify flags against the installed <code>git --version</code> and <code>git lfs version</code>—features and hosting limits can change.</p>
+<ul>
+<li><a href="https://git-scm.com/docs" rel="noopener noreferrer" target="_blank">Git reference manual</a> — core CLI, revisions, porcelain and plumbing.</li>
+<li><a href="https://git-scm.com/docs/gitsubmodules" rel="noopener noreferrer" target="_blank">Git submodules</a> — gitlink and ownership model.</li>
+<li><a href="https://git-scm.com/docs/git-submodule" rel="noopener noreferrer" target="_blank">git-submodule command</a> — init, update, remote, sync, set-url, deinit.</li>
+<li><a href="https://git-scm.com/docs/git-push" rel="noopener noreferrer" target="_blank">git-push</a> — <code>--recurse-submodules=check|on-demand</code> and force-with-lease.</li>
+<li><a href="https://git-scm.com/docs/git-worktree" rel="noopener noreferrer" target="_blank">git-worktree</a> — multiple working directories.</li>
+<li><a href="https://github.com/git-lfs/git-lfs" rel="noopener noreferrer" target="_blank">Git LFS project</a> — installation, filters, migration and object cache.</li>
+<li><a href="https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-migrate.adoc" rel="noopener noreferrer" target="_blank">Git LFS migration manual</a> — conversion and history rewriting.</li>
+<li><a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github" rel="noopener noreferrer" target="_blank">GitHub large-file limits</a> and <a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage" rel="noopener noreferrer" target="_blank">GitHub LFS guide</a>.</li>
+<li><a href="https://cli.github.com/manual/" rel="noopener noreferrer" target="_blank">GitHub CLI manual</a> and <a href="https://github.com/actions/checkout" rel="noopener noreferrer" target="_blank">actions/checkout</a>.</li>
+</ul>
+<p><strong>Last reviewed:</strong> October 29, 2026. Examples are illustrative; choose your own URLs, remotes, branch names and access model before executing commands.</p>
+<p>Revision 2 adds review checkpoints, complete advanced recipes, subsection search, and persistent mobile navigation. Local validation covers representative Git workflows and page interactions; hosted permissions, quotas, and organizational policy must still be checked in your own environment.</p>
+</section></div>
+<footer class="foot">Waypoints · The Ultimate Git Command-Line Guide · Last reviewed 2026-10-29. Git and hosting capabilities vary with version, repository policy and access rights.</footer>
+</div></main></div>
+<a class="top" href="#top" aria-label="Back to top">↑ Top</a>
+<script>
+(function(){
+'use strict';
+const nav=document.getElementById('toc');
+const links=Array.from(nav.querySelectorAll('a'));
+const input=document.getElementById('toc-search');
+const count=document.getElementById('result-count');
+const results=document.getElementById('search-results');
+const empty=document.getElementById('no-search');
+const sidebar=document.getElementById('sidebar');
+const toggle=document.getElementById('mobile-toggle');
+const chapters=Array.from(document.querySelectorAll('.chapter'));
+const entries=[];
+const normalize=t=>t.replace(/\s+/g,' ').trim();
+for(const chapter of chapters){
+ const title=chapter.querySelector('.heading-title').textContent;
+ const number=chapter.querySelector('.num').textContent;
+ let current={id:chapter.id,title,chapter:title,number,text:''};
+ entries.push(current);
+ for(const child of chapter.children){
+  if(child.matches('h3')){current={id:child.id,title:child.textContent,chapter:title,number,text:''};entries.push(current);}
+  else if(!child.matches('h2,.chapter-cat')){
+   const copy=child.cloneNode(true);copy.querySelectorAll('.copy,.code-header').forEach(n=>n.remove());
+   current.text+=' '+copy.textContent;
+  }
+ }
+}
+for(const entry of entries){entry.text=normalize(entry.text);entry.search=normalize(entry.chapter+' '+entry.title+' '+entry.text).toLowerCase();}
+function setOpen(open){sidebar.classList.toggle('open',open);toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'Close navigation':'Chapters & search';}
+function marked(container,text,words){
+ const lower=text.toLowerCase();let offset=0;
+ while(offset<text.length){let start=-1,len=0;for(const word of words){const pos=lower.indexOf(word,offset);if(pos!==-1&&(start===-1||pos<start)){start=pos;len=word.length;}}
+  if(start===-1){container.append(document.createTextNode(text.slice(offset)));break;}
+  container.append(document.createTextNode(text.slice(offset,start)));const mark=document.createElement('mark');mark.textContent=text.slice(start,start+len);container.append(mark);offset=start+len;
+ }
+}
+function filter(){
+ const q=normalize(input.value).toLowerCase();const words=[...new Set(q.split(' ').filter(Boolean))];
+ results.replaceChildren();nav.hidden=!!q;results.hidden=!q;empty.style.display='none';
+ if(!q){count.textContent=links.length+' chapters · search all text';return;}
+ const matches=entries.filter(e=>words.every(w=>e.search.includes(w))).sort((a,b)=>{
+  const score=e=>words.reduce((n,w)=>n+(e.title.toLowerCase().includes(w)?3:0),0);return score(b)-score(a);
+ });
+ for(const entry of matches){
+  const a=document.createElement('a');a.href='#'+entry.id;
+  const context=document.createElement('strong');context.textContent=entry.number+' · '+entry.chapter;a.append(context);
+  const title=document.createElement('span');marked(title,entry.title,words);a.append(title);
+  if(entry.text){const lower=entry.text.toLowerCase();const positions=words.map(w=>lower.indexOf(w)).filter(n=>n>=0);const first=positions.length?Math.min(...positions):0;const start=Math.max(0,first-55);const end=Math.min(entry.text.length,start+190);const excerpt=document.createElement('span');excerpt.className='excerpt';marked(excerpt,(start?'…':'')+entry.text.slice(start,end)+(end<entry.text.length?'…':''),words);a.append(excerpt);}
+  results.append(a);
+ }
+ count.textContent=matches.length+' matching passages';empty.style.display=matches.length?'none':'block';
+}
+input.addEventListener('input',filter);filter();
+toggle.addEventListener('click',()=>{const open=!sidebar.classList.contains('open');setOpen(open);if(open)input.focus();});
+sidebar.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const target=document.getElementById(a.hash.slice(1));if(!target)return;e.preventDefault();if(innerWidth<=770)setOpen(false);history.replaceState(null,'',a.hash);target.tabIndex=-1;target.focus({preventScroll:true});target.scrollIntoView({behavior:'instant',block:'start'});});
+document.addEventListener('keydown',e=>{const el=document.activeElement;const typing=['INPUT','TEXTAREA','SELECT'].includes(el.tagName)||el.isContentEditable;
+ if(e.key==='/'&&!typing&&!e.ctrlKey&&!e.metaKey&&!e.altKey){e.preventDefault();if(innerWidth<=770)setOpen(true);input.focus();}
+ if(e.key==='Escape'&&sidebar.contains(el)){if(input.value){input.value='';filter();input.focus();}else{setOpen(false);toggle.offsetParent?toggle.focus():input.blur();}}
+});
+for(const heading of document.querySelectorAll('.chapter h3[id]')){const a=document.createElement('a');a.className='heading-link';a.href='#'+heading.id;a.textContent='#';a.setAttribute('aria-label','Link to '+heading.textContent);heading.append(a);}
+document.querySelectorAll('.codebox pre').forEach(pre=>{pre.tabIndex=0;pre.setAttribute('aria-label','Scrollable command example');});
+document.querySelectorAll('.copy').forEach(button=>button.addEventListener('click',async()=>{
+ const code=button.closest('.codebox').querySelector('pre code');const txt=code.textContent;let ok=false;
+ try{await navigator.clipboard.writeText(txt);ok=true;}catch(e){try{const area=document.createElement('textarea');area.value=txt;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();ok=document.execCommand('copy');area.remove();button.focus();}catch(_){} }
+ if(!ok){const range=document.createRange();range.selectNodeContents(code);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);}
+ button.textContent=ok?'Copied':'Code selected';button.setAttribute('aria-label',ok?'Code copied':'Code selected; copy manually');button.classList.toggle('done',ok);
+ setTimeout(()=>{button.textContent='Copy';button.setAttribute('aria-label','Copy code example');button.classList.remove('done');},1600);
+}));
+if('IntersectionObserver' in window){const visible=new Set();const io=new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting)visible.add(e.target);else visible.delete(e.target);}const current=chapters.find(c=>visible.has(c));if(current)for(const link of links){const active=link.hash==='#'+current.id;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');}},{rootMargin:'-15% 0px -65% 0px'});chapters.forEach(c=>io.observe(c));}
+})();
+</script>
+</body></html>
