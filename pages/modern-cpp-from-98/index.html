@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modern C++ for the C++98 Programmer — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<script type="application/json" id="page-meta">
+{
+  "title": "Modern C++ for the C++98 Programmer",
+  "description": "A use-case-driven tour of the C++11 through C++23 features worth learning, each shown as the old C++98 way next to the modern way.",
+  "tags": ["cpp", "programming", "guide"],
+  "date": "2026-11-13"
+}
+</script>
+<style>
+:root{--bg:#f6f7f9;--ink:#161b22;--mute:#5b6572;--line:#d5dae1;--old:#eceef2;--new:#e3f0ff;--acc:#0a58ca;--chip:#dbe7f7}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1217;--ink:#e6eaf0;--mute:#97a1ae;--line:#2b333d;--old:#171c23;--new:#0f2340;--acc:#6ea8ff;--chip:#1c2a40}}
+body{background:var(--bg);color:var(--ink);margin:0}
+main.g{max-width:980px;margin:0 auto;padding:2.5rem 1.25rem 4rem;font:1.05rem/1.65 Charter,"Iowan Old Style",Georgia,serif}
+.g h1{font-size:2.3rem;line-height:1.15;margin:0 0 .5rem}
+.g h2{font-size:1.4rem;margin:3rem 0 .4rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.g p{max-width:68ch;margin:.4rem 0 .8rem}
+.g .v{font:600 .8rem/1 system-ui,sans-serif;background:var(--chip);color:var(--acc);padding:.25rem .5rem;border-radius:.6rem;margin-left:.5rem;vertical-align:middle}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:.8rem 0}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}
+.g pre{margin:0;padding:.8rem 1rem;overflow-x:auto;font:.85rem/1.5 ui-monospace,Menlo,Consolas,monospace;border-left:4px solid var(--line);background:var(--old);color:var(--mute)}
+.g pre.n{border-left-color:var(--acc);background:var(--new);color:var(--ink)}
+.g pre::before{content:attr(data-l);display:block;font:600 .75rem system-ui,sans-serif;margin-bottom:.4rem;color:var(--acc)}
+.g pre:not(.n)::before{color:var(--mute)}
+.g code{font:.9em ui-monospace,Menlo,Consolas,monospace;background:var(--old);padding:.05rem .3rem;border-radius:.25rem}
+.g pre code{background:none;padding:0;font-size:inherit}
+.rule{border-left:4px solid var(--acc);padding:.1rem 1rem;margin:1rem 0;max-width:68ch}
+.g ul{max-width:68ch;padding-left:1.2rem}
+.lede{color:var(--mute);font-size:1.15rem}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+<main class="g">
+<h1>Modern C++ for the C++98 Programmer</h1>
+<p class="lede">You know the language. This is what changed in C++11 through C++23, limited to what you'll use weekly. Each block pairs the thing you used to write (grey) with what you write now (blue).</p>
+<p>Build with <code>-std=c++20</code> (or <code>/std:c++20</code>) and you get nearly all of it. Items tagged C++23 need a recent compiler. Skipped on purpose: modules, coroutines, user-defined literals, and most template-metaprogramming internals.</p>
+<div class="rule"><p>The five habits that change your code most: <code>auto</code> and range-for, <code>unique_ptr</code> instead of <code>new</code>, return by value, lambdas with algorithms, and <code>optional</code>/<code>variant</code> instead of sentinel values.</p></div>
+
+<h2>Stop spelling out iterator types<span class="v">C++11 / 17</span></h2>
+<p><code>auto</code> deduces the type, range-for walks a container, and structured bindings unpack pairs and structs by name.</p>
+<div class="pair">
+<pre data-l="C++98">std::map&lt;std::string, int&gt;::const_iterator it;
+for (it = m.begin(); it != m.end(); ++it)
+    use(it-&gt;first, it-&gt;second);</pre>
+<pre class="n" data-l="Modern">for (const auto&amp; [name, count] : m)
+    use(name, count);</pre>
+</div>
+<p>Use <code>const auto&amp;</code> to read, <code>auto&amp;</code> to modify, plain <code>auto</code> for cheap copies like ints.</p>
+
+<h2>Initialize containers like arrays<span class="v">C++11</span></h2>
+<p>Brace initialization works everywhere, rejects silent narrowing (<code>int x{3.5}</code> is an error), and ends the <code>push_back</code> wall. Members can have defaults right in the class.</p>
+<div class="pair">
+<pre data-l="C++98">std::vector&lt;int&gt; v;
+v.push_back(1); v.push_back(2);
+std::map&lt;std::string,int&gt; m;
+m.insert(std::make_pair("a", 1));
+struct P { int n; P() : n(0) {} };</pre>
+<pre class="n" data-l="Modern">std::vector&lt;int&gt; v{1, 2};
+std::map&lt;std::string,int&gt; m{{"a", 1}};
+struct P { int n = 0; };
+v.emplace_back(3);   // construct in place</pre>
+</div>
+
+<h2>Small keyword upgrades<span class="v">C++11</span></h2>
+<p>Three old annoyances with one-line fixes: <code>NULL</code> is really <code>0</code>, plain enums leak names and convert to int, and <code>typedef</code> reads backwards and can't be templated.</p>
+<div class="pair">
+<pre data-l="C++98">f(NULL);                // picks f(int)!
+enum Color { RED, GREEN };
+typedef std::map&lt;std::string,
+    std::vector&lt;int&gt; &gt; Table;</pre>
+<pre class="n" data-l="Modern">f(nullptr);
+enum class Color { Red, Green };  // Color::Red
+using Table = std::map&lt;std::string,
+    std::vector&lt;int&gt;&gt;;
+template&lt;class T&gt; using Vec = std::vector&lt;T&gt;;</pre>
+</div>
+
+<h2>Ownership: stop writing delete<span class="v">C++11 / 14</span></h2>
+<p><code>unique_ptr</code> is a pointer with one owner that frees itself, with zero overhead. <code>shared_ptr</code> is for the rare case of genuinely shared ownership. <code>auto_ptr</code> is gone.</p>
+<div class="pair">
+<pre data-l="C++98">Widget* w = new Widget(3);
+if (!setup(w)) { delete w; return; }
+// ...leaks if anything throws
+delete w;</pre>
+<pre class="n" data-l="Modern">auto w = std::make_unique&lt;Widget&gt;(3);
+if (!setup(*w)) return;   // freed on every exit path
+
+auto cfg = std::make_shared&lt;Config&gt;();  // shared owner
+std::vector&lt;std::unique_ptr&lt;Shape&gt;&gt; shapes;</pre>
+</div>
+<div class="rule"><p>Rule of thumb: no naked <code>new</code> or <code>delete</code>. A raw <code>T*</code> or <code>T&amp;</code> now means "I'm borrowing this, not owning it."</p></div>
+
+<h2>Return big things by value<span class="v">C++11</span></h2>
+<p>Move semantics let a temporary hand over its guts instead of copying them. You spent C++98 writing output parameters to dodge copies; you can stop.</p>
+<div class="pair">
+<pre data-l="C++98">void load(const std::string&amp; path,
+          std::vector&lt;char&gt;&amp; out);
+std::vector&lt;char&gt; buf;
+load("a.bin", buf);</pre>
+<pre class="n" data-l="Modern">std::vector&lt;char&gt; load(const std::string&amp; path);
+auto buf = load("a.bin");   // moved or elided, no copy
+
+auto other = std::move(buf); // explicit transfer
+// buf is now valid but empty: don't use its value</pre>
+</div>
+<p><code>std::move</code> doesn't move anything; it just marks "I'm done with this, you may steal from it." Types like <code>unique_ptr</code>, <code>thread</code> and <code>ifstream</code> are move-only. For your own classes, aim for the rule of zero: hold members that manage themselves and write no destructor or copy/move functions at all.</p>
+
+<h2>Lambdas replace functor boilerplate<span class="v">C++11 / 14</span></h2>
+<p>An inline, anonymous function that can capture local variables. This is what makes the standard algorithms finally pleasant.</p>
+<div class="pair">
+<pre data-l="C++98">struct ByAge {
+  bool operator()(const P&amp; a, const P&amp; b) const
+  { return a.age &lt; b.age; }
+};
+std::sort(v.begin(), v.end(), ByAge());</pre>
+<pre class="n" data-l="Modern">std::sort(v.begin(), v.end(),
+  [](const P&amp; a, const P&amp; b) { return a.age &lt; b.age; });
+
+int limit = 18;
+auto adults = std::count_if(v.begin(), v.end(),
+  [limit](const P&amp; p) { return p.age &gt;= limit; });</pre>
+</div>
+<p>Capture lists: <code>[x]</code> copy, <code>[&amp;x]</code> reference, <code>[=]</code>/<code>[&amp;]</code> everything, <code>[p = std::move(ptr)]</code> move in (C++14). Use <code>auto</code> parameters for generic lambdas. Store one with <code>auto f = ...</code> or <code>std::function&lt;int(int)&gt;</code> when you need a uniform type.</p>
+
+<h2>Return "maybe", "one of", and "a view"<span class="v">C++17 / 20</span></h2>
+<p>Types that say what you mean instead of sentinel values, tagged unions, and defensive string copies.</p>
+<div class="pair">
+<pre data-l="C++98">bool find(int id, User&amp; out);   // or return NULL / -1
+union { int i; float f; } u;      // which one is live?
+void log(const std::string&amp; s);
+void log(const char* s);          // overload to avoid temp</pre>
+<pre class="n" data-l="Modern">std::optional&lt;User&gt; find(int id);
+if (auto u = find(7)) use(*u);
+
+std::variant&lt;int, std::string&gt; v = "hi";
+std::visit([](auto&amp;&amp; x){ print(x); }, v);
+
+void log(std::string_view s);     // takes both, no copy
+void sum(std::span&lt;const int&gt; xs); // vector, array, C array</pre>
+</div>
+<p><code>string_view</code> and <code>span</code> are non-owning: never keep one past the lifetime of the thing it points at. For recoverable errors, C++23 adds <code>std::expected&lt;T, E&gt;</code>: a value or an error, no exceptions needed.</p>
+
+<h2>Containers and utilities you'll reach for<span class="v">C++11 / 20</span></h2>
+<div class="pair">
+<pre data-l="C++98">int a[4];                     // decays, no size()
+std::map&lt;K,V&gt; m;              // tree, O(log n)
+m.find(k) != m.end();
+v.erase(std::remove(v.begin(), v.end(), 0), v.end());</pre>
+<pre class="n" data-l="Modern">std::array&lt;int, 4&gt; a{};      // a.size(), a.at(), copyable
+std::unordered_map&lt;K,V&gt; m;   // hash table, O(1)
+m.contains(k);               // C++20
+std::erase(v, 0);            // C++20; erase_if(v, pred)</pre>
+</div>
+
+<h2>Class hygiene<span class="v">C++11</span></h2>
+<p>Say what you mean and let the compiler check it.</p>
+<div class="pair">
+<pre data-l="C++98">class NoCopy {
+  NoCopy(const NoCopy&amp;);   // declared, never defined
+  void operator=(const NoCopy&amp;);
+};
+// typo in a virtual override? silently a new function</pre>
+<pre class="n" data-l="Modern">struct NoCopy {
+  NoCopy(const NoCopy&amp;) = delete;
+  NoCopy() = default;
+};
+struct D : Base {
+  void draw() const override;   // compile error if it doesn't match
+  D(int x) : D(x, 0) {}         // delegating constructor
+  using Base::Base;             // inherit constructors
+};</pre>
+</div>
+<p>Also add <code>final</code> to stop further overriding, <code>noexcept</code> on move operations (containers rely on it), and <code>[[nodiscard]]</code> on functions whose result must not be ignored.</p>
+
+<h2>Compute at compile time without template tricks<span class="v">C++11 / 17</span></h2>
+<p><code>constexpr</code> functions are ordinary code (loops included) that the compiler runs when the inputs are known. <code>if constexpr</code> replaces overload and SFINAE gymnastics.</p>
+<div class="pair">
+<pre data-l="C++98">template&lt;int N&gt; struct Fact
+{ enum { v = N * Fact&lt;N-1&gt;::v }; };
+template&lt;&gt; struct Fact&lt;0&gt; { enum { v = 1 }; };</pre>
+<pre class="n" data-l="Modern">constexpr int fact(int n) {
+  int r = 1;
+  for (int i = 2; i &lt;= n; ++i) r *= i;
+  return r;
+}
+static_assert(fact(5) == 120);
+
+template&lt;class T&gt; auto show(T x) {
+  if constexpr (std::is_integral_v&lt;T&gt;) return x + 1;
+  else return x;      // only compiled when it applies
+}</pre>
+</div>
+
+<h2>Templates that read like English<span class="v">C++11 / 17 / 20</span></h2>
+<p>Variadic templates take any number of arguments, fold expressions collapse them, and concepts replace the <code>enable_if</code> maze with readable requirements and readable errors.</p>
+<div class="pair">
+<pre data-l="C++98">template&lt;class T&gt;
+typename boost::enable_if&lt;is_integral&lt;T&gt;, T&gt;::type
+gcd(T a, T b);
+// sum of N things: overload for 2, 3, 4, ...</pre>
+<pre class="n" data-l="Modern">template&lt;std::integral T&gt;
+T gcd(T a, T b);
+
+auto sum(auto... xs) { return (xs + ...); }  // fold
+sum(1, 2, 3);                                // 6
+
+template&lt;class T&gt;
+concept Printable = requires(T t) { std::cout &lt;&lt; t; };</pre>
+</div>
+
+<h2>Threads are in the language<span class="v">C++11 / 17 / 20</span></h2>
+<p>Portable threads, locks, atomics, and futures replace pthreads and platform wrappers. The C++11 memory model is what makes lock-free code well-defined.</p>
+<div class="pair">
+<pre data-l="C++98">pthread_t t;
+pthread_create(&amp;t, 0, &amp;worker, arg);
+pthread_mutex_lock(&amp;mu); /* ... */ pthread_mutex_unlock(&amp;mu);</pre>
+<pre class="n" data-l="Modern">std::jthread t([&amp;]{ work(); });   // joins automatically (C++20)
+
+{ std::scoped_lock lk(mu, other_mu); /* deadlock-free */ }
+
+std::atomic&lt;int&gt; hits{0};  ++hits;
+
+auto f = std::async(std::launch::async, compute, 42);
+int r = f.get();            // blocks until ready</pre>
+</div>
+<p>The pattern holds: locks are RAII objects, never lock/unlock pairs. <code>thread_local</code> gives per-thread variables.</p>
+
+<h2>Pipelines and formatting<span class="v">C++20 / 23</span></h2>
+<p>Ranges let you pass containers directly to algorithms and chain lazy views. <code>std::format</code> is type-safe <code>printf</code> that works with your own types.</p>
+<div class="pair">
+<pre data-l="C++98">std::sort(v.begin(), v.end());
+std::vector&lt;int&gt; sq;
+for (size_t i = 0; i &lt; v.size(); ++i)
+  if (v[i] % 2 == 0) sq.push_back(v[i] * v[i]);
+std::ostringstream os;
+os &lt;&lt; name &lt;&lt; " has " &lt;&lt; n &lt;&lt; " items";</pre>
+<pre class="n" data-l="Modern">std::ranges::sort(v);
+namespace sv = std::views;
+for (int x : v | sv::filter([](int i){ return i % 2 == 0; })
+               | sv::transform([](int i){ return i * i; }))
+  use(x);                  // lazy: nothing is copied
+
+auto s = std::format("{} has {} items", name, n);
+std::print("{:&gt;8.2f}\n", 3.14159);   // C++23</pre>
+</div>
+
+<h2>Everything else worth one line each</h2>
+<div class="pair">
+<pre data-l="C++98">sleep(2);   // platform-specific
+rand() % 6; // biased, global state
+bool operator&lt;(...); /* and 5 more comparisons */
+// listing a directory: dirent.h / FindFirstFile</pre>
+<pre class="n" data-l="Modern">using namespace std::chrono_literals;
+std::this_thread::sleep_for(250ms);
+
+std::mt19937 rng{std::random_device{}()};
+std::uniform_int_distribution&lt;int&gt; die(1, 6);
+
+auto operator&lt;=&gt;(const P&amp;) const = default;  // all six (C++20)
+
+for (auto&amp; e : std::filesystem::directory_iterator(".")) {}</pre>
+</div>
+<ul>
+<li><code>Point p{.x = 1, .y = 2};</code> designated initializers (C++20).</li>
+<li><code>if (auto it = m.find(k); it != m.end()) ...</code> init-statements in <code>if</code>/<code>switch</code> (C++17).</li>
+<li><code>std::string::starts_with</code> / <code>ends_with</code> (C++20), <code>std::clamp</code>, <code>std::gcd</code>, <code>std::source_location</code>.</li>
+<li><code>static_assert</code>, <code>alignas</code>, <code>thread_local</code>, raw string literals <code>R"(no\escaping)"</code>.</li>
+</ul>
+
+<h2>Where to go next</h2>
+<p>Learn in this order: auto/range-for, smart pointers, move semantics, lambdas, <code>optional</code>/<code>variant</code>, then ranges and concepts. Compile with <code>-Wall -Wextra</code> and a sanitizer (<code>-fsanitize=address,undefined</code>); modern C++ gives the compiler enough information to catch most of your old habits for you.</p>
+</main>
+</body>
+</html>
