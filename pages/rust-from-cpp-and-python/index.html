@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rust for C++98 and Python Programmers — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<script type="application/json" id="page-meta">
+{
+  "title": "Rust for C++98 and Python Programmers",
+  "description": "Set up Rust on Linux or Windows, understand what Cargo does compared with CMake and pip, then learn the language through before-and-after examples from C++98 and Python.",
+  "tags": ["rust", "programming", "guide"],
+  "date": "2026-11-13"
+}
+</script>
+<style>
+:root{--bg:#f6f7f9;--ink:#161b22;--mute:#5b6572;--line:#d5dae1;--old:#eceef2;--new:#e3f0ff;--acc:#0a58ca;--chip:#dbe7f7}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1217;--ink:#e6eaf0;--mute:#97a1ae;--line:#2b333d;--old:#171c23;--new:#0f2340;--acc:#6ea8ff;--chip:#1c2a40}}
+body{background:var(--bg);color:var(--ink);margin:0}
+main.g{max-width:980px;margin:0 auto;padding:2.5rem 1.25rem 4rem;font:1.05rem/1.65 Charter,"Iowan Old Style",Georgia,serif}
+.g h1{font-size:2.3rem;line-height:1.15;margin:0 0 .5rem}
+.g h2{font-size:1.4rem;margin:3rem 0 .4rem;padding-top:1.2rem;border-top:1px solid var(--line)}
+.g h3{font-size:1.1rem;margin:1.6rem 0 .3rem}
+.g p{max-width:68ch;margin:.4rem 0 .8rem}
+.g .v{font:600 .8rem/1 system-ui,sans-serif;background:var(--chip);color:var(--acc);padding:.25rem .5rem;border-radius:.6rem;margin-left:.5rem;vertical-align:middle}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:.8rem 0}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}
+.g pre{margin:0;padding:.8rem 1rem;overflow-x:auto;font:.85rem/1.5 ui-monospace,Menlo,Consolas,monospace;border-left:4px solid var(--line);background:var(--old);color:var(--mute)}
+.g pre.n{border-left-color:var(--acc);background:var(--new);color:var(--ink)}
+.g pre.solo{margin:.8rem 0}
+.g pre::before{content:attr(data-l);display:block;font:600 .75rem system-ui,sans-serif;margin-bottom:.4rem;color:var(--acc)}
+.g pre:not(.n)::before{color:var(--mute)}
+.g code{font:.9em ui-monospace,Menlo,Consolas,monospace;background:var(--old);padding:.05rem .3rem;border-radius:.25rem}
+.g pre code{background:none;padding:0;font-size:inherit}
+.rule{border-left:4px solid var(--acc);padding:.1rem 1rem;margin:1rem 0;max-width:68ch}
+.g ul,.g ol{max-width:68ch;padding-left:1.2rem}
+.lede{color:var(--mute);font-size:1.15rem}
+.tw{overflow-x:auto;margin:.8rem 0}
+.g table{border-collapse:collapse;font:.9rem/1.45 system-ui,sans-serif;min-width:100%}
+.g th,.g td{border:1px solid var(--line);padding:.45rem .65rem;text-align:left;vertical-align:top}
+.g th{background:var(--chip)}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+<main class="g">
+<h1>Rust for C++98 and Python Programmers</h1>
+<p class="lede">Rust gives you C++-level speed and control, with a compiler that proves your memory handling is safe. It also ships with a build tool and package manager, which neither of your languages did. This page covers setup first, then Cargo, then the language, always as "what you did before" next to "what you do now".</p>
+<div class="rule"><p>Short answers to your build questions: <strong>Cargo</strong> is the one tool that builds Rust on every platform. It is not CMake, and not quite pip, but it plays both roles. The same <code>Cargo.toml</code> and the same commands work on Linux, macOS and Windows. Only the linker underneath differs.</p></div>
+
+<h2>1. Install Rust</h2>
+<p>Everything goes through <strong>rustup</strong>, the toolchain manager (think <code>pyenv</code> for Rust). It installs the compiler <code>rustc</code>, <code>cargo</code>, the standard library, <code>rustfmt</code> (formatter) and <code>clippy</code> (linter), and updates them.</p>
+<pre class="n solo" data-l="Linux / macOS / WSL">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+rustc --version && cargo --version     # check it worked
+rustup update                          # later: upgrade everything</pre>
+<p>On Windows, download and run <code>rustup-init.exe</code> from <code>rustup.rs</code>. It checks for a C++ toolchain and offers to install one.</p>
+
+<h3>What Rust needs underneath</h3>
+<p>Rust compiles its own code, but it hands the final step to your platform's native <strong>linker</strong>. So you need one installed:</p>
+<div class="tw"><table>
+<tr><th>Platform</th><th>You need</th><th>Notes</th></tr>
+<tr><td>Linux</td><td><code>gcc</code> or <code>clang</code> (<code>sudo apt install build-essential</code>)</td><td>Rust calls <code>cc</code> to link.</td></tr>
+<tr><td>macOS</td><td>Xcode command line tools (<code>xcode-select --install</code>)</td><td>Provides clang and the system linker.</td></tr>
+<tr><td>Windows (default, MSVC)</td><td>Visual Studio Build Tools with the <strong>Desktop development with C++</strong> workload (MSVC linker plus Windows SDK)</td><td>Free, no full Visual Studio needed. Target: <code>x86_64-pc-windows-msvc</code>. Best choice if you link against Windows libraries or C++ built with MSVC.</td></tr>
+<tr><td>Windows (alternative, GNU)</td><td>MinGW-w64 (e.g. via MSYS2)</td><td>Target: <code>x86_64-pc-windows-gnu</code>. Pick this if the rest of your stack is GCC-based.</td></tr>
+</table></div>
+<p>Editor: install <strong>rust-analyzer</strong> (VS Code extension, or the plugin for your editor) for completion, inline errors and "go to definition".</p>
+
+<h2>2. Cargo: build system and package manager in one</h2>
+<p>Where you juggled Make or CMake, a package source, and a virtualenv, Rust has one tool. A rough map:</p>
+<div class="tw"><table>
+<tr><th>Job</th><th>C++98 world</th><th>Python world</th><th>Rust</th></tr>
+<tr><td>Describe the project</td><td>Makefile / CMakeLists.txt</td><td>pyproject.toml / setup.py</td><td><code>Cargo.toml</code></td></tr>
+<tr><td>Get libraries</td><td>System packages, vendoring, Conan</td><td>pip + PyPI</td><td>Cargo + crates.io (libraries are called <em>crates</em>)</td></tr>
+<tr><td>Pin exact versions</td><td>—</td><td>requirements.txt / lock file</td><td><code>Cargo.lock</code>, automatic</td></tr>
+<tr><td>Isolation</td><td>Manual</td><td>venv</td><td>Per-project by default, no activation step</td></tr>
+<tr><td>Run tests</td><td>gtest + your own runner</td><td>pytest</td><td><code>cargo test</code> (built in)</td></tr>
+</table></div>
+<p>The big difference from pip: crates are downloaded as <em>source</em> and compiled with your project, so there are no wheels and no ABI mismatches. The downloads are cached in <code>~/.cargo</code> (<code>%USERPROFILE%\.cargo</code> on Windows) and shared by all your projects. Build output goes into the project's <code>target/</code> folder.</p>
+
+<h3>A project</h3>
+<pre class="solo" data-l="cargo new hello  →  creates">hello/
+├── Cargo.toml     # name, version, dependencies
+├── Cargo.lock     # exact versions used (created on first build)
+├── src/main.rs    # entry point (src/lib.rs for a library)
+└── target/        # build output, add to .gitignore (cargo new does)</pre>
+<pre class="n solo" data-l="Cargo.toml">[package]
+name = "hello"
+version = "0.1.0"
+edition = "2024"        # language edition, new projects get the latest
+
+[dependencies]
+rand = "0.9"            # means any compatible 0.9.x (semver)
+serde = { version = "1", features = ["derive"] }  # optional features</pre>
+<p><em>Features</em> are compile-time switches a crate offers, similar to CMake options or pip extras. <em>Editions</em> let the language evolve without breaking old code, and crates on different editions can be mixed freely.</p>
+
+<h3>Everyday commands</h3>
+<div class="tw"><table>
+<tr><th>Command</th><th>What it does</th></tr>
+<tr><td><code>cargo new name</code></td><td>Create a project (<code>--lib</code> for a library).</td></tr>
+<tr><td><code>cargo run</code></td><td>Build, then run. Debug mode by default.</td></tr>
+<tr><td><code>cargo build --release</code></td><td>Optimized build (like <code>-O2</code>), in <code>target/release/</code>.</td></tr>
+<tr><td><code>cargo check</code></td><td>Type-check without producing a binary. Much faster; use it while editing.</td></tr>
+<tr><td><code>cargo add rand</code></td><td>Add a dependency to <code>Cargo.toml</code>.</td></tr>
+<tr><td><code>cargo update</code></td><td>Upgrade locked versions within what <code>Cargo.toml</code> allows.</td></tr>
+<tr><td><code>cargo test</code></td><td>Run unit tests (<code>#[test]</code> functions), integration tests and doc examples.</td></tr>
+<tr><td><code>cargo fmt</code> / <code>cargo clippy</code></td><td>Format code / lint for common mistakes.</td></tr>
+<tr><td><code>cargo doc --open</code></td><td>Build docs for your code and all dependencies. Read this often.</td></tr>
+</table></div>
+<p>Commit <code>Cargo.lock</code> for applications so everyone builds the same versions. Pure-Rust projects never need CMake or Make.</p>
+
+<h3>When C or C++ is involved</h3>
+<ul>
+<li><strong>Using a C library:</strong> look for a <code>-sys</code> crate (e.g. <code>libz-sys</code>), which wraps it.</li>
+<li><strong>Compiling C/C++ inside your build:</strong> a <code>build.rs</code> file runs before your crate compiles. The <code>cc</code> crate there invokes MSVC, gcc or clang as appropriate; the <code>cmake</code> crate runs a CMake project. On Windows this is why the C++ Build Tools matter even for Rust.</li>
+<li><strong>Cross-compiling:</strong> <code>rustup target add x86_64-pc-windows-gnu</code>, then <code>cargo build --target x86_64-pc-windows-gnu</code>. Needs a suitable linker for the target.</li>
+<li><strong>Several crates in one repo:</strong> a <em>workspace</em> (a root <code>Cargo.toml</code> listing members) shares one lock file and one <code>target/</code>.</li>
+</ul>
+
+<h2>3. The language, by comparison</h2>
+<p>Grey is C++98 and/or Python; blue is Rust. Run any snippet by pasting it into <code>fn main() { ... }</code> in a <code>cargo new</code> project.</p>
+
+<h3>Variables: immutable by default</h3>
+<div class="pair">
+<pre data-l="C++98 / Python">int n = 0;           // mutable unless const
+const int k = 5;
+# Python
+n = 0                # any name can be rebound</pre>
+<pre class="n" data-l="Rust">let k = 5;             // immutable
+let mut n = 0;         // opt in to change
+n += 1;
+let x: u64 = 7;        // annotate when it can't be inferred
+let n = n.to_string(); // shadowing: a new variable, new type</pre>
+</div>
+
+<h3>Functions and expressions</h3>
+<p>Types on parameters are mandatory. The last expression, without a semicolon, is the return value. <code>if</code> and <code>match</code> are expressions too, so there is no ternary operator.</p>
+<div class="pair">
+<pre data-l="C++98 / Python">int add(int a, int b) { return a + b; }
+const char* s = n > 0 ? "pos" : "non-pos";
+# Python
+s = "pos" if n > 0 else "non-pos"</pre>
+<pre class="n" data-l="Rust">fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+let s = if n > 0 { "pos" } else { "non-pos" };</pre>
+</div>
+
+<h3>Loops</h3>
+<div class="pair">
+<pre data-l="C++98 / Python">for (int i = 0; i < 10; ++i) {}
+for (std::vector&lt;int&gt;::iterator it = v.begin();
+     it != v.end(); ++it) show(*it);
+# Python
+for i in range(10): ...
+for i, x in enumerate(v): ...</pre>
+<pre class="n" data-l="Rust">for i in 0..10 {}              // 0..=10 includes 10
+for x in &amp;v { show(*x); }      // borrow; v still usable after
+for x in &amp;mut v { *x += 1; }   // modify in place
+for (i, x) in v.iter().enumerate() {}
+while n &lt; 10 { n += 1; }
+let found = loop {             // loop can return a value
+    n += 1;
+    if n % 7 == 0 { break n; }
+};</pre>
+</div>
+<p>Iterator chains replace both hand loops and comprehensions. They are lazy and compile down to a plain loop with no overhead. <code>|x| ...</code> is a closure.</p>
+<div class="pair">
+<pre data-l="C++98 / Python">std::vector&lt;int&gt; sq;
+for (size_t i = 0; i &lt; v.size(); ++i)
+  if (v[i] % 2 == 0) sq.push_back(v[i] * v[i]);
+# Python
+sq = [x * x for x in v if x % 2 == 0]</pre>
+<pre class="n" data-l="Rust">let sq: Vec&lt;i32&gt; = v.iter().copied()
+    .filter(|x| x % 2 == 0)
+    .map(|x| x * x)
+    .collect();</pre>
+</div>
+
+<h3>Structs and methods</h3>
+<p>Data (<code>struct</code>) and behaviour (<code>impl</code>) are declared separately. <code>&amp;self</code> is a const method, <code>&amp;mut self</code> may modify. There are no constructors: <code>new</code> is just a convention for an ordinary function. There is no inheritance either; sharing behaviour is done with traits (below).</p>
+<div class="pair">
+<pre data-l="C++98 / Python">class Point {
+  double x, y;
+public:
+  Point(double x, double y) : x(x), y(y) {}
+  double len() const { return std::sqrt(x*x + y*y); }
+  void scale(double k) { x *= k; y *= k; }
+};
+# Python: class Point: def __init__(self, x, y): ...</pre>
+<pre class="n" data-l="Rust">#[derive(Debug, Clone)]      // auto-generates printing, copying
+struct Point { x: f64, y: f64 }
+
+impl Point {
+    fn new(x: f64, y: f64) -> Self { Point { x, y } }
+    fn len(&amp;self) -> f64 { (self.x * self.x + self.y * self.y).sqrt() }
+    fn scale(&amp;mut self, k: f64) { self.x *= k; self.y *= k; }
+}
+let mut p = Point::new(3.0, 4.0);
+p.scale(2.0);
+println!("{:?} len={}", p, p.len());</pre>
+</div>
+
+<h3>Ownership and borrowing: the big idea</h3>
+<p>In C++98 you decide who frees memory by convention and hope. In Python a garbage collector decides. Rust makes the rules part of the type system, checked at compile time, with no GC and no runtime cost:</p>
+<ol>
+<li>Every value has exactly one owner. When the owner goes out of scope the value is dropped (RAII, like a C++ destructor, automatically).</li>
+<li>Assigning or passing a value <em>moves</em> it. The old name becomes unusable.</li>
+<li>You can lend a value out with <code>&amp;x</code> (any number of read-only borrows) or <code>&amp;mut x</code> (exactly one writer, and no readers at the same time).</li>
+<li>A borrow can never outlive its owner.</li>
+</ol>
+<div class="pair">
+<pre data-l="C++98 / Python">void f(std::string s);       // copies
+void g(const std::string&amp; s); // borrows
+# Python: f(s) shares one object, GC cleans up
+// Dangling reference, compiles fine:
+std::vector&lt;int&gt; v(3, 1);
+int&amp; first = v[0];
+v.push_back(4);   // may reallocate
+first = 9;        // undefined behaviour</pre>
+<pre class="n" data-l="Rust">let s = String::from("hi");
+f(s);              // moved into f; s is gone
+g(&amp;s);             // borrowed; s still usable
+f(s.clone());      // explicit deep copy
+
+let mut v = vec![1, 1, 1];
+let first = &amp;v[0];
+v.push(4);         // ERROR: v is borrowed by `first`
+println!("{}", first);   // caught before it ever runs</pre>
+</div>
+<p>This is where the learning curve is. The compiler errors are long but usually say exactly what to change. Small integers, floats and <code>bool</code> are copied rather than moved, so they behave as you expect. Smart pointers: <code>Box&lt;T&gt;</code> is <code>unique_ptr</code>, <code>Rc&lt;T&gt;</code> and <code>Arc&lt;T&gt;</code> (thread-safe) are <code>shared_ptr</code>.</p>
+
+<h3>Errors: no exceptions, no null</h3>
+<p>Failure is a value in the return type. <code>Result&lt;T, E&gt;</code> is "a value or an error", <code>Option&lt;T&gt;</code> is "a value or nothing". The <code>?</code> operator means "if this failed, return the error from my function now".</p>
+<div class="pair">
+<pre data-l="C++98 / Python">// C++98: strtol + check endptr, or throw
+User* find(int id);        // NULL if missing, caller must check
+# Python
+try:
+    n = int(s) * 2
+except ValueError as e:
+    print("bad:", e)</pre>
+<pre class="n" data-l="Rust">fn double(s: &amp;str) -> Result&lt;i32, std::num::ParseIntError> {
+    let n: i32 = s.trim().parse()?;
+    Ok(n * 2)
+}
+match double("21") {
+    Ok(v) => println!("{v}"),
+    Err(e) => eprintln!("bad: {e}"),
+}
+fn find(id: u32) -> Option&lt;&amp;User> { /* ... */ }</pre>
+</div>
+<p>You can't forget to handle an error, because you can't get at the value without going through the <code>Result</code>. For quick scripts, <code>.unwrap()</code> or <code>.expect("msg")</code> crashes (a <em>panic</em>) on failure.</p>
+
+<h3>Enums that carry data, and match</h3>
+<div class="pair">
+<pre data-l="C++98 / Python">enum Kind { CIRCLE, RECT };
+struct Shape {
+  Kind kind;
+  union { double r; struct { double w, h; } rect; } u;
+};  // you keep kind and union in sync by hand
+# Python: classes plus isinstance checks</pre>
+<pre class="n" data-l="Rust">enum Shape {
+    Circle(f64),
+    Rect { w: f64, h: f64 },
+    Empty,
+}
+fn area(s: &amp;Shape) -> f64 {
+    match s {
+        Shape::Circle(r) => 3.14159 * r * r,
+        Shape::Rect { w, h } => w * h,
+        Shape::Empty => 0.0,
+    }
+}</pre>
+</div>
+<p><code>match</code> must cover every variant. Add a new one and the compiler lists every place that needs updating. <code>Option</code> and <code>Result</code> are just enums like this.</p>
+
+<h3>Traits and generics</h3>
+<p>A trait is an interface. Generic functions state what they need (<code>T: PartialOrd</code>), which is like C++20 concepts but required from the start, so errors appear at the definition rather than deep inside an instantiation. Runtime polymorphism (<code>virtual</code>) is <code>dyn Trait</code>.</p>
+<div class="pair">
+<pre data-l="C++98 / Python">template&lt;class T&gt;
+const T&amp; largest(const std::vector&lt;T&gt;&amp; v);
+// needs operator&lt; ... or you find out from a 200-line error
+struct Animal { virtual std::string speak() const = 0; };
+# Python: duck typing, errors at runtime</pre>
+<pre class="n" data-l="Rust">fn largest&lt;T: PartialOrd>(xs: &amp;[T]) -> &amp;T {
+    let mut m = &amp;xs[0];
+    for x in xs { if x > m { m = x; } }
+    m
+}
+trait Animal { fn speak(&amp;self) -> String; }
+struct Dog;
+impl Animal for Dog {
+    fn speak(&amp;self) -> String { "woof".to_string() }
+}
+let zoo: Vec&lt;Box&lt;dyn Animal>> = vec![Box::new(Dog)];</pre>
+</div>
+
+<h3>Strings and collections</h3>
+<div class="pair">
+<pre data-l="C++98 / Python">std::string s = "hi"; s += " world";
+std::vector&lt;int&gt; v;  v.push_back(1);
+std::map&lt;std::string,int&gt; m;  m["a"] = 1;
+# Python
+s = "hi" + " world"; v = [1]; m = {"a": 1}</pre>
+<pre class="n" data-l="Rust">use std::collections::HashMap;
+let lit: &amp;str = "hi";               // borrowed text
+let mut s = String::from(lit);      // owned, growable
+s.push_str(" world");
+let mut v = vec![1, 2, 3];  v.push(4);
+let mut m = HashMap::new();  m.insert("a", 1);
+println!("{s} {v:?} {}", m["a"]);   // {:?} = debug print</pre>
+</div>
+<p><code>&amp;str</code> versus <code>String</code> is like <code>string_view</code> versus <code>std::string</code>. All text is UTF-8. <code>println!</code> ends in <code>!</code> because it's a macro; the compiler checks the format string.</p>
+
+<h3>Modules instead of headers</h3>
+<div class="pair">
+<pre data-l="C++98 / Python">// util.h with include guards, util.cpp separately
+#include "util.h"
+# Python
+import util
+from util import helper</pre>
+<pre class="n" data-l="Rust">// src/util.rs  (one file, no header)
+pub fn helper() {}      // pub = visible outside the module
+
+// src/main.rs
+mod util;               // declares and finds util.rs
+use util::helper;
+use rand::Rng;          // from a dependency in Cargo.toml</pre>
+</div>
+
+<h2>4. What will surprise you</h2>
+<ul>
+<li><strong>Everything is private and immutable until you say otherwise</strong> (<code>pub</code>, <code>mut</code>).</li>
+<li><strong>No implicit conversions.</strong> <code>let x: i64 = my_i32;</code> fails; write <code>my_i32 as i64</code> or <code>i64::from(my_i32)</code>.</li>
+<li><strong>No overloading and no default arguments.</strong> Use different names, or a builder or <code>Option</code>.</li>
+<li><strong>Integer overflow</strong> panics in debug builds and wraps in release builds. Use <code>checked_add</code> or <code>wrapping_add</code> when it matters.</li>
+<li><strong>Data races are compile errors.</strong> Threads (<code>std::thread::spawn</code>) only accept data that is safe to share (the <code>Send</code> and <code>Sync</code> traits), and mutable shared state needs <code>Arc&lt;Mutex&lt;T>></code>.</li>
+<li><strong><code>unsafe { }</code></strong> exists for raw pointers and C calls. It switches off only some checks, and it's rare in application code.</li>
+</ul>
+
+<h2>5. Where to go next</h2>
+<p>Read <em>The Rust Programming Language</em> (free online, called "the book"), chapters 4 on ownership and 9 on errors first. Do the small exercises in <code>rustlings</code> (<code>cargo install rustlings</code>), and keep <em>Rust by Example</em> open as a cookbook. While working, run <code>cargo clippy</code> often and read its suggestions: it teaches idiomatic Rust. If you want the C++ side of this comparison in the same format, see <a href="../modern-cpp-from-98/">Modern C++ for the C++98 Programmer</a>.</p>
+</main>
+</body>
+</html>
