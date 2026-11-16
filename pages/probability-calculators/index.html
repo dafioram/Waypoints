@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Probability Calculators — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<script type="application/json" id="page-meta">
+{
+  "title": "Probability Calculators",
+  "description": "Enter a success probability and see how many rolls you need to measure it, what range of results to expect, how small a bias you can detect, and whether two sources really differ.",
+  "tags": ["statistics", "probability", "calculator"],
+  "date": "2026-11-15"
+}
+</script>
+<style>
+:root{--bg:#f6f7f9;--ink:#161b22;--mute:#5b6572;--line:#d5dae1;--card:#fff;--acc:#0a58ca;--chip:#dbe7f7}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1217;--ink:#e6eaf0;--mute:#97a1ae;--line:#2b333d;--card:#171c23;--acc:#6ea8ff;--chip:#1c2a40}}
+body{background:var(--bg);color:var(--ink);margin:0}
+main.g{max-width:980px;margin:0 auto;padding:2.5rem 1.25rem 4rem;font:1.05rem/1.6 Charter,"Iowan Old Style",Georgia,serif}
+.g h1{font-size:2.2rem;line-height:1.15;margin:0 0 .5rem}
+.g h2{font-size:1.35rem;margin:2.8rem 0 .3rem;padding-top:1.1rem;border-top:1px solid var(--line)}
+.g h3{font-size:1rem;margin:1.4rem 0 .2rem;font-family:system-ui,sans-serif}
+.g p{max-width:70ch;margin:.35rem 0 .7rem}
+.lede{color:var(--mute);font-size:1.12rem}
+.q{color:var(--mute)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:.6rem;padding:1rem}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem}
+label{display:block;font:600 .8rem system-ui,sans-serif;color:var(--mute)}
+input,select{width:100%;box-sizing:border-box;margin-top:.25rem;padding:.5rem .6rem;font:1rem system-ui,sans-serif;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:.4rem}
+.tw{overflow-x:auto;margin:.5rem 0 1rem}
+.g table{border-collapse:collapse;font:.88rem/1.4 system-ui,sans-serif;min-width:100%;font-variant-numeric:tabular-nums}
+.g th,.g td{border:1px solid var(--line);padding:.4rem .6rem;text-align:left;white-space:nowrap}
+.g th{background:var(--chip)}
+.g th small{display:block;font-weight:400;color:var(--mute)}
+.g code{font:.9em ui-monospace,Menlo,Consolas,monospace}
+.note,.err{font:.85rem/1.4 system-ui,sans-serif;color:var(--mute)}
+.err{color:#c0392b}
+.big{font:600 1.1rem system-ui,sans-serif;margin:.5rem 0}
+:root{--b1:#d9822b}@media (prefers-color-scheme:dark){:root{--b1:#f0a050}}
+.plot{width:100%;max-width:640px;height:auto;display:block;margin:.4rem 0}
+.gl{stroke:var(--line);stroke-width:1;fill:none}.tx{fill:var(--mute);font:11px system-ui,sans-serif}
+.ln{fill:none;stroke-width:2.2}.c0{stroke:var(--mute)}.c1{stroke:var(--acc)}.c2{stroke:var(--b1)}
+.f0{fill:var(--mute)}.f1{fill:var(--acc)}.f2{fill:var(--b1)}.c0t{fill:var(--mute)}.c1t{fill:var(--acc)}.c2t{fill:var(--b1)}.ta{fill:var(--acc)}.tb{fill:var(--b1)}
+.dk{stroke:var(--ink);stroke-dasharray:4 3;fill:none;opacity:.6}
+.fa{fill:var(--acc);opacity:.2}.fa2{fill:var(--acc);opacity:.35}.fb{fill:var(--b1);opacity:.35}
+label.sl{max-width:640px}input[type=range]{padding:0;border:0;background:none}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+<main class="g">
+<h1>Probability Calculators</h1>
+<p class="lede">Give it the probability of success (a die face, a loot drop, a coin) and get tables for planning and judging experiments. Everything updates as you type.</p>
+
+<div class="card">
+<div class="fields">
+<label>Probability p<input id="p" value="1/6" inputmode="decimal" oninput="run()"></label>
+<label>Rolls per experiment (n)<input id="n" type="number" min="1" value="1000" oninput="run()"></label>
+<label>Number of experiments<input id="E" type="number" min="1" value="100" oninput="run()"></label>
+<label>Extra margin (± points)<input id="mg" type="number" step="any" min="0" placeholder="e.g. 0.75" oninput="run()"></label>
+<label>Extra confidence (%)<input id="cc" type="number" step="any" placeholder="e.g. 97" oninput="run()"></label>
+</div>
+<p class="note">p can be a decimal (<code>0.1667</code>), a fraction (<code>1/6</code>) or a percent (<code>16.67%</code>). The extra margin and confidence add one more row or column to the tables.</p>
+</div>
+
+<h2>1. How many rolls to measure p?</h2>
+<p class="q">"I want to know the true rate to within ±1 point and be 95% sure. How many rolls?"</p>
+<p>Formula: <code>n = z² · p(1−p) / margin²</code>. Halving the margin costs 4× the rolls. Higher confidence means a bigger z, so more rolls (50% is much cheaper than 95%).</p>
+<div id="g1"></div>
+<p class="note">Both axes are logarithmic, so each straight line means rolls ∝ 1/margin². Dots mark 1 point (or your extra margin).</p>
+<div id="o1"></div>
+<p class="note">Uses the normal approximation. For very small p, keep the margin well below p, or the answer isn't meaningful. If you don't know p yet, p = 0.5 is the worst case.</p>
+
+<h2>2. What range of results should I expect?</h2>
+<p class="q">"If the true rate is p and I roll n times, what observed rate will I get? What if many people each run the experiment?"</p>
+<p>The observed rate varies around p with standard deviation <code>σ = √(p(1−p)/n)</code>. The extremes across many experiments grow slowly, roughly 2.5σ at 100 experiments and 3.9σ at 10,000.</p>
+<h3>Where results land</h3>
+<label class="sl">Rolls: <b id="bn"></b><input id="bs" type="range" min="1" max="5" step="0.01" value="3" oninput="bell()"></label>
+<div id="g2a"></div>
+<h3>How the range narrows as you roll more</h3>
+<div id="g2b"></div>
+<h3>How far the extremes reach</h3>
+<div id="g2c"></div>
+<p class="note">The shaded plots use the normal approximation. When n × p is small the real distribution is lopsided; the tables below switch to exact values.</p>
+<div id="o2"></div>
+
+<h2>3. How small a bias can I detect?</h2>
+<p class="q">"With n rolls, how far from p does the die's real rate have to be before a test would reliably flag it?"</p>
+<p>The test: a two-sided test at significance level α. <em>Power</em> is the chance the test flags a bias of that size. Each cell shows the rates just detectable on the low side and the high side.</p>
+<label style="max-width:220px">Significance level α
+<select id="al" onchange="run()"><option value="0.05">5% (standard)</option><option value="0.01">1%</option><option value="0.001">0.1%</option></select></label>
+<div id="g3"></div>
+<div id="o3"></div>
+<p class="note">Normal approximation. Rates near 0 or 1 with small n are rough estimates.</p>
+
+<h2>4. Do two sources really differ?</h2>
+<p class="q">"Die A gave 170 of 1,000 and die B gave 190 of 1,000. Is B really different, or is that noise?"</p>
+<div class="card">
+<div class="fields">
+<label>A: successes<input id="k1" type="number" min="0" value="170" oninput="c4()"></label>
+<label>A: trials<input id="n1" type="number" min="1" value="1000" oninput="c4()"></label>
+<label>B: successes<input id="k2" type="number" min="0" value="190" oninput="c4()"></label>
+<label>B: trials<input id="n2" type="number" min="1" value="1000" oninput="c4()"></label>
+</div></div>
+<p class="note">Each curve shows where that source's true rate plausibly lies. The more they overlap, the less you can tell them apart.</p>
+<div id="g4"></div>
+<div id="o4"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function erfc(x){const z=Math.abs(x),t=1/(1+.5*z);const r=t*Math.exp(-z*z-1.26551223+t*(1.00002368+t*(.37409196+t*(.09678418+t*(-.18628806+t*(.27886807+t*(-1.13520398+t*(1.48851587+t*(-.82215223+t*.17087277)))))))));return x>=0?r:2-r}
+const Phi=x=>.5*erfc(-x/Math.SQRT2);
+function probit(p){const a=[-39.69683028665376,220.9460984245205,-275.9285104469687,138.357751867269,-30.66479806614716,2.506628277459239],b=[-54.47609879822406,161.5858368580409,-155.6989798598866,66.80131188771972,-13.28068155288572],c=[-.007784894002430293,-.3223964580411365,-2.400758277161838,-2.549732539343734,4.374664141464968,2.938163982698783],d=[.007784695709041462,.3224671290700398,2.445134137142996,3.754408661907416];
+if(p<.02425){const q=Math.sqrt(-2*Math.log(p));return(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1)}
+if(p>1-.02425)return-probit(1-p);
+const q=p-.5,r=q*q;return(((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1)}
+function parseP(s){s=s.trim();if(!s)return NaN;if(s.includes('/')){const[a,b]=s.split('/');return parseFloat(a)/parseFloat(b)}if(s.endsWith('%'))return parseFloat(s)/100;return parseFloat(s)}
+const T=(h,r)=>'<div class="tw"><table><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+r.map(x=>'<tr>'+x.map((c,i)=>i?'<td>'+c+'</td>':'<th>'+c+'</th>').join('')+'</tr>').join('')+'</table></div>';
+const hd=k=>k.l+'<small>z = '+k.z.toFixed(2)+'</small>';
+const sig=k=>2*Phi(k)-1;
+function cols(){const c=[['50%',.5],['1σ · 68.3%',sig(1)],['90%',.9],['95%',.95],['2σ · 95.4%',sig(2)],['99%',.99],['3σ · 99.7%',sig(3)]];const u=parseFloat($('cc').value);if(u>0&&u<100)c.push([u+'%',u/100]);return c.map(([l,c])=>({l,c,z:probit(1-(1-c)/2)}))}
+let D=2;const pct=(x,d=D)=>(x*100).toFixed(d)+'%',int=x=>Math.round(x).toLocaleString('en-US');
+// exact binomial helpers (used when n*min(p,1-p) < 10)
+function bq(p,n,q){let pm=Math.pow(1-p,n),cd=pm,k=0;const r=p/(1-p);while(cd<q&&k<n){pm*=(n-k)/(k+1)*r;k++;cd+=pm}return k}
+function mir(p,n,f){const m=p>.5,pp=m?1-p:p;let[lo,hi]=f(pp);return m?[n-hi,n-lo]:[lo,hi]}
+const small=(p,n)=>Math.min(p,1-p)*n<10;
+function rng(p,n,k){if(small(p,n)){const[lo,hi]=mir(p,n,pp=>[bq(pp,n,(1-k.c)/2),bq(pp,n,1-(1-k.c)/2)]);return{lo:lo/n,hi:hi/n,x:1}}const s=k.z*Math.sqrt(p*(1-p)/n);return{lo:Math.max(0,p-s),hi:Math.min(1,p+s)}}
+function ext(p,n,E){const q=(E-.375)/(E+.25),z=probit(q);if(small(p,n)){const[lo,hi]=mir(p,n,pp=>[bq(pp,n,1-q),bq(pp,n,q)]);return{z,lo:lo/n,hi:hi/n,x:1}}const s=z*Math.sqrt(p*(1-p)/n);return{z,lo:Math.max(0,p-s),hi:Math.min(1,p+s)}}
+function det(p,n,al,pw){const zA=probit(1-al/2),zB=probit(pw),v0=Math.sqrt(p*(1-p));const f=(d,s)=>{const p1=p+s*d,v1=Math.sqrt(Math.max(p1*(1-p1),0));return((zA*v0+zB*v1)/d)**2};
+const solve=s=>{let lo=1e-9,hi=(s>0?1-p:p)-1e-9;if(f(hi,s)>n)return NaN;for(let i=0;i<80;i++){const m=(lo+hi)/2;if(f(m,s)>n)lo=m;else hi=m}return hi};return[solve(-1),solve(1)]}
+
+function run(){
+const p=parseP($('p').value),n=Math.round(+$('n').value),E=Math.round(+$('E').value);
+if(!(p>0&&p<1)){['o1','o2','o3','g1','g2a','g2b','g2c','g3'].forEach(i=>$(i).innerHTML='<p class="err">Enter p strictly between 0 and 1 (e.g. 1/6, 0.05 or 5%).</p>');c4();return}
+D=(p<.02||p>.98)?3:2;const C=cols(),nOK=n>=1;
+// 1
+const m=[5,2,1,.5,.2,.1],um=parseFloat($('mg').value);if(um>0)m.push(um);
+$('o1').innerHTML=T(['Margin'].concat(C.map(hd)),m.map(e=>['±'+e+' pts'].concat(C.map(k=>int(Math.ceil(k.z*k.z*p*(1-p)/(e/100)**2))))));
+// 2
+let h='',x=0;
+if(nOK){const sd=Math.sqrt(p*(1-p)/n);
+h+='<p class="big">'+int(n)+' rolls: expect '+(n*p).toFixed(1)+' successes (σ = '+(sd*n).toFixed(2)+' counts = '+pct(sd,3)+' of rate)</p>'+
+T(['Confidence','Observed rate range','± points','Count range'],C.map(k=>{const r=rng(p,n,k);if(r.x)x=1;return[k.l+' <small style="display:inline">(z = '+k.z.toFixed(2)+')</small>',pct(r.lo)+' – '+pct(r.hi)+(r.x?'†':''),((r.hi-r.lo)/2*100).toFixed(2),int(r.lo*n)+' – '+int(r.hi*n)]}));}
+const ns=[10,30,100,300,1000,3000,10000,100000];if(nOK&&!ns.includes(n))ns.push(n);ns.sort((a,b)=>a-b);
+h+='<h3>Observed rate by number of rolls</h3>'+T(['Rolls'].concat(C.map(hd)),ns.map(v=>[int(v)].concat(C.map(k=>{const r=rng(p,v,k);if(r.x)x=1;return pct(r.lo)+' – '+pct(r.hi)+(r.x?'†':'')}))));
+if(nOK&&E>=1){const es=[2,10,100,1000,10000,1000000];if(!es.includes(E))es.push(E);es.sort((a,b)=>a-b);
+h+='<h3>Lowest and highest result across many experiments ('+int(n)+' rolls each)</h3>'+T(['Experiments','Typical extreme z','Expected lowest','Expected highest'],es.map(v=>{const r=ext(p,n,v);if(r.x)x=1;return[int(v),'±'+r.z.toFixed(2)+'σ',pct(r.lo)+(r.x?'†':''),pct(r.hi)+(r.x?'†':'')]}));}
+if(x)h+='<p class="note">† Exact binomial values, used because n × min(p, 1−p) is below 10 and the normal approximation would be unreliable.</p>';
+$('o2').innerHTML=h;
+// 3
+const al=+$('al').value,pws=[.5,.8,.9],nn=[100,300,1000,3000,10000,100000];if(nOK&&!nn.includes(n))nn.push(n);nn.sort((a,b)=>a-b);
+$('o3').innerHTML=T(['Rolls'].concat(pws.map(w=>'Power '+w*100+'%')),nn.map(v=>[int(v)].concat(pws.map(w=>{const[a,b]=det(p,v,al,w);return(isNaN(a)?'—':'↓ '+pct(p-a))+' · '+(isNaN(b)?'—':'↑ '+pct(p+b))}))))+'<p class="note">Read as: if the true rate is at or beyond these values, a test at the chosen α catches it that often. "—" means no bias in that direction is detectable.</p>';
+plots(p,n,E,C,al,nOK);c4()}
+
+function c4(){
+const k1=+$('k1').value,n1=+$('n1').value,k2=+$('k2').value,n2=+$('n2').value,o=$('o4');
+if(!(n1>=1&&n2>=1&&k1>=0&&k2>=0&&k1<=n1&&k2<=n2)){$('g4').innerHTML='';o.innerHTML='<p class="err">Successes must be between 0 and the number of trials.</p>';return}
+const a=k1/n1,b=k2/n2,d=a-b,se=Math.sqrt(a*(1-a)/n1+b*(1-b)/n2),pp=(k1+k2)/(n1+n2),sp=Math.sqrt(pp*(1-pp)*(1/n1+1/n2)),z=sp>0?d/sp:0,pv=erfc(Math.abs(z)/Math.SQRT2);
+const v=pv<.001?'Very strong evidence of a real difference':pv<.01?'Strong evidence of a real difference':pv<.05?'Likely a real difference':'No clear difference: this could easily be chance';
+const dd=a<.02||b<.02?3:2,f=x=>(x*100).toFixed(dd)+'%',sg=x=>(x>=0?'+':'−')+(Math.abs(x)*100).toFixed(dd);
+$('g4').innerHTML=ovl(a,b,n1,n2);let h=T(['Result',''],[['Source A rate',f(a)],['Source B rate',f(b)],['Difference (A − B)',sg(d)+' points'],['z-score',z.toFixed(2)],['p-value (two-sided)',pv<1e-4?'< 0.0001':pv.toFixed(4)],['Verdict',v]]);
+h+='<h3>Range for the true difference (A − B)</h3>'+T(['Confidence','z','From','To'],cols().map(k=>[k.l,k.z.toFixed(2),sg(d-k.z*se),sg(d+k.z*se)]));
+if(Math.min(k1,n1-k1,k2,n2-k2)<5)h+='<p class="note">Some counts are below 5, so these results are approximate.</p>';
+h+='<p class="note">"No clear difference" does not mean the sources are the same, only that this much data can\'t separate them. The p-value is the chance of a gap at least this big if both had the same true rate.</p>';
+o.innerHTML=h}
+// ---- plots ----
+const W=600,H=260,L=54,R=14,Tp=12,B=38,pc=v=>+(v*100).toPrecision(3)+'%',kf=v=>v>=1e6?v/1e6+'M':v>=1e3?v/1e3+'k':v;
+const sc=(a,b,r0,r1,lg)=>{if(lg){a=Math.log10(a);b=Math.log10(b)}return v=>r0+((lg?Math.log10(v):v)-a)/(b-a)*(r1-r0)};
+function tk(a,b,lg,o){if(o)return o;const t=[];if(lg){for(let e=Math.ceil(Math.log10(a)-1e-9);e<=Math.floor(Math.log10(b)+1e-9);e++)t.push(10**e);return t}const s=(b-a)/5,m=10**Math.floor(Math.log10(s)),st=[1,2,5,10].map(k=>k*m).find(k=>k>=s);for(let v=Math.ceil(a/st-1e-9)*st;v<=b+1e-9;v+=st)t.push(+v.toPrecision(12));return t}
+const A=(a,b,lg,fmt,t,o)=>({a,b,lg,fmt,t,o});
+const tx=(x,y,t,c='tx',a='start')=>`<text class="${c}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${a}">${t}</text>`;
+function ax(X,Y){const sx=sc(X.a,X.b,L,W-R,X.lg),sy=sc(Y.a,Y.b,H-B,Tp,Y.lg);let s='';
+for(const v of tk(X.a,X.b,X.lg,X.o)){const x=sx(v);s+=`<path class="gl" d="M${x.toFixed(1)} ${Tp}V${H-B}"/>`+tx(x,H-B+14,X.fmt(v),'tx','middle')}
+for(const v of tk(Y.a,Y.b,Y.lg,Y.o)){const y=sy(v);s+=`<path class="gl" d="M${L} ${y.toFixed(1)}H${W-R}"/>`+tx(L-6,y+4,Y.fmt(v),'tx','end')}
+s+=tx((L+W-R)/2,H-4,X.t,'tx','middle')+`<text class="tx" transform="translate(11 ${(Tp+H-B)/2}) rotate(-90)" text-anchor="middle">${Y.t}</text>`;return{sx,sy,s}}
+const P=(pts,sx,sy)=>pts.map(([x,y],i)=>(i?'L':'M')+sx(x).toFixed(1)+' '+sy(y).toFixed(1)).join('');
+const svg=(s,l)=>`<svg class="plot" viewBox="0 0 ${W} ${H}" role="img" aria-label="${l}"><clipPath id="cp"><rect x="${L}" y="${Tp}" width="${W-L-R}" height="${H-B-Tp}"/></clipPath>${s}</svg>`;
+const grid=(a,b,n)=>[...Array(n+1)].map((_,i)=>a+(b-a)*i/n),lgrid=(a,b,n)=>[...Array(n+1)].map((_,i)=>a*(b/a)**(i/n));
+function pl1(p,C){const v=p*(1-p),um=parseFloat($('mg').value),e0=um>0?um:1,ls=[C[0],C[3],C[6]],N=(k,e)=>k.z*k.z*v/(e/100)**2,dc=x=>10**Math.floor(Math.log10(x));
+const X=A(.1,5,1,v=>v,'Margin of error (± percentage points)',[.1,.2,.5,1,2,5]),Y=A(dc(N(ls[0],5)),10*dc(N(ls[2],.1)),1,kf,'Rolls needed'),g=ax(X,Y);
+let s=g.s+'<g clip-path="url(#cp)">';
+ls.forEach((k,i)=>{s+=`<path class="ln c${i}" d="${P(lgrid(.1,5,40).map(e=>[e,N(k,e)]),g.sx,g.sy)}"/><circle cx="${g.sx(e0).toFixed(1)}" cy="${g.sy(N(k,e0)).toFixed(1)}" r="4" class="f${i}"/>`});
+s+=`<path class="dk" d="M${g.sx(e0).toFixed(1)} ${Tp}V${H-B}"/></g>`;
+ls.forEach((k,i)=>s+=tx(W-R-4,g.sy(N(k,5))-9,k.l.split(' ')[0],'tx c'+i+'t','end'));
+return svg(s,'Rolls needed versus margin of error')}
+function bell(){const p=parseP($('p').value);if(!(p>0&&p<1))return;const n=Math.round(10**$('bs').value);$('bn').textContent=int(n);
+const sd=Math.sqrt(p*(1-p)/n),lo=Math.max(0,p-4*sd),hi=Math.min(1,p+4*sd),f=x=>Math.exp(-.5*((x-p)/sd)**2)/sd,X=A(lo,hi,0,pc,'Observed rate after '+int(n)+' rolls'),Y=A(0,f(p)*1.12,0,()=>'','Likelihood'),g=ax(X,Y);
+let s=g.s+'<g clip-path="url(#cp)">';
+for(const k of[3,2,1]){const a=Math.max(lo,p-k*sd),b=Math.min(hi,p+k*sd);s+=`<path class="fa" d="${P(grid(a,b,40).map(x=>[x,f(x)]),g.sx,g.sy)}L${g.sx(b).toFixed(1)} ${g.sy(0).toFixed(1)}L${g.sx(a).toFixed(1)} ${g.sy(0).toFixed(1)}Z"/>`}
+s+=`<path class="ln c1" d="${P(grid(lo,hi,120).map(x=>[x,f(x)]),g.sx,g.sy)}"/><path class="dk" d="M${g.sx(p).toFixed(1)} ${Tp}V${H-B}"/></g>`;
+for(const k of[1,2,3])if(p+k*sd<hi)s+=tx(g.sx(p+k*sd),H-B-5,k+'σ','tx','middle');
+s+=tx(W-R-4,Tp+12,'σ = '+pc(sd)+'  ·  95% range ±'+pc(1.96*sd),'tx','end');
+$('g2a').innerHTML=svg(s,'Distribution of the observed rate')}
+function cone(p,n){const q=p*(1-p),yr=3*Math.sqrt(q/30),X=A(30,1e5,1,kf,'Number of rolls',[30,100,300,1e3,3e3,1e4,3e4,1e5]),Y=A(Math.max(0,p-yr),Math.min(1,p+yr),0,pc,'Observed rate'),g=ax(X,Y),ns=lgrid(30,1e5,60);
+let s=g.s+'<g clip-path="url(#cp)">';
+for(const k of[3,2,1]){const u=ns.map(m=>[m,p+k*Math.sqrt(q/m)]),d=ns.map(m=>[m,p-k*Math.sqrt(q/m)]).reverse();s+=`<path class="fa" d="${P(u,g.sx,g.sy)}${P(d,g.sx,g.sy).replace('M','L')}Z"/>`}
+s+=`<path class="dk" d="M${L} ${g.sy(p).toFixed(1)}H${W-R}M${g.sx(Math.min(Math.max(n,30),1e5)).toFixed(1)} ${Tp}V${H-B}"/></g>`+tx(W-R-4,Tp+12,'bands 1σ · 2σ · 3σ   dashed: true p and your n','tx','end');
+return svg(s,'Range of the observed rate narrowing with more rolls')}
+function extp(p,n,E){const es=lgrid(1,1e6,48),r=es.map(e=>ext(p,n,e)),X=A(1,1e6,1,kf,'Number of experiments (each '+int(n)+' rolls)'),Y=A(Math.min(...r.map(o=>o.lo)),Math.max(...r.map(o=>o.hi)),0,pc,'Observed rate'),g=ax(X,Y);
+let s=g.s+'<g clip-path="url(#cp)">'+`<path class="ln c2" d="${P(es.map((e,i)=>[e,r[i].hi]),g.sx,g.sy)}"/><path class="ln c1" d="${P(es.map((e,i)=>[e,r[i].lo]),g.sx,g.sy)}"/><path class="dk" d="M${L} ${g.sy(p).toFixed(1)}H${W-R}`+(E>=1&&E<=1e6?`M${g.sx(E).toFixed(1)} ${Tp}V${H-B}`:'')+`"/></g>`;
+const e=r[r.length-1];s+=tx(W-R-4,g.sy(e.hi)+18,'expected highest','tx c2t','end')+tx(W-R-4,g.sy(e.lo)-10,'expected lowest','tx c1t','end');
+return svg(s,'Expected lowest and highest result versus number of experiments')}
+function pwr(p,n,al){const zA=probit(1-al/2),s0=Math.sqrt(p*(1-p)/n),lo=Math.max(0,p-5*s0),hi=Math.min(1,p+5*s0),pw=x=>{const s1=Math.sqrt(Math.max(x*(1-x),1e-12)/n),d=x-p;return Phi((d-zA*s0)/s1)+Phi((-d-zA*s0)/s1)},
+X=A(lo,hi,0,pc,'True rate of the die'),Y=A(0,1,0,v=>Math.round(v*100)+'%','Chance the test flags a bias',[0,.25,.5,.75,1]),g=ax(X,Y);
+let s=g.s+'<g clip-path="url(#cp)">';for(const w of[.5,.8,.9])s+=`<path class="dk" d="M${L} ${g.sy(w).toFixed(1)}H${W-R}"/>`;
+const[a,b]=det(p,n,al,.8);for(const x of[isNaN(a)?null:p-a,isNaN(b)?null:p+b])if(x!==null)s+=`<path class="dk" d="M${g.sx(x).toFixed(1)} ${Tp}V${H-B}"/>`;
+s+=`<path class="ln c1" d="${P(grid(lo,hi,160).map(x=>[x,pw(x)]),g.sx,g.sy)}"/></g>`+tx(L+6,Tp+12,'n = '+int(n)+', α = '+(al*100).toPrecision(2)+'%  ·  vertical lines: 80% power')+tx(W-R-4,g.sy(.5)-3,'50%','tx','end')+tx(W-R-4,g.sy(.8)-3,'80%','tx','end')+tx(W-R-4,g.sy(.9)-3,'90%','tx','end');
+return svg(s,'Chance of detecting a bias versus the true rate')}
+function ovl(a,b,n1,n2){const s1=Math.max(Math.sqrt(a*(1-a)/n1),1e-4),s2=Math.max(Math.sqrt(b*(1-b)/n2),1e-4),lo=Math.max(0,Math.min(a-4*s1,b-4*s2)),hi=Math.min(1,Math.max(a+4*s1,b+4*s2)),f=(x,m,s)=>Math.exp(-.5*((x-m)/s)**2)/s,
+X=A(lo,hi,0,pc,'Plausible true rate'),Y=A(0,Math.max(1/s1,1/s2)*1.12,0,()=>'','Likelihood'),g=ax(X,Y),xs=grid(lo,hi,160);
+const ar=(m,s,c)=>`<path class="${c}" d="${P(xs.map(x=>[x,f(x,m,s)]),g.sx,g.sy)}L${g.sx(hi).toFixed(1)} ${g.sy(0).toFixed(1)}L${g.sx(lo).toFixed(1)} ${g.sy(0).toFixed(1)}Z"/>`;
+return svg(g.s+'<g clip-path="url(#cp)">'+ar(a,s1,'fa2')+ar(b,s2,'fb')+'</g>'+tx(L+6,Tp+12,'A: '+pc(a),'tx ta')+tx(L+86,Tp+12,'B: '+pc(b),'tx tb'),'Overlap of the two sources')}
+function plots(p,n,E,C,al,ok){$('g1').innerHTML=pl1(p,C);if(!ok)return;$('bs').value=Math.min(5,Math.max(1,Math.log10(n)));bell();$('g2b').innerHTML=cone(p,n);$('g3').innerHTML=pwr(p,n,al);if(E>=1)$('g2c').innerHTML=extp(p,n,E)}
+run();
+</script>
+</main>
+</body>
+</html>
