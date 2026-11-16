@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dead Space Games in Release Order — Waypoints</title>
+<link rel="stylesheet" href="../../assets/page.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap" />
+<script type="application/json" id="page-meta">
+{
+  "title": "Dead Space Games in Release Order",
+  "description": "Every Dead Space game from 2008 to the 2023 remake: release order, playtimes, difficulties and unlocks, New Game+ rules, weapons and abilities, DLC, platform differences, and essential PC fixes.",
+  "tags": ["games", "horror", "guide", "dead-space"],
+  "date": "2026-11-24"
+}
+</script>
+<style>
+:root{
+  --bg:#f5f3f0;
+  --surface:#ffffff;
+  --surface-alt:#faf8f6;
+  --ink:#191616;
+  --mute:#625b58;
+  --line:#ded7d3;
+  --acc:#b3261e;
+  --acc-soft:#f6dedb;
+  --stasis:#0e7490;
+  --stasis-soft:#dff3f8;
+  --ok:#166534;
+  --ok-soft:#dcfce7;
+  --warn:#9a3412;
+  --warn-soft:#ffedd5;
+  --shadow:0 1px 2px rgba(20,15,15,.04),0 6px 20px rgba(20,15,15,.04);
+  --font-display:"Space Grotesk",system-ui,-apple-system,sans-serif;
+  --font-body:"Newsreader",Charter,"Iowan Old Style",Georgia,serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0d0e10;
+    --surface:#151619;
+    --surface-alt:#1b1d21;
+    --ink:#ece8e5;
+    --mute:#9f9793;
+    --line:#2b2c31;
+    --acc:#f06d63;
+    --acc-soft:#351c1b;
+    --stasis:#38bdf8;
+    --stasis-soft:#102a38;
+    --ok:#4ade80;
+    --ok-soft:#122c1d;
+    --warn:#fb923c;
+    --warn-soft:#341f11;
+    --shadow:0 1px 2px rgba(0,0,0,.25),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+main.g{
+  max-width:920px;
+  margin:0 auto;
+  padding:2.5rem 1.35rem 4.5rem;
+  font:400 1.07rem/1.68 var(--font-body);
+}
+.g a{
+  color:var(--acc);
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+}
+.g a:hover{color:var(--stasis)}
+
+/* Header */
+.hero{
+  padding-bottom:1.5rem;
+  border-bottom:2px solid var(--line);
+  margin-bottom:1.5rem;
+}
+.eyebrow{
+  font:600 .76rem/1 var(--font-mono);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--stasis);
+  margin:0 0 .65rem;
+}
+.g h1{
+  font:700 clamp(2rem,4.5vw,2.75rem)/1.1 var(--font-display);
+  letter-spacing:-.025em;
+  margin:0 0 .75rem;
+}
+.lede{
+  color:var(--mute);
+  font-size:1.18rem;
+  line-height:1.55;
+  max-width:66ch;
+  margin:0 0 1.15rem;
+}
+
+/* Table of contents pills */
+.toc{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem;
+  margin:1.15rem 0 0;
+  padding:0;
+  list-style:none;
+}
+.toc a{
+  display:inline-block;
+  font:500 .8rem/1.2 var(--font-display);
+  text-decoration:none;
+  color:var(--ink);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:.38rem .75rem;
+  transition:border-color .15s,background .15s,color .15s;
+}
+.toc a:hover{
+  border-color:var(--acc);
+  background:var(--acc-soft);
+  color:var(--acc);
+}
+
+/* Section headings */
+.g h2{
+  font:700 1.5rem/1.2 var(--font-display);
+  letter-spacing:-.015em;
+  margin:3.25rem 0 .65rem;
+  padding-top:1.35rem;
+  border-top:1px solid var(--line);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.45rem;
+}
+.g h2.first-sec{margin-top:2rem;border-top:0;padding-top:0}
+.g h3{
+  font:600 1.12rem/1.3 var(--font-display);
+  margin:1.6rem 0 .45rem;
+}
+.g p{max-width:72ch;margin:.45rem 0 .85rem}
+.g ul{max-width:72ch;padding-left:1.25rem;margin:.5rem 0 1rem}
+.g li{margin:.32rem 0}
+.g code{
+  font:500 .84em/1.4 var(--font-mono);
+  background:var(--surface-alt);
+  border:1px solid var(--line);
+  border-radius:.3rem;
+  padding:.1em .35em;
+}
+
+/* Badges */
+.yr,.time-badge,.pill{
+  font:600 .74rem/1 var(--font-mono);
+  padding:.28rem .52rem;
+  border-radius:.45rem;
+  vertical-align:middle;
+  display:inline-block;
+}
+.yr{background:var(--acc-soft);color:var(--acc)}
+.time-badge{background:var(--stasis-soft);color:var(--stasis)}
+.pill-yes{background:var(--ok-soft);color:var(--ok)}
+.pill-no{background:var(--acc-soft);color:var(--acc)}
+.pill-part{background:var(--warn-soft);color:var(--warn)}
+
+/* Callout box */
+.rule{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:4px solid var(--acc);
+  border-radius:.55rem;
+  padding:.85rem 1.15rem;
+  margin:1.1rem 0 1.4rem;
+  max-width:76ch;
+  box-shadow:var(--shadow);
+}
+.rule.stasis{border-left-color:var(--stasis)}
+.rule p{margin:.3rem 0}
+.rule p:first-child{margin-top:0}
+.rule p:last-child{margin-bottom:0}
+
+/* Game cards */
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:.75rem;
+  padding:.35rem 1.2rem;
+  margin:.9rem 0 1.15rem;
+  box-shadow:var(--shadow);
+}
+.card dl{
+  margin:0;
+  display:grid;
+  grid-template-columns:8.5rem 1fr;
+  gap:0 1.15rem;
+  font-size:.98rem;
+}
+.card dt{
+  font:600 .74rem/1.6 var(--font-display);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--acc);
+  padding:.62rem 0;
+  border-top:1px solid var(--line);
+}
+.card dd{
+  margin:0;
+  padding:.55rem 0;
+  border-top:1px solid var(--line);
+}
+.card dt:first-of-type,.card dd:first-of-type{border-top:0}
+@media (max-width:600px){
+  .card dl{grid-template-columns:1fr}
+  .card dt{border-top:1px solid var(--line);padding:.6rem 0 .15rem}
+  .card dd{border-top:0;padding:0 0 .6rem}
+  .card dt:first-of-type{border-top:0}
+}
+
+/* Tables */
+.tw{
+  overflow-x:auto;
+  margin:1rem 0 1.15rem;
+  border:1px solid var(--line);
+  border-radius:.65rem;
+  background:var(--surface);
+  box-shadow:var(--shadow);
+}
+.g table{
+  border-collapse:collapse;
+  font:400 .88rem/1.48 var(--font-display);
+  width:100%;
+  min-width:580px;
+}
+.g th,.g td{
+  border-bottom:1px solid var(--line);
+  border-right:1px solid var(--line);
+  padding:.58rem .75rem;
+  text-align:left;
+  vertical-align:top;
+}
+.g th:last-child,.g td:last-child{border-right:0}
+.g tr:last-child td{border-bottom:0}
+.g th{
+  background:var(--surface-alt);
+  font:600 .76rem/1.3 var(--font-mono);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--mute);
+}
+.g tbody tr:hover td{background:var(--surface-alt)}
+.td-title{font-weight:600;white-space:nowrap}
+
+/* Fix grid */
+.fix-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1rem;
+  margin:1rem 0 1.25rem;
+}
+.fix-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-top:3px solid var(--stasis);
+  border-radius:.65rem;
+  padding:1rem 1.15rem;
+  box-shadow:var(--shadow);
+}
+.fix-card h3{
+  margin:0 0 .45rem;
+  font-size:1.05rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.5rem;
+}
+.fix-card ul{
+  margin:.4rem 0 0;
+  padding-left:1.15rem;
+  font-size:.94rem;
+}
+.fix-card li{margin:.35rem 0}
+
+.note{
+  color:var(--mute);
+  font-size:.92rem;
+  line-height:1.55;
+}
+</style>
+</head>
+<body>
+<a class="kb-topbar" href="../../index.html">← Waypoints</a>
+<main class="g">
+
+<header class="hero">
+  <p class="eyebrow">Series Reference Guide · 2008–2023</p>
+  <h1>Dead Space Games in Release Order</h1>
+  <p class="lede">Three main survival-horror games, three spin-offs, and a 2023 remake. This guide covers release order, playtimes, weapons and RIG abilities, New Game+ rules, DLC, platform differences, and the community patches that keep the PC versions running smoothly.</p>
+  <ul class="toc" aria-label="Jump to section">
+    <li><a href="#at-a-glance">At a Glance</a></li>
+    <li><a href="#difficulties">Difficulties</a></li>
+    <li><a href="#ng-plus">New Game+ Comparison</a></li>
+    <li><a href="#weapons-abilities">Weapons &amp; Abilities</a></li>
+    <li><a href="#pc-fixes">PC (Steam) Fixes</a></li>
+    <li><a href="#games">Game-by-Game Guide</a></li>
+    <li><a href="#platforms">Platform Differences</a></li>
+    <li><a href="#what-to-play">What to Play</a></li>
+  </ul>
+</header>
+
+<div class="rule">
+  <p><strong>Short answer on platforms:</strong> the main campaigns of Dead Space 1, 2, and 3 have the same levels, enemies, and bosses on PC, Xbox 360, and PS3. The differences are extras: one story DLC (<em>Dead Space 2: Severed</em>) never came to PC, the PS3 got a bonus HD copy of <em>Extraction</em> in special editions, and each console had its own cosmetic bonuses. On PC, community patches like <strong>MarkerPatch</strong> (DS2) and <strong>Ishimura Patch</strong> (2023 Remake) are strongly recommended.</p>
+</div>
+
+<h2 id="at-a-glance" class="first-sec">At a glance</h2>
+<div class="tw"><table>
+  <thead>
+    <tr><th>Game</th><th>Year</th><th>What it is</th><th>Playtime (Main / 100%)</th><th>Original platforms</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="td-title"><a href="#ds1">Dead Space</a></td><td>2008</td><td>Third-person survival horror</td><td>~11 hrs / ~20 hrs (<a href="https://howlongtobeat.com/game/2333">HLTB</a>)</td><td>Xbox 360, PS3, PC</td></tr>
+    <tr><td class="td-title"><a href="#extraction">Dead Space: Extraction</a></td><td>2009</td><td>On-rails shooter (prequel)</td><td>~6 hrs / ~13 hrs (<a href="https://howlongtobeat.com/game/2339">HLTB</a>)</td><td>Wii, later PS3</td></tr>
+    <tr><td class="td-title"><a href="#ignition">Dead Space Ignition</a></td><td>2010</td><td>Puzzle / hacking game (bridge to DS2)</td><td>~1.5 hrs / ~4.5 hrs (<a href="https://howlongtobeat.com/game/2340">HLTB</a>)</td><td>Xbox 360, PS3 (download)</td></tr>
+    <tr><td class="td-title"><a href="#mobile">Dead Space (mobile / Sabotage)</a></td><td>2011</td><td>Touch-screen third-person shooter, new story</td><td>~2–3 hrs</td><td>iOS, then Android (delisted)</td></tr>
+    <tr><td class="td-title"><a href="#ds2">Dead Space 2</a></td><td>2011</td><td>Survival horror with more action, plus multiplayer</td><td>~9 hrs / ~16.5 hrs (<a href="https://howlongtobeat.com/game/2335">HLTB</a>)</td><td>Xbox 360, PS3, PC</td></tr>
+    <tr><td class="td-title"><a href="#ds3">Dead Space 3</a></td><td>2013</td><td>Action horror with co-op and weapon crafting</td><td>~12.5 hrs / ~25 hrs (<a href="https://howlongtobeat.com/game/2337">HLTB</a>)</td><td>Xbox 360, PS3, PC</td></tr>
+    <tr><td class="td-title"><a href="#remake">Dead Space (remake)</a></td><td>2023</td><td>Ground-up remake of the 2008 game</td><td>~12 hrs / ~30.5 hrs (<a href="https://howlongtobeat.com/game/95927">HLTB</a>)</td><td>PS5, Xbox Series X|S, PC</td></tr>
+  </tbody>
+</table></div>
+<p class="note">Story order differs from release order: <em>Extraction</em> is a prequel to the first game, <em>Dead Space (mobile)</em> and <em>Ignition</em> take place shortly before <em>Dead Space 2</em> (with Mobile ordered before DS2 here to match its prequel timing and simultaneous launch), and the <em>Severed</em> DLC runs alongside <em>Dead Space 2</em>. None of the spin-offs are required to follow the main plot.</p>
+
+<h2 id="difficulties">Difficulties &amp; unlock requirements</h2>
+<div class="rule stasis">
+  <p><strong>Fresh-start rule for top difficulties:</strong> Across the entire series, every game's hardest / permadeath tier (<em>Impossible</em> in DS1 &amp; Remake, <em>Hard</em> in Mobile, <em>Hard Core</em> in DS2, and <em>Classic / Pure Survival / Hardcore</em> in DS3) requires a <strong>fresh save from scratch</strong> — you cannot carry New Game+ gear into them on your first clear. The only exception is chaining an <em>Impossible NG+</em> in the 2023 Remake <em>after</em> you have already beaten Impossible fresh.</p>
+</div>
+<div class="tw"><table>
+  <thead>
+    <tr><th>Game</th><th>Available at start</th><th>Unlockable modes &amp; how to unlock</th><th>Key rules, save limits &amp; rewards</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="td-title">Dead Space (2008)</td>
+      <td>Easy, Medium, Hard</td>
+      <td><strong>Impossible</strong> — beat the game on any difficulty (<a href="https://www.ign.com/wikis/dead-space/PS3_Cheats">IGN</a>).</td>
+      <td><strong>Fresh start required</strong> for Impossible (no NG+ carry-over). Higher enemy health/damage and scarcer drops; standard saves remain available. Start and save an Impossible slot right after unlocking it, as closing the game or starting another run can hide the option until you beat the final boss again.</td>
+    </tr>
+    <tr>
+      <td class="td-title">Extraction (2009)</td>
+      <td>Normal, Hard</td>
+      <td><strong>Expert</strong> &amp; <strong>Impossible</strong> — beat Chapter 10 (<em>Secrets &amp; Salvation</em>) on any difficulty (<a href="https://www.ign.com/wikis/ps3-cheats/Dead_Space_Extraction_Cheats">IGN</a>).</td>
+      <td>No traditional NG+ slot, though unlocked weapon upgrades persist via Chapter Select. Clearing Impossible also awards the Expert trophy/achievement (<a href="https://www.playstationtrophies.org/forum/topic/82671-dead-space-extraction-trophy-guide-and-road-map/">PlayStationTrophies</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Ignition (2010)</td>
+      <td>Single standard difficulty</td>
+      <td>None.</td>
+      <td>No selectable difficulty tiers; the three hacking minigames naturally ramp up in speed and complexity as you progress (<a href="https://gameinformer.com/b/news/archive/2010/07/21/dead-space-ignition-hands-on">Game Informer</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Mobile / Sabotage (2011)</td>
+      <td>Easy, Normal</td>
+      <td><strong>Hard</strong> — beat the game on any difficulty (<a href="https://www.ign.com/wikis/dead-space-iphone-ipad/Epic_Tier_3_Engineer">IGN</a>).</td>
+      <td><strong>Fresh start required</strong> for Hard — NG+ gear from Easy or Normal does <em>not</em> carry over into a Hard run (<a href="https://www.xboxachievements.com/forum/topic/267076-dead-space-ios-achievement-guide-amp-roadmap/">XboxAchievements</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Dead Space 2 (2011)</td>
+      <td>Casual, Normal, Survivalist, Zealot (<a href="https://www.scribd.com/document/93413751/Dead-Space-Manual">Manual</a>)</td>
+      <td><strong>Hard Core</strong> — beat the game on any difficulty (<a href="https://deadspace.fandom.com/wiki/Hard_Core_mode">Dead Space Wiki</a>).</td>
+      <td><strong>Zealot</strong> allows NG+ carry-over and unlocks the Arctic Security Suit (<a href="https://deadspace.fandom.com/wiki/Zealot_Mode">Wiki</a>). <strong>Hard Core</strong> forces a <strong>fresh start</strong>, disables all checkpoints, allows only <strong>3 saves</strong> for the entire campaign, combines Survivalist enemy stats with scarce Zealot drops, and rewards the <strong>Soldier Suit</strong> &amp; <strong>Hand Cannon</strong> (<a href="https://deadspace.fandom.com/wiki/Hard_Core_mode">Wiki</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Dead Space 3 (2013)</td>
+      <td>Casual, Normal, Hard, Impossible (<a href="https://www.thesixthaxis.com/2013/02/08/human-resources-dead-spaces-difficult-third-album/">TheSixthAxis</a>)</td>
+      <td><strong>Classic</strong>, <strong>Pure Survival</strong> &amp; <strong>Hardcore</strong> — all three unlock by beating the game on any difficulty (<a href="https://www.ign.com/wikis/dead-space-3/Bonus_Content">IGN</a>).</td>
+      <td>Casual–Impossible allow standard NG+ and each awards a +3 Circuit set (CLP/RLD/SPD/DMG). All three unlocked modes require a <strong>fresh start</strong>: <strong>Classic</strong> (Hard, solo, no crafting, unlocks Devil Horns), <strong>Pure Survival</strong> (Hard, zero health/ammo drops — craft everything), and <strong>Hardcore</strong> (unlimited saves, <strong>permadeath</strong> wipes the save on one death, unlocks Retro Mode) (<a href="https://deadspace.fandom.com/wiki/New_Game%2B_Modes">Wiki</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Remake (2023)</td>
+      <td>Story, Easy, Medium, Hard, <strong>Impossible</strong> (all available at start)</td>
+      <td>None — <strong>Impossible</strong> is unlocked from the beginning (<a href="https://www.reddit.com/r/DeadSpace/comments/10y1fhi/unlocking_impossible_mode/">r/DeadSpace</a>).</td>
+      <td>Story–Hard allow NG+ difficulty changes. <strong>Impossible</strong> forces a <strong>fresh start</strong> with Hard tuning, a <strong>single save slot</strong> (unlimited saves), and <strong>permadeath</strong> (dying restarts Chapter 1 or downgrades to Hard, voiding the achievement) (<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3131832233">Steam Guide</a>). Beating it unlocks the <strong>Burnished Suit</strong>, <strong>Hand Cannon</strong>, and Impossible-to-Impossible NG+ (<a href="https://www.ign.com/wikis/dead-space/All_Unlockables">IGN</a>).</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h2 id="ng-plus">New Game+ comparison</h2>
+<div class="rule stasis">
+  <p><strong>Which games let you raise the difficulty with your NG+ gear?</strong> Three of them: <strong>Dead Space 2</strong>, <strong>Dead Space 3</strong>, and the <strong>2023 Remake</strong> all let you change or bump up standard difficulty on a New Game+ slot (for example, moving from Normal/Medium up to Zealot or Hard with your upgraded arsenal). However, all three still lock their top challenge/permadeath modes (<em>Hard Core</em>, <em>Impossible</em>, and DS3's <em>Classic / Pure Survival / Hardcore</em>) to fresh saves. The <strong>2008 original</strong> is the main entry that strictly locks "Round 2" to the exact difficulty you beat it on.</p>
+</div>
+<div class="tw"><table>
+  <thead>
+    <tr><th>Game</th><th>Raise difficulty on NG+?</th><th>What carries over</th><th>Unique NG+ behavior &amp; unlocks</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="td-title">Dead Space (2008)</td>
+      <td><span class="pill pill-no">No — Locked</span></td>
+      <td>Weapons, RIG/weapon upgrades, credits, inventory &amp; safe items.</td>
+      <td>"Round 2" is locked to your original difficulty (<a href="https://www.ign.com/wikis/dead-space/Progression">IGN</a>). Grants 50,000 credits, 10 Power Nodes, backstory logs, and unlocks the <strong>Level 6 Military Suit</strong> (99,000 credits) (<a href="https://www.ign.com/wikis/dead-space/PS3_Cheats">IGN</a>). <em>Impossible</em> mode unlocks for a fresh save only.</td>
+    </tr>
+    <tr>
+      <td class="td-title">Extraction (2009)</td>
+      <td><span class="pill pill-no">No NG+</span></td>
+      <td>Weapon upgrades persist via Chapter Select.</td>
+      <td>No traditional NG+; clearing the campaign unlocks <strong>Chapter Select</strong>, <strong>Impossible</strong> difficulty, and wave-based <strong>Challenge Mode</strong>.</td>
+    </tr>
+    <tr>
+      <td class="td-title">Ignition (2010)</td>
+      <td><span class="pill pill-no">No NG+</span></td>
+      <td>N/A (branching story).</td>
+      <td>Designed for short replays to see all 4 endings and unlock <strong>Conduit Rooms</strong> and the <strong>Hacker Suit</strong> in <em>Dead Space 2</em> (<a href="https://gameinformer.com/b/news/archive/2010/08/20/dead-space-ignition-interview">Game Informer</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Mobile / Sabotage (2011)</td>
+      <td><span class="pill pill-no">No — Locked</span></td>
+      <td>Purchased modules &amp; unlocked modes remain available.</td>
+      <td>NG+ from Easy or Normal does <em>not</em> carry over into Hard (which requires a clean slate) (<a href="https://www.ign.com/wikis/dead-space-iphone-ipad/Epic_Tier_3_Engineer">IGN</a>). Post-launch updates added <strong>Survival</strong> and <strong>Endless</strong> arena modes on higher-end devices (<a href="https://deadspace.fandom.com/wiki/Dead_Space_(mobile)">Dead Space Wiki</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Dead Space 2 (2011)</td>
+      <td><span class="pill pill-yes">Yes (up to Zealot)</span></td>
+      <td>All weapons, suits, upgrades, credits, nodes, inventory &amp; Safe.</td>
+      <td>First entry to let you carry gear into higher difficulties, including <strong>Zealot</strong> (<a href="https://deadspace.fandom.com/wiki/Zealot_Mode">Dead Space Wiki</a>). Adds <strong>Elite Suits</strong> and the free <strong>Riot Security Suit</strong> (<a href="https://deadspace.fandom.com/wiki/Suits">Dead Space Wiki</a>). <strong>Hard Core</strong> (3 saves, no checkpoints) forces a fresh start and rewards the <strong>Hand Cannon</strong> (<a href="https://deadspace.fandom.com/wiki/Hard_Core_mode">Dead Space Wiki</a>). <em>Severed</em> has no NG+.</td>
+    </tr>
+    <tr>
+      <td class="td-title">Dead Space 3 (2013)</td>
+      <td><span class="pill pill-yes">Yes (Standard NG+)</span></td>
+      <td>Weapons, parts, circuits, resources, suits, RIG upgrades &amp; logs.</td>
+      <td>Standard NG+ allows any standard difficulty and spawns higher-tier <strong>Upgrade Circuits</strong>. Also unlocks three separate <em>fresh-start</em> challenge modes: <strong>Classic</strong> (no crafting, solo, unlocks Devil Horns), <strong>Pure Survival</strong> (no ammo/health drops), and <strong>Hardcore</strong> (permadeath, unlocks Retro Mode) (<a href="https://deadspace.fandom.com/wiki/New_Game%2B_Modes">Dead Space Wiki</a>).</td>
+    </tr>
+    <tr>
+      <td class="td-title">Remake (2023)</td>
+      <td><span class="pill pill-part">Yes (Story–Hard)</span></td>
+      <td>Weapons, special upgrades, RIG upgrades, credits &amp; inventory.</td>
+      <td>Fixes the 2008 lock: choose Story, Easy, Medium, or Hard on NG+. Adds tougher <strong>Phantom Necromorphs</strong> (<a href="https://deadspace.fandom.com/wiki/Phantom_Necromorphs">Dead Space Wiki</a>), <strong>12 Marker Fragments</strong> for a <strong>secret alternate ending</strong>, and the <strong>Level 6 Advanced Soldier RIG</strong> (<a href="https://www.ign.com/wikis/dead-space/All_Unlockables">IGN</a>). <em>Impossible</em> (permadeath) must be beaten from a fresh save first; beating it unlocks the <strong>Burnished Suit</strong> &amp; <strong>Hand Cannon</strong> and lets you chain NG+ off that Impossible save.</td>
+    </tr>
+  </tbody>
+</table></div>
+
+<h2 id="weapons-abilities">Weapons &amp; abilities across the series</h2>
+<div class="rule stasis">
+  <p><strong>Do all Dead Space games have Kinesis and Stasis?</strong> Every shooter in the series includes both <strong>Stasis</strong> (slowing enemies and machinery) and <strong>Kinesis</strong> (telekinesis for grabbing and throwing objects) — <strong>Dead Space Ignition</strong> is the only game without them, since it is purely a hacking/puzzle spin-off. Across the main games, those two core tools evolved significantly: <em>Dead Space 2</em> introduced passive Stasis recharge, lethal Kinesis impalement, and free-flight Zero-G thrusters; <em>Dead Space 3</em> added combat rolls, cover, and the Scavenger Bot; and the <em>2023 Remake</em> brought DS2's impalement and Zero-G flight back to the Ishimura alongside a damaging Prototype Stasis upgrade.</p>
+</div>
+<div class="tw"><table>
+  <thead>
+    <tr><th>Game</th><th>Stasis &amp; Kinesis?</th><th>Notable extra / changed abilities</th><th>Arsenal size</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="td-title">Dead Space (2008)</td><td>Yes (manual Stasis; basic Kinesis throw)</td><td>Zero-G point-to-point magnetic jump (no free flight), punch/stomp melee, RIG Locator.</td><td>7 fixed tools</td></tr>
+    <tr><td class="td-title">Extraction (2009)</td><td>Yes (wrist Stasis; grab/throw Kinesis)</td><td><strong>Glow Worm</strong> shake-to-light tool, motion-controlled melee &amp; alt-fire weapon tilt (<a href="https://deadspace.fandom.com/wiki/Dead_Space:_Extraction">Wiki</a>).</td><td>10 weapons (incl. Arc Welder &amp; P-Sec Pistol)</td></tr>
+    <tr><td class="td-title">Ignition (2010)</td><td>No</td><td>Three hacking minigames only: <strong>Hardware Crack</strong>, <strong>System Override</strong>, and <strong>Trace Route</strong> (<a href="https://gameinformer.com/b/news/archive/2010/08/20/dead-space-ignition-interview">Game Informer</a>).</td><td>None</td></tr>
+    <tr><td class="td-title">Mobile / Sabotage (2011)</td><td>Yes</td><td><strong>Auto-regenerating health</strong> (no Med Packs), touch melee/stomp, Zero-G jump, RIG Locator (<a href="https://deadspace.fandom.com/wiki/Dead_Space_(mobile)">Wiki</a>).</td><td>6 weapons (5 on Android; incl. Plasma Saw &amp; Core Extractor)</td></tr>
+    <tr><td class="td-title">Dead Space 2 (2011)</td><td>Yes (auto-recharge Stasis; <strong>impalement</strong> Kinesis)</td><td><strong>Free-flight Zero-G thrusters</strong>, panel hacking minigame, faster stomp/melee (<a href="https://deadspace.fandom.com/wiki/Kinesis_Module">Wiki</a>).</td><td>10 weapons + Hand Cannon</td></tr>
+    <tr><td class="td-title">Dead Space 3 (2013)</td><td>Yes (auto-recharge + Stasis Coating &amp; Amp Fields)</td><td><strong>Crouch/cover</strong>, <strong>combat dodge roll</strong>, <strong>Scavenger Bot</strong> resource drone, co-op revive &amp; item sharing (<a href="https://gameinformer.com/b/features/archive/2013/02/05/welcome-to-tau-volantis-a-beginner-39-s-guide-to-dead-space-3">Game Informer</a>).</td><td>Modular crafting bench (2 carried hybrid weapons) + Devil Horns</td></tr>
+    <tr><td class="td-title">Remake (2023)</td><td>Yes (manual Stasis + <strong>Prototype Stasis</strong> DoT; impalement Kinesis)</td><td><strong>Free-flight Zero-G thrusters</strong>, <strong>Circuit Breakers</strong> (rerouting power between lights/O2/doors), melee/stomp.</td><td>7 reworked tools + Hand Cannon</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="pc-fixes">Essential PC (Steam) fixes &amp; patches</h2>
+<p>All four PC releases are playable on modern Windows, but the older ports have frame-rate and input quirks tied to 30 FPS console assumptions, and the 2023 Remake suffers from asset-streaming traversal stutters. Apply these fixes before starting a run:</p>
+<div class="fix-grid">
+  <div class="fix-card">
+    <h3>Dead Space (2008) <span class="yr">Steam / PC</span></h3>
+    <ul>
+      <li><strong>Dead Space Mouse Fix:</strong> Drop in the <code>dinput8.dll</code> raw-mouse fix from PCGamingWiki to eliminate sluggish, frame-rate-tied aim acceleration (<a href="https://steamcommunity.com/sharedfiles/filedetails/?l=french&amp;id=2822785311">Steam Troubleshooter</a>).</li>
+      <li><strong>Fix the 30 FPS VSync &amp; invisible door bug:</strong> Turn <em>off</em> in-game VSync (which caps at 30 FPS with heavy lag) and force VSync plus a <strong>60 FPS cap</strong> in your NVIDIA/AMD driver panel. Uncapped high FPS breaks physics and causes an invisible wall at the first door after the Plasma Cutter (<a href="https://steamcommunity.com/app/17470/discussions/0/3039355844178629736/">Steam Discussions</a>).</li>
+      <li><strong>Widescreen Fixer (optional):</strong> Lets you widen the narrow default field of view (<a href="https://steamcommunity.com/sharedfiles/filedetails/?l=french&amp;id=2822785311">Steam Troubleshooter</a>).</li>
+    </ul>
+  </div>
+  <div class="fix-card">
+    <h3>Dead Space 2 (2011) <span class="yr">Steam / PC</span></h3>
+    <ul>
+      <li><strong><a href="https://github.com/Wemino/MarkerPatch">MarkerPatch</a> (essential):</strong> All-in-one modern PC compatibility patch by Wemino for Steam and EA App.</li>
+      <li><strong>What it fixes:</strong> Prevents crashes on CPUs with <strong>more than 10 cores</strong>, replaces the 30 FPS VSync cap with proper monitor refresh-rate VSync, stabilizes <strong>Havok physics</strong> above 100 FPS, adds true <strong>raw mouse input</strong> (including Zero-G), increases corpse persistence so loot doesn't despawn, silences dead EA server popups, and adds SDL3 controller + gyro aiming support (<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3577971026">Steam Guide</a>).</li>
+      <li><strong>Bonus toggles:</strong> Lets you disable the overpowered free DLC store items on a fresh save and unlock the console-exclusive <em>Ignition</em> Conduit Rooms (<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3577971026">Steam Guide</a>).</li>
+    </ul>
+  </div>
+  <div class="fix-card">
+    <h3>Dead Space 3 (2013) <span class="yr">Steam / PC</span></h3>
+    <ul>
+      <li><strong>Unlock 30 FPS VSync cap:</strong> Disable VSync in-game, ensure <code>Window.VSync = false</code> in <code>system.txt</code>, and force VSync/frame cap through your GPU control panel (<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2191852017">Steam Guide</a>).</li>
+      <li><strong>Disable floaty mouse smoothing:</strong> Open <code>general.txt</code> in <code>%LOCALAPPDATA%\EA Games\Dead Space 3</code> and add <code>control.MouseSmoothing = false</code> (<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2191852017">Steam Guide</a>).</li>
+    </ul>
+  </div>
+  <div class="fix-card">
+    <h3>Dead Space Remake (2023) <span class="yr">Steam / PC</span></h3>
+    <ul>
+      <li><strong><a href="https://www.nexusmods.com/deadspace2023/mods/155">Ishimura Patch</a> (recommended):</strong> Community traversal-stutter fix by lukeman3000 on Nexus Mods targeting the heavy frame-time spikes when crossing between areas on the seamless Ishimura.</li>
+      <li><strong>Measured impact:</strong> Independent testing by <a href="https://www.digitalfoundry.net/features/dead-space-remake-mod-finally-fixes-traversal-stutter-in-the-pc-version">Digital Foundry</a> showed major frame-time spikes dropping from over 120ms to under 25ms. Note that it is actively developed in beta, so check the mod page for current install notes.</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="games">Game-by-game guide</h2>
+
+<h2 id="ds1">Dead Space <span class="yr">2008</span> <span class="time-badge">~11 hrs main</span></h2>
+<p>The original. You play engineer Isaac Clarke, alone on the mining ship USG Ishimura, fighting Necromorphs by cutting off their limbs. Slow, tense, and ammo-starved.</p>
+<div class="card"><dl>
+  <dt>Type</dt><dd>Third-person survival horror, single player (12 chapters).</dd>
+  <dt>Playtime</dt><dd>~11 hours main story, ~13 hours main + extras, ~20 hours completionist (<a href="https://howlongtobeat.com/game/2333">HowLongToBeat</a>).</dd>
+  <dt>Platforms</dt><dd>Xbox 360 and PS3 on October 14, 2008; PC about six days later. The 360 version also runs on newer Xbox consoles through backward compatibility.</dd>
+  <dt>Weapons</dt><dd>7 fixed engineering/mining tools: <strong>Plasma Cutter</strong>, <strong>Line Gun</strong>, <strong>Pulse Rifle</strong>, <strong>Ripper</strong>, <strong>Flamethrower</strong>, <strong>Force Gun</strong>, and <strong>Contact Beam</strong> (<a href="https://www.ign.com/wikis/dead-space/Weapons">IGN</a>).</dd>
+  <dt>Abilities</dt><dd><strong>Stasis</strong> (manual recharge via wall stations or Stasis Packs), <strong>Kinesis</strong> (grab and hurl objects/explosives, without DS2's lethal wall-pinning impalement), <strong>Zero-G Jump</strong> (magnetic boots jumping surface-to-surface rather than free flight), melee punch/stomp, and RIG objective locator.</dd>
+  <dt>New Game+</dt><dd><strong>Locked to original difficulty.</strong> "Round 2" carries over your gear, upgrades, and credits, and awards 50,000 credits, 10 Power Nodes, backstory logs, and the <strong>Level 6 Military Suit</strong> schematic (99,000 credits) (<a href="https://www.ign.com/wikis/dead-space/PS3_Cheats">IGN</a>). <em>Impossible</em> difficulty unlocks after beating the game, but requires a fresh save (<a href="https://www.ign.com/wikis/dead-space/Progression">IGN</a>).</dd>
+  <dt>DLC</dt><dd>No story DLC. Xbox 360 got a batch of small, cheap packs (weapon skins, suits, minor stat boosts) shortly after launch. Each console also had its own exclusive bonus suit (black on PS3, grey on 360).</dd>
+  <dt>Online</dt><dd>None.</dd>
+  <dt>Systems &amp; PC</dt><dd>Same game, levels, and bosses everywhere. On PC, install the <strong>Dead Space Mouse Fix</strong> and cap FPS at 60 via your GPU driver (with in-game VSync off) to avoid the 30 FPS lock and the invisible-door physics bug (<a href="https://steamcommunity.com/sharedfiles/filedetails/?l=french&amp;id=2822785311">Steam Troubleshooter</a>).</dd>
+</dl></div>
+
+<h2 id="extraction">Dead Space: Extraction <span class="yr">2009</span> <span class="time-badge">~6 hrs main</span></h2>
+<p>A light-gun style rail shooter prequel set during the Aegis VII outbreak, before the first game. You don't control movement; you aim and shoot while the game walks you through the horror.</p>
+<div class="card"><dl>
+  <dt>Type</dt><dd>On-rails shooter with story cutscenes, local drop-in co-op, branching paths, and a strong horror tone.</dd>
+  <dt>Playtime</dt><dd>~6 hours main story, ~7 hours main + extras, ~13 hours completionist (<a href="https://howlongtobeat.com/game/2339">HowLongToBeat</a>).</dd>
+  <dt>Platforms</dt><dd>Wii in 2009. An HD PS3 version with PlayStation Move support came with <em>Dead Space 2</em>'s pre-order bonus and special editions, and also as a standalone release.</dd>
+  <dt>Weapons</dt><dd>10 weapons: the returning 7 from <em>Dead Space</em> (Plasma Cutter, Line Gun, Pulse Rifle, Ripper, Flamethrower, Force Gun, Contact Beam) plus the unlimited-ammo <strong>935 Bonder Rivet Gun</strong>, the <strong>P-Sec Pistol</strong> (Divet), and the exclusive <strong>Arc Welder</strong> electric cone gun (<a href="https://deadspace.fandom.com/wiki/Dead_Space:_Extraction">Dead Space Wiki</a>).</dd>
+  <dt>Abilities</dt><dd><strong>Stasis</strong> (wrist-mounted unit), <strong>Kinesis</strong> (snatching loot and throwing hazards), the exclusive <strong>Glow Worm</strong> (shake the controller for temporary light), plus motion-tilted alt-fire and melee swings (<a href="https://deadspace.fandom.com/wiki/Dead_Space:_Extraction">Dead Space Wiki</a>).</dd>
+  <dt>New Game+</dt><dd>No traditional NG+. Completing the campaign unlocks <strong>Chapter Select</strong> (retaining weapon upgrades), <strong>Impossible</strong> difficulty, and wave-based <strong>Challenge Mode</strong>.</dd>
+  <dt>Systems</dt><dd>Same story on both; the PS3 version is a higher-resolution re-release playable with either PlayStation Move or a standard DualShock 3. Its two leads, Gabe Weller and Lexine Murdoch, return in the <em>Severed</em> DLC.</dd>
+</dl></div>
+
+<h2 id="ignition">Dead Space Ignition <span class="yr">2010</span> <span class="time-badge">~1.5 hrs main</span></h2>
+<p>A downloadable puzzle and hacking game told through motion-comic style scenes. It sets up the start of <em>Dead Space 2</em> and was released a few months before it.</p>
+<div class="card"><dl>
+  <dt>Type</dt><dd>Interactive comic with hacking and puzzle mini-games. Not a shooter.</dd>
+  <dt>Playtime</dt><dd>~1.5 hours for one run, ~2.5 hours main + extras, ~4.5 hours for all 4 endings and completionist (<a href="https://howlongtobeat.com/game/2340">HowLongToBeat</a>).</dd>
+  <dt>Platforms</dt><dd>PS3 (October 12, 2010) and Xbox 360 (October 13, 2010), digital only. No longer available to buy.</dd>
+  <dt>Weapons &amp; Abilities</dt><dd><strong>No weapons, Stasis, or Kinesis.</strong> Gameplay consists strictly of three arcade hacking minigames: <strong>Hardware Crack</strong> (rotating reflectors to route colored lasers), <strong>System Override</strong> (reverse tower-defense deploying four virus types), and <strong>Trace Route</strong> (side-scrolling electrical signal race with boost/firewall/reverse power-ups) (<a href="https://gameinformer.com/b/news/archive/2010/08/20/dead-space-ignition-interview">Game Informer</a>).</dd>
+  <dt>New Game+</dt><dd>None — replays simply branch down different story forks to see all four endings and unlock the <strong>Hacker Suit</strong> and <strong>Conduit Rooms</strong> in <em>Dead Space 2</em>.</dd>
+  <dt>Verdict</dt><dd>Skippable. Its main role was to set up the opening of <em>Dead Space 2</em>.</dd>
+</dl></div>
+
+<h2 id="mobile">Dead Space (mobile / Sabotage) <span class="yr">2011</span> <span class="time-badge">~2–3 hrs</span></h2>
+<p>Also known as <em>Dead Space: Sabotage</em>, <em>Dead Space iOS</em>, or <em>Dead Space Mobile</em>. It shares its name with the 2008 game, but it is not a remake or port — it's a new story built for phones, set shortly before <em>Dead Space 2</em> and released on the same day. It reuses many art assets from the original, and its tram stations look nearly identical to the Ishimura's.</p>
+<div class="card"><dl>
+  <dt>Developer</dt><dd>IronMonkey Studios, EA's Australian mobile studio, with help from Visceral Games, published by Electronic Arts. Production took about a year. Antony Johnston wrote the story and Jason Graves, the series composer, did the music.</dd>
+  <dt>Type</dt><dd>Chapter-based third-person survival-horror shooter, single player, with 12 chapters. The team considered an on-rails shooter, but chose a real third-person game with touch controls built around the series' minimal on-screen interface. Later updates added Survival and Endless modes on higher-end devices.</dd>
+  <dt>Playtime</dt><dd>~2–3 hours for a full playthrough.</dd>
+  <dt>Setting</dt><dd>Titan Station in 2511, a precursor to <em>Ignition</em>, <em>Dead Space 2</em>, and <em>Severed</em>. You play Karrie Norton (codename Vandal), not Isaac. It's a side story, so you don't need it for the main plot.</dd>
+  <dt>Weapons</dt><dd>6 weapons total (5 on Android): the exclusive close-range <strong>SH-B1 Plasma Saw</strong>, <strong>Plasma Cutter</strong>, <strong>Line Gun</strong>, <strong>Ripper</strong>, the exclusive Contact Beam–style <strong>Core Extractor</strong>, and the <strong>Heavy Pulse Rifle</strong> (200,000 credits in the Store; iOS/iPad only, never released on Android) (<a href="https://deadspace.fandom.com/wiki/Dead_Space_(mobile)">Dead Space Wiki</a>).</dd>
+  <dt>Abilities</dt><dd><strong>Stasis</strong>, <strong>Kinesis</strong>, Zero-G Jump, RIG Locator, stomp/melee, and <strong>auto-regenerating health</strong> (unique in the series — there are no Med Packs) (<a href="https://deadspace.fandom.com/wiki/Dead_Space_(mobile)">Dead Space Wiki</a>).</dd>
+  <dt>New Game+</dt><dd>No difficulty-bump NG+. Purchased upgrade modules and unlocked Survival/Endless modes persist across runs.</dd>
+  <dt>Gameplay</dt><dd>The usual Store and Bench for ammo, suits (RIGs), and weapon upgrades, with a few twists: you can't sell weapons back, health regenerates automatically, and each of the four core ranged weapons has a hard ammo cap that bench upgrades raise. Most weapons are found in lockers; the Heavy Pulse Rifle is the only one you buy. Features enhanced enemies (including enhanced Pregnant and Exploder variants) plus a single reactor-core boss.</dd>
+  <dt>Platforms</dt><dd>iPhone and iPod touch on January 25, 2011 ($6.99), plus an iPad edition, <em>Dead Space HD</em> ($9.99). Android, Kindle Fire, and BlackBerry PlayBook versions followed in August 2011. Xperia Play controller support was added and later removed.</dd>
+  <dt>In-app purchases</dt><dd>Credit packs ($0.99–$6.99), power node packs ($0.99–$4.99), and three $1.99 modules (Credit Booster, Armor Integrity, Weapon Output). Registering with an EA account granted a free Power Node in <em>Dead Space 2</em>.</dd>
+  <dt>Reception</dt><dd>Mostly positive. Reviewers praised the visuals, sound, and console-style feel on a phone, with minor complaints about camera/interface quirks and repetition. Nominated for Mobile Game of the Year at the D.I.C.E. Awards.</dd>
+  <dt>Availability</dt><dd>Delisted. Pulled from the iOS App Store in September 2015; the Android release was renamed <em>zzSunset Dead Space</em> and won't launch on newer devices because it tries to fetch a mandatory update from offline EA servers (and Android Lollipop had major audio issues).</dd>
+  <dt>Fun facts</dt><dd>The first letters of the 12 chapters spell a hidden message (<code>H.E. W.I.L.L. B.E.T.R.A.Y.</code>), continuing series tradition. It also made movie cameos in <em>The Darkest Hour</em> and <em>Krampus</em>.</dd>
+</dl></div>
+
+<h2 id="ds2">Dead Space 2 <span class="yr">2011</span> <span class="time-badge">~9 hrs main</span></h2>
+<p>Isaac wakes up three years later on the Sprawl, a space city on Titan. Faster, more cinematic, and more action-driven than the first game, and often named the series' best.</p>
+<div class="card"><dl>
+  <dt>Type</dt><dd>Third-person survival horror with more action. 15 chapters.</dd>
+  <dt>Playtime</dt><dd>~9 hours main story, ~16.5 hours completionist (<a href="https://howlongtobeat.com/game/2335">HowLongToBeat</a>). <em>Severed</em> DLC adds ~1.5–2 hours.</dd>
+  <dt>Platforms</dt><dd>Xbox 360, PS3, and PC, January 2011. The Xbox 360 version also runs on newer Xbox consoles through backward compatibility.</dd>
+  <dt>Weapons</dt><dd>10 weapons + 1 unlockable: the original 7 (Plasma Cutter, Line Gun, Pulse Rifle, Ripper, Flamethrower, Force Gun, Contact Beam) plus four newcomers — <strong>Javelin Gun</strong>, <strong>Detonator</strong> (trip mines), <strong>Seeker Rifle</strong>, and <strong>711-MarkCL Rivet Gun</strong> (DLC/bonus) — and the <strong>Hand Cannon</strong> foam finger for beating Hard Core (<a href="https://deadspace.fandom.com/wiki/Kinesis_Module">Dead Space Wiki</a>).</dd>
+  <dt>Abilities</dt><dd><strong>Auto-recharging Stasis</strong> (slowly refills passively over time), <strong>Upgraded Kinesis with Impalement</strong> (skewering and pinning Necromorphs with sharp blades/poles), <strong>Free-Flight Zero-G Thrusters</strong> (replacing DS1's point-to-point jumps), panel <strong>Hacking</strong> minigames, and faster stomp/melee (<a href="https://deadspace.fandom.com/wiki/Kinesis_Module">Kinesis</a> / <a href="https://deadspace.fandom.com/wiki/Stasis_Module">Stasis Wiki</a>).</dd>
+  <dt>New Game+</dt><dd><strong>Can increase difficulty (Casual, Normal, Survivalist, Zealot).</strong> Carries over all weapons, suits, upgrades, credits, Power Nodes, inventory, and Safe items, and unlocks <strong>Elite Suit</strong> schematics plus the free <strong>Riot Security Suit</strong> (<a href="https://deadspace.fandom.com/wiki/Suits">Dead Space Wiki</a>). Beating Zealot unlocks the <strong>Arctic Security Suit</strong> (<a href="https://deadspace.fandom.com/wiki/Zealot_Mode">Dead Space Wiki</a>). <strong>Hard Core</strong> (only 3 saves, no checkpoints) cannot use an NG+ save and forces a fresh start, rewarding the Soldier Suit and Hand Cannon (<a href="https://deadspace.fandom.com/wiki/Hard_Core_mode">Dead Space Wiki</a>). <em>Severed</em> has no NG+.</dd>
+  <dt>DLC</dt><dd>
+    <strong>Severed</strong> (March 2011, ~$7): two short chapters following Gabe Weller and Lexine Murdoch from <em>Extraction</em>. <strong>Xbox 360 and PS3 only; it never came to PC.</strong><br />
+    <strong>Supernova, Hazard, and Martial Law packs</strong> (~$5 each): weapon and suit bundles (included free on PC).<br />
+    <strong>Outbreak Map Pack</strong>: two multiplayer maps (The Academy, The Concourse).<br />
+    <strong>Collector's Edition pack:</strong> Zealot suit and Force Gun / Contact Beam bonuses.</dd>
+  <dt>Online</dt><dd>Competitive multiplayer mode (humans vs. Necromorphs). <strong>EA shut down the servers on December 8, 2023</strong> for PC, PS3, and Xbox 360, so only the campaign is playable now.</dd>
+  <dt>Systems &amp; PC</dt><dd>Same campaign on all three; consoles have <em>Severed</em> and PS3 special editions bundled HD <em>Extraction</em>. On PC (Steam/EA App), install <a href="https://github.com/Wemino/MarkerPatch"><strong>MarkerPatch</strong></a> to fix the &gt;10-core CPU launch crash, 30 FPS VSync cap, Havok high-FPS physics bugs, raw mouse input in Zero-G, dead server popups, and optional Conduit Room unlocks (<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3577971026">Steam Guide</a>).</dd>
+</dl></div>
+
+<h2 id="ds3">Dead Space 3 <span class="yr">2013</span> <span class="time-badge">~12.5 hrs main</span></h2>
+<p>Isaac, with a new partner, heads to the icy planet Tau Volantis to end the Marker threat. A big shift in style: more shooting, human enemies, cover, outdoor areas, and a deep weapon-crafting bench.</p>
+<div class="card"><dl>
+  <dt>Type</dt><dd>Action horror. Playable solo, or in two-player drop-in co-op as Isaac and John Carver. Co-op has exclusive side missions and extra story scenes you don't get alone.</dd>
+  <dt>Playtime</dt><dd>~12.5 hours main story, ~16.5 hours main + extras, ~25 hours completionist (<a href="https://howlongtobeat.com/game/2337">HowLongToBeat</a>). <em>Awakened</em> DLC adds ~1.5–2 hours (<a href="https://howlongtobeat.com/game/2338">HowLongToBeat</a>).</dd>
+  <dt>Platforms</dt><dd>Xbox 360, PS3, and PC, February 5, 2013.</dd>
+  <dt>Weapons</dt><dd><strong>Modular Weapon Crafting Bench:</strong> Combine Compact or Heavy Frames with Upper &amp; Lower Tools, Tips, Attachments (such as Stasis Coating or Acid Bath), and Upgrade Circuits to recreate classic guns (Plasma Cutter, Pulse Rifle, Ripper, Line Gun, Force Gun, Contact Beam, Flamethrower, Javelin, Rivet Gun) or invent hybrids (Shotgun, SMG, Telemetry Spike, Tesla Core, Bolas, Rocket/Grenade Launchers) using universal ammo (<a href="https://www.ign.com/wikis/dead-space-3/Weapons">IGN</a>). You carry only <strong>2 weapons</strong> at a time, plus the unlockable <strong>Devil Horns</strong> foam finger.</dd>
+  <dt>Abilities</dt><dd><strong>Auto-recharging Stasis</strong> (plus Stasis Coating weapon mods and late-game Stasis/Kinesis Amplification Fields), <strong>Kinesis</strong> (impalement + catching/returning enemy grenades), <strong>Free-Flight Zero-G Thrusters</strong>, <strong>Crouch / Cover &amp; Combat Dodge Roll</strong>, <strong>Scavenger Bot</strong> (deployable radar-guided drone that harvests crafting resources and returns them to Benches), and co-op item sharing/revives (<a href="https://gameinformer.com/b/features/archive/2013/02/05/welcome-to-tau-volantis-a-beginner-39-s-guide-to-dead-space-3">Game Informer</a>, <a href="https://deadspace.fandom.com/wiki/Stasis_Module">Dead Space Wiki</a>).</dd>
+  <dt>New Game+</dt><dd><strong>Can change/increase difficulty on Standard NG+</strong> (Casual, Normal, Hard, Impossible), keeping all weapons, parts, circuits, resources, suits, RIG upgrades, and logs while spawning new high-tier Upgrade Circuits. Also unlocks three <em>fresh-start</em> post-game modes: <strong>Classic</strong> (Hard, solo, no crafting, classic blueprints only, unlocks Devil Horns), <strong>Pure Survival</strong> (Hard, zero health/ammo drops — craft everything), and <strong>Hardcore</strong> (infinite saves, permadeath on a single death, unlocks Retro Mode) (<a href="https://deadspace.fandom.com/wiki/New_Game%2B_Modes">Dead Space Wiki</a>).</dd>
+  <dt>DLC</dt><dd>
+    <strong>Awakened</strong> (March 12, 2013, ~$10): the only story DLC. A shorter, darker, more horror-focused epilogue, playable solo or in co-op.<br />
+    Plus many suit/weapon packs and microtransactions for crafting resources, which drew heavy criticism at launch.</dd>
+  <dt>Online</dt><dd>Co-op requires an online connection. Check EA's online services shutdown page for current status, as no shutdown has been announced.</dd>
+  <dt>Systems &amp; PC</dt><dd>Same campaign everywhere; <em>Awakened</em> is on all three platforms. Xbox 360 supports Kinect voice/gesture commands; PS3 has no Move support. On PC, disable in-game VSync (<code>Window.VSync = false</code> in <code>system.txt</code>) to bypass the 30 FPS cap and add <code>control.MouseSmoothing = false</code> to <code>general.txt</code> (<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2191852017">Steam Guide</a>).</dd>
+</dl></div>
+
+<h2 id="remake">Dead Space (remake) <span class="yr">2023</span> <span class="time-badge">~12 hrs main</span></h2>
+<p>A ground-up rebuild of the 2008 game by Motive Studio, not a port. It follows the same story and chapter structure, but plays like a modernized fusion of <em>Dead Space 1</em> and <em>2</em>.</p>
+<div class="card"><dl>
+  <dt>Type</dt><dd>Third-person survival horror, single player only (12 chapters).</dd>
+  <dt>Playtime</dt><dd>~12 hours main story, ~30.5 hours completionist (<a href="https://howlongtobeat.com/game/95927">HowLongToBeat</a>).</dd>
+  <dt>Platforms</dt><dd>PS5, Xbox Series X|S, and PC (Steam, Epic Games Store, EA app), January 27, 2023.</dd>
+  <dt>Weapons</dt><dd>The classic 7 — <strong>Plasma Cutter</strong>, <strong>Pulse Rifle</strong>, <strong>Line Gun</strong>, <strong>Ripper</strong>, <strong>Flamethrower</strong>, <strong>Force Gun</strong>, and <strong>Contact Beam</strong> — all with reworked alt-fires (such as Pulse Rifle proximity mines, Force Gun gravity wells, and Line Gun laser traps) and discoverable special Bench upgrades (<a href="https://www.ign.com/wikis/dead-space/Weapons">IGN</a>), plus the unlockable <strong>Hand Cannon</strong> (<a href="https://www.ign.com/wikis/dead-space/All_Unlockables">IGN</a>).</dd>
+  <dt>Abilities</dt><dd><strong>Stasis</strong> (manual recharge like 2008, plus an optional side-mission <strong>Prototype Stasis Module</strong> that shocks and strips Necromorph flesh over time), <strong>Kinesis with Impalement</strong> (brought back from DS2), <strong>Free-Flight Zero-G Thrusters</strong> (replacing 2008's magnetic jumps), <strong>Circuit Breakers</strong> (rerouting power between lights, oxygen, and doors), melee/stomp, and RIG Locator.</dd>
+  <dt>New Game+</dt><dd><strong>Can change/increase difficulty among Story, Easy, Medium, and Hard</strong> — fixing the 2008 original's lock. Awards 50,000 credits, 10 Power Nodes, and the <strong>Level 6 Advanced Soldier RIG</strong> (99,000 credits), while adding tougher <strong>Phantom Necromorphs</strong> (<a href="https://deadspace.fandom.com/wiki/Phantom_Necromorphs">Dead Space Wiki</a>) and <strong>12 Marker Fragments</strong> for a <strong>secret alternate ending</strong> (<a href="https://www.ign.com/wikis/dead-space/All_Unlockables">IGN</a>). <em>Impossible</em> (Hard + 1 save slot + permadeath) must be started fresh; beating it unlocks the <strong>Burnished Suit</strong> and <strong>Hand Cannon</strong> and allows chaining NG+ off that Impossible save (<a href="https://steamcommunity.com/sharedfiles/filedetails/?l=polish&amp;id=3131832233">Steam Guide</a>).</dd>
+  <dt>What's new</dt><dd>The entire Ishimura is one seamless, loading-free ship you can backtrack across. An "Intensity Director" dynamically alters scares and enemy spawns so cleared rooms never feel completely safe. Isaac is fully voiced, there are side missions and expanded lore for Nicole, and a "peeling" damage system strips flesh off Necromorphs to expose bone.</dd>
+  <dt>DLC / online</dt><dd>No story DLC and no multiplayer; Digital Deluxe adds cosmetic suit textures only.</dd>
+  <dt>Systems &amp; PC</dt><dd>Identical content on PS5, Xbox Series X|S, and PC. On PC, install the community <a href="https://www.nexusmods.com/deadspace2023/mods/155"><strong>Ishimura Patch</strong></a> to dramatically reduce traversal stutters (<a href="https://www.digitalfoundry.net/features/dead-space-remake-mod-finally-fixes-traversal-stutter-in-the-pc-version">Digital Foundry</a>).</dd>
+</dl></div>
+
+<h2 id="platforms">Is the same game identical across systems?</h2>
+<div class="tw"><table>
+  <thead>
+    <tr><th>Game</th><th>Campaign content</th><th>What actually differs</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="td-title">Dead Space (2008)</td><td>Identical</td><td>PC came out a few days later with higher resolution (needs Mouse Fix &amp; 60 FPS cap); each console had its own cosmetic DLC; 360 got extra small packs.</td></tr>
+    <tr><td class="td-title">Dead Space 2</td><td>Identical</td><td><strong>Severed only on 360 and PS3.</strong> PS3 special editions bundled HD <em>Extraction</em>. PC includes the weapon/suit DLC free and shines with <strong>MarkerPatch</strong>. Multiplayer (now offline) was on all three.</td></tr>
+    <tr><td class="td-title">Dead Space 3</td><td>Identical</td><td>PC is a straight port (needs VSync/mouse config tweaks). Kinect on 360, no Move on PS3. <em>Awakened</em> on all three.</td></tr>
+    <tr><td class="td-title">Remake (2023)</td><td>Identical</td><td>Only performance modes and frame rate differ; PC benefits heavily from the <strong>Ishimura Patch</strong> for traversal stutters.</td></tr>
+  </tbody>
+</table></div>
+<p>None of the platform versions of the three original games have extra levels, tougher bosses, or exclusive endings. Difficulty modes (including the harsh Hard Core and Impossible settings) are the same on each. "More polished" mostly means resolution, frame rate, and loading times, so a patched PC version or a current Xbox (via backward compatibility) is the smoothest way to play the originals.</p>
+
+<h2>Other media and where the series stands</h2>
+<p>Beyond games there is a browser game (<em>No Known Survivors</em>, 2008), two animated films (<em>Downfall</em> and <em>Aftermath</em>), comics, a graphic novel, and novels. They add lore but aren't needed.</p>
+<p>As of late 2026 there's no new Dead Space game announced. Reports since 2024 say EA put the franchise on hold after the remake missed its sales targets. A <em>Dead Space 2</em> remake has been rumored, but EA hasn't confirmed one, so treat any dates you see as speculation.</p>
+
+<h2 id="what-to-play">What to play</h2>
+<ul>
+  <li><strong>New to the series:</strong> play the <strong>2023 Remake</strong> (with the Ishimura Patch on PC), then <strong>Dead Space 2</strong> (with MarkerPatch on PC), then <strong>Dead Space 3</strong>.</li>
+  <li><strong>Want the full Dead Space 2 package:</strong> an Xbox 360 or PS3 copy (or Xbox backward compatibility) is the only way to play <em>Severed</em>.</li>
+  <li><strong>Want the best horror from the sequels:</strong> <em>Dead Space 3</em> with the <em>Awakened</em> DLC, played solo (or try Classic Mode on NG+).</li>
+  <li><strong>Completionist:</strong> add <em>Extraction</em> (rail shooter) for Aegis VII lore. <em>Ignition</em> and the mobile game are delisted and hard to play today.</li>
+</ul>
+<p class="note">Updated in November 2026. Store availability, bundles, mod versions, and server status change over time, so verify listings and mod pages before you buy or install.</p>
+</main>
+</body>
+</html>
