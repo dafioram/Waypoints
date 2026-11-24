@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 430" role="img" aria-labelledby="title desc">
+<title id="title">A colorful racing circuit</title><desc id="desc">An abstract loop of track with four colorful racing lines, a start flag and numbered markers. Decorative artwork, not a map of a game course.</desc>
+<defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#d9ddd0" stroke-width="1"/></pattern><pattern id="check" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 0h10v10H0zM10 10h10v10H10z" fill="#242722"/></pattern></defs>
+<rect width="560" height="430" fill="url(#grid)"/>
+<circle cx="300" cy="215" r="179" fill="#eee9da"/>
+<path d="M119 306 C35 259 66 119 152 105 C234 89 254 170 328 139 C427 97 508 130 490 216 C482 266 425 254 395 303 C356 373 196 364 119 306Z" fill="none" stroke="#242722" stroke-width="66"/>
+<path d="M119 306 C35 259 66 119 152 105 C234 89 254 170 328 139 C427 97 508 130 490 216 C482 266 425 254 395 303 C356 373 196 364 119 306Z" fill="none" stroke="#f6f3eb" stroke-width="52"/>
+<path d="M119 306 C35 259 66 119 152 105 C234 89 254 170 328 139 C427 97 508 130 490 216 C482 266 425 254 395 303 C356 373 196 364 119 306Z" fill="none" stroke="#9da697" stroke-width="1.5" stroke-dasharray="8 9"/>
+<path d="M119 306 C35 259 66 119 152 105 C234 89 254 170 328 139" fill="none" stroke="#b83927" stroke-width="11"/>
+<path d="M328 139 C427 97 508 130 490 216" fill="none" stroke="#236f62" stroke-width="11"/>
+<path d="M490 216 C482 266 425 254 395 303" fill="none" stroke="#286d9a" stroke-width="11"/>
+<path d="M395 303 C356 373 196 364 119 306" fill="none" stroke="#c59a26" stroke-width="11"/>
+<g fill="#fffdf8" stroke="#242722" stroke-width="2"><circle cx="90" cy="191" r="22"/><circle cx="256" cy="141" r="22"/><circle cx="470" cy="258" r="22"/><circle cx="272" cy="345" r="22"/></g>
+<g font-family="sans-serif" font-weight="bold" font-size="16" text-anchor="middle" fill="#242722"><text x="90" y="197">01</text><text x="256" y="147">02</text><text x="470" y="264">03</text><text x="272" y="351">04</text></g>
+<g transform="translate(252 205)"><path d="M0 0v69" stroke="#242722" stroke-width="4"/><path d="M2 0h72v41H2z" fill="#fffdf8"/><path d="M2 0h72v41H2z" fill="url(#check)"/><circle cx="0" cy="73" r="5" fill="#b83927"/></g>
+<g fill="#236f62"><path d="M31 342l12-23 12 23zM43 363v-29" stroke="#236f62" stroke-width="3"/><path d="M487 61l12-23 12 23zM499 82V53" stroke="#236f62" stroke-width="3"/></g>
+<path d="M432 353l15-15m0 15l-15-15M180 39l15-15m0 15l-15-15" stroke="#b83927" stroke-width="2"/>
+<text x="28" y="403" fill="#555e58" font-family="sans-serif" font-size="10" letter-spacing="2">ONE SERIES. MANY WAYS TO RACE.</text>
+</svg>
